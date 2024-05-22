@@ -15,12 +15,14 @@ public class SCR_Menu01 : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_ArrayInfoTXT;
     [SerializeField] TextMeshProUGUI m_ListInfoTXT;
     [SerializeField] TextMeshProUGUI m_DictInfoTXT;
+    
 
-    private int[] array = new int[100];
+    private int[] array = new int[10];
     private List<int> list = new List<int>();
     private Dictionary<string, int> dict = new Dictionary<string, int>();
 
     private int index = 0;
+    private int countDict = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -52,16 +54,12 @@ public class SCR_Menu01 : MonoBehaviour
                     index++;
                 }
                 list.Add(result);
-                dict.Add("x" + index, result);
+                dict.Add("x" + countDict, result);
+                countDict++;
             }
             UpdateUI();
         }
     }    
-
-    public void UpdateUIArrayInfo(int[] array)
-    {
-
-    }   
     
     public void UpdateUI()
     {
@@ -72,9 +70,9 @@ public class SCR_Menu01 : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                info += array[i] + " ";
+                info += array[i] + ", ";
             }
             m_ArrayInfoTXT.text = info;
         }
@@ -88,7 +86,7 @@ public class SCR_Menu01 : MonoBehaviour
         {
             foreach (var i in list)
             {
-                info += i + " ";
+                info += i + ", ";
             }
             m_ListInfoTXT.text = info;
         }
@@ -139,9 +137,16 @@ public class SCR_Menu01 : MonoBehaviour
             if (int.TryParse(inputText, out int result))
             {
                 //array
-                List<int> ls = array.ToList();
-                index -= ls.RemoveAll(x => x == result);
-                array = ls.ToArray();
+                //List<int> ls = array.ToList();
+                //index -= ls.RemoveAll(x => x == result);
+                //array = ls.ToArray();
+                for(int i = 0; i < array.Length; i++)
+                {
+                    if(array[i] == result)
+                    {
+                        array[i] = 0;
+                    }
+                }
                 
                 //list
                 list.RemoveAll(x => x == result);
@@ -155,5 +160,10 @@ public class SCR_Menu01 : MonoBehaviour
                 UpdateUI();
             }
         }
+    }
+
+    public void ClearInputField()
+    {
+        m_InputINP.text = "";
     }
 }
