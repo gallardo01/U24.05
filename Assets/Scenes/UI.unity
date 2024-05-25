@@ -2052,6 +2052,34 @@ PrefabInstance:
       propertyPath: m_CharacterValidation
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1710724452}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClearInputField
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SCR_Menu01, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145195410460905721, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
+      propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4145195410488437984, guid: 736adaff43679c84fba4e78fd915d126, type: 3}
       propertyPath: m_text
       value: 'Input:'
