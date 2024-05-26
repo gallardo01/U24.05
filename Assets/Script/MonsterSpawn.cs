@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+public class MonsterSpawn : MonoBehaviour
 {
-    private static Controller instance;
-    public static Controller Instance => instance;
-
     [SerializeField] private MonsterMovement monsterPrefab;
-
     [SerializeField] List<Transform> rightPath;
     [SerializeField] List<Transform> leftPath;
 

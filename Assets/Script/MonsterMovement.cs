@@ -5,18 +5,17 @@ using UnityEngine;
 public class MonsterMovement : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] int monsterGoldReward;
 
     private List<Transform> choosePath;
     private Vector3 nextPosition;
     private int count = 0;
     
-
     void Start()
     {
         transform.position = choosePath[count].position;
         nextPosition = choosePath[count].position;
     }
-
 
     void Update()
     {
@@ -37,7 +36,7 @@ public class MonsterMovement : MonoBehaviour
     public void Rotate()
     {
         float distance = nextPosition.x - transform.position.x;
-        if (distance > 0) transform.rotation = Quaternion.Euler(0, 0, 0); 
+        if (distance > 0) transform.rotation = Quaternion.Euler(0, 0, 0);
         if (distance < 0) transform.rotation = Quaternion.Euler(0, 180f, 0);
     }
 
@@ -45,7 +44,14 @@ public class MonsterMovement : MonoBehaviour
     {
         if(collision.CompareTag("End"))
         {
+            GameController.Instance.DecreaseLive();
             Destroy(gameObject);
+        }
+        if (collision.CompareTag("Bullet"))
+        {
+            GameController.Instance.AddGold(monsterGoldReward);
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
 
