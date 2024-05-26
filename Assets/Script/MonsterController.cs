@@ -21,6 +21,16 @@ public class MonsterController : MonoBehaviour
 
     void Update()
     {
+        if(transform.position.x < monsterPath[point_Index].position.x)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        } 
+            
+
         transform.position = Vector2.MoveTowards(transform.position, monsterPath[point_Index].position, 0.01f);
         if(Vector2.Distance(transform.position, monsterPath[point_Index].position) < 0.1f)
         { 
