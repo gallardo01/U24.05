@@ -28,9 +28,18 @@ public class MonsterController : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, monsterPath[point_Index].position, 0.01f);
-        if(Vector2.Distance(transform.position, monsterPath[point_Index].position) < 0.1f && point_Index < monsterPath.Count - 1)
+        if(Vector2.Distance(transform.position, monsterPath[point_Index].position) < 0.1f)
         { 
-            point_Index++;
+            if(point_Index == monsterPath.Count - 1)
+            {
+                Debug.Log("Monster reach the destination");
+                Destroy(gameObject);
+                //gameObject.SetActive(false);
+            }
+            else
+            {
+                point_Index++;
+            }
         }
     }
 }
