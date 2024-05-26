@@ -5,24 +5,18 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] private float m_Speed = 100f;
-    [SerializeField] private List<Transform> path_1 = new List<Transform>();
-    [SerializeField] private List<Transform> path_2 = new List<Transform>();
 
     private int point_Index = 0;
     private List<Transform> monsterPath = new List<Transform>();
 
+    public void OnInit(List<Transform> path)
+    {
+        monsterPath = path;
+    }    
+
     void Start()
     {
-        if(Random.Range(0,2) == 0)
-        {
-            Debug.Log("Monster will moving on the left");
-            monsterPath = path_1;
-        }
-        else
-        {
-            Debug.Log("Monster will moving on the right");
-            monsterPath = path_2;
-        }
+
     }
 
     void Update()
