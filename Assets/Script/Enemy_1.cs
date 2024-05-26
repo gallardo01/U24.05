@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public class Enemy1 : MonoBehaviour
 {
     public Transform monster;
     public Transform target;
