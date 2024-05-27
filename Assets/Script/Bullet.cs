@@ -9,12 +9,12 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        Invoke(nameof(AutoDestroy), 3f);
+        Invoke(nameof(AutoDestroy), 1f);
     }
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, direction, Time.deltaTime * bulletSpeed);
+        transform.Translate(direction * Time.deltaTime * bulletSpeed);
     }
 
     public void SetDirection(Vector3 direction)

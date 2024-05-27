@@ -17,7 +17,6 @@ public class MonsterSpawn : MonoBehaviour
     public void SpawnEnemy()
     {
         List<Transform> path = ChoosePath();
-
         MonsterMovement monster = Instantiate(monsterPrefab, path[0].position, Quaternion.identity);
         monster.SetPath(path);
     }

@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    
     [SerializeField] TextMeshProUGUI goldText;
+    [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Button buyButton;
     [SerializeField] int maxGold = 10;
     [SerializeField] int live;
 
     private int currentGold;
+    private int highScore = 0;
 
     private static GameController instance;
     public static GameController Instance {  get { return instance; } }
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
         live = 3;
         currentGold = maxGold;
         DisplayGold();
+        scoreText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -63,6 +65,19 @@ public class GameController : MonoBehaviour
     public void DecreaseLive()
     {
         live --;
-        if(live <= 0) Time.timeScale = 0;
+        if(live <= 0) EndScene();
+    }
+    
+    private void EndScene()
+    {
+        highScore = currentGold;
+        if (highScore > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", highScore);
+        }
+
+        scoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+        scoreText.gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 }

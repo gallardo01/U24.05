@@ -152,3 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 4963488682013909198, guid: a104c9cc3fc8391438eb7c4dab512658, type: 3}
+  timeShooting: 2
+  delayStarting: 0
+  monsterLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
