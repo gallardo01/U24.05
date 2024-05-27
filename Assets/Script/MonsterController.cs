@@ -9,6 +9,7 @@ public class MonsterController : MonoBehaviour
 
     private List<Transform> monsterRoad = new List<Transform>();
     private int current_road = 0;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -31,6 +32,15 @@ public class MonsterController : MonoBehaviour
             {
                 gameObject.SetActive(false);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
     }
 }
