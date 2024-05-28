@@ -10,6 +10,8 @@ public class Controller : Singleton<Controller>
     public GameObject heroesPrefabs;
 
     public TextMeshProUGUI gold_contents;
+    public TextMeshProUGUI lives_contents;
+    public TextMeshProUGUI scores_contents;
 
     public List<Transform> path_1 = new List<Transform>();
     public List<Transform> path_2 = new List<Transform>();
@@ -19,8 +21,13 @@ public class Controller : Singleton<Controller>
     public List<GameObject> monsterAlive = new List<GameObject>();
 
     private int numberPositionUsed = 0;
-    private int gold = 500;
+    private int gold = 10;
+    private int lives = 3;
+    private int scores = 0;
+
     public Button purchaseHeroes;
+
+    public bool isGameOver = false;
 
     public List<int> heroes_marked = new List<int>();
 
@@ -28,6 +35,8 @@ public class Controller : Singleton<Controller>
     void Start()
     {
         gold_contents.text = gold.ToString();
+        lives_contents.text = lives.ToString();
+        scores_contents.text = scores.ToString();
 
         //Invoke(nameof(CreateNewObject), 3f);
         //InvokeRepeating(nameof(CreateNewObject), 1f, 1f);
@@ -41,9 +50,9 @@ public class Controller : Singleton<Controller>
 
     private void PurchaseHeroes()
     {
-        if (gold >= 50 && numberPositionUsed < heroes_path.Count)
+        if (gold >= 10 && numberPositionUsed < heroes_path.Count)
         {
-            gold -= 50;
+            gold -= 10;
             gold_contents.text = gold.ToString();
             GameObject newHeroes = Instantiate(heroesPrefabs);
             newHeroes.transform.position = heroes_path[ReturnAvailablePosition()].position;
@@ -78,5 +87,25 @@ public class Controller : Singleton<Controller>
         }
 
         StartCoroutine(CreateNewObjectCoroutine());
+    }
+
+    public void monsterComeHomeAndSayHello()
+    {
+        lives--;
+        lives_contents.text = lives.ToString();
+        if (lives == 0)
+        {
+            isGameOver = true;
+            //StopAllCoroutines();
+            Time.timeScale = 0;
+        }
+    }
+
+    public void monsterDeadByBullet()
+    {
+        scores += 10;
+        scores_contents.text = scores.ToString();
+        gold += 1;
+        gold_contents.text = gold.ToString();
     }
 }

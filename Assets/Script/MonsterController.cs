@@ -25,15 +25,19 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
-        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, speed);
-        if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
+        if(!Controller.Ins.isGameOver)
         {
-            current_road++;
-            if (current_road == monsterRoad.Count)
+            monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, speed);
+            if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
             {
-                Destroy(gameObject);
+                current_road++;
+                if (current_road == monsterRoad.Count)
+                {
+                    Destroy(gameObject);
+                    Controller.Ins.monsterComeHomeAndSayHello();
+                }
             }
-        }
+        }    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,6 +46,7 @@ public class MonsterController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
+            Controller.Ins.monsterDeadByBullet();
         }
     }
 
