@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1339152976937296478}
   - component: {fileID: 1339152976937296467}
   - component: {fileID: -3206302619873348323}
+  - component: {fileID: 7578359893654093638}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339152976937296472}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.086491115, y: 2.4496374, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1339152976937296478
 SpriteRenderer:
@@ -121,3 +122,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monster: {fileID: 1339152976937296477}
   rotate: 1
+--- !u!70 &7578359893654093638
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339152976937296472}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.07454472, y: -0.032799587}
+  m_Size: {x: 0.6371055, y: 1.0664817}
+  m_Direction: 0
