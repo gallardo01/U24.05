@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
             Vector2 direction = target.transform.position - transform.position;
             direction = direction.normalized;
-            bullet.GetComponent<Rigidbody2D>().AddForce(direction*100f);
+            bullet.GetComponent<Rigidbody2D>().AddForce(direction*300f);
         }
         StartCoroutine(AttackMonster());
     }

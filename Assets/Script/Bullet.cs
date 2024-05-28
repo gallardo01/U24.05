@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     //public GameObject target;
     // Start is called before the first frame update
+    private int coin;
     void Start()
     {
         
@@ -16,7 +17,7 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
-            
+            UImanager.instance.EarnCoin();
         }
     }
 }

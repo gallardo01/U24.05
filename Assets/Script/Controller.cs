@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
@@ -13,14 +14,12 @@ public class Controller : MonoBehaviour
     public List<Transform> respawnPlace;
     private List<int> characterSlot = new List<int>();
     public Dictionary <int,GameObject> characterDict = new Dictionary<int, GameObject>();
-    public TMP_Text coinText;
-    private int coin;
+
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {   // Invoke(nameof(CreateNewObject), 1f); => goi 1 lan duy nhat
         // InvokeRepeating(nameof(CreateNewObject), 1f, 1f); => goi nhieu lan
-        coin = PlayerPrefs.GetInt("coin", 1000);
-        DisplayCoin();
+        UImanager.instance.DisplayCoin();
         // => goi ham coroutine
         StartCoroutine(CreatNewbObjectCoroutin());
     }
@@ -55,30 +54,27 @@ public class Controller : MonoBehaviour
 
     public void CreatCharacter()
     {
-        int slot = Random.Range(0, 16);
-        
-        if (!characterSlot.Contains(slot) && coin > 50)
+        int slot = CheckAvailableSlot();
+        int coin = UImanager.instance.DisplayCoin();
+        if (coin >= 50)
         {
             characterSlot.Add(slot);
             GameObject newCharacter = Instantiate(characterPrefabs, respawnPlace[slot].position, transform.rotation);
             //characterDict.Add(slot, newCharacter);
-            coin -= 50;
-            DisplayCoin();
+            UImanager.instance.BuyCharacter();
+            Debug.Log(slot + " " + coin);
         }
-        else
+    }
+
+    public int CheckAvailableSlot()
+    {
+        int slot = Random.Range(0, 16);
+        while (true)
         {
-            CreatCharacter();
+            if (!characterSlot.Contains(slot))
+            {
+                return slot;
+            }
         }
-    }
-
-    private void DisplayCoin()
-    {
-        coinText.text = coin.ToString();
-    }
-
-    public void EarnCoin()
-    {
-        coin += 50;
-        DisplayCoin();
     }
 }
