@@ -25,11 +25,18 @@ public class GameController : MonoBehaviourSingleton<GameController>
     private List<KeyValuePair<Transform, bool>> areaState = new List<KeyValuePair<Transform, bool>>();
     private List<Transform> monsterPath = new List<Transform>();
 
+    private List<Transform> path1 = new List<Transform>();
+    private List<Transform> path2 = new List<Transform>();
+
     private int m_GoldQuantity = 10;
     public bool IsGamePause { get; private set; }
 
     private void Start()
     {
+        path1 = path_1;
+        path2 = path_2;
+
+        IsGamePause = false;
         OnInit();
     }
 
@@ -37,12 +44,15 @@ public class GameController : MonoBehaviourSingleton<GameController>
     {
         InvokeRepeating(nameof(SpawnMonster), 1f, 1f);
         m_BuyBtn.onClick.AddListener(() => BuildTower());
-        UpdateUI();
+        m_ReplayBtn.onClick.AddListener(() => Replay());
         foreach(Transform transform in defenseArea)
         {
             areaState.Add(new KeyValuePair<Transform, bool>(transform, true));
         }
         m_Result.SetActive(false);
+        m_PlayerHP = 3;
+        m_GoldQuantity = 10;
+        UpdateUI();
     }
 
     void Update()
@@ -51,13 +61,18 @@ public class GameController : MonoBehaviourSingleton<GameController>
 
     public void SpawnMonster()
     {
+        if(GameController.Instance.IsGamePause)
+        {
+            return;
+        }    
+
         if (Random.Range(0, 2) == 0)
         {
-            monsterPath = path_1;
+            monsterPath = path1;
         }
         else
         {
-            monsterPath = path_2;
+            monsterPath = path2;
         }
 
         Transform monsterObj = Instantiate(m_MonsterPfb, monsterPath[0].position, Quaternion.identity, transform);
@@ -103,6 +118,32 @@ public class GameController : MonoBehaviourSingleton<GameController>
             m_TotalGoldTxt.text = "Total gold: " + m_GoldQuantity.ToString();
             IsGamePause = true;
         }
+    }    
+
+    void Replay()
+    {
+        GameObject[] listMonster = GameObject.FindGameObjectsWithTag("Monster");
+        GameObject[] listBullet = GameObject.FindGameObjectsWithTag("Bullet");
+        GameObject[] listTower = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach(var obj in listMonster)
+        {
+            Destroy(obj);
+        }
+
+        foreach (var obj in listBullet)
+        {
+            Destroy(obj);
+        }
+
+        foreach (var obj in listTower)
+        {
+            Destroy(obj);
+        }
+
+        IsGamePause = false;
+        areaState.Clear();
+        OnInit();
     }    
 }
 

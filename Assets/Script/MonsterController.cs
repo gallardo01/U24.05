@@ -20,12 +20,12 @@ public class MonsterController : MonoBehaviour
 
     void Update()
     {
-        if(GameController.Instance.IsGamePause)
+        if (GameController.Instance.IsGamePause)
         {
             return;
-        }    
+        }
 
-        if(transform.position.x < monsterPath[point_Index].position.x)
+        if (transform.position.x < monsterPath[point_Index].position.x)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }

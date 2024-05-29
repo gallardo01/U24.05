@@ -12,13 +12,20 @@ public class TowerController : MonoBehaviour
     void Start()
     {
         //InvokeRepeating(nameof(Shooting), 1f, 1f);
+        if(GameController.Instance.IsGamePause)
+        {
+            return;
+        }
         StartCoroutine(Attack());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameController.Instance.IsGamePause)
+        {
+            return;
+        }    
     }
 
     private GameObject FindTarget()
@@ -58,7 +65,6 @@ public class TowerController : MonoBehaviour
             Vector2 direction = target.transform.position - transform.position;
             //bullet.GetComponent<Rigidbody2D>().AddForce(direction * m_BulletSpeed);
             bullet.GetComponent<SCR_Bullet>().SetTarget(target.transform);
-            Debug.Log($"speed: {direction * m_BulletSpeed}");
         }
         StartCoroutine(Attack());
     }
