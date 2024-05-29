@@ -56,11 +56,8 @@ public class TowerController : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
             Vector2 direction = target.transform.position - transform.position;
-            //direction = direction.normalized; //bien ve vector don vi de khong anh huong luc
-            //Quaternion rotation = Quaternion.LookRotation(direction);
-            //bullet.transform.rotation = rotation;
-
-            bullet.GetComponent<Rigidbody2D>().AddForce(direction * m_BulletSpeed);
+            //bullet.GetComponent<Rigidbody2D>().AddForce(direction * m_BulletSpeed);
+            bullet.GetComponent<SCR_Bullet>().SetTarget(target.transform);
             Debug.Log($"speed: {direction * m_BulletSpeed}");
         }
         StartCoroutine(Attack());

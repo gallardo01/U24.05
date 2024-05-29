@@ -19,10 +19,15 @@ public class SCR_Bullet : MonoBehaviour
 
     void Update()
     {
-        if(target != null)
+        if(target != null && target.gameObject.activeInHierarchy) //target.gameObject.activeInHierarchy this for disable not destroy
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, 0.005f);
         }
+        else
+        {
+            Destroy(gameObject);
+        } 
+            
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,7 +43,6 @@ public class SCR_Bullet : MonoBehaviour
     IEnumerator AutoDestroy()
     {
         yield return new WaitForSeconds(5f);
-        Debug.Log("AutoDestroy...");
         Destroy(gameObject);
     }    
 }
