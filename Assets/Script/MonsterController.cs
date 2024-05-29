@@ -20,6 +20,11 @@ public class MonsterController : MonoBehaviour
 
     void Update()
     {
+        if(GameController.Instance.IsGamePause)
+        {
+            return;
+        }    
+
         if(transform.position.x < monsterPath[point_Index].position.x)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -36,6 +41,7 @@ public class MonsterController : MonoBehaviour
             if(point_Index == monsterPath.Count - 1)
             {
                 OnDeath();
+                GameController.Instance.UpdatePlayerHP(-1);
                 //Destroy(gameObject);
                 //gameObject.SetActive(false);
             }
