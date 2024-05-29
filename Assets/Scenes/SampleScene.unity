@@ -378,7 +378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pucharse (50)
+  m_text: Pucharse (10)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1966,7 +1966,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefabs: {fileID: 6940188076343864881, guid: 77b290a5303afa74db7566422cc3fba8, type: 3}
-  heroesPrefabs: {fileID: 388705518940083805, guid: e80306efc74ee2f4eaf0ead0af513140, type: 3}
+  heroesPrefabs:
+  - {fileID: 388705518940083805, guid: e80306efc74ee2f4eaf0ead0af513140, type: 3}
+  - {fileID: 388705518940083805, guid: b59caef12db6bcd4d90665b2910552b2, type: 3}
   gold_contents: {fileID: 176069718}
   lives_contents: {fileID: 981051599}
   scores_contents: {fileID: 1363652310}
@@ -1999,10 +2001,12 @@ MonoBehaviour:
   - {fileID: 1763130568}
   - {fileID: 707675504}
   - {fileID: 1347808741}
+  heroes_marked: 
+  heroNodesReady: 
+  heroNodesUsed: 
   monsterAlive: []
   purchaseHeroes: {fileID: 714423324}
   isGameOver: 0
-  heroes_marked: 
 --- !u!4 &1747702625
 Transform:
   m_ObjectHideFlags: 0

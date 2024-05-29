@@ -5,7 +5,8 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour
 {
     public Transform monster;
-    public float speed = 0.001f;
+    private float speed = 2f;
+    private float health = 100f;
 
     private List<Transform> monsterRoad = new List<Transform>();
     private int current_road = 0;
@@ -27,14 +28,14 @@ public class MonsterController : MonoBehaviour
     {
         if(!Controller.Ins.isGameOver)
         {
-            monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, speed);
+            monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, speed * Time.deltaTime);
             if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
             {
                 current_road++;
                 if (current_road == monsterRoad.Count)
                 {
                     Destroy(gameObject);
-                    Controller.Ins.monsterComeHomeAndSayHello();
+                    Controller.Ins.MonsterComeHomeAndSayHello();
                 }
             }
         }    
@@ -46,7 +47,7 @@ public class MonsterController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
-            Controller.Ins.monsterDeadByBullet();
+            Controller.Ins.MonsterDeadByBullet();
         }
     }
 
