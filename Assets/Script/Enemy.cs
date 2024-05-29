@@ -7,12 +7,16 @@ public class Enemy : MonoBehaviour
 {
     public Transform monster;
     public bool rotate = true;
+    public HealthBar healthBar;
+    private float hp;
 
     private List<Transform> monsterRoad = new List<Transform>();
     private int current_road = 0;
     private void Start()
     {
         transform.position = new Vector2(0.07f,4f);
+        hp = 100;
+        healthBar.OnInit(100);
     }
 
     public void SetPath(List<Transform> path)
@@ -21,7 +25,6 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log("note" +current_road);
         monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position,0.001f);
         if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
         {
@@ -35,6 +38,7 @@ public class Enemy : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+        DestroyEnemy();
     }
     private void RotateEnemy()
     {
@@ -45,6 +49,23 @@ public class Enemy : MonoBehaviour
         } else if (monsterRoad[current_road].position.x < monsterRoad[current_road + 1].position.x && Mathf.Abs(monsterRoad[current_road].position.x - monsterRoad[current_road + 1].position.x) > 0.5f&& rotate == false)
         {
             monster.transform.Rotate(0f, 180f, 0f, Space.Self);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("bullet"))
+        {
+            Destroy(collision.gameObject);
+            hp -= 10;
+            healthBar.SetNewHP(hp);
+        }
+    }
+    private void DestroyEnemy()
+    {
+        if (hp <= 0)
+        {
+            Destroy(this.gameObject);
+            UImanager.instance.EarnCoin();
         }
     }
 }

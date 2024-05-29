@@ -56,14 +56,14 @@ public class Controller : MonoBehaviour
     {
         //int slot = Random.Range(0, 16);
         int slot = CheckAvailableSlot();
+        Debug.Log(slot);
         int coin = UImanager.instance.DisplayCoin();
-        if (coin >= 50 && slot > 0)
+        if (coin >= 50)
         {
             characterSlot.Add(slot);
             GameObject newCharacter = Instantiate(characterPrefabs, respawnPlace[slot].position, transform.rotation);
             //characterDict.Add(slot, newCharacter);
             UImanager.instance.BuyCharacter();
-            Debug.Log(slot + " " + coin);
         }
     }
 
