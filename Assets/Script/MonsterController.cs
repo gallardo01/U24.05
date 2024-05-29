@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    [SerializeField] private float m_Speed = 100f;
+    [SerializeField] private float m_Speed = 2f;
 
     private int point_Index = 0;
     private List<Transform> monsterPath = new List<Transform>();
-
     public void OnInit(List<Transform> path)
     {
         monsterPath = path;
@@ -31,13 +30,13 @@ public class MonsterController : MonoBehaviour
         } 
             
 
-        transform.position = Vector2.MoveTowards(transform.position, monsterPath[point_Index].position, 0.01f);
+        transform.position = Vector2.MoveTowards(transform.position, monsterPath[point_Index].position, 0.005f);
         if(Vector2.Distance(transform.position, monsterPath[point_Index].position) < 0.1f)
         { 
             if(point_Index == monsterPath.Count - 1)
             {
-                Debug.Log("Monster reach the destination");
-                Destroy(gameObject);
+                OnDeath();
+                //Destroy(gameObject);
                 //gameObject.SetActive(false);
             }
             else
@@ -46,4 +45,24 @@ public class MonsterController : MonoBehaviour
             }
         }
     }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Bullet")
+        {
+            OnDeath();
+        }    
+    }
+
+    public void OnDestroy()
+    {
+        
+    }
+
+
 }
