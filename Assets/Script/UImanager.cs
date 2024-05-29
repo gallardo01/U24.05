@@ -31,16 +31,14 @@ public class UImanager : MonoBehaviour
         coinText.text = coin.ToString();
         return coin;
     }
-    public int BuyCharacter()
+    public void BuyCharacter()
     {
         coin -= 50;
         DisplayCoin();
-        return coin;
     }
-    public int EarnCoin()
+    public void EarnCoin()
     {
         coin += 30;
         DisplayCoin();
-        return coin;
     }
 }

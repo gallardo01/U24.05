@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1 : MonoBehaviour
+public class player : MonoBehaviour
 {
     public Transform monster;
     public Transform target;
-    public float speed = 2f;
+    public float time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +18,18 @@ public class Enemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Doi kich co
-        monster.localScale = new Vector3(1f, 1f, 1f);
+        time += Time.deltaTime;
+        if (time >= 3f)
+        {
+            if (target != null)
+            {
+                monster.position = Vector2.MoveTowards(monster.position, target.position, 0.01f);
+            }
+            time = 0f;
+        }
+        //monster.position = new Vector2 (0, 0);
+            //Doi kich co
+            monster.localScale = new Vector3(1f, 1f, 1f);
         //Kiểu di chuyển 1 có tọa độ đích
         monster.position = Vector2.MoveTowards(monster.position, target.position, 0.01f);
         //Kiểu di chuyển nhấn phím

@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    //public GameObject target;
-    // Start is called before the first frame update
-    private int coin;
-    void Start()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("monster"))
