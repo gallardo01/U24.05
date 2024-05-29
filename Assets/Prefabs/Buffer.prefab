@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 07f27452aec41e048b3ea753ea2a1282, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 49e15bdab26c5c14ba40f52bd56be961, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4305583802405745734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 29bf797324e1ae440a5503a4bdc856be, type: 2}
   m_CullingMode: 0
@@ -115,9 +115,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4305583803319124357}
-  - component: {fileID: 541282204916155948}
-  m_Layer: 8
-  m_Name: Player
+  - component: {fileID: 701054671}
+  m_Layer: 0
+  m_Name: Buffer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &541282204916155948
+--- !u!114 &701054671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,14 +148,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4305583803319124358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d0cc9cb1f38f4f4eae3cf00e9d32561, type: 3}
+  m_Script: {fileID: 11500000, guid: a8e8fdd4558b98b489fe3fb90f0f671a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 4963488682013909198, guid: a104c9cc3fc8391438eb7c4dab512658, type: 3}
-  timeShooting: 1
-  delayStarting: 0
-  monsterLayerMask:
+  playerLayerMask:
     serializedVersion: 2
-    m_Bits: 128
-  playerAnimator: {fileID: 4305583802405745731}
-  damage: 20
+    m_Bits: 256
+  damageBuffAmount: 20

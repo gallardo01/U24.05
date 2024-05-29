@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class MonsterMovement : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] int monsterGoldReward;
+    [SerializeField] Health health;
 
     private List<Transform> choosePath;
     private Vector3 nextPosition;
@@ -47,11 +48,11 @@ public class MonsterMovement : MonoBehaviour
             GameController.Instance.DecreaseLive();
             Destroy(gameObject);
         }
-        if (collision.CompareTag("Bullet"))
+        if(collision.CompareTag("Bullet"))
         {
-            GameController.Instance.AddGold(monsterGoldReward);
+            int damage = collision.GetComponent<Bullet>().GetBulletDamage(); ;
+            health.TakeDame(damage);
             Destroy(collision.gameObject);
-            Destroy(this.gameObject);
         }
     }
 

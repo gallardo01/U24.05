@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float bulletSpeed = 50;
-    private Vector3 direction;
+    private int bulletDamage;
+    private Transform target;
 
     private void Start()
     {
@@ -14,12 +15,13 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(direction * Time.deltaTime * bulletSpeed);
+        if (target == null) return;
+        transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * bulletSpeed);
     }
 
-    public void SetDirection(Vector3 direction)
+    public void SetDirection(Transform direction)
     {
-        this.direction = direction;
+        this.target = direction;
     }
 
     void AutoDestroy()
@@ -27,4 +29,13 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public int GetBulletDamage()
+    {
+        return bulletDamage;
+    }
+
+    public void SetBulletDamage(int damage)
+    {
+        this.bulletDamage = damage;
+    }
 }

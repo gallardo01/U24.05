@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class MonsterSpawn : MonoBehaviour
 {
-    [SerializeField] private MonsterMovement monsterPrefab;
+    [SerializeField] MonsterMovement monsterPrefab;
     [SerializeField] List<Transform> rightPath;
     [SerializeField] List<Transform> leftPath;
 
-    private void Start()
+    private void OnEnable()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 1f, 1f);
+        InvokeRepeating(nameof(SpawnEnemy), 1f, 5f);
     }
 
     public void SpawnEnemy()

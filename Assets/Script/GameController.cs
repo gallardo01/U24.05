@@ -1,39 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
     [SerializeField] TextMeshProUGUI goldText;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Button buyButton;
+    [SerializeField] Button replayButton;
+
     [SerializeField] int maxGold = 10;
     [SerializeField] int live;
 
     private int currentGold;
     private int highScore = 0;
 
-    private static GameController instance;
-    public static GameController Instance {  get { return instance; } }
-
-    private void Awake()
+    private void OnEnable()
     {
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else Destroy(gameObject);
+        StartGame();
     }
-
-    private void Start()
+    private void StartGame()
     {
         live = 3;
         currentGold = maxGold;
         DisplayGold();
+
+        replayButton.onClick.AddListener(RestartGame);
         scoreText.gameObject.SetActive(false);
+        replayButton.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -64,20 +62,34 @@ public class GameController : MonoBehaviour
 
     public void DecreaseLive()
     {
-        live --;
-        if(live <= 0) EndScene();
+        live--;
+        if(live <= 0) GameOver();
     }
     
-    private void EndScene()
+    private void GameOver()
     {
-        highScore = currentGold;
-        if (highScore > PlayerPrefs.GetInt("HighScore", 0))
+        StopAllCoroutines();
+        GameObject[] listMonster = GameObject.FindGameObjectsWithTag("Monster");
+        for (int i = 0;i < listMonster.Length; i++)
         {
-            PlayerPrefs.SetInt("HighScore", highScore);
+            Destroy(listMonster[i].gameObject);
+        }
+        GameObject[] listBullet = GameObject.FindGameObjectsWithTag("Bullet");
+        for (int i = 0; i < listMonster.Length; i++)
+        {
+            Destroy(listMonster[i].gameObject);
         }
 
-        scoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
         scoreText.gameObject.SetActive(true);
+        replayButton.gameObject.SetActive(true);
+
+
         Time.timeScale = 0;
     }
+
+    void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }

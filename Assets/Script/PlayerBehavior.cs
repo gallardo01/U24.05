@@ -7,19 +7,25 @@ public class PlayerBehavior : MonoBehaviour
 {
     [SerializeField] Bullet bullet;
     [SerializeField] float timeShooting = 1f;
-    [SerializeField] float delayStarting = 0f;
     [SerializeField] LayerMask monsterLayerMask;
+    [SerializeField] Animator playerAnimator;
+    [SerializeField] int damage = 20;
 
+    string currentAnimName;
     MonsterMovement nearestMonster;
+    private bool isGotBuff;
 
     private void Awake()
     {
-        InvokeRepeating(nameof(Shooting), delayStarting, timeShooting);
+        ChangeAnim("idle");
+        StartCoroutine(Shooting());
     }
 
-    private void Shooting()
+
+    IEnumerator Shooting()
     {
-      //  MonsterMovement[] monsters = FindObjectsOfType<MonsterMovement>();
+        ChangeAnim("idle");
+        yield return new WaitForSeconds(timeShooting);
 
         List<MonsterMovement> monsters = new List<MonsterMovement>();
         Collider2D[] monstersCollider = Physics2D.OverlapCircleAll(transform.position, 30f, monsterLayerMask);
@@ -28,10 +34,9 @@ public class PlayerBehavior : MonoBehaviour
         {
             monsters.Add(monstersCollider[i].GetComponent<MonsterMovement>());
         }
+        if (monsters == null || monsters.Count == 0) yield return null;
 
         float minDistance = float.MaxValue;
-        if (monsters == null || monsters.Count == 0) return;
-
         foreach (MonsterMovement monster in monsters)
         {
             if(Vector3.Distance(transform.position, monster.transform.position) < minDistance)
@@ -40,9 +45,31 @@ public class PlayerBehavior : MonoBehaviour
                 nearestMonster = monster;
             }
         }
-
+        ChangeAnim("attack");
         Bullet bullet = Instantiate(this.bullet,transform.position,Quaternion.identity);
-        Vector3 bulletDirection = nearestMonster.transform.position;
+        Transform bulletDirection = nearestMonster.transform;
         bullet.SetDirection(bulletDirection);
+        bullet.SetBulletDamage(this.damage);
+
+        StartCoroutine(Shooting());
+    }
+
+    private void ChangeAnim(string animName)
+    {
+        if(currentAnimName != animName)
+        {
+            playerAnimator.ResetTrigger(animName);
+            currentAnimName = animName;
+            playerAnimator.SetTrigger(currentAnimName);
+        }
+    }
+
+    public void SetDamage(int damage)
+    {
+        if (isGotBuff == false)
+        {
+            this.damage += damage;
+            isGotBuff = true;
+        }
     }
 }
