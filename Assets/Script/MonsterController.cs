@@ -24,12 +24,13 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
-        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, 0.01f);
+        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, 0.02f);
         if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
         {
             current_road++;
             if (current_road == monsterRoad.Count)
             {
+                Controller.Instance.ReduceHealth(1);
                 gameObject.SetActive(false);
             }
         }
@@ -39,6 +40,7 @@ public class MonsterController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            Controller.Instance.GainGold(1);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
