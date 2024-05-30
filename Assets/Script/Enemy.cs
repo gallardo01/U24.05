@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position,0.09f);
+        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position,0.002f);
         if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
         {
             if (current_road < monsterRoad.Count-2)

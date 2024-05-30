@@ -4,13 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Character : MonoBehaviour
+public class Character : ManagerChar
 {
-    public Bullet bulletPrefabs;
-    float time;
+    //public Bullet bulletPrefabs;
+    //float time;
     private void Start()
     {
-        //StartCoroutine(AttackMonster());
+        StartCoroutine(AttackMonster());
     }
     //IEnumerator AttackMonster()
     //{
@@ -26,21 +26,33 @@ public class Character : MonoBehaviour
     //    StartCoroutine(AttackMonster());
     //}
 
-    private void Update()
+    IEnumerator AttackMonster()
     {
-        time += Time.deltaTime;
-        if (time >= 3f)
+        yield return new WaitForSeconds(3f);
+        GameObject target = FindTarget();
+        if (target != null)
         {
-            GameObject target = FindTarget();
-            if (target != null)
-            {
-                Bullet bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
-                bullet.SetTargetFire(target.transform);
-            }
-            time = 0f;
+            Bullet bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+            bullet.SetTargetFire(target.transform);
         }
+        StartCoroutine(AttackMonster());
     }
-    GameObject FindTarget()
+
+    //private void Update()
+    //{
+    //    time += Time.deltaTime;
+    //    if (time >= 3f)
+    //    {
+    //        GameObject target = FindTarget();
+    //        if (target != null)
+    //        {
+    //            Bullet bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
+    //            bullet.SetTargetFire(target.transform);
+    //        }
+    //        time = 0f;
+    //    }
+    //}
+    public override GameObject FindTarget()
     {
         GameObject[] monsterArray = GameObject.FindGameObjectsWithTag("monster");
         List<GameObject> monsterList = new List<GameObject>();
