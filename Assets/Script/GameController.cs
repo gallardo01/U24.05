@@ -69,22 +69,19 @@ public class GameController : Singleton<GameController>
     private void GameOver()
     {
         StopAllCoroutines();
-        GameObject[] listMonster = GameObject.FindGameObjectsWithTag("Monster");
-        for (int i = 0;i < listMonster.Length; i++)
-        {
-            Destroy(listMonster[i].gameObject);
-        }
-        GameObject[] listBullet = GameObject.FindGameObjectsWithTag("Bullet");
-        for (int i = 0; i < listMonster.Length; i++)
-        {
-            Destroy(listMonster[i].gameObject);
-        }
+        //GameObject[] listMonster = GameObject.FindGameObjectsWithTag("Monster");
+        //for (int i = 0;i < listMonster.Length; i++)
+        //{
+        //    Destroy(listMonster[i].gameObject);
+        //}
+        //GameObject[] listBullet = GameObject.FindGameObjectsWithTag("Bullet");
+        //for (int i = 0; i < listMonster.Length; i++)
+        //{
+        //    Destroy(listMonster[i].gameObject);
+        //}
 
         scoreText.gameObject.SetActive(true);
         replayButton.gameObject.SetActive(true);
-
-
-        Time.timeScale = 0;
     }
 
     void RestartGame()

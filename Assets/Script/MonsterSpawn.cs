@@ -9,9 +9,9 @@ public class MonsterSpawn : MonoBehaviour
     [SerializeField] List<Transform> rightPath;
     [SerializeField] List<Transform> leftPath;
 
-    private void OnEnable()
+    private void Start()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 1f, 5f);
+        InvokeRepeating(nameof(SpawnEnemy), 1f, 1f);
     }
 
     public void SpawnEnemy()
