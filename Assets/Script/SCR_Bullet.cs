@@ -19,11 +19,6 @@ public class SCR_Bullet : MonoBehaviour
 
     void Update()
     {
-        if (GameController.Instance.IsGamePause)
-        {
-            return;
-        }
-
         if (target != null && target.gameObject.activeInHierarchy) //target.gameObject.activeInHierarchy this for disable not destroy
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, 0.005f);

@@ -7,25 +7,13 @@ public class TowerController : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float m_BulletSpeed = 100f;
+    [SerializeField] private float m_AttackSpeed = 2;
 
     // Start is called before the first frame update
     void Start()
     {
         //InvokeRepeating(nameof(Shooting), 1f, 1f);
-        if(GameController.Instance.IsGamePause)
-        {
-            return;
-        }
         StartCoroutine(Attack());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(GameController.Instance.IsGamePause)
-        {
-            return;
-        }    
     }
 
     private GameObject FindTarget()
@@ -57,7 +45,7 @@ public class TowerController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(m_AttackSpeed);
         GameObject target = FindTarget();
         if(target != null)
         {

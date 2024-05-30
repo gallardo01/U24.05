@@ -25,30 +25,26 @@ public class GameController : MonoBehaviourSingleton<GameController>
     private List<KeyValuePair<Transform, bool>> areaState = new List<KeyValuePair<Transform, bool>>();
     private List<Transform> monsterPath = new List<Transform>();
 
-    private List<Transform> path1 = new List<Transform>();
-    private List<Transform> path2 = new List<Transform>();
 
     private int m_GoldQuantity = 10;
-    public bool IsGamePause { get; private set; }
-
+    
     private void Start()
     {
-        path1 = path_1;
-        path2 = path_2;
-
-        IsGamePause = false;
         OnInit();
     }
 
     private void OnInit()
     {
-        InvokeRepeating(nameof(SpawnMonster), 1f, 1f);
         m_BuyBtn.onClick.AddListener(() => BuildTower());
-        m_ReplayBtn.onClick.AddListener(() => Replay());
+        m_ReplayBtn.onClick.AddListener(() => OnInit());
+
+        StartCoroutine(SpawnMonster());
+        
         foreach(Transform transform in defenseArea)
         {
             areaState.Add(new KeyValuePair<Transform, bool>(transform, true));
         }
+
         m_Result.SetActive(false);
         m_PlayerHP = 3;
         m_GoldQuantity = 10;
@@ -59,26 +55,25 @@ public class GameController : MonoBehaviourSingleton<GameController>
     {
     }
 
-    public void SpawnMonster()
+    IEnumerator SpawnMonster()
     {
-        if(GameController.Instance.IsGamePause)
-        {
-            return;
-        }    
+        yield return new WaitForSeconds(1f);
 
         if (Random.Range(0, 2) == 0)
         {
-            monsterPath = path1;
+            monsterPath = path_1;
         }
         else
         {
-            monsterPath = path2;
+            monsterPath = path_2;
         }
 
         Transform monsterObj = Instantiate(m_MonsterPfb, monsterPath[0].position, Quaternion.identity, transform);
         MonsterController monster = monsterObj.GetComponent<MonsterController>();
         monster.OnInit(monsterPath);
-    }    
+
+        StartCoroutine(SpawnMonster());
+    }
 
     public void BuildTower()
     {
@@ -114,19 +109,20 @@ public class GameController : MonoBehaviourSingleton<GameController>
         m_PlayerHP += amount;
         if (m_PlayerHP <= 0)
         {
+            GameOver();
             m_Result.SetActive(true);
             m_TotalGoldTxt.text = "Total gold: " + m_GoldQuantity.ToString();
-            IsGamePause = true;
         }
     }    
 
-    void Replay()
+    void GameOver()
     {
+        StopAllCoroutines();
         GameObject[] listMonster = GameObject.FindGameObjectsWithTag("Monster");
         GameObject[] listBullet = GameObject.FindGameObjectsWithTag("Bullet");
         GameObject[] listTower = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach(var obj in listMonster)
+        foreach (var obj in listMonster)
         {
             Destroy(obj);
         }
@@ -141,9 +137,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
             Destroy(obj);
         }
 
-        IsGamePause = false;
         areaState.Clear();
-        OnInit();
     }    
 }
 
