@@ -25,7 +25,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
     private List<KeyValuePair<Transform, bool>> areaState = new List<KeyValuePair<Transform, bool>>();
     private List<Transform> monsterPath = new List<Transform>();
 
-
+    private Coroutine spawnMonsterCoroutine;
     private int m_GoldQuantity = 10;
     
     private void Start()
@@ -38,9 +38,13 @@ public class GameController : MonoBehaviourSingleton<GameController>
         m_BuyBtn.onClick.AddListener(() => BuildTower());
         m_ReplayBtn.onClick.AddListener(() => OnInit());
 
-        StartCoroutine(SpawnMonster());
-        
-        foreach(Transform transform in defenseArea)
+        if (spawnMonsterCoroutine != null)
+        {
+            StopCoroutine(spawnMonsterCoroutine);
+        }
+        spawnMonsterCoroutine = StartCoroutine(SpawnMonster());
+
+        foreach (Transform transform in defenseArea)
         {
             areaState.Add(new KeyValuePair<Transform, bool>(transform, true));
         }
@@ -72,7 +76,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
         MonsterController monster = monsterObj.GetComponent<MonsterController>();
         monster.OnInit(monsterPath);
 
-        StartCoroutine(SpawnMonster());
+        spawnMonsterCoroutine = StartCoroutine(SpawnMonster());
     }
 
     public void BuildTower()
@@ -118,6 +122,9 @@ public class GameController : MonoBehaviourSingleton<GameController>
     void GameOver()
     {
         StopAllCoroutines();
+
+        spawnMonsterCoroutine = null;
+
         GameObject[] listMonster = GameObject.FindGameObjectsWithTag("Monster");
         GameObject[] listBullet = GameObject.FindGameObjectsWithTag("Bullet");
         GameObject[] listTower = GameObject.FindGameObjectsWithTag("Player");
