@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    //[SerializeField] Transform target;
-    //[SerializeField] float moveSpeed = 3f;
+    Transform target;
+    [SerializeField] float moveSpeed = 3f;
 
-    //private void Update()
-    //{
-    //    if (target != null)
-    //    {
-    //        Vector2 directionToTarget = target.position - transform.position;
-    //        directionToTarget.Normalize();
-    //        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-    //    }
-    //}
+    private void Update()
+    {
+        if (target != null && target.gameObject.activeInHierarchy)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        } else
+        {
+            Destroy(gameObject);
+        }
+        
+    }
+    public void SetTargetFire(Transform target)
+    {
+       this.target = target;
+    }
 }

@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     }
     private void Update()
     {
-        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position,0.001f);
+        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position,0.09f);
         if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
         {
             if (current_road < monsterRoad.Count-2)
@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag("bullet"))
         {
             Destroy(collision.gameObject);
-            hp -= 10;
+            hp -= 20;
             healthBar.SetNewHP(hp);
         }
     }

@@ -21,7 +21,7 @@ public class UImanager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        coin = PlayerPrefs.GetInt("coin", 1000);
+        coin = PlayerPrefs.GetInt("coin", 150);
     }
 
     [SerializeField] TMP_Text coinText;

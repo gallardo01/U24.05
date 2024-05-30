@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,6 +24,7 @@ public class Controller : MonoBehaviour
         UImanager.instance.DisplayCoin();
         // => goi ham coroutine
         StartCoroutine(CreatNewbObjectCoroutin());
+        
     }
 
     // Gọi repeat bằng Coroutine
@@ -39,19 +42,6 @@ public class Controller : MonoBehaviour
         }
         StartCoroutine(CreatNewbObjectCoroutin());
     }
-    private void CreateNewObject()
-    {
-        GameObject newObject = Instantiate(monsterPrefabs);
-        if (Random.Range(0, 2) == 0)
-        {
-            newObject.GetComponent<Enemy>().SetPath(path_1);
-        }
-        else
-        {
-            newObject.GetComponent<Enemy>().SetPath(path_2);
-        }
-    }
-
     public void CreatCharacter()
     {
         //int slot = Random.Range(0, 16);
@@ -66,7 +56,6 @@ public class Controller : MonoBehaviour
             UImanager.instance.BuyCharacter();
         }
     }
-
     public int CheckAvailableSlot()
     {
         while (true)
@@ -76,6 +65,27 @@ public class Controller : MonoBehaviour
             {
                 return slot;
             }
+        }
+    }
+
+    //Hàm Start và GameOver
+    private void GameStart()
+    {
+        // => chạy hàm Start của game
+    }
+    private void GameOver() 
+    {
+        // Dừng coroutine
+        StopAllCoroutines();
+        GameObject[] listMonster = GameObject.FindGameObjectsWithTag("monster");
+        for (int i = 0; i < listMonster.Length; i++)
+        {
+            Destroy(listMonster[i]);
+        }
+        GameObject[] listBullet = GameObject.FindGameObjectsWithTag("bullet");
+        for (int i = 0; i < listBullet.Length; i++)
+        {
+            Destroy(listBullet[i]);
         }
     }
 }
