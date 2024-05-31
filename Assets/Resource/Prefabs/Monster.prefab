@@ -391,6 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7150a45dcdbc1534a84b3b14a5943371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolType: 2
+  tf: {fileID: 6940188076343864892}
   monster: {fileID: 6940188076343864892}
   healthBar: {fileID: 1897972476792944204}
 --- !u!95 &1666521497929660276

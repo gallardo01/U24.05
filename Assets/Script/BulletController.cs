@@ -10,10 +10,9 @@ public class BulletController : GameUnit
 
     public int damage;
 
-    Vector2 direction;
     void Update()
     {
-        if (target == null)
+        if (!target.activeInHierarchy)
         {
             //Destroy(gameObject);
             SimplePool.Despawn(this);

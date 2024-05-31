@@ -6,7 +6,7 @@ public class HeroBuffController : HeroBase
 {
     void Start()
     {
-        if (0 <= currentNode - 1)
+        if (0 <= currentNode - 1 && currentNode % 4 != 1)
         {
             Controller.Ins.heroNodes[currentNode - 1].AddBuff(BuffType.DoubleDamage, 1);
         }
@@ -16,7 +16,7 @@ public class HeroBuffController : HeroBase
             Controller.Ins.heroNodes[currentNode - 4].AddBuff(BuffType.DoubleDamage, 1);
         }
 
-        if (currentNode + 1 <= Controller.Ins.heroNodes.Count)
+        if (currentNode + 1 <= Controller.Ins.heroNodes.Count && currentNode % 4 != 1)
         {
             Controller.Ins.heroNodes[currentNode + 1].AddBuff(BuffType.DoubleDamage, 1);
         }

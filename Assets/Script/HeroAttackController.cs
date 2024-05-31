@@ -52,8 +52,4 @@ public class HeroAttackController : HeroBase
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {       
-    }
 }

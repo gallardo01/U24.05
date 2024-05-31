@@ -30,6 +30,8 @@ public class Controller : Singleton<Controller>
 
     public Button purchaseHeroes;
 
+    public Vector3 monsterSummonPosition = new Vector3(0f, 7.5f, 0f);
+
 
     // Start is called before the first frame update
     void Start()
@@ -82,7 +84,7 @@ public class Controller : Singleton<Controller>
     {
         yield return new WaitForSeconds(1f);
         //MonsterController newMonster = Instantiate(monsterController);
-        MonsterController newMonster = Instantiate(monsterController);
+        MonsterController newMonster = (MonsterController)SimplePool.Spawn(PoolType.Monster, monsterSummonPosition, Quaternion.identity);
 
         if (Random.Range(0, 2) == 0)
         {

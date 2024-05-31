@@ -14,10 +14,8 @@ public class MonsterController : GameUnit
     private List<Transform> monsterRoad = new List<Transform>();
     private int current_road = 0;
 
-    // Start is called before the first frame update
-    private void Start()
+    private void OnEnable()
     {
-        transform.position = new Vector2(0f, 7.5f);
         Controller.Ins.monsterAlive.Add(gameObject);
     }
 
@@ -35,7 +33,7 @@ public class MonsterController : GameUnit
             current_road++;
             if (current_road == monsterRoad.Count)
             {
-                Destroy(gameObject);
+                SimplePool.Despawn(this);
                 Controller.Ins.MonsterComeHomeAndSayHello();
             }
         }
@@ -45,7 +43,8 @@ public class MonsterController : GameUnit
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            SimplePool.Despawn(collision.gameObject.GetComponent<GameUnit>());
 
             int damage = collision.gameObject.GetComponent<BulletController>().damage;
             TakeDamage(damage);
@@ -53,17 +52,18 @@ public class MonsterController : GameUnit
             if (currentHealth <= 0)
             {
                 Controller.Ins.MonsterDeadByBullet();
-                Destroy(gameObject);
+                OnDespawn();
             }
         }
     }
 
-    void OnDestroy()
+    void OnDespawn()
     {
-        if (Controller.Ins != null)
-        {
-            Controller.Ins.monsterAlive.Remove(gameObject);
-        }
+        Controller.Ins.monsterAlive.Remove(gameObject);
+        current_road = 0;
+        currentHealth = 100;
+        healthBar.fillAmount = (float)currentHealth / maxHealth;
+        SimplePool.Despawn(this);
     }
 
     private void TakeDamage(int damage)
