@@ -4,10 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Character : ManagerChar
+public class Character : CharacterManager
 {
-    //public Bullet bulletPrefabs;
-    //float time;
+    public Bullet bulletPrefabs;
+
     private void Start()
     {
         StartCoroutine(AttackMonster());
@@ -36,40 +36,5 @@ public class Character : ManagerChar
             bullet.SetTargetFire(target.transform);
         }
         StartCoroutine(AttackMonster());
-    }
-
-    //private void Update()
-    //{
-    //    time += Time.deltaTime;
-    //    if (time >= 3f)
-    //    {
-    //        GameObject target = FindTarget();
-    //        if (target != null)
-    //        {
-    //            Bullet bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
-    //            bullet.SetTargetFire(target.transform);
-    //        }
-    //        time = 0f;
-    //    }
-    //}
-    public override GameObject FindTarget()
-    {
-        GameObject[] monsterArray = GameObject.FindGameObjectsWithTag("monster");
-        List<GameObject> monsterList = new List<GameObject>();
-        for (int i = 0; i < monsterArray.Length; i++)
-        {
-            if (monsterArray[i].activeInHierarchy == true)
-            {
-                monsterList.Add(monsterArray[i]);
-            }
-        }
-        if (monsterList.Count>0)
-        {
-            return monsterList[Random.Range(0, monsterList.Count)];
-        }
-        else
-        {
-            return null;
-        }
     }
 }

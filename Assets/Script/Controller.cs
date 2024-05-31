@@ -10,6 +10,7 @@ public class Controller : MonoBehaviour
 {
     public GameObject monsterPrefabs;
     public GameObject characterPrefabs;
+    public GameObject buffCharacterPrefabs;
 
     public List<Transform> path_1 = new List<Transform>();
     public List<Transform> path_2 = new List<Transform>();
@@ -19,9 +20,10 @@ public class Controller : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   // Invoke(nameof(CreateNewObject), 1f); => goi 1 lan duy nhat
-        // InvokeRepeating(nameof(CreateNewObject), 1f, 1f); => goi nhieu lan
+    {   
         UImanager.instance.DisplayCoin();
+        UImanager.instance.DisplayHero1Price();
+        UImanager.instance.DisplayHero2Price();
         // => goi ham coroutine
         StartCoroutine(CreatNewbObjectCoroutin());
         
@@ -42,9 +44,8 @@ public class Controller : MonoBehaviour
         }
         StartCoroutine(CreatNewbObjectCoroutin());
     }
-    public void CreatCharacter()
+    public void CreatCharacter1()
     {
-        //int slot = Random.Range(0, 16);
         int slot = CheckAvailableSlot();
         Debug.Log(slot);
         int coin = UImanager.instance.DisplayCoin();
@@ -52,8 +53,22 @@ public class Controller : MonoBehaviour
         {
             characterSlot.Add(slot);
             GameObject newCharacter = Instantiate(characterPrefabs, respawnPlace[slot].position, transform.rotation);
-            //characterDict.Add(slot, newCharacter);
-            UImanager.instance.BuyCharacter();
+            characterDict.Add(slot, newCharacter);
+            UImanager.instance.BuyCharacter1();
+        }
+    }
+
+    public void CreatCharacter2()
+    {
+        int slot = CheckAvailableSlot();
+        Debug.Log(slot);
+        int coin = UImanager.instance.DisplayCoin();
+        if (coin >= 30)
+        {
+            characterSlot.Add(slot);
+            GameObject newCharacter = Instantiate(buffCharacterPrefabs, respawnPlace[slot].position, transform.rotation);
+            characterDict.Add(slot, newCharacter);
+            UImanager.instance.BuyCharacter2();
         }
     }
     public int CheckAvailableSlot()

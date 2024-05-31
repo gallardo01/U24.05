@@ -2,19 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterManager : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
-    public Bullet bulletPrefabs;
-    public IEnumerator AttackMonster()
+    public GameObject FindTarget()
     {
-        yield return new WaitForSeconds(3f);
-        GameObject target = FindTarget();
-        if (target != null)
+        GameObject[] monsterArray = GameObject.FindGameObjectsWithTag("monster");
+        List<GameObject> monsterList = new List<GameObject>();
+        for (int i = 0; i < monsterArray.Length; i++)
         {
-            Bullet bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
-            bullet.SetTargetFire(target.transform);
+            if (monsterArray[i].activeInHierarchy == true)
+            {
+                monsterList.Add(monsterArray[i]);
+            }
         }
-        StartCoroutine(AttackMonster());
+        if (monsterList.Count > 0)
+        {
+            return monsterList[Random.Range(0, monsterList.Count)];
+        }
+        else
+        {
+            return null;
+        }
     }
-    public abstract GameObject FindTarget();
 }

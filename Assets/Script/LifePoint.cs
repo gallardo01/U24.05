@@ -11,6 +11,7 @@ public class LifePoint : MonoBehaviour
     public TMP_Text lifePointText;
     bool isGameOver = false;
     public int lifePoint = 3;
+    float time;
     private void Start()
     {
         DisplayLifePoint(lifePoint);
@@ -39,10 +40,6 @@ public class LifePoint : MonoBehaviour
         if (isGameOver)
         {
             controllerGame.SetActive(false);
-        } else
-        {
-            lifePoint = 3;
-            controllerGame.SetActive(true);
         }
     }
     public void RetryNewGame()
