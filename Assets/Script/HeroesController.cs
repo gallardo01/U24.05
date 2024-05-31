@@ -20,9 +20,10 @@ public class HeroesController : MonoBehaviour
         if (target != null)
         {
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Vector2 direction = target.transform.position - transform.position;
-            direction = direction.normalized;
-            bullet.GetComponent<Rigidbody2D>().AddForce(direction * 700f);
+            bullet.GetComponent<Bullet>().SetTarget(target.transform);
+            //Vector2 direction = target.transform.position - transform.position;
+            //direction = direction.normalized;
+            //bullet.GetComponent<Rigidbody2D>().AddForce(direction * 300f);
         }
         StartCoroutine(AttackMonster());
     }

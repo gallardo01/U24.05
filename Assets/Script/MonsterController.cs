@@ -34,8 +34,10 @@ public class MonsterController : MonoBehaviour
             current_road++;
             if (current_road == monsterRoad.Count)
             {
+                Controller.Instance.ReduceHealth(1);
                 gameObject.SetActive(false);
             }
+           
         }
 
         // Rotate the monster's facing direction when moving left or right
@@ -53,6 +55,7 @@ public class MonsterController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Bullet")
         {
+            Controller.Instance.GainGold(1);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
