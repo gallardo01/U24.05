@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MonsterController : MonoBehaviour
+public class MonsterController : GameUnit
 {
     public Transform monster;
     private float speed = 2f;
-    private float health = 100f;
+    private int currentHealth = 100;
+    private int maxHealth = 100;
+    [SerializeField] Image healthBar;
 
     private List<Transform> monsterRoad = new List<Transform>();
     private int current_road = 0;
@@ -26,19 +29,16 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void Update() 
     {
-        if(!Controller.Ins.isGameOver)
+        monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, speed * Time.deltaTime);
+        if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
         {
-            monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, speed * Time.deltaTime);
-            if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
+            current_road++;
+            if (current_road == monsterRoad.Count)
             {
-                current_road++;
-                if (current_road == monsterRoad.Count)
-                {
-                    Destroy(gameObject);
-                    Controller.Ins.MonsterComeHomeAndSayHello();
-                }
+                Destroy(gameObject);
+                Controller.Ins.MonsterComeHomeAndSayHello();
             }
-        }    
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,8 +46,15 @@ public class MonsterController : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
-            Destroy(gameObject);
-            Controller.Ins.MonsterDeadByBullet();
+
+            int damage = collision.gameObject.GetComponent<BulletController>().damage;
+            TakeDamage(damage);
+
+            if (currentHealth <= 0)
+            {
+                Controller.Ins.MonsterDeadByBullet();
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -57,5 +64,11 @@ public class MonsterController : MonoBehaviour
         {
             Controller.Ins.monsterAlive.Remove(gameObject);
         }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.fillAmount = (float)currentHealth / maxHealth;
     }
 }

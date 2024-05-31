@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class Controller : Singleton<Controller>
 {
-    public GameObject monsterPrefabs;
+    public MonsterController monsterController;
 
-    public List<GameObject> heroesPrefabs = new List<GameObject>();
+    public List<HeroBase> heroController = new List<HeroBase>();
 
     public TextMeshProUGUI gold_contents;
     public TextMeshProUGUI lives_contents;
@@ -17,48 +17,34 @@ public class Controller : Singleton<Controller>
     public List<Transform> path_1 = new List<Transform>();
     public List<Transform> path_2 = new List<Transform>();
 
-    public List<Transform> heroes_path = new List<Transform>();
-    public List<int> heroes_marked = new List<int>();
+    public List<HeroNodeData> heroNodes = new List<HeroNodeData>();
 
     public List<int> heroNodesReady = new List<int>();
     public List<int> heroNodesUsed = new List<int>();
 
     public List<GameObject> monsterAlive = new List<GameObject>();
 
-    //private int numberPositionUsed = 0;
-    private int gold = 60;
-    private int lives = 3;
-    private int scores = 0;
+    private int gold;
+    private int lives;
+    private int scores;
 
     public Button purchaseHeroes;
-
-    public bool isGameOver = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        gold_contents.text = gold.ToString();
-        lives_contents.text = lives.ToString();
-        scores_contents.text = scores.ToString();
-
-        //Invoke(nameof(CreateNewObject), 3f);
-        //InvokeRepeating(nameof(CreateNewObject), 1f, 1f);
-        StartCoroutine(CreateNewObjectCoroutine());
-        for (int i = 0; i < heroes_path.Count; i++)
-        {
-            heroes_marked.Add(0);
-            heroNodesReady.Add(i);
-        }
-        purchaseHeroes.onClick.AddListener(() => PurchaseHeroes());
+        GameStart();
     }
 
     private void PurchaseHeroes()
     {
         if (gold >= 10)
         {
-            gold -= 10;
-            gold_contents.text = gold.ToString();
+            if (heroController.Count <= 0)
+            {
+                return;
+            }
 
             int newHeroPos = ReturnAvailablePosition();
             if (newHeroPos == -1)
@@ -66,37 +52,22 @@ public class Controller : Singleton<Controller>
                 return;
             }
 
+            gold -= 10;
+            gold_contents.text = gold.ToString();
+
             heroNodesReady.Remove(newHeroPos);
             heroNodesUsed.Add(newHeroPos);
 
-            if (heroesPrefabs.Count <= 0)
-            {
-                return;
-            }
+            int index = Random.Range(0, heroController.Count);
+            HeroBase newHero = Instantiate(heroController[index]);
 
-            int index = Random.Range(0, heroesPrefabs.Count);
-            GameObject newHeroes = Instantiate(heroesPrefabs[index]);
-            
-            //GameObject newHeroes = Instantiate(heroesPrefabs);
-
-            newHeroes.GetComponent<HeroBase>().currentNode = newHeroPos;       
-            newHeroes.transform.position = heroes_path[newHeroPos].position;
+            newHero.currentNode = newHeroPos;       
+            newHero.transform.position = heroNodes[newHeroPos].trans.position;
         }
     }
 
     private int ReturnAvailablePosition()
     {
-        //while (true)
-        //{
-        //    int pos = Random.Range(0, heroes_path.Count);
-        //    if (heroes_marked[pos] == 0)
-        //    {
-        //        heroes_marked[pos] = 1;
-        //        numberPositionUsed++;
-        //        return pos;
-        //    }
-        //}
-
         if (heroNodesReady.Count > 0) 
         {
             int index = Random.Range(0, heroNodesReady.Count);
@@ -107,21 +78,22 @@ public class Controller : Singleton<Controller>
             return -1;
         }
     }
-    IEnumerator CreateNewObjectCoroutine()
+    IEnumerator CreateNewMonsterCoroutine()
     {
         yield return new WaitForSeconds(1f);
-        GameObject newObject = Instantiate(monsterPrefabs);
+        //MonsterController newMonster = Instantiate(monsterController);
+        MonsterController newMonster = Instantiate(monsterController);
 
         if (Random.Range(0, 2) == 0)
         {
-            newObject.GetComponent<MonsterController>().SetPath(path_1);
+            newMonster.SetPath(path_1);
         }
         else
         {
-            newObject.GetComponent<MonsterController>().SetPath(path_2);
+            newMonster.SetPath(path_2);
         }
 
-        StartCoroutine(CreateNewObjectCoroutine());
+        StartCoroutine(CreateNewMonsterCoroutine());
     }
 
     public void MonsterComeHomeAndSayHello()
@@ -130,9 +102,7 @@ public class Controller : Singleton<Controller>
         lives_contents.text = lives.ToString();
         if (lives == 0)
         {
-            isGameOver = true;
-            //StopAllCoroutines();
-            Time.timeScale = 0;
+            GameStop();
         }
     }
 
@@ -146,11 +116,27 @@ public class Controller : Singleton<Controller>
 
     private void GameStart()
     {
+        gold = 60;
+        lives = 3;
+        scores = 0;
 
+        gold_contents.text = gold.ToString();
+        lives_contents.text = lives.ToString();
+        scores_contents.text = scores.ToString();
+
+        StartCoroutine(CreateNewMonsterCoroutine());
+
+        for (int i = 0; i < heroNodes.Count; i++)
+        {
+            heroNodesReady.Add(i);
+        }
+
+        purchaseHeroes.onClick.AddListener(() => PurchaseHeroes());
     }
 
     private void GameStop()
     {
-
+        StopAllCoroutines();
+        Time.timeScale = 0;
     }
 }

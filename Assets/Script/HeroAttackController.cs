@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class HeroAttackController : HeroBase
 {
-    public GameObject bulletPrefabs;
+    public BulletController bulletController;
+    private int damageBase = 50;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,14 +19,22 @@ public class HeroAttackController : HeroBase
         GameObject target = FindTarget();
         if (target != null)
         {
-            GameObject bullet = Instantiate(bulletPrefabs, transform.position, Quaternion.identity);
-            bullet.GetComponent<BulletController>().SetTarget(target);
+            int damage;
+            int multiplier = 1;
 
-            //Vector2 direction = target.transform.position - transform.position;
-            //direction = direction.normalized;
-            //bullet.GetComponent<Rigidbody2D>().AddForce(direction * 800f);
+            GetBuffs();
+            if (Buffs.ContainsKey(BuffType.DoubleDamage))
+            {
+                multiplier += Buffs[BuffType.DoubleDamage];
+            }
+            damage = damageBase * multiplier;
 
-            //StartCoroutine(DestroyBulletAfterTime(bullet, 2f));
+            //BulletController bullet = Instantiate(bulletController, transform.position, Quaternion.identity);
+            BulletController bullet = (BulletController)SimplePool.Spawn(PoolType.Bullet, transform.position, Quaternion.identity);
+
+            bullet.SetTarget(target);
+            bullet.SetDamage(damage);
+
         }
         StartCoroutine(AttackMonster());
     }
@@ -41,18 +51,9 @@ public class HeroAttackController : HeroBase
         }
     }
 
-    //IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)
-    //{
-    //    yield return new WaitForSeconds(delay);
-    //    if (bullet != null)
-    //    {
-    //        Destroy(bullet);
-    //    }
-    //}
 
     // Update is called once per frame
     void Update()
-    {
-
+    {       
     }
 }

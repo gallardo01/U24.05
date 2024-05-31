@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletController : GameUnit
 {
     private GameObject target;
     private float speed = 5f;
 
+    public int damage;
+
     Vector2 direction;
     void Update()
     {
-        if (Controller.Ins.isGameOver) { return; }
-
         if (target == null)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            SimplePool.Despawn(this);
         }
         else
         {
@@ -23,8 +24,13 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void SetTarget(GameObject monster) 
+    public void SetTarget(GameObject target) 
     {
-        target = monster;
+        this.target = target;
+    }
+
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
     }
 }
