@@ -5,7 +5,8 @@ using UnityEngine;
 public class SCR_Bullet : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-
+    
+    private int m_Damage = 30;
     private Transform target;
     void Start()
     {
@@ -15,6 +16,11 @@ public class SCR_Bullet : MonoBehaviour
     public void SetTarget(Transform target)
     {
         this.target = target;
+    }    
+
+    public void SetDamage(int damage)
+    {
+        this.m_Damage = damage;
     }    
 
     void Update()
@@ -34,8 +40,7 @@ public class SCR_Bullet : MonoBehaviour
     {
         if(collision.tag == "Monster")
         {
-            collision.GetComponent<MonsterController>().OnDeath();
-            GameController.Instance.AddCoin(1);
+            collision.GetComponent<MonsterController>().TakeDamage(m_Damage);
             Destroy(gameObject);
         }
     }

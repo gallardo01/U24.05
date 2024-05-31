@@ -12,7 +12,8 @@ public class GameController : MonoBehaviourSingleton<GameController>
 
     [SerializeField] Button m_BuyBtn;
     [SerializeField] TextMeshProUGUI m_GoldQuantityTxt;
-    [SerializeField] private int m_PlayerHP = 3;
+    [SerializeField] TextMeshProUGUI m_HealthTxt;
+    [SerializeField] private int m_Health = 3;
 
     [SerializeField] GameObject m_Result;
     [SerializeField] TextMeshProUGUI m_TotalGoldTxt;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
     [SerializeField] private List<Transform> path_2 = new List<Transform>();
     [SerializeField] private List<Transform> defenseArea = new List<Transform>();
 
+    [SerializeField] private float m_SpawnMonsterCoolDown = 1f;
     private List<KeyValuePair<Transform, bool>> areaState = new List<KeyValuePair<Transform, bool>>();
     private List<Transform> monsterPath = new List<Transform>();
 
@@ -50,7 +52,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
         }
 
         m_Result.SetActive(false);
-        m_PlayerHP = 3;
+        m_Health = 3;
         m_GoldQuantity = 10;
         UpdateUI();
     }
@@ -61,7 +63,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
 
     IEnumerator SpawnMonster()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(m_SpawnMonsterCoolDown);
 
         if (Random.Range(0, 2) == 0)
         {
@@ -100,6 +102,7 @@ public class GameController : MonoBehaviourSingleton<GameController>
     public void UpdateUI()
     {
         m_GoldQuantityTxt.text = m_GoldQuantity.ToString();
+        m_HealthTxt.text = m_Health.ToString();
     }    
 
     public void AddCoin(int amount)
@@ -108,10 +111,11 @@ public class GameController : MonoBehaviourSingleton<GameController>
         UpdateUI();
     }    
 
-    public void UpdatePlayerHP(int amount)
+    public void ReduceHealth(int amount)
     {
-        m_PlayerHP += amount;
-        if (m_PlayerHP <= 0)
+        m_Health -= amount;
+        UpdateUI();
+        if (m_Health <= 0)
         {
             GameOver();
             m_Result.SetActive(true);

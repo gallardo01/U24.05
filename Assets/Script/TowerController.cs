@@ -6,8 +6,8 @@ using UnityEngine;
 public class TowerController : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float m_BulletSpeed = 100f;
-    [SerializeField] private float m_AttackSpeed = 2;
+    [SerializeField] private float m_CooldownAttack = 1f;
+    [SerializeField] private int m_DamagePerBullet = 30;
 
     // Start is called before the first frame update
     void Start()
@@ -45,14 +45,14 @@ public class TowerController : MonoBehaviour
 
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(m_AttackSpeed);
+        yield return new WaitForSeconds(m_CooldownAttack);
         GameObject target = FindTarget();
         if(target != null)
         {
             GameObject bullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
             Vector2 direction = target.transform.position - transform.position;
-            //bullet.GetComponent<Rigidbody2D>().AddForce(direction * m_BulletSpeed);
             bullet.GetComponent<SCR_Bullet>().SetTarget(target.transform);
+            bullet.GetComponent<SCR_Bullet>().SetDamage(m_DamagePerBullet);
         }
         StartCoroutine(Attack());
     }
