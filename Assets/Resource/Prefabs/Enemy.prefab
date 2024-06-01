@@ -124,6 +124,7 @@ MonoBehaviour:
   monster: {fileID: 1339152976937296477}
   rotate: 1
   healthBar: {fileID: 6632293551429547958}
+  bullet: {fileID: -7386735721292573604, guid: 07cf6c6ee9979404f80926a5228a56d5, type: 3}
 --- !u!70 &7578359893654093638
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

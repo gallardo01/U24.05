@@ -26,7 +26,7 @@ public class UImanager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        coin = PlayerPrefs.GetInt("coin", 150);
+        coin = PlayerPrefs.GetInt("coin", 850);
         hero1Price = 50;
         hero2Price = 30;
     }

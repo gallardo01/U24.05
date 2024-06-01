@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     Transform target;
+    public BuffArea buffArea;
+    float bulletDamage = 20f;
     [SerializeField] float moveSpeed = 3f;
 
     private void Update()
@@ -21,5 +23,15 @@ public class Bullet : MonoBehaviour
     public void SetTargetFire(Transform target)
     {
        this.target = target;
+    }
+    public float SetBulletDamage()
+    {
+        if (buffArea.CheckBuffActive())
+        {
+            return 2 * this.bulletDamage;
+        }else
+        {
+            return this.bulletDamage;
+        }
     }
 }

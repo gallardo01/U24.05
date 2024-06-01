@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public Transform monster;
     public bool rotate = true;
     public HealthBar healthBar;
+    public Bullet bullet;
     private float hp;
 
     private List<Transform> monsterRoad = new List<Transform>();
@@ -56,7 +57,7 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag("bullet"))
         {
             Destroy(collision.gameObject);
-            hp -= 20;
+            hp -= bullet.SetBulletDamage();
             healthBar.SetNewHP(hp);
         }
     }
