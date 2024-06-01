@@ -25,6 +25,7 @@ public class MonsterController : MonoBehaviour
     void Update() 
     {
         monster.position = Vector2.MoveTowards(monster.position, monsterRoad[current_road].position, 0.01f);
+        Debug.Log(current_road);
         if (Vector2.Distance(monster.position, monsterRoad[current_road].position) < 0.1f)
         {
             current_road++;
