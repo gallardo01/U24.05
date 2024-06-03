@@ -47,7 +47,6 @@ public class Controller : MonoBehaviour
     public void CreatCharacter1()
     {
         int slot = CheckAvailableSlot();
-        Debug.Log(slot);
         int coin = UImanager.instance.DisplayCoin();
         if (coin >= 50)
         {
@@ -61,7 +60,6 @@ public class Controller : MonoBehaviour
     public void CreatCharacter2()
     {
         int slot = CheckAvailableSlot();
-        Debug.Log(slot);
         int coin = UImanager.instance.DisplayCoin();
         if (coin >= 30)
         {
@@ -84,23 +82,23 @@ public class Controller : MonoBehaviour
     }
 
     //Hàm Start và GameOver
-    private void GameStart()
-    {
-        // => chạy hàm Start của game
-    }
-    private void GameOver() 
-    {
-        // Dừng coroutine
-        StopAllCoroutines();
-        GameObject[] listMonster = GameObject.FindGameObjectsWithTag("monster");
-        for (int i = 0; i < listMonster.Length; i++)
-        {
-            Destroy(listMonster[i]);
-        }
-        GameObject[] listBullet = GameObject.FindGameObjectsWithTag("bullet");
-        for (int i = 0; i < listBullet.Length; i++)
-        {
-            Destroy(listBullet[i]);
-        }
-    }
+    //private void GameStart()
+    //{
+    //    // => chạy hàm Start của game
+    //}
+    //private void GameOver() 
+    //{
+    //    // Dừng coroutine
+    //    StopAllCoroutines();
+    //    GameObject[] listMonster = GameObject.FindGameObjectsWithTag("monster");
+    //    for (int i = 0; i < listMonster.Length; i++)
+    //    {
+    //        Destroy(listMonster[i]);
+    //    }
+    //    GameObject[] listBullet = GameObject.FindGameObjectsWithTag("bullet");
+    //    for (int i = 0; i < listBullet.Length; i++)
+    //    {
+    //        Destroy(listBullet[i]);
+    //    }
+    //}
 }

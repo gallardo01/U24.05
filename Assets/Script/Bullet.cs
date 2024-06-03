@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     Transform target;
-    public BuffArea buffArea;
     float bulletDamage = 20f;
     [SerializeField] float moveSpeed = 3f;
 
@@ -24,14 +24,13 @@ public class Bullet : MonoBehaviour
     {
        this.target = target;
     }
-    public float SetBulletDamage()
+    public void BuffBulletDamage()
     {
-        if (buffArea.CheckBuffActive())
-        {
-            return 2 * this.bulletDamage;
-        }else
-        {
-            return this.bulletDamage;
-        }
+        
+    }
+    public float SetBulletDamage(float bulletDamage)
+    {
+        this.bulletDamage = bulletDamage;
+        return this.bulletDamage;
     }
 }
