@@ -22,6 +22,7 @@ public class BuffCharacter: CharacterManager
         List<GameObject> target = FindTarget();
         if (target != null)
         {
+            Debug.Log(target.Count);
         }
         StartCoroutine(BuffAttack());
     }
@@ -34,14 +35,29 @@ public class BuffCharacter: CharacterManager
         {
             for (int j = 0; j < grid.GetLength(1); j++)
             {
-                Debug.Log("gà");
-                if (grid[i,j].CompareTag("character"))
+                if (grid[i,j] == gameObject)
                 {
-                    Debug.Log("vịt");
-                    if (grid[i-1,j] == gameObject || grid[i + 1, j] == gameObject || grid[i, j-1] == gameObject || grid[i, j+1] == gameObject)
-                    {
-                        target.Add(grid[i, j]);
-                    }
+                    Debug.Log(i + "-" + j);
+                    //if (i > 0 && grid[i-1,j] == gameObject)
+                    //{
+                    //    Debug.Log("thêm thằng bên dưới" + i + j);
+                    //    target.Add(grid[i, j]);
+                    //}
+                    //if (i < 3 && grid[i+1,j] == gameObject)
+                    //{
+                    //    Debug.Log("thêm thằng bên trên" + i + j);
+                    //    target.Add(grid[i, j]);
+                    //}
+                    //if (j > 0 && grid[i,j-1] == gameObject)
+                    //{
+                    //    Debug.Log("thêm thằng bên phải" + i + j);
+                    //    target.Add(grid[i, j]);
+                    //}
+                    //if (j < 3 && grid[i, j + 1] == gameObject)
+                    //{
+                    //    Debug.Log("thêm thằng bên trái" + i + j);
+                    //    target.Add(grid[i, j]);
+                    //}
                 }
             }
         }
@@ -54,10 +70,7 @@ public class BuffCharacter: CharacterManager
         {
             for (int j = 0; j < grid.GetLength(1); j++)
             {
-                if(FintCharacterInDict(count))
-                {
-                    grid[i, j] = FintCharacterInDict(count);
-                }
+                grid[i, j] = FintCharacterInDict(count);
                 count++;
             }
         }
@@ -69,6 +82,7 @@ public class BuffCharacter: CharacterManager
         {
             if(key == character.Key)
             {
+                Debug.Log(character.Key + ": " + character.Value);
                 return character.Value;
             }
         }
