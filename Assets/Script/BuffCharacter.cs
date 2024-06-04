@@ -1,38 +1,74 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using static UnityEngine.GraphicsBuffer;
+using Debug = UnityEngine.Debug;
 
 public class BuffCharacter: CharacterManager
 {
-    public Controller controller;
-    public GameObject[,] grid = new GameObject[4, 4]; 
-    new public GameObject[] FindTarget()
+    public GameObject[,] grid = new GameObject[4, 4];
+    public GameObject characterPrefabs;
+    private void Start()
     {
-        int count = 0;
-        GameObject[] target = new GameObject[4];
+        StartCoroutine(BuffAttack());
+    }
+    IEnumerator BuffAttack()
+    {
+        yield return new WaitForSeconds(3f);
+        List<GameObject> target = FindTarget();
+        if (target != null)
+        {
+        }
+        StartCoroutine(BuffAttack());
+    }
+
+    new public List<GameObject> FindTarget()
+    {
+        List<GameObject> target = new List<GameObject>();
+        AddCharacterToArray();
         for (int i = 0; i < grid.GetLength(0); i++)
         {
             for (int j = 0; j < grid.GetLength(1); j++)
             {
-                if(FintCharacterinDict(count))
+                Debug.Log("gà");
+                if (grid[i,j].CompareTag("character"))
                 {
-                    grid[i, j] = FintCharacterinDict(count);
+                    Debug.Log("vịt");
+                    if (grid[i-1,j] == gameObject || grid[i + 1, j] == gameObject || grid[i, j-1] == gameObject || grid[i, j+1] == gameObject)
+                    {
+                        target.Add(grid[i, j]);
+                    }
                 }
-                count++;
             }
         }
         return target;
     }
-
-    private GameObject FintCharacterinDict(int key)
+    public void AddCharacterToArray()
     {
-        foreach (var character in controller.characterDict)
+        int count = 0;
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < grid.GetLength(1); j++)
+            {
+                if(FintCharacterInDict(count))
+                {
+                    grid[i, j] = FintCharacterInDict(count);
+                }
+                count++;
+            }
+        }
+    }
+
+    private GameObject FintCharacterInDict(int key)
+    {
+        foreach (var character in Controller.Instance.characterDict)
         {
             if(key == character.Key)
             {
-                Debug.Log(character.Key + ": " + character.Value);
                 return character.Value;
             }
         }

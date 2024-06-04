@@ -6,7 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+public class Controller : Singleton<Controller>
 {
     public GameObject monsterPrefabs;
     public GameObject characterPrefabs;

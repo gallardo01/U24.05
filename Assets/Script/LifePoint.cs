@@ -11,7 +11,6 @@ public class LifePoint : MonoBehaviour
     public TMP_Text lifePointText;
     bool isGameOver = false;
     public int lifePoint = 3;
-    float time;
     private void Start()
     {
         DisplayLifePoint(lifePoint);
