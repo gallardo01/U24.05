@@ -27,14 +27,13 @@ public class Character : CharacterManager
 
     public void CheckBuffActiveOnCharacter(bool check)
     {
-        Debug.Log(check);
         if (check)
         {
-            bulletPrefabs.BuffBulletDamage(true);
+            bulletPrefabs.BuffBulletDamage(2f);
         }
         else
         {
-            bulletPrefabs.BuffBulletDamage(false);
+            bulletPrefabs.BuffBulletDamage(1f);
         }
     }
 }

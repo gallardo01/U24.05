@@ -11,7 +11,6 @@ using Debug = UnityEngine.Debug;
 public class BuffCharacter: CharacterManager
 {
     public GameObject[,] grid = new GameObject[4, 4];
-    public Character character;
     private void Start()
     {
         StartCoroutine(BuffAttack());
@@ -20,12 +19,14 @@ public class BuffCharacter: CharacterManager
     {
         yield return new WaitForSeconds(5f);
         List<GameObject> target = FindTarget();
+        GameObject[] characterObject = GameObject.FindGameObjectsWithTag("character");
         if (target != null)
         {
-            for (int i = 0; i < target.Count; i++)
+            for (int i = 0; i < characterObject.Length; i++)
             {
-                if (character.transform.position == target[i].transform.position)
+                if (target.Contains(characterObject[i]))
                 {
+                    Character character = characterObject[i].GetComponent<Character>();
                     character.CheckBuffActiveOnCharacter(true);
                 }
             }
