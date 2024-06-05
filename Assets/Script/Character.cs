@@ -24,4 +24,17 @@ public class Character : CharacterManager
         }
         StartCoroutine(AttackMonster());
     }
+
+    public void CheckBuffActiveOnCharacter(bool check)
+    {
+        Debug.Log(check);
+        if (check)
+        {
+            bulletPrefabs.BuffBulletDamage(true);
+        }
+        else
+        {
+            bulletPrefabs.BuffBulletDamage(false);
+        }
+    }
 }

@@ -11,22 +11,27 @@ using Debug = UnityEngine.Debug;
 public class BuffCharacter: CharacterManager
 {
     public GameObject[,] grid = new GameObject[4, 4];
-    public GameObject characterPrefabs;
+    public Character character;
     private void Start()
     {
         StartCoroutine(BuffAttack());
     }
     IEnumerator BuffAttack()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         List<GameObject> target = FindTarget();
         if (target != null)
         {
-            Debug.Log(target.Count);
-        }
+            for (int i = 0; i < target.Count; i++)
+            {
+                if (character.transform.position == target[i].transform.position)
+                {
+                    character.CheckBuffActiveOnCharacter(true);
+                }
+            }
+        }    
         StartCoroutine(BuffAttack());
     }
-
     new public List<GameObject> FindTarget()
     {
         List<GameObject> target = new List<GameObject>();
@@ -37,27 +42,34 @@ public class BuffCharacter: CharacterManager
             {
                 if (grid[i,j] == gameObject)
                 {
-                    Debug.Log(i + "-" + j);
-                    //if (i > 0 && grid[i-1,j] == gameObject)
-                    //{
-                    //    Debug.Log("thêm thằng bên dưới" + i + j);
-                    //    target.Add(grid[i, j]);
-                    //}
-                    //if (i < 3 && grid[i+1,j] == gameObject)
-                    //{
-                    //    Debug.Log("thêm thằng bên trên" + i + j);
-                    //    target.Add(grid[i, j]);
-                    //}
-                    //if (j > 0 && grid[i,j-1] == gameObject)
-                    //{
-                    //    Debug.Log("thêm thằng bên phải" + i + j);
-                    //    target.Add(grid[i, j]);
-                    //}
-                    //if (j < 3 && grid[i, j + 1] == gameObject)
-                    //{
-                    //    Debug.Log("thêm thằng bên trái" + i + j);
-                    //    target.Add(grid[i, j]);
-                    //}
+                    if (i > 0 && grid[i-1,j] != null)
+                    {
+                        if (grid[i-1,j].CompareTag("character"))
+                        {
+                            target.Add(grid[i - 1, j]);
+                        }
+                    }
+                    if (i < 3 && grid[i + 1, j] != null)
+                    {
+                        if (grid[i + 1, j].CompareTag("character"))
+                        {
+                            target.Add(grid[i + 1, j]);
+                        }
+                    }
+                    if (j > 0 && grid[i, j - 1] != null)
+                    {
+                        if (grid[i, j - 1].CompareTag("character"))
+                        {
+                            target.Add(grid[i, j - 1]);
+                        }
+                    }
+                    if (j < 3 && grid[i, j + 1] != null)
+                    {
+                        if (grid[i, j + 1].CompareTag("character"))
+                        {
+                            target.Add(grid[i, j + 1]);
+                        }
+                    }
                 }
             }
         }
@@ -75,14 +87,12 @@ public class BuffCharacter: CharacterManager
             }
         }
     }
-
     private GameObject FintCharacterInDict(int key)
     {
         foreach (var character in Controller.Instance.characterDict)
         {
             if(key == character.Key)
             {
-                Debug.Log(character.Key + ": " + character.Value);
                 return character.Value;
             }
         }

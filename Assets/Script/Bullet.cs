@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
     Transform target;
     float bulletDamage = 20f;
+    float bulletBuff;
     [SerializeField] float moveSpeed = 3f;
 
     private void Update()
@@ -24,13 +25,20 @@ public class Bullet : MonoBehaviour
     {
        this.target = target;
     }
-    public void BuffBulletDamage()
+    public float BuffBulletDamage(bool check)
     {
-        
+        if (check)
+        {
+            bulletBuff = 2;
+        } else
+        {
+            bulletBuff = 1;
+        }
+        return this.bulletBuff;
     }
-    public float SetBulletDamage(float bulletDamage)
+    public float SetBulletDamage()
     {
-        this.bulletDamage = bulletDamage;
-        return this.bulletDamage;
+        Debug.Log(this.bulletBuff + " " + bulletDamage);
+        return this.bulletBuff*this.bulletDamage;
     }
 }

@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         if (collision.CompareTag("bullet"))
         {
             Destroy(collision.gameObject);
-            hp -= bullet.SetBulletDamage(20f);
+            hp -= bullet.SetBulletDamage();
             healthBar.SetNewHP(hp);
         }
     }

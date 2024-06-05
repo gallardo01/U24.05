@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9146909506862033688}
   m_Layer: 0
   m_Name: BuffCharacter
-  m_TagString: character
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a932d1a3235e8f4a8ffc1e693a165ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefabs: {fileID: 7183885325932983482, guid: f1baea9e3da48d94cad92b2a257f1b0c, type: 3}
+  character: {fileID: 5818170656094486694, guid: f1baea9e3da48d94cad92b2a257f1b0c, type: 3}
