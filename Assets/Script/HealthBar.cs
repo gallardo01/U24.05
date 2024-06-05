@@ -27,6 +27,7 @@ public class HealthBar : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Space))
         {
             takeDamage(10);
+            Debug.Log("Damage's done");
         }
         if(healthSlider.value != easeSlider.value)
         {

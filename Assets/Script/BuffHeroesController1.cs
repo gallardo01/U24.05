@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroesController : MonoBehaviour
+public class BuffHeroesController : MonoBehaviour
 {
     public GameObject bulletPrefabs;
-    [SerializeField] private float shootSpeed = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +47,13 @@ public class HeroesController : MonoBehaviour
             return null; 
         }
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Hero")) 
+        {
+            //Increase Shoot Speed
+        }
+    }
     // Update is called once per frame
     void Update()
     {

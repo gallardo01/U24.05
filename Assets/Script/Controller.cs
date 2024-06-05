@@ -10,6 +10,7 @@ public class Controller : Singleton<Controller>
 {
     public GameObject monsterPrefabs;
     public GameObject heroPrefabs;
+    public List<GameObject> heroPrefabsList;
     public GameObject gameOverPanel;
 
     public List<Transform> path_1 = new List<Transform>();
@@ -58,7 +59,7 @@ public class Controller : Singleton<Controller>
         {
             gold -= 50;
             SetTextGold();
-            GameObject newHeroes = Instantiate(heroPrefabs);
+            GameObject newHeroes = Instantiate(heroPrefabsList[Random.Range(0,2)]);
             newHeroes.transform.position = heroesPath[ReturnAvailblePosittion()].position;
         }
     }

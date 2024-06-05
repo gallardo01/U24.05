@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterController : MonoBehaviour
 {
@@ -9,11 +10,20 @@ public class MonsterController : MonoBehaviour
     private float hp = 100f;
     private List<Transform> monsterRoad = new List<Transform>();
     private int current_road = 0;
-    private int enemyEnter;
+
+    public Slider healthSlider;
+    public Slider easeSlider;
+    public float maxHealth = 100f;
+    public float lerpSpeed = 0.05f;
+
+
+
     // Start is called before the first frame update
     private void Start()
     {
         transform.position = new Vector2(-0.28f, 8f);
+        maxHealth = healthSlider.maxValue;
+        hp = maxHealth;
     }
 
     public void SetPath(List<Transform> path)
@@ -40,15 +50,26 @@ public class MonsterController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (healthSlider.value != hp)
+        {
+            healthSlider.value = hp;
+        }
+        if (healthSlider.value != easeSlider.value)
+        {
+            easeSlider.value = Mathf.Lerp(easeSlider.value, hp, lerpSpeed);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Controller.Instance.GainGold(50);
-            hp -= 50f;
+            takeDamage(50);
             Destroy(collision.gameObject);
-        }
-        
+        }        
+    }
+    private void takeDamage(float damage)
+    {
+        hp -= damage;
     }
 }
