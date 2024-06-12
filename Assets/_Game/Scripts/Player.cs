@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameObject Brick;
     [SerializeField] Transform playerTF;
-    [SerializeField] float moveSpeed;
+    [SerializeField] float moveTime;
 
     [SerializeField] LayerMask wallLayer;
     [SerializeField] LayerMask brickLayer;
@@ -28,7 +29,6 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask endPointLayer;
 
     private float brickHeight = 0.2998985f;
-    private float brickWidth = 1f;
 
     private void Start()
     {
@@ -40,14 +40,6 @@ public class Player : MonoBehaviour
         if (!isMoving)
         {
             CheckInput();
-        }
-        else
-        {
-            Move(moveDirection);
-            CheckWall();
-            CheckBrick();
-            CheckLine();
-            CheckEndPoint();
         }
     }
 
@@ -70,14 +62,10 @@ public class Player : MonoBehaviour
             moveDirection = GetSwipeDirection();
             isSwiping = false;
 
-            //if (moveDirection != Vector3.zero)
-            //{
-            //    isMoving = true;
-            //}
-
-            if (moveDirection != Vector3.zero && !CheckWall())
+            if (moveDirection != Vector3.zero)
             {
                 isMoving = true;
+                MoveNext(moveDirection);
             }
         }
     }
@@ -104,33 +92,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    //private void Move(Vector3 moveDirection)
-    //{
-    //    transform.position += moveDirection * moveSpeed * Time.deltaTime;       
-    //}
-
-    private void Move(Vector3 moveDirection)
+    private void MoveNext(Vector3 moveDirection)
     {
-        transform.Translate(moveDirection * Time.deltaTime);
+        CheckWall();
+
+        if (!isMoving)
+        {
+            return;
+        }
+
+        transform.DOMove(transform.position + moveDirection, moveTime).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            CheckBrick();
+            CheckLine();
+            CheckEndPoint();
+            MoveNext(moveDirection);
+        });
     }
 
-    IEnumerator Move()
-    {
-        yield return null;
-    }
-
-    //private void CheckWall()
-    //{
-    //    RaycastHit hit;
-    //    Vector3 raycastPos = transform.position;
-
-    //    if (Physics.Raycast(raycastPos, moveDirection, out hit, brickWidth / 2, wallLayer))
-    //    {
-    //        isMoving = false;
-    //    }
-    //}
-
-    private bool CheckWall()
+    private void CheckWall()
     {
         RaycastHit hit;
         Vector3 raycastPos = transform.position;
@@ -139,10 +119,7 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(raycastPos + moveDirection, Vector3.down, out hit, 1f, wallLayer))
         {
             isMoving = false;
-            return true;
         }
-
-        return false;
     }
 
     private void CheckBrick()

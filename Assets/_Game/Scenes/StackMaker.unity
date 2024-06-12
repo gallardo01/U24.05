@@ -1267,7 +1267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &231733426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,7 +1951,7 @@ MonoBehaviour:
   swipeThreshold: 50
   Brick: {fileID: 1394789218}
   playerTF: {fileID: 406771283}
-  moveSpeed: 10
+  moveTime: 0.1
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
