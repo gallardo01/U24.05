@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class PlayerMoving : MonoBehaviour
 {
+    [SerializeField] Transform Player;
+
     [SerializeField] private Rigidbody rb;
-    
+
+    private float jumpHight = 0.5f;
+    private float stackCount = 0;
+    private float objectHight = 0.3f;
+
     public enum Direct { None, Forward, Back, Right, Left }
 
 
@@ -23,7 +29,7 @@ public class PlayerMoving : MonoBehaviour
         {
             Vector3 startMousePosition = Input.mousePosition;
 
-            // Listen for mouse button release to determine swipe direction
+            // xác định hướng vuốt của chuột
             StartCoroutine(DetectSwipe(startMousePosition));
         }
 
@@ -31,7 +37,7 @@ public class PlayerMoving : MonoBehaviour
 
     private IEnumerator DetectSwipe(Vector3 startMousePosition)
     {
-        // Wait until the mouse button is released
+        
         while (!Input.GetMouseButtonUp(0))
         {
             yield return null;
@@ -39,7 +45,7 @@ public class PlayerMoving : MonoBehaviour
 
         Vector3 endMousePosition = Input.mousePosition;
         Vector3 swipeDirection = endMousePosition - startMousePosition;
-        float minSwipeDistance = 50f; // Minimum swipe distance to trigger an action
+        float minSwipeDistance = 50f; // khoảng cách vuốt tối thiểu
 
         if (swipeDirection.magnitude >= minSwipeDistance)
         {
@@ -47,12 +53,10 @@ public class PlayerMoving : MonoBehaviour
             {
                 if (swipeDirection.x > 0)
                 {
-                    // Swipe right
                     MovePlayer(Direct.Right);
                 }
                 else
                 {
-                    // Swipe left
                     MovePlayer(Direct.Left);
                 }
             }
@@ -60,12 +64,10 @@ public class PlayerMoving : MonoBehaviour
             {
                 if (swipeDirection.y > 0)
                 {
-                    // Swipe up
                     MovePlayer(Direct.Forward);
                 }
                 else
                 {
-                    // Swipe down
                     MovePlayer(Direct.Back);
                 }
             }
@@ -91,5 +93,25 @@ public class PlayerMoving : MonoBehaviour
             rb.AddForce(new Vector3(0, 0, 400)); // phai theo z
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Stackable"))
+        {
+            //nhảy nhân vật lên
+            Vector3 newPos = Player.position;
+            newPos.y += jumpHight;
+            Player.position = newPos;
+
+            //xếp đối tượng rưới chân nhân vật
+            Transform t = other.transform;
+            t.tag = "Untagged";
+            t.SetParent(this.transform);
+            t.localPosition = new Vector3(0, stackCount * objectHight, 0);
+
+            stackCount++;
+            Debug.Log("Brick " + stackCount);
+        }
+    }
+
 }
