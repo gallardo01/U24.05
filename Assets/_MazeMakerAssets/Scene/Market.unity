@@ -25337,7 +25337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103b717f141ecb44386053bcae3e3cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 429720053}
+  Player: {fileID: 2129331789}
   rb: {fileID: 2129331791}
 --- !u!54 &2129331791
 Rigidbody:
@@ -25363,7 +25363,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129331788}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.1976755

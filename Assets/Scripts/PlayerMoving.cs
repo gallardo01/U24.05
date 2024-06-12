@@ -9,7 +9,7 @@ public class PlayerMoving : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
 
-    private float jumpHight = 0.5f;
+    //private float jumpHight = 0.5f;
     private float stackCount = 0;
     private float objectHight = 0.3f;
 
@@ -78,40 +78,40 @@ public class PlayerMoving : MonoBehaviour
     {
         if (direction == Direct.Forward) 
         {
-            rb.AddForce(new Vector3(400, 0, 0)); // len theo truc x
+            rb.AddForce(new Vector3(400, 0, 0));
         }
         else if (direction == Direct.Back) 
         {
-            rb.AddForce(new Vector3(-400, 0, 0)); //xuong theo truc x
+            rb.AddForce(new Vector3(-400, 0, 0)); 
         }
         else if (direction == Direct.Right) 
         {
-            rb.AddForce(new Vector3(0, 0, -400)); //trai theo truc z
+            rb.AddForce(new Vector3(0, 0, -400)); 
         }
         else if (direction == Direct.Left) 
         {
-            rb.AddForce(new Vector3(0, 0, 400)); // phai theo z
+            rb.AddForce(new Vector3(0, 0, 400)); 
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Stackable"))
-        {
-            //nhảy nhân vật lên
-            Vector3 newPos = Player.position;
-            newPos.y += jumpHight;
-            Player.position = newPos;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Stackable"))
+    //    {
+    //        //nhảy nhân vật lên
+    //        Vector3 newPos = Player.position;
+    //        newPos.y += objectHight;
+    //        Player.position = newPos;
 
-            //xếp đối tượng rưới chân nhân vật
-            Transform t = other.transform;
-            t.tag = "Untagged";
-            t.SetParent(this.transform);
-            t.localPosition = new Vector3(0, stackCount * objectHight, 0);
+    //        //xếp đối tượng rưới chân nhân vật
+    //        Transform t = other.transform;
+    //        t.tag = "Untagged";
+    //        t.SetParent(this.transform);
+    //        t.localPosition = new Vector3(0, stackCount * objectHight, 0);
 
-            stackCount++;
-            Debug.Log("Brick " + stackCount);
-        }
-    }
+    //        stackCount++;
+    //        Debug.Log("Brick " + stackCount);
+    //    }
+    //}
 
 }

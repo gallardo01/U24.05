@@ -7,6 +7,7 @@ public class MovingTwo : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private LayerMask brickLayer;
 
+
     private Vector3 targetPosition;
     private bool isMoving = false;
 
