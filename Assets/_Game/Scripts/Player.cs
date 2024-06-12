@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -68,10 +70,14 @@ public class Player : MonoBehaviour
             moveDirection = GetSwipeDirection();
             isSwiping = false;
 
-            if (moveDirection != Vector3.zero)
+            //if (moveDirection != Vector3.zero)
+            //{
+            //    isMoving = true;
+            //}
+
+            if (moveDirection != Vector3.zero && !CheckWall())
             {
                 isMoving = true;
-                //playerTF.LookAt(playerTF.position + moveDirection);
             }
         }
     }
@@ -98,20 +104,45 @@ public class Player : MonoBehaviour
         }
     }
 
+    //private void Move(Vector3 moveDirection)
+    //{
+    //    transform.position += moveDirection * moveSpeed * Time.deltaTime;       
+    //}
+
     private void Move(Vector3 moveDirection)
     {
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;       
+        transform.Translate(moveDirection * Time.deltaTime);
     }
 
-    private void CheckWall()
+    IEnumerator Move()
+    {
+        yield return null;
+    }
+
+    //private void CheckWall()
+    //{
+    //    RaycastHit hit;
+    //    Vector3 raycastPos = transform.position;
+
+    //    if (Physics.Raycast(raycastPos, moveDirection, out hit, brickWidth / 2, wallLayer))
+    //    {
+    //        isMoving = false;
+    //    }
+    //}
+
+    private bool CheckWall()
     {
         RaycastHit hit;
         Vector3 raycastPos = transform.position;
+        raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos, moveDirection, out hit, brickWidth / 2, wallLayer))
+        if (Physics.Raycast(raycastPos + moveDirection, Vector3.down, out hit, 1f, wallLayer))
         {
             isMoving = false;
+            return true;
         }
+
+        return false;
     }
 
     private void CheckBrick()
@@ -171,9 +202,8 @@ public class Player : MonoBehaviour
     private bool RemoveBrick()
     {
         if (bricks.Count > 0)
-        {
-            GameObject brickRemoved = bricks.Pop();
-            Destroy(brickRemoved);
+        {       
+            Destroy(bricks.Pop());
 
             Vector3 playerPos = playerTF.position;
             playerPos.y -= brickHeight;
