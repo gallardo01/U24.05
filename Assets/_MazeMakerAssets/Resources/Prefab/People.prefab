@@ -3051,7 +3051,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
-  - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5746,7 +5745,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
-  - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6280,6 +6278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2580899147284204563}
   - component: {fileID: 1199360350}
+  - component: {fileID: 6714603716894058424}
   m_Layer: 0
   m_Name: People
   m_TagString: Untagged
@@ -6324,10 +6323,26 @@ MonoBehaviour:
   right: {fileID: 1450349519}
   up: {fileID: 1510585699}
   dowm: {fileID: 1306256628}
+  brickPrefab: {fileID: 0}
+  playerBody: {fileID: 0}
   canMoveUp: 0
   canMoveDown: 0
   canMoveLeft: 0
   canMoveRight: 0
+--- !u!114 &6714603716894058424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665665691852194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a58330bddcd68041890b8f7b56bd4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brickPrefab: {fileID: 4012213788616213, guid: 8aad5fca35890fd4389dabb982d52236, type: 3}
+  playerModel: {fileID: 4538506697404122}
 --- !u!1 &1723320838945368
 GameObject:
   m_ObjectHideFlags: 0
