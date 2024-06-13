@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class MovingStackMaker : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private LayerMask Grounded;
+    [SerializeField] private LayerMask BrickLayer;
 
     [SerializeField] Transform up;
     [SerializeField] Transform down;
@@ -20,15 +19,16 @@ public class MovingStackMaker : MonoBehaviour
     public bool canRight = false;
 
     public float speed;
+    private bool isMoving = false;
 
-    public float hight = 0.5f;
-    public float StackCount = 0;
-    public float BrickObject = 0.1f;
+    private List<GameObject> brickStack = new List<GameObject>();
+    private float objectHeight = 0.3f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-      
+
     }
 
     // Update is called once per frame
@@ -39,11 +39,29 @@ public class MovingStackMaker : MonoBehaviour
         canLeft = CheckIsMoveStep(left);
         canRight = CheckIsMoveStep(right);
 
+        if (!isMoving)
+        {
+            if (Input.GetKeyDown(KeyCode.W) && canUp)
+            {
+                StartCoroutine(MoveContinuously(new Vector3(1, 0, 0)));
+            }
+            else if (Input.GetKeyDown(KeyCode.S) && canDown)
+            {
+                StartCoroutine(MoveContinuously(new Vector3(-1, 0, 0)));
+            }
+            else if (Input.GetKeyDown(KeyCode.A) && canLeft)
+            {
+                StartCoroutine(MoveContinuously(new Vector3(0, 0, 1)));
+            }
+            else if (Input.GetKeyDown(KeyCode.D) && canRight)
+            {
+                StartCoroutine(MoveContinuously(new Vector3(0, 0, -1)));
+            }
+        }
 
-        Moving();
     }
 
-    private bool CheckIsMoveStep(Transform DirectionPoint) 
+    private bool CheckIsMoveStep(Transform DirectionPoint)
     {
         Debug.DrawLine(DirectionPoint.position, DirectionPoint.position + Vector3.down * 1.1f, Color.red);
 
@@ -56,59 +74,100 @@ public class MovingStackMaker : MonoBehaviour
         {
             return false;
         }
-
-        //return Physics.Raycast(DirectionPoint.position, Vector3.down, 1f, Grounded);
     }
 
-    private void Moving() 
+    private void Moving(Vector3 direction)
     {
-        if (UnityEngine.Input.GetKey(KeyCode.W))
+        transform.Translate(direction * speed * Time.deltaTime);
+        CheckForBricks();
+    }
+
+    private IEnumerator MoveContinuously(Vector3 direction)
+    {
+        isMoving = true;
+
+        while (true)
         {
-            if (canUp) 
+            if (direction == new Vector3(1, 0, 0) && canUp)
             {
-                transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime);
+                Moving(new Vector3(1, 0, 0));
             }
+            else if (direction == new Vector3(-1, 0, 0) && canDown)
+            {
+                Moving(new Vector3(-1, 0, 0));
+            }
+            else if (direction == new Vector3(0, 0, 1) && canLeft)
+            {
+                Moving(new Vector3(0, 0, 1));
+            }
+            else if (direction == new Vector3(0, 0, -1) && canRight)
+            {
+                Moving(new Vector3(0, 0, -1));
+            }
+            else
+            {
+                break;
+            }
+
+            // Cập nhật lại các trạng thái di chuyển
+            canUp = CheckIsMoveStep(up);
+            canDown = CheckIsMoveStep(down);
+            canLeft = CheckIsMoveStep(left);
+            canRight = CheckIsMoveStep(right);
+
+            yield return null;
         }
-        else if (UnityEngine.Input.GetKey(KeyCode.S)) 
+
+        isMoving = false;
+    }
+
+    private void CheckForBricks()
+    {
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * 1.1f, Color.blue);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, BrickLayer))
         {
-            if (canDown) 
+            GameObject brick = hit.collider.gameObject;
+            Debug.Log("cham voi brick");
+            if (!brickStack.Contains(brick))
             {
-                transform.Translate(new Vector3(-1, 0, 0) * speed * Time.deltaTime);
-            }
-        }else if (UnityEngine.Input.GetKey(KeyCode.D)) 
-        {
-            if (canRight) 
-            {
-                transform.Translate(new Vector3(0, 0, -1) * speed * Time.deltaTime);
-            }
-        }else if (UnityEngine.Input.GetKey(KeyCode.A)) 
-        {
-            if (canLeft) 
-            {
-                transform.Translate(new Vector3(0, 0, 1) * speed * Time.deltaTime);
+                CollectBrick(brick);
             }
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Stackable"))
-    //    {
-    //        Vector3 newPost = transform.position;
-    //        newPost.y += hight;
-    //        transform.position = newPost;
 
-    //        //push brich 
-    //        Transform t = other.transform;
-    //        t.tag = "Untagged";
-    //        t.SetParent(this.transform);
-    //        t.localPosition = new Vector3(0, StackCount * BrickObject, 0);
+    private void CollectBrick(GameObject brick)
+    {
+        brickStack.Add(brick);
+        brick.transform.SetParent(transform);
+        updatebrickpositions();
+        UpdatePlayerPosition();
 
-    //        StackCount++;
-    //        Debug.Log("Push Stack: " + StackCount);
-    //    }
-    //}
+    }
 
+    private void updatebrickpositions()
+    {
+        //for (int i = 0; i < brickStack.Count; i++)
+        //{
+        //    brickStack[i].transform.localPosition = new Vector3(0, -1 - i, 0);
+        //}
 
+        float stackHeight = 0f; 
+        for (int i = 0; i < brickStack.Count; i++)
+        {
+            Vector3 brickPos = new Vector3(0, -stackHeight, 0); // Tính toán vị trí mới cho viên gạch
+            brickStack[i].transform.localPosition = brickPos; // Cập nhật vị trí của viên gạch
 
+            stackHeight += objectHeight; // Tăng độ cao của cột viên gạch lên theo chiều dọc
+        }
+
+    }
+
+    private void UpdatePlayerPosition()
+    {
+        float newyposition = objectHeight * brickStack.Count;
+        transform.localPosition = new Vector3(transform.localPosition.x, newyposition, transform.localPosition.z);
+    }
 }
