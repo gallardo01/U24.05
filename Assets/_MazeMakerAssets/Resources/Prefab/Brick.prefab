@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 4012213788616213}
   - component: {fileID: 33034472775896632}
   - component: {fileID: 23486336650771803}
-  m_Layer: 0
+  - component: {fileID: 1189075965}
+  - component: {fileID: 8737984477077308012}
+  m_Layer: 6
   m_Name: Brick
   m_TagString: brick
   m_Icon: {fileID: 0}
@@ -83,3 +85,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1189075965
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531101969777205}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.0000002, z: 0.2998983}
+  m_Center: {x: 0.0000058561563, y: -0.00000023841864, z: 0.14994909}
+--- !u!54 &8737984477077308012
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531101969777205}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
