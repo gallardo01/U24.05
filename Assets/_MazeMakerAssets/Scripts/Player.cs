@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform up;
     [SerializeField] Transform dowm;
 
+    MoveState currentMoveState;
     private BrickStacking brickStacking;
     public bool canMove = true;
 
@@ -49,9 +50,11 @@ public class Player : MonoBehaviour
 
     IEnumerator Move(MoveState state)
     {
+        currentMoveState = state;
         canMove = false;
         if (CheckMoveStatus(state))
         {
+            yield return new WaitForSeconds(0.05f);
             brickStacking.StackChecking();
             MovePlayerDirection(state);
             StartCoroutine(Move(state));
@@ -60,7 +63,6 @@ public class Player : MonoBehaviour
         {
             canMove = true;
         }
-        yield return new WaitForSeconds(0.05f);
     }
     private bool CheckMoveStatus(MoveState state)
     {
@@ -110,7 +112,25 @@ public class Player : MonoBehaviour
             StopAllCoroutines();
             transform.position = new Vector3(other.transform.position.x, transform.position.y, other.transform.position.z);
 
-            MoveState moveState = other.GetComponent<Push>().GetMoveState();
+            //MoveState moveState = other.GetComponent<Push>().GetMoveState();
+            //StartCoroutine(Move(moveState));
+            //Chekc huongw nguowc:
+
+            List<MoveState> moveStates = new List<MoveState>() { MoveState.Left, MoveState.Right, MoveState.Up, MoveState.Down  };
+
+            for(int i = 0; i < moveStates.Count; i++)
+            {
+                if(currentMoveState == moveStates[i])
+                {
+                    moveStates.RemoveAt(i);
+                }
+                if (!CheckMoveStatus(moveStates[i]))
+                {
+                    moveStates.RemoveAt(i);
+                }
+            }
+            
+            MoveState moveState = moveStates[Random.Range(0, moveStates.Count - 1)];
             StartCoroutine(Move(moveState));
         }
     }
