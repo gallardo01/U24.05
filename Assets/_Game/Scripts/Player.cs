@@ -30,11 +30,6 @@ public class Player : MonoBehaviour
 
     private float brickHeight = 0.2998985f;
 
-    private void Start()
-    {
-        OnInit();
-    }
-
     private void Update()
     {
         if (!isMoving)
@@ -43,9 +38,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnInit()
+    public void OnInit(Transform startPos)
     {
         isMoving = false;
+        transform.position = startPos.position;
     }
 
     private void CheckInput()
@@ -112,11 +108,10 @@ public class Player : MonoBehaviour
 
     private void CheckWall()
     {
-        RaycastHit hit;
         Vector3 raycastPos = transform.position;
         raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos + moveDirection, Vector3.down, out hit, 1f, wallLayer))
+        if (Physics.Raycast(raycastPos + moveDirection, Vector3.down, 1f, wallLayer))
         {
             isMoving = false;
         }
@@ -146,7 +141,7 @@ public class Player : MonoBehaviour
             if (RemoveBrick())
             {
                 hit.collider.enabled = false;
-                GameObject yellow = Instantiate(GameController.Ins.Yellow, hit.collider.transform);
+                GameObject yellow = Instantiate(GameManager.Ins.Yellow, hit.collider.transform);
                 yellow.transform.localPosition += new Vector3(0, 0.1f, 0);
             }
             else
@@ -158,11 +153,10 @@ public class Player : MonoBehaviour
 
     private void CheckEndPoint()
     {
-        RaycastHit hit;
         Vector3 raycastPos = transform.position;
         raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos, Vector3.down, out hit, 1f, endPointLayer))
+        if (Physics.Raycast(raycastPos, Vector3.down, 1f, endPointLayer))
         {           
             isMoving = false;
             ClearBrick();
@@ -180,7 +174,7 @@ public class Player : MonoBehaviour
         playerPos.y += brickHeight;
         playerTF.position = playerPos;
 
-        GameController.Ins.AddScore(10);
+        GameManager.Ins.AddScore(10);
     }
 
     private bool RemoveBrick()

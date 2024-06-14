@@ -8,32 +8,19 @@ public class LevelManager : Singleton<LevelManager>
     public Level currentLevel;
     public int currentLevelIndex = 0;
 
+    [SerializeField] Player player;
+
     public void Start()
     {       
         OnInit();
     }
 
-    //khoi tao trang thai bat dau game
     public void OnInit()
     {
-        //OnLoadLevel(currentLevelIndex);
-        //player.OnInit();
+        OnLoadLevel(currentLevelIndex);
+        player.OnInit(currentLevel.startPos);
     }
 
-    //reset trang thai khi ket thuc game
-    public void OnReset()
-    {
-        //player.OnDespawn();
-        //for (int i = 0; i < bots.Count; i++)
-        //{
-        //    bots[i].OnDespawn();
-        //}
-
-        //bots.Clear();
-        //SimplePool.CollectAll();
-    }
-
-    //tao prefab level moi
     public void OnLoadLevel(int level)
     {
         if (currentLevel != null)
@@ -46,11 +33,22 @@ public class LevelManager : Singleton<LevelManager>
 
     public void ResetLevel()
     {
-
+        GameManager.Ins.OnInit();
+        OnInit();
     }
 
     public void NextLevel()
     {
-
+        currentLevelIndex++;
+        
+        if (currentLevelIndex + 1 <= levels.Count)
+        {
+            GameManager.Ins.OnInit();
+            OnInit();
+        }
+        else
+        {
+            Debug.Log("Congrats");
+        }       
     }
 }

@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : Singleton<GameController>
+public class GameManager : Singleton<GameManager>
 {
     public GameObject Yellow;
     public int Score;
 
-    private void Start()
+    public void Start()
+    {
+        UIManager.Ins.OpenUI<UIGameplay>();
+        OnInit();
+    }
+
+    public void OnInit()
     {
         Score = 0;
-        UIManager.Ins.OpenUI<UIGameplay>();
+        UIManager.Ins.GetUI<UIGameplay>().updateTextScore();
     }
 
     public void AddScore(int score)

@@ -25,6 +25,6 @@ public class UIWin : UICanvas
 
     private void OnEnable()
     {
-        textScore.text = GameController.Ins.Score.ToString();
+        textScore.text = GameManager.Ins.Score.ToString();
     }
 }

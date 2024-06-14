@@ -6,13 +6,9 @@ using UnityEngine;
 public class UIGameplay : UICanvas
 {
     [SerializeField] TextMeshProUGUI textScore;
-
-    private void Start()
-    {
-        updateTextScore();
-    }
+  
     public void updateTextScore()
     {
-        textScore.text = GameController.Ins.Score.ToString();
+        textScore.text = GameManager.Ins.Score.ToString();
     }
 }
