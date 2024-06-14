@@ -44,14 +44,13 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levels[level]);
     }
 
-    public void GameCompleted()
+    public void ResetLevel()
     {
-        currentLevelIndex++;
-        //OnInit();
+
     }
 
-    public void GameOver()
+    public void NextLevel()
     {
-        Time.timeScale = 0f;
+
     }
 }

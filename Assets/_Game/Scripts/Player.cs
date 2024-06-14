@@ -143,11 +143,15 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(raycastPos, Vector3.down, out hit, 1f, lineLayer))
         {
-            hit.collider.enabled = false;
             if (RemoveBrick())
             {
+                hit.collider.enabled = false;
                 GameObject yellow = Instantiate(GameController.Ins.Yellow, hit.collider.transform);
                 yellow.transform.localPosition += new Vector3(0, 0.1f, 0);
+            }
+            else
+            {
+                isMoving = false;
             }
         }
     }
@@ -162,6 +166,7 @@ public class Player : MonoBehaviour
         {           
             isMoving = false;
             ClearBrick();
+            UIManager.Ins.OpenUI<UIWin>();
         }
     }
 
@@ -174,6 +179,8 @@ public class Player : MonoBehaviour
         Vector3 playerPos = playerTF.position;
         playerPos.y += brickHeight;
         playerTF.position = playerPos;
+
+        GameController.Ins.AddScore(10);
     }
 
     private bool RemoveBrick()
@@ -190,7 +197,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            LevelManager.Ins.GameOver();
+            UIManager.Ins.OpenUI<UILose>();
             return false;
         }     
     }
