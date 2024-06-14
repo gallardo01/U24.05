@@ -8,15 +8,22 @@ public class Player : MonoBehaviour
     [SerializeField] Transform down;
     [SerializeField] Transform left;
     [SerializeField] Transform right;
+    [SerializeField] Transform center;
+    [SerializeField] Transform player;
 
+    [SerializeField] Transform bricksParent;
     [SerializeField] private LayerMask unbrickLayer;
+    [SerializeField] private LayerMask brickLayer;
 
+    private bool isRunning = false;
+    private int totalBrick = 0;
     public enum MoveState
     {
         Up,
         Down,
         Left,
-        Right
+        Right,
+        Center
     }
     // Start is called before the first frame update
     void Start()
@@ -29,28 +36,28 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (CheckMoveStatus(MoveState.Up))
+            if (CheckMoveStatus(MoveState.Up) && !isRunning)
             {
                 StartCoroutine(MovePlayer(MoveState.Up));
             }
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (CheckMoveStatus(MoveState.Down))
+            if (CheckMoveStatus(MoveState.Down) && !isRunning)
             {
                 StartCoroutine(MovePlayer(MoveState.Down));
             }
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (CheckMoveStatus(MoveState.Left))
+            if (CheckMoveStatus(MoveState.Left) && !isRunning)
             {
                 StartCoroutine(MovePlayer(MoveState.Left));
             }
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            if (CheckMoveStatus(MoveState.Right))
+            if (CheckMoveStatus(MoveState.Right) && !isRunning)
             {
                 StartCoroutine(MovePlayer(MoveState.Right));
             }
@@ -59,14 +66,40 @@ public class Player : MonoBehaviour
 
     IEnumerator MovePlayer(MoveState state)
     {
+        isRunning = true;
         if (CheckMoveStatus(state))
         {
+            RaycastHit hit;
+            if (Physics.Raycast(center.transform.position, Vector3.down, out hit, 5f, brickLayer))
+            {
+                totalBrick++;
+                hit.collider.gameObject.transform.SetParent(bricksParent);
+                hit.collider.gameObject.GetComponent<BoxCollider>().enabled = false;
+                hit.collider.transform.localPosition = new Vector3(0f, 0.25f * (totalBrick-2), 0f);
+                player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f*(totalBrick-1), 0f);
+            }
+            // Trang'
+
             MovePlayerDirection(state);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(MovePlayer(state));
+        } else
+        {
+            // Tim' 
+                
+            isRunning = false;
         }
     }
 
+    private MoveState FindPushDirection(MoveState currentState)
+    {
+        // currentState = up
+
+        // check 4 huong o diem hien tai - huong nao di dc
+        // down, left
+
+        return currentState;
+    }
     private bool CheckMoveStatus(MoveState state)
     {
         if (state == MoveState.Up)
