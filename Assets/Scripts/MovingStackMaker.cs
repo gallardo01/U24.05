@@ -1,173 +1,186 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
+using UnityEngine.UI;
 
 public class MovingStackMaker : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private LayerMask Grounded;
-    [SerializeField] private LayerMask BrickLayer;
+    [SerializeField] Transform Hoang;
 
     [SerializeField] Transform up;
     [SerializeField] Transform down;
     [SerializeField] Transform left;
     [SerializeField] Transform right;
+    [SerializeField] Transform center;
 
-    public bool canUp = false;
-    public bool canDown = false;
-    public bool canLeft = false;
-    public bool canRight = false;
-
-    public float speed;
-    private bool isMoving = false;
+    [SerializeField] private LayerMask unbrickLayer;
+    [SerializeField] private LayerMask BrickLayer;
 
     private List<GameObject> brickStack = new List<GameObject>();
-    private float objectHeight = 0.3f;
+    public GameObject stack;
 
 
+    private bool isRunning = false;
+
+    public float SpaceBrick = 0.3f;
+    private float stackHeight = 0;
+    private float BrickHeight;
+
+    public enum MoveState
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        Center
+    }
     // Start is called before the first frame update
     void Start()
     {
-
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        canUp = CheckIsMoveStep(up);
-        canDown = CheckIsMoveStep(down);
-        canLeft = CheckIsMoveStep(left);
-        canRight = CheckIsMoveStep(right);
-
-        if (!isMoving)
+        if (Input.GetKeyDown(KeyCode.W) && !isRunning)
         {
-            if (Input.GetKeyDown(KeyCode.W) && canUp)
+            if (CheckMoveStatus(MoveState.Up))
             {
-                StartCoroutine(MoveContinuously(new Vector3(1, 0, 0)));
-            }
-            else if (Input.GetKeyDown(KeyCode.S) && canDown)
-            {
-                StartCoroutine(MoveContinuously(new Vector3(-1, 0, 0)));
-            }
-            else if (Input.GetKeyDown(KeyCode.A) && canLeft)
-            {
-                StartCoroutine(MoveContinuously(new Vector3(0, 0, 1)));
-            }
-            else if (Input.GetKeyDown(KeyCode.D) && canRight)
-            {
-                StartCoroutine(MoveContinuously(new Vector3(0, 0, -1)));
+                StartCoroutine(MovePlayer(MoveState.Up));
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.S) && !isRunning)
+        {
+            if (CheckMoveStatus(MoveState.Down))
+            {
+                StartCoroutine(MovePlayer(MoveState.Down));
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.A) && !isRunning)
+        {
+            if (CheckMoveStatus(MoveState.Left))
+            {
+                StartCoroutine(MovePlayer(MoveState.Left));
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.D) && !isRunning)
+        {
+            if (CheckMoveStatus(MoveState.Right))
+            {
+                StartCoroutine(MovePlayer(MoveState.Right));
+            }
+        }
     }
 
-    private bool CheckIsMoveStep(Transform DirectionPoint)
+    IEnumerator MovePlayer(MoveState state)
     {
-        Debug.DrawLine(DirectionPoint.position, DirectionPoint.position + Vector3.down * 1.1f, Color.red);
+        isRunning = true;
 
+        if (CheckMoveStatus(state))
+        {
+            //gach - phat hien vien gach
+            Brick();
+
+            //xep vien gach
+
+
+
+            MovePlayerDirection(state);
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(MovePlayer(state));
+        }
+        else 
+        {
+            isRunning = false;
+        }
+    }
+
+    private void Brick() 
+    {
         RaycastHit hit;
-        if (Physics.Raycast(DirectionPoint.position, Vector3.down, out hit, 1.1f, Grounded))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void Moving(Vector3 direction)
-    {
-        transform.Translate(direction * speed * Time.deltaTime);
-        CheckForBricks();
-    }
-
-    private IEnumerator MoveContinuously(Vector3 direction)
-    {
-        isMoving = true;
-
-        while (true)
-        {
-            if (direction == new Vector3(1, 0, 0) && canUp)
-            {
-                Moving(new Vector3(1, 0, 0));
-            }
-            else if (direction == new Vector3(-1, 0, 0) && canDown)
-            {
-                Moving(new Vector3(-1, 0, 0));
-            }
-            else if (direction == new Vector3(0, 0, 1) && canLeft)
-            {
-                Moving(new Vector3(0, 0, 1));
-            }
-            else if (direction == new Vector3(0, 0, -1) && canRight)
-            {
-                Moving(new Vector3(0, 0, -1));
-            }
-            else
-            {
-                break;
-            }
-
-            // Cập nhật lại các trạng thái di chuyển
-            canUp = CheckIsMoveStep(up);
-            canDown = CheckIsMoveStep(down);
-            canLeft = CheckIsMoveStep(left);
-            canRight = CheckIsMoveStep(right);
-
-            yield return null;
-        }
-
-        isMoving = false;
-    }
-
-    private void CheckForBricks()
-    {
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * 1.1f, Color.blue);
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, BrickLayer))
+        if (Physics.Raycast(center.position, Vector3.down, out hit, 1.1f, BrickLayer))
         {
             GameObject brick = hit.collider.gameObject;
-            Debug.Log("cham voi brick");
-            if (!brickStack.Contains(brick))
+            Debug.Log("brick: " + brick.name);
+            //Destroy(brick);
+            if (!brickStack.Contains(brick)) 
             {
-                CollectBrick(brick);
+                SapxepBrick(brick);
             }
         }
     }
 
-
-    private void CollectBrick(GameObject brick)
+    private void SapxepBrick(GameObject brick) 
     {
         brickStack.Add(brick);
-        brick.transform.SetParent(transform);
-        updatebrickpositions();
-        UpdatePlayerPosition();
-
+        brick.transform.SetParent(stack.transform);
+        UpdateBrick();
     }
 
-    private void updatebrickpositions()
+    private void UpdateBrick() 
     {
-        //for (int i = 0; i < brickStack.Count; i++)
-        //{
-        //    brickStack[i].transform.localPosition = new Vector3(0, -1 - i, 0);
-        //}
+        BrickHeight = brickStack.Count * SpaceBrick;
 
-        float stackHeight = 0f; 
+        Vector3 playerPosition = Hoang.position;
+        playerPosition.y = BrickHeight;
+        Hoang.position = playerPosition;
+
+        Vector3 brickPush = new Vector3(0, stackHeight, 0);
         for (int i = 0; i < brickStack.Count; i++)
         {
-            Vector3 brickPos = new Vector3(0, -stackHeight, 0); // Tính toán vị trí mới cho viên gạch
-            brickStack[i].transform.localPosition = brickPos; // Cập nhật vị trí của viên gạch
-
-            stackHeight += objectHeight; // Tăng độ cao của cột viên gạch lên theo chiều dọc
+            brickStack[i].transform.localPosition = brickPush;
+            brickPush.y += SpaceBrick;
         }
-
     }
 
-    private void UpdatePlayerPosition()
+    
+
+
+    private bool CheckMoveStatus(MoveState state)
     {
-        float newyposition = objectHeight * brickStack.Count;
-        transform.localPosition = new Vector3(transform.localPosition.x, newyposition, transform.localPosition.z);
+        if (state == MoveState.Up)
+        {
+            return Physics.Raycast(up.position, Vector3.down, 1f, unbrickLayer);
+        }
+        else if (state == MoveState.Down)
+        {
+            return Physics.Raycast(down.position, Vector3.down, 1f, unbrickLayer);
+        }
+        else if (state == MoveState.Left)
+        {
+            return Physics.Raycast(left.position, Vector3.down, 1f, unbrickLayer);
+        }
+        else if (state == MoveState.Right)
+        {
+            return Physics.Raycast(right.position, Vector3.down, 1f, unbrickLayer);
+        }
+        //else if (state == MoveState.Center) 
+        //{
+        //    Debug.DrawLine(transform.position, transform.position + Vector3.down * 1f, Color.red);
+        //    return Physics.Raycast(transform.position, Vector3.down, 1f, BrickLayer);
+        //}
+        return false;
+    }
+
+    private void MovePlayerDirection(MoveState state)
+    {
+        if (state == MoveState.Up)
+        {
+            transform.position += new Vector3(1f, 0f, 0f);
+        }
+        else if (state == MoveState.Down)
+        {
+            transform.position += new Vector3(-1f, 0f, 0f);
+        }
+        else if (state == MoveState.Left)
+        {
+            transform.position += new Vector3(0f, 0f, 1f);
+        }
+        else if (state == MoveState.Right)
+        {
+            transform.position += new Vector3(0f, 0f, -1f);
+        }
     }
 }
