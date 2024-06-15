@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -50,11 +51,14 @@ public class Player : MonoBehaviour
 
     IEnumerator Move(MoveState state)
     {
-        currentMoveState = state;
+        yield return new WaitForSeconds(0.05f);
+
         canMove = false;
+        currentMoveState = state;
+        Debug.Log(currentMoveState.ToString());
+
         if (CheckMoveStatus(state))
         {
-            yield return new WaitForSeconds(0.05f);
             brickStacking.StackChecking();
             MovePlayerDirection(state);
             StartCoroutine(Move(state));
@@ -112,26 +116,28 @@ public class Player : MonoBehaviour
             StopAllCoroutines();
             transform.position = new Vector3(other.transform.position.x, transform.position.y, other.transform.position.z);
 
-            //MoveState moveState = other.GetComponent<Push>().GetMoveState();
-            //StartCoroutine(Move(moveState));
-            //Chekc huongw nguowc:
-
-            List<MoveState> moveStates = new List<MoveState>() { MoveState.Left, MoveState.Right, MoveState.Up, MoveState.Down  };
-
-            for(int i = 0; i < moveStates.Count; i++)
+            List<MoveState> moveStates = new List<MoveState>() { MoveState.Up, MoveState.Down, MoveState.Left, MoveState.Right };
+            for (int i = 0; i < moveStates.Count; i++)
             {
-                if(currentMoveState == moveStates[i])
-                {
-                    moveStates.RemoveAt(i);
-                }
-                if (!CheckMoveStatus(moveStates[i]))
+                if(!CheckMoveStatus(moveStates[i]))
                 {
                     moveStates.RemoveAt(i);
                 }
             }
-            
-            MoveState moveState = moveStates[Random.Range(0, moveStates.Count - 1)];
-            StartCoroutine(Move(moveState));
+            moveStates.Remove(ReverseState(currentMoveState));
+
+            int randomNumber = Random.Range(0, moveStates.Count);
+            StartCoroutine(Move(moveStates[moveStates.Count-1]));
         }
+    }
+
+    public MoveState ReverseState(MoveState movestate)
+    {
+        MoveState reverseState = new MoveState();
+        if (movestate == MoveState.Left) reverseState = MoveState.Right;
+        else if (movestate == MoveState.Right) reverseState = MoveState.Left;
+        else if (movestate == MoveState.Up) reverseState = MoveState.Down;
+        else if (movestate == MoveState.Down) reverseState = MoveState.Up;
+        return reverseState;
     }
 }
