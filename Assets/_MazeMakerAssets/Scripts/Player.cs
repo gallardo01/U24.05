@@ -129,6 +129,8 @@ public class Player : MonoBehaviour
             int randomNumber = Random.Range(0, moveStates.Count);
             StartCoroutine(Move(moveStates[moveStates.Count-1]));
         }
+        
+         
     }
 
     public MoveState ReverseState(MoveState movestate)
