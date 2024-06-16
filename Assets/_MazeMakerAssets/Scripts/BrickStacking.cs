@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BrickStacking : MonoBehaviour
 {
-    [SerializeField] Transform brickPrefab;
     [SerializeField] Transform playerModel;
 
     private float brickWight = 0.3f;
@@ -26,12 +25,14 @@ public class BrickStacking : MonoBehaviour
     {
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit ,5f, 1 << 8))
         {
-            hit.collider.gameObject.SetActive(false);
-            Transform newBrick = Instantiate(brickPrefab);
+            hit.collider.enabled = false;
+
+            Transform newBrick = hit.collider.transform;
             brickStack.Push(newBrick);
             newBrick.SetParent(this.transform);
             newBrick.transform.localPosition = playerModel.transform.localPosition;
             playerModel.transform.localPosition += new Vector3(0, brickWight, 0);
+
         }
     }
 
