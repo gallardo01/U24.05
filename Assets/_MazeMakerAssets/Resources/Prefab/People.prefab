@@ -6065,7 +6065,7 @@ GameObject:
   - component: {fileID: 4538506697404122}
   m_Layer: 0
   m_Name: jiao
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6368,7 +6368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a58330bddcd68041890b8f7b56bd4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickPrefab: {fileID: 4012213788616213, guid: 8aad5fca35890fd4389dabb982d52236, type: 3}
   playerModel: {fileID: 4538506697404122}
 --- !u!1 &1723320838945368
 GameObject:

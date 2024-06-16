@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private Player player;
+    private GameObject player;
     [SerializeField] private Vector3 offset;
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void LateUpdate()
