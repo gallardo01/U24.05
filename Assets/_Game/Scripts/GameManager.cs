@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,22 +6,26 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public GameObject Yellow;
-    public int Score;
+
+    private int score;
+    public int Score => score;
 
     public void Start()
     {
+        this.RegisterListener(EventID.OnInitLevel, (param) => OnInit());
         UIManager.Ins.OpenUI<UIGameplay>();
         OnInit();
     }
 
     public void OnInit()
     {
-        Score = 0;
+        score = 0;
+        UIManager.Ins.GetUI<UIGameplay>().UpdateTextScore();
     }
 
     public void AddScore(int score)
     {
-        Score += score;
+        this.score += score;
         UIManager.Ins.GetUI<UIGameplay>().UpdateTextScore();
     }
 }

@@ -8,17 +8,15 @@ public class LevelManager : Singleton<LevelManager>
     public Level currentLevel;
     public int currentLevelIndex = 0;
 
-    [SerializeField] Player player;
-
     public void Start()
-    {       
-        OnInit();
+    {
+        InitLevel();
     }
 
-    public void OnInit()
+    public void InitLevel()
     {
         OnLoadLevel(currentLevelIndex);
-        player.OnInit(currentLevel.startPos);
+        this.PostEvent(EventID.OnInitLevel);
     }
 
     public void OnLoadLevel(int level)
@@ -31,19 +29,13 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levels[level]);
     }
 
-    public void ResetLevel()
-    {
-        GameManager.Ins.OnInit();
-        OnInit();
-    }
-
     public void NextLevel()
     {
         currentLevelIndex++;
         
         if (currentLevelIndex + 1 <= levels.Count)
         {
-            ResetLevel();
+            InitLevel();
         }
         else
         {

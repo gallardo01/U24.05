@@ -31,6 +31,11 @@ public class Player : MonoBehaviour
 
     private float brickHeight = 0.2998985f;
 
+    private void Start()
+    {
+        this.RegisterListener(EventID.OnInitLevel, (param) => OnInitLevel());
+    }
+
     private void Update()
     {
         if (!isMoving)
@@ -39,10 +44,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnInit(Transform startPos)
+    public void OnInit()
     {
         isMoving = false;
-        transform.position = startPos.position;
     }
 
     private void CheckInput()
@@ -269,5 +273,10 @@ public class Player : MonoBehaviour
         Brick = new GameObject("Brick");
         Brick.transform.SetParent(transform);
         Brick.transform.localPosition = Vector3.zero;  
+    }
+
+    private void OnInitLevel()
+    {
+        transform.position = LevelManager.Ins.currentLevel.startPos.position;
     }
 }

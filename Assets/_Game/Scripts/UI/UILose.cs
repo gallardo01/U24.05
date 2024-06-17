@@ -13,7 +13,7 @@ public class UILose : UICanvas
         btnPlayAgain.onClick.AddListener(() =>
         {
             CloseDirectly();
-            LevelManager.Ins.ResetLevel();
+            LevelManager.Ins.InitLevel();
         });
     }
 

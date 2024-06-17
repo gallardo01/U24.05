@@ -19,7 +19,7 @@ public class UIWin : UICanvas
         btnPlayAgain.onClick.AddListener(() =>
         {
             CloseDirectly();
-            LevelManager.Ins.ResetLevel();
+            LevelManager.Ins.InitLevel();
         });
     }
 
