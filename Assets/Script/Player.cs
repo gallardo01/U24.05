@@ -11,11 +11,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] LayerMask brickLayer;
 
-    public bool canMoveUp;
-    public bool canMoveDown;
-    public bool canMoveLeft;
-    public bool canMoveRight;
-
     public enum MoveState
     {
         Up,
@@ -34,34 +29,41 @@ public class Player : MonoBehaviour
         {
             if(CanMoveTo(MoveState.Up))
             {
-                MovePlayer(MoveState.Up);
-            }    
+                StartCoroutine(MovePlayer(MoveState.Up));
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (CanMoveTo(MoveState.Down))
             {
-                MovePlayer(MoveState.Down);
+                StartCoroutine(MovePlayer(MoveState.Down));
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (CanMoveTo(MoveState.Left))
             {
-                MovePlayer(MoveState.Left);
+                StartCoroutine(MovePlayer(MoveState.Left));
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (CanMoveTo(MoveState.Right))
             {
-                MovePlayer(MoveState.Right);
+                StartCoroutine(MovePlayer(MoveState.Right));
             }
         }
     }
+
+    IEnumerator MovePlayer(MoveState state)
+    {
+        if(CanMoveTo(state))
+        {
+            MovingTo(state);
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(MovePlayer(state));
+        }
+    }    
 
     public bool CanMoveTo(MoveState state)
     {
@@ -87,7 +89,7 @@ public class Player : MonoBehaviour
         }
     } 
     
-    public void MovePlayer(MoveState state)
+    public void MovingTo(MoveState state)
     {
         if(state == MoveState.Up)
         {
