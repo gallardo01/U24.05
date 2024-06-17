@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         if(CanMoveTo(state))
         {
             RaycastHit hit;
-            if(Physics.Raycast(center.transform.position, Vector3.down, out hit, brickLayer))
+            if(Physics.Raycast(center.transform.position, Vector3.down, out hit, 10f, brickLayer))
             {
                 totalBrick++;
                 hit.collider.gameObject.transform.SetParent(bricksParent);
