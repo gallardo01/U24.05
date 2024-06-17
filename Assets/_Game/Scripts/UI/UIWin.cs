@@ -23,8 +23,9 @@ public class UIWin : UICanvas
         });
     }
 
-    private void OnEnable()
+    public override void Open()
     {
+        base.Open();
         textScore.text = GameManager.Ins.Score.ToString();
     }
 }

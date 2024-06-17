@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask brickLayer;
     [SerializeField] LayerMask lineLayer;
     [SerializeField] LayerMask endPointLayer;
+    [SerializeField] LayerMask pushLayer;
 
     private float brickHeight = 0.2998985f;
 
@@ -90,11 +91,12 @@ public class Player : MonoBehaviour
 
     private void MoveNext(Vector3 moveDirection)
     {
-        CheckWall();
+        CheckWall(moveDirection);
 
         if (!isMoving)
         {
-            return;
+            CheckPush();           
+            return;         
         }
 
         transform.DOMove(transform.position + moveDirection, moveTime).SetEase(Ease.Linear).OnComplete(() =>
@@ -106,15 +108,18 @@ public class Player : MonoBehaviour
         });
     }
 
-    private void CheckWall()
+    private bool CheckWall(Vector3 moveDirection)
     {
         Vector3 raycastPos = transform.position;
         raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos + moveDirection, Vector3.down, 1f, wallLayer))
+        if (Physics.Raycast(raycastPos + moveDirection, Vector3.down, 10f, wallLayer))
         {
             isMoving = false;
+            return true;
         }
+
+        return false;
     }
 
     private void CheckBrick()
@@ -123,7 +128,7 @@ public class Player : MonoBehaviour
         Vector3 raycastPos = transform.position;
         raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos, Vector3.down, out hit, 1f, brickLayer))
+        if (Physics.Raycast(raycastPos, Vector3.down, out hit, 10f, brickLayer))
         {
             hit.collider.enabled = false;
             AddBrick(hit.collider.gameObject);
@@ -136,7 +141,7 @@ public class Player : MonoBehaviour
         Vector3 raycastPos = transform.position;
         raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos, Vector3.down, out hit, 1f, lineLayer))
+        if (Physics.Raycast(raycastPos, Vector3.down, out hit, 10f, lineLayer))
         {
             if (RemoveBrick())
             {
@@ -156,12 +161,66 @@ public class Player : MonoBehaviour
         Vector3 raycastPos = transform.position;
         raycastPos.y += 1f;
 
-        if (Physics.Raycast(raycastPos, Vector3.down, 1f, endPointLayer))
+        if (Physics.Raycast(raycastPos, Vector3.down, 10f, endPointLayer))
         {           
             isMoving = false;
             ClearBrick();
             UIManager.Ins.OpenUI<UIWin>();
         }
+    }
+
+    private void CheckPush()
+    {
+        Vector3 raycastPos = transform.position;
+        raycastPos.y += 1f;
+
+        if (Physics.Raycast(raycastPos, Vector3.down, 10f, pushLayer))
+        {
+            moveDirection = GetPushDirection(moveDirection);
+
+            if (moveDirection != Vector3.zero)
+            {
+                isMoving = true;
+                MoveNext(moveDirection);
+            }
+        }
+    }
+
+    private Vector3 GetPushDirection(Vector3 moveDirection)
+    {
+        Vector3 case1;
+        Vector3 case2;
+
+        if (Mathf.Abs(moveDirection.x) > 0) 
+        {
+            case1 = new Vector3(0, 0, 1);
+            case2 = new Vector3(0, 0, -1);
+
+            if (!CheckWall(case1)) 
+            {
+                return case1;
+            } 
+            else if (!CheckWall(case2))
+            {
+                return case2;
+            }
+        }
+        else if (Mathf.Abs(moveDirection.z) > 0)
+        {
+            case1 = new Vector3(1, 0, 0);
+            case2 = new Vector3(-1, 0, 0);
+
+            if (!CheckWall(case1))
+            {
+                return case1;
+            }
+            else if (!CheckWall(case2))
+            {
+                return case2;
+            }
+        }
+
+        return Vector3.zero;
     }
 
     private void AddBrick(GameObject brickObj)

@@ -17,8 +17,9 @@ public class UILose : UICanvas
         });
     }
 
-    private void OnEnable()
+    public override void Open()
     {
+        base.Open();
         textScore.text = GameManager.Ins.Score.ToString();
     }
 }

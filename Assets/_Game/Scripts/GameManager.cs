@@ -16,12 +16,11 @@ public class GameManager : Singleton<GameManager>
     public void OnInit()
     {
         Score = 0;
-        UIManager.Ins.GetUI<UIGameplay>().updateTextScore();
     }
 
     public void AddScore(int score)
     {
         Score += score;
-        UIManager.Ins.GetUI<UIGameplay>().updateTextScore();
+        UIManager.Ins.GetUI<UIGameplay>().UpdateTextScore();
     }
 }

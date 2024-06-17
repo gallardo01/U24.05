@@ -43,8 +43,7 @@ public class LevelManager : Singleton<LevelManager>
         
         if (currentLevelIndex + 1 <= levels.Count)
         {
-            GameManager.Ins.OnInit();
-            OnInit();
+            ResetLevel();
         }
         else
         {

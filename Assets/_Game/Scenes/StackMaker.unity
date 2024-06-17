@@ -286,6 +286,9 @@ MonoBehaviour:
   endPointLayer:
     serializedVersion: 2
     m_Bits: 512
+  pushLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!4 &406771283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2580899147284204563, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
