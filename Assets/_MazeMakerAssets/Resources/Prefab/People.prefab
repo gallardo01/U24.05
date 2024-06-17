@@ -6369,6 +6369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModel: {fileID: 4538506697404122}
+  brickSound: {fileID: 8300000, guid: 9604c54d5b1dba44697b0a30e2ac9e9a, type: 3}
 --- !u!1 &1723320838945368
 GameObject:
   m_ObjectHideFlags: 0

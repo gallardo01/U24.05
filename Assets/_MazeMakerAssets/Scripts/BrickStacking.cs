@@ -5,6 +5,7 @@ using UnityEngine;
 public class BrickStacking : MonoBehaviour
 {
     [SerializeField] Transform playerModel;
+    [SerializeField] AudioClip brickSound;
 
     private float brickWight = 0.3f;
     private Player player;
@@ -32,7 +33,8 @@ public class BrickStacking : MonoBehaviour
             newBrick.SetParent(this.transform);
             newBrick.transform.localPosition = playerModel.transform.localPosition;
             playerModel.transform.localPosition += new Vector3(0, brickWight, 0);
-
+            GameController.Instance.ChangeScore();
+            AudioSource.PlayClipAtPoint(brickSound, Camera.main.transform.position);
         }
     }
 
@@ -40,6 +42,8 @@ public class BrickStacking : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 5f, 1 << 9))
         {
+            hit.collider.enabled=false;
+
             if(brickStack.Count > 0)
             {
                 Transform removedBrick = brickStack.Pop();

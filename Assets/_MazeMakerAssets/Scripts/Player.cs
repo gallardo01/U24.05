@@ -126,13 +126,12 @@ public class Player : MonoBehaviour
             }
             moveStates.Remove(ReverseState(currentMoveState));
 
-            int randomNumber = Random.Range(0, moveStates.Count);
-            StartCoroutine(Move(moveStates[moveStates.Count-1]));
+            StartCoroutine(Move(moveStates[0]));
         }
 
         if (other.gameObject.CompareTag("Win"))
         {
-            GameController.Instance.EndLevel();
+            GameController.Instance.WinSequence();
         }
         
     }
