@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform bricksParent;
     [SerializeField] LayerMask unBrickLayer;
     [SerializeField] LayerMask brickLayer;
+    [SerializeField] LayerMask pushLayer;
 
     private bool isRunning = false;
     private int totalBrick = 0;
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
                 hit.collider.gameObject.GetComponent<BoxCollider>().enabled = false;
                 hit.collider.transform.localPosition = new Vector3(0f, 0.25f * (totalBrick - 1), 0f);
                 player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f * totalBrick, 0f);
-            }    
+            }
 
             MovingTo(state);
             yield return new WaitForSeconds(0.1f);
@@ -86,6 +87,11 @@ public class Player : MonoBehaviour
         else
         {
             isRunning = false;
+            if (Physics.Raycast(center.transform.position, Vector3.down, 10f, pushLayer))
+            {
+                MoveState newDirection = FindPushDirection(state);
+                StartCoroutine(MovePlayer(newDirection));
+            }
         }    
     }    
 
@@ -137,4 +143,25 @@ public class Player : MonoBehaviour
     {
         return Physics.Raycast(transform.position, Vector3.down, 10f, brickLayer);
     }    
+
+    private MoveState FindPushDirection(MoveState currentState)
+    {
+        if(CanMoveTo(MoveState.Up) && currentState != MoveState.Down)
+        {
+            return MoveState.Up;
+        }
+        else if (CanMoveTo(MoveState.Down) && currentState != MoveState.Up)
+        {
+            return MoveState.Down;
+        }
+        if (CanMoveTo(MoveState.Left) && currentState != MoveState.Right)
+        {
+            return MoveState.Left;
+        }
+        if (CanMoveTo(MoveState.Right) && currentState != MoveState.Left)
+        {
+            return MoveState.Right;
+        }
+        return currentState;
+    }
 }

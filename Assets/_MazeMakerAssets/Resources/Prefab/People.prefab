@@ -2927,7 +2927,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
-  - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5622,7 +5621,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
-  - {fileID: 2100000, guid: 700c32fa802a49f4489d1afaf58e6b17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6211,6 +6209,10 @@ MonoBehaviour:
   brickLayer:
     serializedVersion: 2
     m_Bits: 256
+  dropBrickLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  pivoteBrick: {fileID: 0}
 --- !u!1 &1723320838945368
 GameObject:
   m_ObjectHideFlags: 0
@@ -9158,7 +9160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4213909926999681948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.138, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
