@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] LayerMask brickLayer;
 
+    private bool isRunning = false;
+
     public enum MoveState
     {
         Up,
@@ -25,28 +27,28 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(KeyCode.UpArrow) && !isRunning)
         {
             if(CanMoveTo(MoveState.Up))
             {
                 StartCoroutine(MovePlayer(MoveState.Up));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && !isRunning)
         {
             if (CanMoveTo(MoveState.Down))
             {
                 StartCoroutine(MovePlayer(MoveState.Down));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) && !isRunning)
         {
             if (CanMoveTo(MoveState.Left))
             {
                 StartCoroutine(MovePlayer(MoveState.Left));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow) && !isRunning)
         {
             if (CanMoveTo(MoveState.Right))
             {
@@ -57,12 +59,17 @@ public class Player : MonoBehaviour
 
     IEnumerator MovePlayer(MoveState state)
     {
+        isRunning = true;
         if(CanMoveTo(state))
         {
             MovingTo(state);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(MovePlayer(state));
         }
+        else
+        {
+            isRunning = false;
+        }    
     }    
 
     public bool CanMoveTo(MoveState state)
