@@ -8,17 +8,24 @@ public class Player : MonoBehaviour
     [SerializeField] Transform down;
     [SerializeField] Transform left;
     [SerializeField] Transform right;
+    [SerializeField] Transform center;
 
+    [SerializeField] Transform player;
+
+    [SerializeField] Transform bricksParent;
+    [SerializeField] LayerMask unBrickLayer;
     [SerializeField] LayerMask brickLayer;
 
     private bool isRunning = false;
+    private int totalBrick = 0;
 
     public enum MoveState
     {
         Up,
         Down,
         Left,
-        Right
+        Right, 
+        Center
     }
 
     void Start()
@@ -62,6 +69,16 @@ public class Player : MonoBehaviour
         isRunning = true;
         if(CanMoveTo(state))
         {
+            RaycastHit hit;
+            if(Physics.Raycast(center.transform.position, Vector3.down, out hit, brickLayer))
+            {
+                totalBrick++;
+                hit.collider.gameObject.transform.SetParent(bricksParent);
+                hit.collider.gameObject.GetComponent<BoxCollider>().enabled = false;
+                hit.collider.transform.localPosition = new Vector3(0f, 0.25f * (totalBrick - 1), 0f);
+                player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f * totalBrick, 0f);
+            }    
+
             MovingTo(state);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(MovePlayer(state));
@@ -76,19 +93,19 @@ public class Player : MonoBehaviour
     {
         if(state == MoveState.Up)
         {
-            return Physics.Raycast(up.position, Vector3.down, 10f, brickLayer);
+            return Physics.Raycast(up.position, Vector3.down, 10f, unBrickLayer);
         }
         else if(state == MoveState.Down)
         {
-            return Physics.Raycast(down.position, Vector3.down, 10f, brickLayer);
+            return Physics.Raycast(down.position, Vector3.down, 10f, unBrickLayer);
         }
         else if(state == MoveState.Left)
         {
-            return Physics.Raycast(left.position, Vector3.down, 10f, brickLayer);
+            return Physics.Raycast(left.position, Vector3.down, 10f, unBrickLayer);
         }
         else if(state == MoveState.Right)
         {
-            return Physics.Raycast(right.position, Vector3.down, 10f, brickLayer);
+            return Physics.Raycast(right.position, Vector3.down, 10f, unBrickLayer);
         }
         else
         {
@@ -115,4 +132,9 @@ public class Player : MonoBehaviour
             transform.position += new Vector3(1, 0, 0);
         }
     }
+
+    public bool CanCollectBrick()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 10f, brickLayer);
+    }    
 }
