@@ -16,60 +16,94 @@ public class Player : MonoBehaviour
     public bool canMoveLeft;
     public bool canMoveRight;
 
+    public enum MoveState
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
     void Start()
     {
-        UpdateMoveStatus();
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if(canMoveUp)
+            if(CanMoveTo(MoveState.Up))
             {
-                transform.position += new Vector3(0, 0, 1);
-                UpdateMoveStatus();
+                MovePlayer(MoveState.Up);
             }    
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (canMoveDown)
+            if (CanMoveTo(MoveState.Down))
             {
-                transform.position += new Vector3(0, 0, -1);
-                UpdateMoveStatus();
+                MovePlayer(MoveState.Down);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (canMoveLeft)
+            if (CanMoveTo(MoveState.Left))
             {
-                transform.position += new Vector3(-1, 0, 0);
-                UpdateMoveStatus();
+                MovePlayer(MoveState.Left);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (canMoveRight)
+            if (CanMoveTo(MoveState.Right))
             {
-                transform.position += new Vector3(1, 0, 0);
-                UpdateMoveStatus();
+                MovePlayer(MoveState.Right);
             }
         }
     }
 
-    public bool CanMoveTo(Transform target)
+    public bool CanMoveTo(MoveState state)
     {
-        return Physics.Raycast(target.position, Vector3.down, 10f, brickLayer);
-    }    
-
-    public void UpdateMoveStatus()
+        if(state == MoveState.Up)
+        {
+            return Physics.Raycast(up.position, Vector3.down, 10f, brickLayer);
+        }
+        else if(state == MoveState.Down)
+        {
+            return Physics.Raycast(down.position, Vector3.down, 10f, brickLayer);
+        }
+        else if(state == MoveState.Left)
+        {
+            return Physics.Raycast(left.position, Vector3.down, 10f, brickLayer);
+        }
+        else if(state == MoveState.Right)
+        {
+            return Physics.Raycast(right.position, Vector3.down, 10f, brickLayer);
+        }
+        else
+        {
+            return false;
+        }
+    } 
+    
+    public void MovePlayer(MoveState state)
     {
-        canMoveUp = CanMoveTo(up);
-        canMoveDown = CanMoveTo(down);
-        canMoveLeft = CanMoveTo(left);
-        canMoveRight = CanMoveTo(right);
+        if(state == MoveState.Up)
+        {
+            transform.position += new Vector3(0, 0, 1);
+        }
+        else if(state == MoveState.Down)
+        {
+            transform.position += new Vector3(0, 0, -1);
+        }
+        else if(state == MoveState.Left)
+        {
+            transform.position += new Vector3(-1, 0, 0);
+        }
+        else if(state == MoveState.Right)
+        {
+            transform.position += new Vector3(1, 0, 0);
+        }
     }
 }
