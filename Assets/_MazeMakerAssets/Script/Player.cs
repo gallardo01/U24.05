@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private bool isRunning = false;
     [SerializeField] private LayerMask brickLayer; 
     [SerializeField] private LayerMask pushLayer; 
+    [SerializeField] private LayerMask wallLayer;
 
     [SerializeField] private Transform stack;
     [SerializeField] private Transform player;
@@ -149,10 +150,10 @@ public class Player : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, brickLayer))
-        {
-            if (hit.collider.gameObject.CompareTag("Brick"))
+        {               
+            GameObject brick = hit.collider.gameObject;
+            if (brick.CompareTag("Brick"))
             {
-                GameObject brick = hit.collider.gameObject;
                 brick.transform.position = transform.position - new Vector3(0, 0.25f, 0);
                 brick.transform.position += new Vector3(0, stack.childCount * 0.25f, 0);
                 player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1) , -1);
@@ -161,4 +162,6 @@ public class Player : MonoBehaviour
             }
         }
     }
+    
+    
 }
