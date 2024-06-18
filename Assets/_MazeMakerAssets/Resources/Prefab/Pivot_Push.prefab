@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4613131694726993}
   - component: {fileID: 33132717134260130}
   - component: {fileID: 23110656309031825}
-  - component: {fileID: 873174195237445669}
+  - component: {fileID: 543359910}
+  - component: {fileID: 1325536517871721056}
   m_Layer: 8
   m_Name: dimian
   m_TagString: Brick
@@ -84,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &873174195237445669
+--- !u!65 &543359910
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,11 +93,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044362667059755}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 1.0000005, z: 0.2998983}
-  m_Center: {x: 0.0000060983016, y: -0.00000023283076, z: 0.14994933}
+  m_Size: {x: 1, y: 1.0000002, z: 0.2998983}
+  m_Center: {x: 0.000006094575, y: -0.00000023841864, z: 0.14994933}
+--- !u!54 &1325536517871721056
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044362667059755}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1044886705902474
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +211,6 @@ GameObject:
   - component: {fileID: 4447324368405745}
   - component: {fileID: 33916434670274277}
   - component: {fileID: 23962809945305158}
-  - component: {fileID: 1375163247833846282}
   m_Layer: 7
   m_Name: di
   m_TagString: Unbrick
@@ -267,19 +283,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1375163247833846282
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1171122799541128}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9999993, y: 1.0000017, z: 1.0000031}
-  m_Center: {x: 0.0000010728838, y: 0.00000059604673, z: 3.1763738e-21}
 --- !u!1 &1335394330515411
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,9 +292,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1476851824665682219}
+  - component: {fileID: -8435766078125781802}
   m_Layer: 8
   m_Name: Pivot_Push
-  m_TagString: push
+  m_TagString: Push
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -314,6 +318,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &-8435766078125781802
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335394330515411}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1615225707024875
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +340,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4769270944168942}
-  - component: {fileID: 514397923740832292}
   m_Layer: 9
   m_Name: 2
   m_TagString: push
@@ -346,19 +362,6 @@ Transform:
   m_Father: {fileID: 4653079080655560}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: -0, z: 90}
---- !u!65 &514397923740832292
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1615225707024875}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1884273718471683
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,9 +373,10 @@ GameObject:
   - component: {fileID: 4653079080655560}
   - component: {fileID: 95409902517891621}
   - component: {fileID: 65756203679023892}
-  m_Layer: 0
+  - component: {fileID: 6086897136043306385}
+  m_Layer: 9
   m_Name: zhuanjiao
-  m_TagString: Untagged
+  m_TagString: Push
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -426,5 +430,21 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 1, z: 0.7}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.7, y: 0.32898742, z: 0.7}
+  m_Center: {x: 0, y: -0.3355064, z: 0}
+--- !u!54 &6086897136043306385
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884273718471683}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
