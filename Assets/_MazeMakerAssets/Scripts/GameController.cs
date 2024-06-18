@@ -14,6 +14,11 @@ public class GameController : Singleton<GameController>
     [SerializeField] Button playAgainButton;
 
     [SerializeField] TextMeshProUGUI scoreText;
+
+    [SerializeField] GameObject ChestOpen;
+    [SerializeField] GameObject ChestClose;
+    [SerializeField] ParticleSystem celebration1;
+    [SerializeField] ParticleSystem celebration2;
     private int score;
 
     private void Awake()
@@ -34,6 +39,10 @@ public class GameController : Singleton<GameController>
     public void WinSequence()
     {
         winPanel.SetActive(true);
+        ChestOpen.SetActive(false);
+        ChestClose.SetActive(true);
+        celebration1.Play();
+        celebration2.Play();
     }
 
     public void LostSequence()
@@ -45,5 +54,6 @@ public class GameController : Singleton<GameController>
     {
         Debug.Log("LoadLevel");
     }
+
 
 }

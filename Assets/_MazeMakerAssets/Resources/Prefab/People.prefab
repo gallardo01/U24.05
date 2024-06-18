@@ -6355,6 +6355,7 @@ MonoBehaviour:
   right: {fileID: 1450349519}
   up: {fileID: 1510585699}
   dowm: {fileID: 1306256628}
+  animator: {fileID: 95809777293889810}
   canMove: 1
 --- !u!114 &6714603716894058424
 MonoBehaviour:
@@ -6368,7 +6369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a58330bddcd68041890b8f7b56bd4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 4538506697404122}
+  body: {fileID: 4538506697404122}
   brickSound: {fileID: 8300000, guid: 9604c54d5b1dba44697b0a30e2ac9e9a, type: 3}
 --- !u!1 &1723320838945368
 GameObject:

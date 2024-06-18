@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform right;
     [SerializeField] Transform up;
     [SerializeField] Transform dowm;
+    [SerializeField] Animator animator;
 
     MoveState currentMoveState;
     private BrickStacking brickStacking;
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Move(MoveState.Right));
         }
-        if(Input.GetKeyDown(KeyCode.W) && canMove)
+        if (Input.GetKeyDown(KeyCode.W) && canMove)
         {
             StartCoroutine(Move(MoveState.Up));
         }
@@ -113,27 +114,38 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Push"))
         {
-            StopAllCoroutines();
-            transform.position = new Vector3(other.transform.position.x, transform.position.y, other.transform.position.z);
-
-            List<MoveState> moveStates = new List<MoveState>() { MoveState.Up, MoveState.Down, MoveState.Left, MoveState.Right };
-            for (int i = 0; i < moveStates.Count; i++)
-            {
-                if(!CheckMoveStatus(moveStates[i]))
-                {
-                    moveStates.RemoveAt(i);
-                }
-            }
-            moveStates.Remove(ReverseState(currentMoveState));
-
-            StartCoroutine(Move(moveStates[0]));
+            PushSquence(other);
         }
 
         if (other.gameObject.CompareTag("Win"))
         {
+            Debug.Log("endGame");
             GameController.Instance.WinSequence();
+            transform.SetParent(other.transform);
+            transform.localPosition = new Vector3(0f, 3f, 5.5f);
+            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            animator.SetInteger("renwu", 2);
+            brickStacking.ClearBrick();
+            this.enabled = false;
         }
-        
+    }
+
+    public void PushSquence(Collider other)
+    {
+        StopAllCoroutines();
+        transform.position = new Vector3(other.transform.position.x, transform.position.y, other.transform.position.z);
+
+        List<MoveState> moveStates = new List<MoveState>() { MoveState.Up, MoveState.Down, MoveState.Left, MoveState.Right };
+        for (int i = 0; i < moveStates.Count; i++)
+        {
+            if (!CheckMoveStatus(moveStates[i]))
+            {
+                moveStates.RemoveAt(i);
+            }
+        }
+        moveStates.Remove(ReverseState(currentMoveState));
+
+        StartCoroutine(Move(moveStates[moveStates.Count - 1]));
     }
 
     public MoveState ReverseState(MoveState movestate)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BrickStacking : MonoBehaviour
 {
-    [SerializeField] Transform playerModel;
+    [SerializeField] Transform body;
     [SerializeField] AudioClip brickSound;
 
     private float brickWight = 0.3f;
@@ -31,8 +31,8 @@ public class BrickStacking : MonoBehaviour
             Transform newBrick = hit.collider.transform;
             brickStack.Push(newBrick);
             newBrick.SetParent(this.transform);
-            newBrick.transform.localPosition = playerModel.transform.localPosition;
-            playerModel.transform.localPosition += new Vector3(0, brickWight, 0);
+            newBrick.transform.localPosition = body.transform.localPosition;
+            body.transform.localPosition += new Vector3(0, brickWight, 0);
             GameController.Instance.ChangeScore();
             AudioSource.PlayClipAtPoint(brickSound, Camera.main.transform.position);
         }
@@ -49,12 +49,22 @@ public class BrickStacking : MonoBehaviour
                 Transform removedBrick = brickStack.Pop();
                 removedBrick.SetParent(null);
                 removedBrick.transform.position = hit.point;
-                playerModel.transform.localPosition -= new Vector3(0, brickWight, 0);
+                body.transform.localPosition -= new Vector3(0, brickWight, 0);
             }
             else
             {
                 Debug.Log("Game Over");
             }
         }
+    }
+
+    public void ClearBrick()
+    {
+        Transform[] brickArray = brickStack.ToArray();
+        for(int i = 0; i < brickArray.Length; i++)
+        {
+            brickArray[i].gameObject.SetActive(false);
+        }
+        body.transform.localPosition = new Vector3(0f, -0.3f, 0f);
     }
 }
