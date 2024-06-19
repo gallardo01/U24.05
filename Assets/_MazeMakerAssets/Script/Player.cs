@@ -14,9 +14,13 @@ public class Player : MonoBehaviour
     [SerializeField] Transform bricksParent;
     [SerializeField] private LayerMask unbrickLayer;
     [SerializeField] private LayerMask brickLayer;
+    [SerializeField] private LayerMask pushLayer;
+    [SerializeField] private LayerMask whiteLayer;
+    [SerializeField] Animator animator;
 
     private bool isRunning = false;
     private int totalBrick = 0;
+    private List<GameObject> bricks = new List<GameObject>();
     public enum MoveState
     {
         Up,
@@ -77,27 +81,58 @@ public class Player : MonoBehaviour
                 hit.collider.gameObject.GetComponent<BoxCollider>().enabled = false;
                 hit.collider.transform.localPosition = new Vector3(0f, 0.25f * (totalBrick-2), 0f);
                 player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f*(totalBrick-1), 0f);
+                bricks.Add(hit.collider.gameObject);
             }
             // Trang'
-
+            RaycastHit hitWhite;
+            if (Physics.Raycast(center.transform.position, Vector3.down, out hitWhite, 5f, whiteLayer))
+            {
+                if (bricks.Count > 0)
+                {
+                    bricks[totalBrick - 1].transform.SetParent(hitWhite.collider.gameObject.transform);
+                    bricks[totalBrick - 1].transform.localPosition = Vector3.zero;
+                    totalBrick--;
+                    player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f * (totalBrick - 1), 0f);
+                }
+                else
+                {
+                    // thua
+                }
+            }
             MovePlayerDirection(state);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(MovePlayer(state));
         } else
         {
             // Tim' 
-                
             isRunning = false;
+            if (Physics.Raycast(center.transform.position, Vector3.down, 5f, pushLayer))
+            {
+                MoveState newDirection = FindPushDirection(state);
+                StartCoroutine(MovePlayer(newDirection));
+            }
         }
     }
 
     private MoveState FindPushDirection(MoveState currentState)
     {
-        // currentState = up
-
         // check 4 huong o diem hien tai - huong nao di dc
-        // down, left
-
+        if (CheckMoveStatus(MoveState.Up) && currentState != MoveState.Down)
+        {
+            return MoveState.Up;
+        } 
+        else if (CheckMoveStatus(MoveState.Down) && currentState != MoveState.Up)
+        {
+            return MoveState.Down;
+        }
+        else if (CheckMoveStatus(MoveState.Left) && currentState != MoveState.Right)
+        {
+            return MoveState.Left;
+        }
+        else if (CheckMoveStatus(MoveState.Right) && currentState != MoveState.Left)
+        {
+            return MoveState.Right;
+        }
         return currentState;
     }
     private bool CheckMoveStatus(MoveState state)
@@ -138,6 +173,19 @@ public class Player : MonoBehaviour
         else if (state == MoveState.Right)
         {
             transform.position += new Vector3(-1f, 0f, 0f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "Final")
+        {
+            player.transform.localPosition = new Vector3(0f, -0.15f, 0f);
+            bricksParent.gameObject.SetActive(false);
+
+            transform.SetParent(collision.gameObject.transform);
+            transform.localPosition = new Vector3(0f, 2.5f, 5f);
+            animator.SetInteger("renwu", 2);
         }
     }
 }
