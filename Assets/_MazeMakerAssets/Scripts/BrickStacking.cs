@@ -53,7 +53,9 @@ public class BrickStacking : MonoBehaviour
             }
             else
             {
-                Debug.Log("Game Over");
+                this.enabled = false;
+                player.enabled = false;
+                GameController.Instance.LostSequence();
             }
         }
     }

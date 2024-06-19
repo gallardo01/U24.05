@@ -119,15 +119,10 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Win"))
         {
-            Debug.Log("endGame");
-            GameController.Instance.WinSequence();
-            transform.SetParent(other.transform);
-            transform.localPosition = new Vector3(0f, 3f, 5.5f);
-            transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-            animator.SetInteger("renwu", 2);
-            brickStacking.ClearBrick();
-            this.enabled = false;
+            WinSequence(other);
         }
+
+
     }
 
     public void PushSquence(Collider other)
@@ -146,6 +141,17 @@ public class Player : MonoBehaviour
         moveStates.Remove(ReverseState(currentMoveState));
 
         StartCoroutine(Move(moveStates[moveStates.Count - 1]));
+    }
+
+    private void WinSequence(Collider other)
+    {
+        GameController.Instance.Invoke(nameof(WinSequence), 2f);
+        transform.SetParent(other.transform);
+        transform.localPosition = new Vector3(0f, 3f, 5.5f);
+        transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+        animator.SetInteger("renwu", 2);
+        brickStacking.ClearBrick();
+        this.enabled = false;
     }
 
     public MoveState ReverseState(MoveState movestate)

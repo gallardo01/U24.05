@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : Singleton<GameController>
 {
@@ -20,14 +20,15 @@ public class GameController : Singleton<GameController>
     [SerializeField] ParticleSystem celebration1;
     [SerializeField] ParticleSystem celebration2;
     private int score;
+    public int currentSceneIndex;
 
     private void Awake()
     {
-        nextLevelButton.onClick.AddListener(LoadLevel);
-        playAgainButton.onClick.AddListener(LoadLevel);
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        nextLevelButton.onClick.AddListener(LoadingNextScene);
+        playAgainButton.onClick.AddListener(LoadingScene);
         score = 0;
         scoreText.text ="SCORE: " + score.ToString();
-    
     }
     
     public void ChangeScore()
@@ -38,6 +39,7 @@ public class GameController : Singleton<GameController>
 
     public void WinSequence()
     {
+
         winPanel.SetActive(true);
         ChestOpen.SetActive(false);
         ChestClose.SetActive(true);
@@ -50,10 +52,13 @@ public class GameController : Singleton<GameController>
         lostPanel.SetActive(true);
     }
 
-    public void LoadLevel()
+    public void LoadingNextScene()
     {
-        Debug.Log("LoadLevel");
+        int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(nextSceneIndex);
     }
-
-
+    public void LoadingScene()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    }
 }
