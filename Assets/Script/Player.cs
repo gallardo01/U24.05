@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask brickLayer;
     [SerializeField] LayerMask pushLayer;
     [SerializeField] LayerMask whiteLayer;
+
+    [SerializeField] Animator animator;
     
     [SerializeField] List<GameObject> bricks = new List<GameObject>();
 
@@ -194,6 +196,8 @@ public class Player : MonoBehaviour
             bricksParent.gameObject.SetActive(false);
             transform.SetParent(other.gameObject.transform);
             transform.localPosition = new Vector3(0f, 2.5f, 5);
+            animator.SetInteger("renwu", 2);
+
         }    
     }
 }

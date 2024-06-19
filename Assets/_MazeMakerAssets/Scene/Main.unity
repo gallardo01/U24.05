@@ -25810,6 +25810,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3753414226860548768, guid: 680fafd85c16f024192891099b1460ee, type: 3}
   m_PrefabInstance: {fileID: 1073443974}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1078121277 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95809777293889810, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
+  m_PrefabInstance: {fileID: 1897143816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1080594085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44721,6 +44726,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6655349677773732016, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1078121277}
+    - target: {fileID: 6655349677773732016, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
       propertyPath: pivoteBrick
       value: 
       objectReference: {fileID: 214832738}
@@ -44756,6 +44765,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &1897143820
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918171202}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1897241079
 PrefabInstance:
   m_ObjectHideFlags: 0
