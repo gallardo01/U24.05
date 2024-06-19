@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +18,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Transform stack;
     [SerializeField] private Transform player;
-    [SerializeField] private Transform drop; 
+    [SerializeField] private Transform drop;
+    [SerializeField] Animator animator;
+    [SerializeField] private AudioSource pickBrickSound;
+
+    private int totalBrick = 0;
+    private List<GameObject> bricks = new List<GameObject>();
 
     public enum MoveState
     {
@@ -173,7 +179,16 @@ public class Player : MonoBehaviour
             transform.position += new Vector3(1f, 0f, 0f);
         }
     }
-    
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.CompareTag("Final"))
+        {
+            player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1), -2);
+            animator.SetInteger("renwu", 2);
+        }   
+    }
+
     void CheckAndPickBrick()
     {
         RaycastHit hit;
@@ -184,10 +199,21 @@ public class Player : MonoBehaviour
             if (brick.CompareTag("Brick"))
             {
                 // If the brick is a normal brick, pick it up
+                //brick.transform.position = transform.position - new Vector3(0, 0.25f, 0);
+                //brick.transform.position += new Vector3(0, stack.childCount * 0.25f, 0);
+                //player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1) , -1);
+                //brick.transform.parent = stack;
+                totalBrick++;
+                pickBrickSound.Play();
+
+                brick.transform.SetParent(stack);
+                brick.GetComponent<BoxCollider>().enabled = false;
                 brick.transform.position = transform.position - new Vector3(0, 0.25f, 0);
                 brick.transform.position += new Vector3(0, stack.childCount * 0.25f, 0);
-                player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1) , -1);
-                brick.transform.parent = stack;
+                player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1), -1);
+                //brick.transform.localPosition = new Vector3(0f, 0.25f * (totalBrick - 2), 0f);
+                //player.transform.position = new Vector3(0f, -0.15f + 0.25f * (totalBrick - 1), 0f);
+                bricks.Add(brick);
             }
         }
     }
@@ -204,11 +230,24 @@ public class Player : MonoBehaviour
                 if (stack.childCount > 0)
                 {
                     Transform brickToDrop = stack.GetChild(stack.childCount - 1);
-                    brickToDrop.parent = drop;
+                    brickToDrop.parent = whiteBrick.transform;
                     Debug.Log("Drop");
                     brickToDrop.position = whiteBrick.transform.position;
+                    player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1), -1);
                 }
             }
+            //if(bricks.Count > 0)
+            //{
+            //    bricks[totalBrick - 1].transform.SetParent(whiteBrick.transform);
+            //    bricks[totalBrick - 1].transform.position = whiteBrick.transform.position + new Vector3(0, 0.25f * hitWhite.collider.gameObject.transform.childCount, 0);
+            //    totalBrick--;
+            //    player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1) , -1);
+            //}
+
+            //else
+            //{
+            //    Debug.Log("No brick to drop");
+            //}       
         }
     }
     
