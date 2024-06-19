@@ -23,6 +23,7 @@ public class UIManager : Singleton<UIManager>
     // Start is called before the first frame update
     void Start()
     {
+        OnMenuClick();
         if (!PlayerPrefs.HasKey("Stage"))
         {
             PlayerPrefs.SetInt("Stage", 1);
@@ -56,6 +57,7 @@ public class UIManager : Singleton<UIManager>
         stageButton.onClick.AddListener(() => OnStageClick());
         shopButton.onClick.AddListener(() => OnShopClick());
         backButton.onClick.AddListener(() => OnMenuClick());
+        backButtonShop.onClick.AddListener(() => OnMenuClick());
 
         listStageButton[0].onClick.AddListener(() => LoadSceneStage(1));
         listStageButton[1].onClick.AddListener(() => LoadSceneStage(2));
