@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask unBrickLayer;
     [SerializeField] LayerMask brickLayer;
     [SerializeField] LayerMask pushLayer;
+    [SerializeField] LayerMask whiteLayer;
+    
+    [SerializeField] List<GameObject> bricks = new List<GameObject>();
 
     private bool isRunning = false;
     private int totalBrick = 0;
@@ -78,7 +81,25 @@ public class Player : MonoBehaviour
                 hit.collider.gameObject.GetComponent<BoxCollider>().enabled = false;
                 hit.collider.transform.localPosition = new Vector3(0f, 0.25f * (totalBrick - 1), 0f);
                 player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f * totalBrick, 0f);
+                bricks.Add(hit.collider.gameObject);
             }
+
+            RaycastHit hitWhite;
+            if (Physics.Raycast(center.transform.position, Vector3.down, out hitWhite, 10f, whiteLayer))
+            {
+                if(totalBrick > 0)
+                {
+                    bricks[totalBrick - 1].transform.SetParent(hitWhite.collider.gameObject.transform);
+                    bricks[totalBrick - 1].transform.localPosition = Vector3.zero;
+                    totalBrick--;
+                    player.transform.localPosition = new Vector3(0f, -0.15f + 0.25f * totalBrick, 0f);
+                }
+                else
+                {
+                    //lost
+                }
+            }
+
 
             MovingTo(state);
             yield return new WaitForSeconds(0.1f);

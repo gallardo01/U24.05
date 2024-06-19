@@ -50581,7 +50581,15 @@ PrefabInstance:
       objectReference: {fileID: 214832738}
     - target: {fileID: 6655349677773732016, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
       propertyPath: pushLayer.m_Bits
-      value: 1536
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6655349677773732016, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
+      propertyPath: whiteLayer.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6655349677773732016, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
+      propertyPath: unBrickLayer.m_Bits
+      value: 1152
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c84b41a4245d5c241bc7ff57b0cca3f4, type: 3}
