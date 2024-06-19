@@ -185,4 +185,15 @@ public class Player : MonoBehaviour
         }
         return currentState;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Destination")
+        {
+            player.transform.localPosition = new Vector3(0f, -0.15f, 0f);
+            bricksParent.gameObject.SetActive(false);
+            transform.SetParent(other.gameObject.transform);
+            transform.localPosition = new Vector3(0f, 2.5f, 5);
+        }    
+    }
 }
