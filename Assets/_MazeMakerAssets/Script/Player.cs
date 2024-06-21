@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -21,8 +23,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform drop;
     [SerializeField] Animator animator;
     [SerializeField] private AudioSource pickBrickSound;
+    [SerializeField] private TextMeshProUGUI diamondText;
 
     private int totalBrick = 0;
+    private int totalDiamonds = 0;
     private List<GameObject> bricks = new List<GameObject>();
 
     public enum MoveState
@@ -187,6 +191,18 @@ public class Player : MonoBehaviour
             player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1), -2);
             animator.SetInteger("renwu", 2);
         }   
+        
+        if (collision.CompareTag("Diamond"))
+        {
+            totalDiamonds++;
+            pickBrickSound.Play();
+            diamondText.text = totalDiamonds.ToString();
+            Destroy(collision.gameObject);
+
+            //GameManager.Instance.TotalDiamonds++;
+            //diamondText.text = GameManager.Instance.TotalDiamonds.ToString();
+            //Destroy(collision.gameObject);
+        }
     }
 
     void CheckAndPickBrick()
@@ -204,8 +220,6 @@ public class Player : MonoBehaviour
                 //player.transform.position = up.transform.position + new Vector3(0, 0.25f * (stack.childCount - 1) , -1);
                 //brick.transform.parent = stack;
                 totalBrick++;
-                pickBrickSound.Play();
-
                 brick.transform.SetParent(stack);
                 brick.GetComponent<BoxCollider>().enabled = false;
                 brick.transform.position = transform.position - new Vector3(0, 0.25f, 0);
@@ -250,5 +264,6 @@ public class Player : MonoBehaviour
             //}       
         }
     }
+
     
 }
