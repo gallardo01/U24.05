@@ -13,12 +13,14 @@ public class Player : MonoBehaviour
     [SerializeField] Transform up;
     [SerializeField] Transform down;
     [SerializeField] Transform center;
-    //[SerializeField] Transform checkPoint;
 
     [SerializeField] private LayerMask unbrickLayer;
     [SerializeField] private LayerMask brickLayer;
+    [SerializeField] private LayerMask pushLayer;
+    [SerializeField] private LayerMask whiteLayer;
 
     public GameObject brickPrefabs;
+    public GameObject pushPrefabs;
     public GameObject stack;
 
     private bool isMoving = false;
@@ -78,34 +80,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    if (CheckMoveStatus(MoveState.Up))
-        //    {
-        //        StartCoroutine(MovePlayer(MoveState.Up));
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    if (CheckMoveStatus(MoveState.Down))
-        //    {
-        //        StartCoroutine(MovePlayer(MoveState.Down));
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    if (CheckMoveStatus(MoveState.Left))
-        //    {
-        //        StartCoroutine(MovePlayer(MoveState.Left));
-        //    }
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    if (CheckMoveStatus(MoveState.Right))
-        //    {
-        //        StartCoroutine(MovePlayer(MoveState.Right));
-        //    }
-        //}  
     }
 
     IEnumerator MovePlayer(MoveState state)
@@ -131,12 +105,38 @@ public class Player : MonoBehaviour
                     //Nhat gach len
                     AddBrick(brick);
                 }
+
+                //White
+                RaycastHit hitWhite;
+                if (Physics.Raycast(transform.position, Vector3.down, out hitWhite, 1f, whiteLayer))
+                {
+                    if (brickList.Count > 0)
+                    {
+                        brickList[brickCount - 1].transform.SetParent(hitWhite.collider.gameObject.transform);
+                        brickList[brickCount - 1].transform.localPosition = Vector3.zero;
+                        brickCount--;
+                        playerTransform.transform.localPosition = new Vector3(0f, -0.15f + 0.25f * (brickCount - 1), 0f);
+                    }
+                    else
+                    {
+                        //Thua
+                    }
+                }
+
                 MovePlayerDirection(state);
                 yield return new WaitForSeconds(0.1f);
             }
         }
         isMoving = false;
-        
+
+        //Push
+        if (Physics.Raycast(transform.position, Vector3.down, 5f, pushLayer))
+        {
+            //Debug.Log("Check");
+            MoveState newDirection = FindPushDirection(state);
+            StartCoroutine(MovePlayer(newDirection));
+        }
+
         //if (CheckMoveStatus(state))
         //{
         //    Debug.Log("State: " +  state);
@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
         BrickHeight = brickList.Count * SpaceBrick;
 
         Vector3 playerPosition = playerTransform.position;
-        playerPosition.y = BrickHeight;
+        playerPosition.y = BrickHeight + 0.6f;
         playerTransform.position = playerPosition;
 
         Vector3 brickPush = new Vector3(0, stackHeight, 0);
@@ -167,6 +167,27 @@ public class Player : MonoBehaviour
             brickList[i].transform.localPosition = brickPush;
             brickPush.y += SpaceBrick;
         }
+    }
+
+    private MoveState FindPushDirection(MoveState currentState)
+    {
+        if (CheckMoveStatus(MoveState.Up) && currentState != MoveState.Down)
+        {
+            return MoveState.Up;
+        }
+        if (CheckMoveStatus(MoveState.Down) && currentState != MoveState.Up)
+        {
+            return MoveState.Down;
+        }
+        if (CheckMoveStatus(MoveState.Left) && currentState != MoveState.Right)
+        {
+            return MoveState.Left;
+        }
+        if (CheckMoveStatus(MoveState.Right) && currentState != MoveState.Left)
+        {
+            return MoveState.Right;
+        }
+        return currentState;
     }
 
     //IEnumerator CreateBrick()
@@ -231,6 +252,47 @@ public class Player : MonoBehaviour
             transform.position += new Vector3(0f, 0f, -1f);
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Push"))
+    //    {
+    //        Debug.Log("Da va cham voi Push");
+    //        Push();
+    //    }
+    //}
+
+    //private void Push()
+    //{
+    //    //phat hien duong di
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, unbrickLayer))
+    //    {
+    //        MoveState state = DetermineDirection(hit.transform.position);
+
+    //        //di chuyen nhan vat
+    //        if (CheckMoveStatus(state) && state != currentState)
+    //        {
+    //            currentState = state;
+    //            StartCoroutine(MovePlayer(state));
+    //        }
+    //    }
+    //}
+
+    //private MoveState DetermineDirection(Vector3 pushPosition)
+    //{
+    //    Vector3 direction = pushPosition - transform.position;
+    //    direction.Normalize();
+
+    //    if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+    //    {
+    //        return direction.x > 0 ? MoveState.Right : MoveState.Left;
+    //    }
+    //    else
+    //    {
+    //        return direction.z > 0 ? MoveState.Up : MoveState.Down;
+    //    }
+    //}
 
     //private void OnTriggerEnter(Collider other)
     //{

@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/_MazeMakerAssets/Scene/MainMenu.unity
+    guid: 8771fc8b2d6867a42a7f420c83cbb5cd
+  - enabled: 1
+    path: Assets/_MazeMakerAssets/Scene/Main.unity
+    guid: cb9b7e3941937ec49a5778c41102deef
   m_configObjects: {}
