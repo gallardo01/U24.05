@@ -8,21 +8,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Transform body;
     private string currentAnimName = "idle";
-
-    void Start()
-    {
-        
-    }
+    private Vector3 moveDirection;
 
     void Update()
     {
-        Vector3 moveDirection = new Vector3(JoystickControl.direct.x, 0, JoystickControl.direct.z).normalized;
+        moveDirection = JoystickControl.direct.normalized;
 
         if(moveDirection.magnitude > 0)
         {
             transform.Translate(moveDirection * speed * Time.deltaTime);
             body.transform.forward = moveDirection;
-
             ChangeAnim("run");
         }
         else { ChangeAnim("idle"); }
