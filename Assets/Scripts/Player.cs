@@ -18,8 +18,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        m_ColorIndex = Random.Range(0, (int)Colors.Count);
-        body.material = ColorController.Instance.GetMaterialColor(m_ColorIndex);
     }
 
     void Update()
@@ -54,12 +52,21 @@ public class Player : MonoBehaviour
         if(collider.tag == "Brick")
         {
             Brick brick = collider.GetComponent<Brick>();
-            StageController.Instance.UpdateBrickPosMark(brick.index, true);
-            brick.transform.SetParent(m_BrickStack);
-            brick.transform.localRotation = Quaternion.Euler(90, 0, 0);
-            brick.transform.localPosition = new Vector3(0, 0, 0.3f * m_BrickCollection.Count);
-            m_BrickCollection.Add(brick);
-            StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
+            if(brick.m_ColorIndex == m_ColorIndex)
+            {
+                StageController.Instance.UpdateBrickPosMark(brick.index, true);
+                brick.transform.SetParent(m_BrickStack);
+                brick.transform.localRotation = Quaternion.Euler(90, 0, 0);
+                brick.transform.localPosition = new Vector3(0, 0, 0.3f * m_BrickCollection.Count);
+                m_BrickCollection.Add(brick);
+                StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
+            }    
         }    
+    }
+
+    public void SetColor(int colorIndex)
+    {
+        m_ColorIndex = colorIndex;
+        body.material = ColorController.Instance.GetMaterialColor(m_ColorIndex);
     }
 }

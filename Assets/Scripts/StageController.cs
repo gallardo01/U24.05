@@ -9,7 +9,8 @@ public class StageController : Singleton<StageController>
     [SerializeField] Brick m_BrickPfb;
     [SerializeField] float timeSpawnNewBrick;
     [SerializeField] Transform m_ContainerBricks;
-
+    [SerializeField] Player player;
+    
     private List<Transform> m_BrickContainer = new List<Transform>();
     private List<bool> m_BrickPosMark = new List<bool>();
 
@@ -28,8 +29,13 @@ public class StageController : Singleton<StageController>
 
         OnInit();
         SpawnAllBrick();
-
+        SetUpPlayerColor();
     }
+
+    private void SetUpPlayerColor()
+    {
+        player.SetColor(m_ListColorIndex[0]);
+    }    
 
     public void OnInit()
     {

@@ -8339,6 +8339,7 @@ MonoBehaviour:
   m_BrickPfb: {fileID: 566030864127680845, guid: ab1fd8592c9d7ce41873f8608a9ffd0f, type: 3}
   timeSpawnNewBrick: 5
   m_ContainerBricks: {fileID: 312216680}
+  player: {fileID: 2088602753}
 --- !u!1001 &1153608258
 PrefabInstance:
   m_ObjectHideFlags: 0
