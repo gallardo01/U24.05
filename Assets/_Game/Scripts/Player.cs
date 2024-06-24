@@ -16,9 +16,13 @@ public class Player : MonoBehaviour
 
     private float brickHeight = 0.1f;
 
+    private int colorIndex;
+    [SerializeField] SkinnedMeshRenderer playerMesh;
     void Start()
     {
         UIManager.Ins.OpenUI<UIGameplay>();
+        //colorIndex = Random.Range(0, 8);
+
     }
 
     // Update is called once per frame
