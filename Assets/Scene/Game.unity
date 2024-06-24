@@ -2052,6 +2052,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7736551563294347833, guid: 8564d92c17fe1dc49adcc900266c3cfd, type: 3}
   m_PrefabInstance: {fileID: 291682737}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &312216680 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5314048573792620334, guid: 06220a49279366646a752c89565f6532, type: 3}
+  m_PrefabInstance: {fileID: 4745468939129129281}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &316587894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8147,6 +8152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1151556701}
+  - component: {fileID: 1151556702}
   m_Layer: 0
   m_Name: Stage_1
   m_TagString: Untagged
@@ -8176,6 +8182,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151556702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151556700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca12b8097a2872449a47b0777faba64f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrickPfb: {fileID: 566030864127680845, guid: ab1fd8592c9d7ce41873f8608a9ffd0f, type: 3}
+  m_ContainerBricks: {fileID: 312216680}
 --- !u!1001 &1153608258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14858,5 +14878,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6869743696703351703, guid: 06220a49279366646a752c89565f6532, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 06220a49279366646a752c89565f6532, type: 3}
