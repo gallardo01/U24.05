@@ -40,5 +40,16 @@ public class Player : MonoBehaviour
             currentAnim = animName;
             animator.SetTrigger(currentAnim);
         }    
-    }    
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider.tag == "Brick")
+        {
+            Brick brick = collider.GetComponent<Brick>();
+            StageController.Instance.UpdateBrickPosMark(brick.index, true);
+            Destroy(collider.gameObject);
+            StageController.Instance.SpawnNewBrick();
+        }    
+    }
 }

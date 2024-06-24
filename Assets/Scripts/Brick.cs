@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] Material m_Material;
+
+    public int index;
     void Start()
     {
         
@@ -15,4 +17,14 @@ public class Brick : MonoBehaviour
     {
         
     }
+
+    public void SetNewMaterial()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+
+        if(renderer != null)
+        {
+            renderer.material = m_Material;
+        }    
+    }    
 }
