@@ -5,19 +5,11 @@ using UnityEngine.Pool;
 
 public class Brick : MonoBehaviour
 {
-    //ObjectPool<Brick> pool;
+    private int brickColor; public int BrickColor => brickColor;
 
-    //private void Awake()
-    //{
-    //    pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject, false, 10, 20);
-    //}
-
-    private void OnTriggerEnter(Collider other)
+    public void SetBrickColor(int color)
     {
-        if (other.CompareTag("Player"))
-        {
-            StartCoroutine(SpawnBrick.Instance.RespawnBrick(transform.position, 2f));
-            transform.position = new Vector3(100f, 100f, 100f);
-        }
+        brickColor = color;
+        GetComponent<MeshRenderer>().material = CollorController.Instance.GetColor(color);
     }
 }

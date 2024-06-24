@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 699727}
   - component: {fileID: 699728}
   - component: {fileID: 699729}
+  - component: {fileID: 699730}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -203,6 +204,25 @@ MonoBehaviour:
   speed: 5
   animator: {fileID: 1172165702}
   body: {fileID: 1172165700}
+  skinnedMeshRenderer: {fileID: 1591002701}
+--- !u!114 &699730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b9620a552abbb438a7f92c8d68c891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 1172165700}
+  pointBrick: {fileID: 1675478903}
+  radius: 2
+  brick:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1001 &3834061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -722,6 +742,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79421914}
   - component: {fileID: 79421915}
+  - component: {fileID: 79421916}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -756,16 +777,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdeb6dad37239740bf9fa980a2144cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickPrefabs:
-  - {fileID: 6946895174163336139, guid: c2d1663a7c8ae8f40842aba5149edd04, type: 3}
-  - {fileID: 6946895174163336139, guid: 35e04aca843d95848b6e261aedd8dfd0, type: 3}
-  - {fileID: 6946895174163336139, guid: f55ab7e6b372f4c408ae9e30d1f377b3, type: 3}
-  - {fileID: 6946895174163336139, guid: d367254c1a5a9d341bb967bf3b29e0f1, type: 3}
-  - {fileID: 6946895174163336139, guid: b07364f199701914c89000157d7a3066, type: 3}
-  - {fileID: 6946895174163336139, guid: 5ea416a06d8458445930c63ebf3eeb18, type: 3}
+  brickPrefab: {fileID: -881746298403001649, guid: ac1ad40682b354847b292891ebfb4e36, type: 3}
   rows: 10
   columns: 6
   spacing: 4
+--- !u!114 &79421916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79421913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd6b3acc2f477545bb8353d82975d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {fileID: 2100000, guid: 59eaffcab4a6d1946a080f059f2abed6, type: 2}
+  - {fileID: 2100000, guid: 97c5b23b4cb2a78449c3d37e85cad269, type: 2}
+  - {fileID: 2100000, guid: c5dc42954d5f71c41afa401dee5e289e, type: 2}
+  - {fileID: 2100000, guid: 89eb2e9a3ae7cb049ab148c63ce57d2e, type: 2}
+  - {fileID: 2100000, guid: b8fe7afe82f0b314bbbe10e54d09157f, type: 2}
+  - {fileID: 2100000, guid: 02d618163f9d53449bd8b6f867d5ee68, type: 2}
+  - {fileID: 2100000, guid: d8305359c48d182408cc331dc0233c4c, type: 2}
+  - {fileID: 2100000, guid: 14b8dc8fae242f84f93a077b5955ca53, type: 2}
+  - {fileID: 2100000, guid: 6cb89c1ecc1b65f439a43ce02e84432b, type: 2}
+  - {fileID: 2100000, guid: 636807f80c26cfe4fa6b2b11a28bc879, type: 2}
 --- !u!1001 &83490253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11505,6 +11543,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1394509330970134982, guid: 7e69970e02ee49042961e695b6eda798, type: 3}
   m_PrefabInstance: {fileID: 1575175733}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &1591002701 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -545310091306998490, guid: 088da5dceab668940bcd3512db140cfe, type: 3}
+  m_PrefabInstance: {fileID: 1172165699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1598377596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12225,6 +12268,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 1673437569}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1675478902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1675478903}
+  m_Layer: 0
+  m_Name: PointBrick
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1675478903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675478902}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: -0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1172165700}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1697002741
 PrefabInstance:
   m_ObjectHideFlags: 0

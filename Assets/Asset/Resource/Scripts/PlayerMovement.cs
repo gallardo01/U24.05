@@ -7,8 +7,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] Animator animator;
     [SerializeField] Transform body;
+    [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
     private string currentAnimName = "idle";
     private Vector3 moveDirection;
+    private int colorIndex; public int ColorIndex => colorIndex;
 
     void Update()
     {
@@ -31,5 +33,11 @@ public class PlayerMovement : MonoBehaviour
             currentAnimName = animName;
             animator.SetTrigger(currentAnimName);
         }
+    }
+
+    public void SetPlayerColor(int color)
+    {
+        colorIndex = color;
+        skinnedMeshRenderer.material = CollorController.Instance.GetColor(colorIndex);
     }
 }
