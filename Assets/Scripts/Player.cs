@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
             brick.transform.localRotation = Quaternion.Euler(90, 0, 0);
             brick.transform.localPosition = new Vector3(0, 0, 0.3f * m_BrickCollection.Count);
             m_BrickCollection.Add(brick);
-            StageController.Instance.SpawnNewBrick();
+            StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
         }    
     }
 }
