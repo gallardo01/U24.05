@@ -14,7 +14,7 @@ public class StageController : Singleton<StageController>
     private List<bool> m_BrickPosMark = new List<bool>();
 
     private List<Brick> m_Bricks = new List<Brick>();
-
+    
     void Start()
     {
         OnInit();

@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ColorController;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] Transform mesh;
+    [SerializeField] SkinnedMeshRenderer body;
     public Animator animator;
     private string currentAnim = "idle";
 
     [SerializeField] Transform m_BrickStack;
     private List<Brick> m_BrickCollection = new List<Brick>();
 
+    public int m_ColorIndex;
+
     void Start()
     {
-        
+        m_ColorIndex = Random.Range(0, (int)Colors.Count);
+        body.material = ColorController.Instance.GetMaterialColor(m_ColorIndex);
     }
 
     void Update()
