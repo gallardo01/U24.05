@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public Animator animator;
     private string currentAnim = "idle";
 
+    [SerializeField] Transform m_BrickStack;
+    private List<Brick> m_BrickCollection = new List<Brick>();
 
     void Start()
     {
@@ -48,7 +50,10 @@ public class Player : MonoBehaviour
         {
             Brick brick = collider.GetComponent<Brick>();
             StageController.Instance.UpdateBrickPosMark(brick.index, true);
-            Destroy(collider.gameObject);
+            brick.transform.SetParent(m_BrickStack);
+            brick.transform.localRotation = Quaternion.Euler(90, 0, 0);
+            brick.transform.localPosition = new Vector3(0, 0, 0.3f * m_BrickCollection.Count);
+            m_BrickCollection.Add(brick);
             StageController.Instance.SpawnNewBrick();
         }    
     }
