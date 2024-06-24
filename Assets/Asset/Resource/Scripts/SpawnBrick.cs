@@ -12,14 +12,12 @@ public class SpawnBrick : Singleton<SpawnBrick>
     [SerializeField] float spacing = 4f;
     List<Brick> brickList = new List<Brick>();
     List<int> colorNumberList = new List<int>();
-    PlayerMovement player;
 
     void Start()
     {
         RandomColor();
         SpawnBricks();
         InitBrickColor();
-        
     }
 
     private void SpawnBricks()
@@ -46,8 +44,7 @@ public class SpawnBrick : Singleton<SpawnBrick>
             colorNumberList.Add(newColorNumber);
             number.Remove(random);
         }
-        player = FindObjectOfType<PlayerMovement>();
-        player.SetPlayerColor(colorNumberList[0]);
+        FindObjectOfType<PlayerMovement>().SetPlayerColor(colorNumberList[0]);
     }
 
     public void InitBrickColor()

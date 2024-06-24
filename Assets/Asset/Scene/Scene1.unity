@@ -219,8 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 1172165700}
   pointBrick: {fileID: 1675478903}
-  radius: 2
-  brick:
+  brickLayerMask:
     serializedVersion: 2
     m_Bits: 8
 --- !u!1001 &3834061
