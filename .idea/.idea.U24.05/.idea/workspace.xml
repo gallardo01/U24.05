@@ -6,10 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2e9dce89-73e1-45e4-b553-8b0a5cd799fe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.U24.05/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.U24.05/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Asset_StickMan.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Rescource/Prefab/Brick.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rescource/Prefab/Brick.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rescource/Prefab/Bridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rescource/Prefab/Bridge.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rescource/Prefab/LongBridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rescource/Prefab/LongBridge.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Rescource/Prefab/Plane.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Rescource/Prefab/Plane.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene/Game.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Script/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Script/StageController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Script/StageController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +27,7 @@
     <setting file="file://$USER_HOME$/Downloads/Bridge_Race_Game-main/Bridge_Race_Game-main/Assets/_Game/Script/Character/Player.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Bridge_Race_Game-main/Bridge_Race_Game-main/Assets/_Game/Script/Character/PlayerBrick.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/Bridge_Race_Game-main/Bridge_Race_Game-main/Assets/_Game/Script/ColorObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/Bridge_Race_Game-main/Bridge_Race_Game-main/Assets/_Game/Script/Singleton.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Script/ColorChange.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Stack Maker/U24.05/U24.05/Assets/_MazeMakerAssets/Script/Manager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Stack Maker/U24.05/U24.05/Assets/_MazeMakerAssets/Script/Player.cs" root0="SKIP_HIGHLIGHTING" />
@@ -54,9 +58,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\ADMIN1\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\ADMIN1\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\ADMIN1\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\ADMIN\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\ADMIN\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\ADMIN\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -118,6 +122,7 @@
       <workItem from="1719212908882" duration="1876000" />
       <workItem from="1719228908956" duration="10090000" />
       <workItem from="1719340459403" duration="1179000" />
+      <workItem from="1719401331220" duration="9278000" />
     </task>
     <servers />
   </component>

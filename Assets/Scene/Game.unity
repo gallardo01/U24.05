@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -239,6 +239,10 @@ PrefabInstance:
     - target: {fileID: 7483470513396028547, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
       propertyPath: m_Name
       value: LongBridge (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483470513396028547, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_TagString
+      value: Bridge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
@@ -650,7 +654,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514059123}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e919acce984afa43959a0e0b4b39ae3, type: 3}
   m_Name: 
@@ -1214,6 +1218,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LongBridge (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7483470513396028547, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_TagString
+      value: Bridge
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
 --- !u!137 &1009268990 stripped
@@ -1587,12 +1595,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381262285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0.49999994, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2051131936}
-  m_RootOrder: 2
+  m_Father: {fileID: 1421181727}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395126439
 GameObject:
@@ -1625,6 +1633,11 @@ Transform:
   m_Father: {fileID: 1643747987}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1421181727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2031437965564203339, guid: 93b6444b4be9ecc44a98a83cef570ca8, type: 3}
+  m_PrefabInstance: {fileID: 814676451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1441608140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,8 +2465,12 @@ MonoBehaviour:
   animator: {fileID: 2051131935}
   colorIndex: 0
   body: {fileID: 1009268990}
+  mesh: {fileID: 2051131936}
   brickStack: {fileID: 1381262285}
   stack: {fileID: 1381262286}
+  planeLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!136 &2051131939
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2506,6 +2523,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1856443191}
     m_Modifications:
+    - target: {fileID: 441406992846899885, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2383206422690928550, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2553,6 +2574,30 @@ PrefabInstance:
     - target: {fileID: 7483470513396028547, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
       propertyPath: m_Name
       value: LongBridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483470513396028547, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7483470513396028547, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_TagString
+      value: Bridge
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013146172648678333, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013146172648678333, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013146172648678333, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625219440688635459, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91bf312adc7fb4244bf687fdbff566bb, type: 3}

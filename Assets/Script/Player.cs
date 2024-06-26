@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     public int colorIndex = 0;
     public SkinnedMeshRenderer body;
+    public Transform mesh;
     
 
     public GameObject brickStack; // The stack where the bricks will be stored
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     
     private int totalBrick = 0;
     [SerializeField] private Transform stack;
+    [SerializeField] private LayerMask planeLayer;
     
     
     // Start is called before the first frame update
@@ -34,12 +36,23 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 direction = JoystickControl.direct;
-        if (direction != Vector3.zero ) 
+        direction = direction.normalized;
+        // if (direction != Vector3.zero ) 
+        // {
+        //     Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+        //     transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+        //     transform.position += direction * speed * Time.deltaTime;
+        //     ChangeAnim("run");
+        // }
+        if (direction.magnitude > 0f)
         {
-            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
-            transform.position += direction * speed * Time.deltaTime;
+            Vector3 nextPoint = transform.position + JoystickControl.direct * Time.deltaTime * speed;
+            if (CanMove(nextPoint))
+            {
+                transform.position = nextPoint;
+            }
             ChangeAnim("run");
+            mesh.forward = JoystickControl.direct;
         }
         else
         {
@@ -88,9 +101,12 @@ public class Player : MonoBehaviour
         // {
         //     ChangeAnim("idle");
         // }
+    }
 
-
-        
+    private bool CanMove(Vector3 nextpoint)
+    {
+        RaycastHit hit;
+        return Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, planeLayer);
     }
 
     public void ChangeAnim(string animName)
@@ -118,12 +134,28 @@ public class Player : MonoBehaviour
                 brickRenderer.transform.SetParent(stack);
                 brickRenderer.GetComponent<BoxCollider>().enabled = false;
                 // Calculate the new position of the brick based on the number of bricks in the stack
-                Vector3 newPosition = transform.position + JoystickControl.direct * stack.childCount * 0.4f;
-                // newPosition += new Vector3(0, totalBrick * 0.4f, 0);
+                Vector3 newPosition = new Vector3(0, 0 , 0);
+                newPosition += new Vector3(0, totalBrick * 0.4f, 0);
 
                 // Move the brick to the new position
-                brickRenderer.transform.position = newPosition;
+                brickRenderer.transform.localPosition = newPosition;
+                brickRenderer.transform.localRotation = Quaternion.identity;
+                stack.transform.localRotation = (Quaternion.Euler(90,0,0));
                 
+                // Call the function to respawn the brick after 5 seconds
+                StageController stageController = FindObjectOfType<StageController>();
+                stageController.RespawnBrick(collider.gameObject, 5f);
+
+                // Update the availableTransforms list
+                stageController.UpdateAvailableTransforms();
+            }
+            else if (collider.gameObject.CompareTag("Bridge"))
+            {
+                // Apply a force or change the position of the player to simulate climbing
+                // This is a simple example, you may need to adjust this to fit your game
+                Vector3 climbDirection = new Vector3(0, 1, 0); // Change this to the direction you want the player to climb
+                float climbSpeed = 5f; // Change this to control the speed of climbing
+                transform.position += climbDirection * climbSpeed * Time.deltaTime;
             }
         }
     }
