@@ -99,6 +99,7 @@ public class StageController : Singleton<StageController>
         brick.index = index;
     }    
 
+    //get random EMPTY pos
     public int GetRandomAvailablePos()
     {
         if (m_BrickPosMark.FindAll(x => x == true).Count == 0) return -1;
@@ -114,6 +115,7 @@ public class StageController : Singleton<StageController>
         }
     }    
 
+    //spawn new brick at random EMPTY pos, with color same previous disappear brick
     public void SpawnNewBrick(int colorIndex)
     {
         int pos = GetRandomAvailablePos();
@@ -123,6 +125,13 @@ public class StageController : Singleton<StageController>
             StartCoroutine(SpawnBrick(pos, colorIndex));
         }    
     }
+
+    //spawn new brick at the same previous disappear brick, RANDOM color, better solution
+    public void SpawnNewBrickAtPos(int position)
+    {
+        int randomColorIndex = GetRandomBrickColor();
+        StartCoroutine(SpawnBrick(position, randomColorIndex));
+    }    
     
     public void UpdateBrickPosMark(int index, bool value)
     {
@@ -151,5 +160,18 @@ public class StageController : Singleton<StageController>
         int colorIndex = Random.Range(0, m_ListColorIndex.Count);
         return m_ListColorIndex[colorIndex];
     }
+
+    //only spawn brick with color available
+    public int GetRadomAvailableColorIndex()
+    {
+        int totalMaxColor = m_BrickPosMark.Count / m_ListColorIndex.Count;
+        m_TotalBrickColor.Where(x => x.Value < totalMaxColor).ToList();
+
+        int randomColorIndex = Random.Range(0, m_TotalBrickColor.Count);
+        Debug.Log($"Random color {m_ListColorIndex[m_TotalBrickColor.ElementAt(randomColorIndex).Key]} with total color {m_TotalBrickColor.ElementAt(randomColorIndex).Value}");
+
+        return m_TotalBrickColor.ElementAt(randomColorIndex).Key;
+
+    }    
 }
 

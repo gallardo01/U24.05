@@ -55,11 +55,13 @@ public class Player : MonoBehaviour
             if(brick.m_ColorIndex == m_ColorIndex)
             {
                 StageController.Instance.UpdateBrickPosMark(brick.index, true);
+                brick.GetComponent<Collider>().enabled = false;
                 brick.transform.SetParent(m_BrickStack);
                 brick.transform.localRotation = Quaternion.Euler(90, 0, 0);
                 brick.transform.localPosition = new Vector3(0, 0, 0.3f * m_BrickCollection.Count);
                 m_BrickCollection.Add(brick);
-                StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
+                //StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
+                StageController.Instance.SpawnNewBrickAtPos(brick.index);
             }    
         }    
     }
