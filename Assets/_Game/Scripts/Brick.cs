@@ -7,6 +7,7 @@ public class Brick : GameUnit
     public Color color;
 
     [SerializeField] MeshRenderer meshRenderer;
+    public Collider brickCollider;
 
     public void SetBrickColor(Color color)
     {

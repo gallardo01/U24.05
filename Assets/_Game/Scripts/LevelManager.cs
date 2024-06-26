@@ -9,9 +9,9 @@ public class LevelManager : Singleton<LevelManager>
     public int currentLevelIndex;
 
     void Awake()
-    {   
-        ColorController.Ins.GenerateColor();
+    {        
         OnInit();
+        currentLevel.InitLevel();
     }
 
     public void OnInit()

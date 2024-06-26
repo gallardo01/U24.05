@@ -13,29 +13,29 @@ public class Floor : MonoBehaviour
 
     private Dictionary<Brick, int> brickTFsIndex = new Dictionary<Brick, int>();
 
+    private Dictionary<Color, Dictionary<Brick, int>> colorBricks = new Dictionary<Color, Dictionary<Brick, int>>();
 
-
-    void Start()
+    public void InitFloor()
     {
         for (int i = 0; i < brickTFs.Count; i++)
         {
             brickTFsIndexReady.Add(i);
         }
-
-        for (int i = 0; i < Constants.QUANTITY_COLOR_GENERATE; i++)
-        {
-            GenerateBricks((Color)ColorController.Ins.colorsIndexUsed[i], Constants.QUANTITY_BRICK_PER_COLOR);
-        }
     }
 
-    public void GenerateBricks(Color color, int quantity)
+    public void GenerateBrick(Color color, int quantity)
     {
+        if (!colorBricks.ContainsKey(color))
+        {
+            colorBricks.Add(color, new Dictionary<Brick, int>());
+        }
+
         for (int i = 0; i < quantity; i++)
         {
             if (brickTFsIndexReady.Count <= 0)
             {
                 break;
-            }
+            }     
 
             int temp = Random.Range(0, brickTFsIndexReady.Count);
             int index = brickTFsIndexReady[temp];
@@ -44,7 +44,8 @@ public class Floor : MonoBehaviour
 
             //Brick brick = Instantiate(brickPrefab, brickTFs[index]);
             Brick brick = (Brick) SimplePool.Spawn(PoolType.Brick, brickTFs[index].position, Quaternion.identity);
-            brickTFsIndex.Add(brick, index);
+            //brickTFsIndex.Add(brick, index);
+            colorBricks[color].Add(brick, index);
 
             brick.SetBrickColor(color);
         }
@@ -52,10 +53,30 @@ public class Floor : MonoBehaviour
 
     public void RemoveBrick(Brick brick)
     {
-        int index = brickTFsIndex[brick];
+        //int index = brickTFsIndex[brick];
+        //brickTFsIndexReady.Add(index);
+        //brickTFsIndexUsed.Remove(index);
+
+        //brickTFsIndex.Remove(brick);
+
+
+        int index = colorBricks[brick.color][brick];
         brickTFsIndexReady.Add(index);
         brickTFsIndexUsed.Remove(index);
 
-        brickTFsIndex.Remove(brick);
+        colorBricks[brick.color].Remove(brick);
+
+        //StartCoroutine(RegenerateBrick(brick.color, 1, 5f));
+    }
+
+    //IEnumerator RegenerateBrick(Color color, int quantity, float duration)
+    //{
+    //    yield return new WaitForSeconds(duration);
+    //    GenerateBrick(color, quantity);
+    //}
+
+    public void ClearBrick()
+    {
+
     }
 }
