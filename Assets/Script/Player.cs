@@ -118,8 +118,8 @@ public class Player : MonoBehaviour
                 brickRenderer.transform.SetParent(stack);
                 brickRenderer.GetComponent<BoxCollider>().enabled = false;
                 // Calculate the new position of the brick based on the number of bricks in the stack
-                Vector3 newPosition = new Vector3(0, 1, -0.5f);
-                newPosition += new Vector3(0, totalBrick * 0.4f, 0);
+                Vector3 newPosition = transform.position + JoystickControl.direct * stack.childCount * 0.4f;
+                // newPosition += new Vector3(0, totalBrick * 0.4f, 0);
 
                 // Move the brick to the new position
                 brickRenderer.transform.position = newPosition;
