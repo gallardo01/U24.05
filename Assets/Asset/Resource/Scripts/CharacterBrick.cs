@@ -25,17 +25,18 @@ public class CharacterBrick : MonoBehaviour
         Collider[] avalableBricks = Physics.OverlapSphere(this.transform.position, 5f, brickLayerMask);
         for (int i = 0; i < avalableBricks.Length; i++)
         {
-            if (avalableBricks[i].GetComponent<Brick>().BrickColor == playerMovement.ColorIndex)
+            avalableBricks[i].TryGetComponent<Brick>(out Brick newPlayerBrick);
+            if (newPlayerBrick.BrickColor == playerMovement.ColorIndex)
             {
+                SpawnBrick.Instance.SpawnNewBrick(newPlayerBrick);
                 avalableBricks[i].enabled = false;
 
-                Transform newBrick = avalableBricks[i].transform;
-                newBrick.SetParent(body);
-                newBrick.localPosition = pointBrick.localPosition;
-                newBrick.localRotation = Quaternion.Euler(0f, 90f, 0f);
+                newPlayerBrick.transform.SetParent(body);
+                newPlayerBrick.transform.localPosition = pointBrick.localPosition;
+                newPlayerBrick.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
                 pointBrick.localPosition += new Vector3(0f, 0.2f, 0f);
 
-                brickStack.Push(newBrick);
+                brickStack.Push(newPlayerBrick.transform);
             }
         }
     }

@@ -10,6 +10,7 @@ public class Brick : MonoBehaviour
     public void SetBrickColor(int color)
     {
         brickColor = color;
-        GetComponent<MeshRenderer>().material = CollorController.Instance.GetColor(color);
+        GetComponent<MeshRenderer>().material = ColorController.Instance.GetColor(color);
     }
+
 }

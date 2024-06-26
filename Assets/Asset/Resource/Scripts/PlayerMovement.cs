@@ -38,6 +38,6 @@ public class PlayerMovement : MonoBehaviour
     public void SetPlayerColor(int color)
     {
         colorIndex = color;
-        skinnedMeshRenderer.material = CollorController.Instance.GetColor(colorIndex);
+        skinnedMeshRenderer.material = ColorController.Instance.GetColor(colorIndex);
     }
 }

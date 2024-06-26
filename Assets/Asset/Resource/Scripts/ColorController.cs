@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollorController : Singleton<CollorController>
+public class ColorController : Singleton<ColorController>
 {
     public enum Color
     {
@@ -12,7 +12,6 @@ public class CollorController : Singleton<CollorController>
         Blue,
         Yellow,
         Purple,
-
     }
 
     [SerializeField] private List<Material> colors = new List<Material>();

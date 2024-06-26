@@ -15,8 +15,8 @@ public class SpawnBrick : Singleton<SpawnBrick>
 
     void Start()
     {
-        RandomColor();
         SpawnBricks();
+        RandomColor();
         InitBrickColor();
     }
 
@@ -66,6 +66,24 @@ public class SpawnBrick : Singleton<SpawnBrick>
         }
     }
 
+    public void SpawnNewBrick(Brick brick)
+    {
+        StartCoroutine(SpawnBrickSequence(brick));
+    }
+
+    IEnumerator SpawnBrickSequence(Brick brick)
+    {
+        brickList.Remove(brick);
+        Vector3 position = brick.transform.position;
+
+        yield return new WaitForSeconds(2f);
+
+        Brick newBrick = Instantiate(brickPrefab, position, Quaternion.Euler(0f, 90f, 0f), this.transform);
+        int random = Random.Range(0, colorNumberList.Count);
+        newBrick.SetBrickColor(colorNumberList[random]);
+
+        brickList.Add(newBrick);
+    }
 
     //void ShuffleList<T>(List<T> list) //ham xao tron cac phan tu trong list
     //{
