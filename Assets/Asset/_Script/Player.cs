@@ -1,20 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [SerializeField] Transform body;
-    public SkinnedMeshRenderer character;
+    [SerializeField] Transform backPack;
+    [SerializeField] GameObject brickPrefabs;
+    [SerializeField] GameObject stepFloorPrefabs;
     float speed=9f;
     public Animator animator;
     private string currentAnim = "idle";
-    public int colorIndex = 0;
 
-    public void SetPlayerColor(int color)
+    private void Start()
     {
-        colorIndex = color;
-        character.material = ColorController.Instance.GetColor(colorIndex);
+        backPack.transform.Rotate(Vector3.up * 90f);
     }
     void Update()
     {
@@ -38,6 +40,30 @@ public class Player : MonoBehaviour
             animator.ResetTrigger(currentAnim);
             currentAnim = animName;
             animator.SetTrigger(currentAnim);
+        }
+    }
+    private void PickBrickOnBackPack()
+    {
+        GameObject brick = Instantiate(brickPrefabs, backPack.position + backPack.childCount*Vector3.up*0.15f , backPack.rotation);
+        brick.GetComponent<Brick>().SetBrickColor(this.colorIndex);
+        brick.transform.SetParent(backPack);
+    }
+    private void OnTriggerEnter(Collider collision)
+    {
+        Brick brick = collision.GetComponent<Brick>();
+        Bridge bridge = collision.GetComponent<Bridge>();
+        if (brick != null)
+        {
+            Destroy(brick);
+            if (brick.brickColor == this.colorIndex)
+            {
+                Destroy(brick.gameObject);
+                PickBrickOnBackPack();
+            }
+        }
+        if (bridge != null)
+        {
+            bridge.SetStepFloorColor(this.colorIndex);
         }
     }
 }

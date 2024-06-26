@@ -19,12 +19,12 @@ public class StageControler : MonoBehaviour
 
     private void Start()
     {
-        OnInit();
-        CreatColorPlayer();
+        OnInit();      
     }
 
     private void OnInit()
     {
+        CreatColorPlayer();
         for (int i = 0; i < transformBricks.Count; i++)
         {
             Quaternion rotationBrick = Quaternion.Euler(0,90,0);
@@ -37,17 +37,16 @@ public class StageControler : MonoBehaviour
     //ve nha lam tiep
     private void CreatColorPlayer()
     {
+        int[] colorExists = new int[getColorPlayers.Count];
         for (int i = 0; i < getColorPlayers.Count; i++)
         {
-            while (true)
+            int colorIndex;
+            do
             {
-                int colorIndex = Random.Range(0, ColorController.Instance.materials.Count);
-                if (colorIndex  )
-                {
-                    getColorPlayers[i].GetComponent<Player>().SetPlayerColor(colorIndex);
-                }
-            }
-            
+                colorIndex = Random.Range(0, ColorController.Instance.materials.Count);
+                getColorPlayers[i].GetComponent<Character>().SetPlayerColor(colorIndex);
+            } while (Array.Exists(colorExists, num => num == colorIndex));
+            colorExists[i] = colorIndex;
         }  
     }
     private void CreatColorBrick(GameObject brick)
@@ -80,7 +79,9 @@ public class StageControler : MonoBehaviour
                     continue;
                 }
             }
-            brick.GetComponent<Brick>().SetBrickColor(getColorPlayers[random].colorIndex);
+            int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
+            Debug.Log(colorBrick +" "+ random);
+            brick.GetComponent<Brick>().SetBrickColor(colorBrick);
             break;
         }     
     }
