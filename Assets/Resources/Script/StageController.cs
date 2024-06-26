@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageController : MonoBehaviour
+public class StageController : Singleton<StageController>
 {
     [SerializeField] List<Transform> listBricksTransform = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
@@ -23,6 +23,21 @@ public class StageController : MonoBehaviour
         InitBricksColor();
         // Set up mau cho nhan vat
         SetUpPlayerColor();
+    }
+
+    public void CreateNewBrick(int position)
+    {
+        StartCoroutine(CreateNewBrickAfterDelayTime(position));
+    }
+
+    IEnumerator CreateNewBrickAfterDelayTime(int position)
+    {
+        yield return new WaitForSeconds(5f);
+        Brick brick = Instantiate(brickPrefab, listBricksTransform[position].transform).GetComponent<Brick>();
+        brick.transform.localPosition = Vector3.zero;
+        brick.SetBrickPosition(position);
+        brick.SetBrickColor(gameColors[Random.Range(0,5)]);
+        listBricks.Add(brick);
     }
 
     private void SetUpPlayerColor()
@@ -62,6 +77,7 @@ public class StageController : MonoBehaviour
         {
             Brick brick = Instantiate(brickPrefab, listBricksTransform[i].transform).GetComponent<Brick>();
             brick.transform.localPosition = Vector3.zero;
+            brick.SetBrickPosition(i);
             listBricks.Add(brick);
         }
     }
