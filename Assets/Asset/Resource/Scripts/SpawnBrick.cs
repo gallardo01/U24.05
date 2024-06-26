@@ -11,7 +11,7 @@ public class SpawnBrick : Singleton<SpawnBrick>
     [SerializeField] int columns = 6;
     [SerializeField] float spacing = 4f;
     List<Brick> brickList = new List<Brick>();
-    List<int> colorNumberList = new List<int>();
+    public List<int> colorNumberList = new List<int>();
 
     void Start()
     {
@@ -39,9 +39,8 @@ public class SpawnBrick : Singleton<SpawnBrick>
 
         for(int i = 0; i < 6; i++)
         {
-            int random = Random.Range(0, 10);
-            int newColorNumber = random;
-            colorNumberList.Add(newColorNumber);
+            int random = Random.Range(0,10);
+            colorNumberList.Add(random);
             number.Remove(random);
         }
         FindObjectOfType<PlayerMovement>().SetPlayerColor(colorNumberList[0]);

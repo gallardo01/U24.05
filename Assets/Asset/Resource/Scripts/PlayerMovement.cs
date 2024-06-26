@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Transform body;
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
+    [SerializeField] LayerMask groundLayerMask;
     private string currentAnimName = "idle";
     private Vector3 moveDirection;
     private int colorIndex; public int ColorIndex => colorIndex;
@@ -18,11 +19,20 @@ public class PlayerMovement : MonoBehaviour
 
         if(moveDirection.magnitude > 0)
         {
-            transform.Translate(moveDirection * speed * Time.deltaTime);
+            Vector3 nextPosition = transform.position + moveDirection * speed * Time.deltaTime;
+            if(RayCheck(nextPosition))
+            {
+                transform.position = nextPosition;
+            }
             body.transform.forward = moveDirection;
             ChangeAnim("run");
         }
         else { ChangeAnim("idle"); }
+    }
+
+    private bool RayCheck(Vector3 nextPosition)
+    {
+        return (Physics.Raycast(nextPosition, Vector3.down, 5f, groundLayerMask));
     }
 
     private void ChangeAnim(string animName)

@@ -10,6 +10,7 @@ public class CharacterBrick : MonoBehaviour
     [SerializeField] LayerMask brickLayerMask;
 
     Stack<Transform> brickStack = new Stack<Transform>();
+
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
