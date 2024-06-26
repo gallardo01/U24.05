@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Duplicate : MonoBehaviour
@@ -13,7 +14,7 @@ public class Duplicate : MonoBehaviour
     {
         for (int i = 0; i < 20; i++)
         {
-            temp = Instantiate(obj, objParent);
+            temp = (Transform)PrefabUtility.InstantiatePrefab(obj, objParent);
             temp.transform.localPosition = new Vector3(0, 0.3f, 0.8f) * i;
         }
     }

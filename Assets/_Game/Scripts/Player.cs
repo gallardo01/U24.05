@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,18 +12,20 @@ public class Player : MonoBehaviour
     private string currentAnimName;
 
     [SerializeField] Transform brickParent;
-    private Stack<Transform> bricks = new();
-    private int brickCount = 0;
+    private Stack<Brick> bricks = new();
 
-    private float brickHeight = 0.1f;
+    private float brickHeight = 0.2f;
 
-    private int colorIndex;
+    private Color color;
     [SerializeField] SkinnedMeshRenderer playerMesh;
+
+    [SerializeField] LayerMask stepLayer;
+
+    private int currentFloorIndex;
+
     void Start()
     {
-        UIManager.Ins.OpenUI<UIGameplay>();
-        //colorIndex = Random.Range(0, 8);
-
+        OnInit();       
     }
 
     // Update is called once per frame
@@ -40,6 +43,15 @@ public class Player : MonoBehaviour
         {
             ChangeAnim("idle");
         }
+
+        CheckStep();
+    }
+
+    private void OnInit()
+    {
+        currentFloorIndex = 0;
+        color = (Color) ColorController.Ins.colorsIndexUsed[0];
+        playerMesh.material = ColorController.Ins.GetMaterialColor(color);
     }
 
     protected void ChangeAnim(string animName)
@@ -52,27 +64,59 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AddBrick(Transform brickObj)
+    private void AddBrick(Brick brick)
     {
-        bricks.Push(brickObj);
-        brickObj.SetParent(brickParent);
-        brickObj.localPosition = new Vector3(0, brickHeight * brickCount, 0);
+        bricks.Push(brick);
+        brick.transform.SetParent(brickParent);
+        brick.transform.localEulerAngles = Vector3.zero;
+        brick.transform.localPosition = new Vector3(0, (brickHeight + 0.1f) * bricks.Count, 0);
 
-        brickCount++;
+        LevelManager.Ins.currentLevel.floors[currentFloorIndex].RemoveBrick(brick);
     }
 
     private bool RemoveBrick()
     {
-        if (brickCount > 0)
+        if (bricks.Count > 0)
         {
-            Destroy(bricks.Pop().gameObject);
-            brickCount--;
+            SimplePool.Despawn(bricks.Pop());
 
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    private void CheckStep()
+    {
+        RaycastHit hit;
+        Vector3 raycastPos = transform.position;
+        raycastPos.y += 1f;
+
+        if (Physics.Raycast(raycastPos, Vector3.down, out hit, 10f, stepLayer))
+        {
+            Step step = hit.collider.GetComponent<Step>();
+            if (step.color != color)
+            {
+                if (RemoveBrick())
+                {
+                    step.SetStepColor(color);
+                    LevelManager.Ins.currentLevel.floors[currentFloorIndex].GenerateBricks(color, 1);
+                }          
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Brick"))
+        {
+            Brick brick = other.GetComponent<Brick>();
+            if (color == brick.color)
+            {
+                AddBrick(brick);
+            }
         }
     }
 }
