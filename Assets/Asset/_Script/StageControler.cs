@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class StageControler : MonoBehaviour
+public class StageControler : Singleton<StageControler>
 {
     [SerializeField] List<Transform> transformBricks = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
@@ -19,7 +19,7 @@ public class StageControler : MonoBehaviour
 
     private void Start()
     {
-        OnInit();      
+        OnInit();
     }
 
     private void OnInit()
@@ -30,11 +30,29 @@ public class StageControler : MonoBehaviour
             Quaternion rotationBrick = Quaternion.Euler(0,90,0);
             GameObject brick = Instantiate(brickPrefab, transformBricks[i].position, rotationBrick);
             CreatColorBrick(brick);
-            brick.transform.SetParent(transformBricks[i]); 
+            brick.GetComponent<Brick>().SetBrickPosition(i);
+            brick.transform.SetParent(transformBricks[i]);
             bricks.Add(brick);
         }
     }
-    //ve nha lam tiep
+    public void CreatBrickRepeat(int pos)
+    {
+        StartCoroutine(CreatBrickRepeatCoroutine(pos));
+    }
+
+    IEnumerator CreatBrickRepeatCoroutine(int pos)
+    {
+        yield return new WaitForSeconds(2f);
+        Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
+        Brick brick = Instantiate(brickPrefab, transformBricks[pos].position, rotationBrick).GetComponent<Brick>();
+        brick.SetBrickPosition(pos);
+        int random = Random.Range(0, getColorPlayers.Count);
+        int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
+        brick.SetBrickColor(colorBrick);
+        brick.transform.SetParent(transformBricks[pos]);
+        bricks.Add(brick.gameObject);
+    }
+
     private void CreatColorPlayer()
     {
         int[] colorExists = new int[getColorPlayers.Count];
@@ -80,9 +98,9 @@ public class StageControler : MonoBehaviour
                 }
             }
             int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
-            Debug.Log(colorBrick +" "+ random);
             brick.GetComponent<Brick>().SetBrickColor(colorBrick);
             break;
         }     
     }
+
 }

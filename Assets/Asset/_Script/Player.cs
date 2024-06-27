@@ -10,6 +10,7 @@ public class Player : Character
     [SerializeField] Transform backPack;
     [SerializeField] GameObject brickPrefabs;
     [SerializeField] GameObject stepFloorPrefabs;
+    [SerializeField] LayerMask groundLayer;
     float speed=9f;
     public Animator animator;
     private string currentAnim = "idle";
@@ -26,7 +27,11 @@ public class Player : Character
         {
             Quaternion newRotation = Quaternion.LookRotation(direction);
             body.rotation = newRotation;
-            transform.Translate(direction * speed * Time.deltaTime);
+            Vector3 nextPoint = transform.position + JoystickControl.direct * speed * Time.deltaTime;
+            if (CanMove(nextPoint))
+            {
+                transform.position = nextPoint;
+            }
             ChangeAnim("run");
         } else
         {
@@ -42,11 +47,27 @@ public class Player : Character
             animator.SetTrigger(currentAnim);
         }
     }
+    private Vector3 CheckGround(Vector3 nextPoint)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer))
+        {
+            return hit.point + Vector3.up*1.1f;
+        }
+        return Vector3.zero;
+    }
+    private bool CanMove(Vector3 nextpoint)
+    {
+        RaycastHit hit;
+        Debug.DrawLine(nextpoint, nextpoint + Vector3.down * 2f, Color.red, 2f);
+        return Physics.Raycast(nextpoint, Vector3.down,out hit, 2f, groundLayer);
+    }
     private void PickBrickOnBackPack()
     {
         GameObject brick = Instantiate(brickPrefabs, backPack.position + backPack.childCount*Vector3.up*0.15f , backPack.rotation);
         brick.GetComponent<Brick>().SetBrickColor(this.colorIndex);
         brick.transform.SetParent(backPack);
+        brick.GetComponent<BoxCollider>().enabled = false;
     }
     private void OnTriggerEnter(Collider collision)
     {
@@ -59,6 +80,8 @@ public class Player : Character
             {
                 Destroy(brick.gameObject);
                 PickBrickOnBackPack();
+                StageControler.Instance.CreatBrickRepeat(brick.brickPosition);
+                Debug.Log(brick.brickPosition);
             }
         }
         if (bridge != null)
