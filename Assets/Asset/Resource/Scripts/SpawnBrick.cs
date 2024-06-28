@@ -39,11 +39,11 @@ public class SpawnBrick : Singleton<SpawnBrick>
 
         for(int i = 0; i < 6; i++)
         {
-            int random = Random.Range(0,10);
+            int random = number[Random.Range(0, number.Count)];
             colorNumberList.Add(random);
             number.Remove(random);
         }
-        FindObjectOfType<PlayerMovement>().SetPlayerColor(colorNumberList[0]);
+        FindObjectOfType<Player>().SetPlayerColor(colorNumberList[0]);
     }
 
     public void InitBrickColor()

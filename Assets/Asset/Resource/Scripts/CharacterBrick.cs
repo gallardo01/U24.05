@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterBrick : MonoBehaviour
 {
-    PlayerMovement playerMovement;
+    Player playerMovement;
     [SerializeField] Transform body;
     [SerializeField] Transform pointBrick;
     [SerializeField] LayerMask brickLayerMask;
@@ -13,7 +13,7 @@ public class CharacterBrick : MonoBehaviour
 
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<Player>();
     }
 
     private void Start()

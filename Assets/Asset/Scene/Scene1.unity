@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.39, y: 0, z: 1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12293,7 +12293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860296251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31, y: 8, z: 70.7}
+  m_LocalPosition: {x: 31, y: 7.14, z: 70.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13521,6 +13521,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1176507027}
     m_Modifications:
+    - target: {fileID: 995911224372669598, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3766226153317127290, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
       propertyPath: m_Name
       value: LongBridge
@@ -13568,6 +13572,14 @@ PrefabInstance:
     - target: {fileID: 3766226153317127291, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296607472702538626, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296607472702538626, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.53
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
