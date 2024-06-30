@@ -13,7 +13,7 @@ public class StageControler : Singleton<StageControler>
     int countBrickPlayer1 = 1;
     int countBrickPlayer2 = 1;
 
-    List<GameObject> bricks = new List<GameObject>();
+    public List<GameObject> bricks = new List<GameObject>();
 
     [SerializeField]  List<GameObject> getColorPlayers = new List<GameObject>();
 
