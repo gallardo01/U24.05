@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private string currentAnimName = "idle";
     private Vector3 moveDirection;
     private Vector3 nextPosition;
-    private int colorIndex; public int ColorIndex => colorIndex;
+    public int colorIndex; public int ColorIndex => colorIndex;
 
     void Update()
     {
@@ -25,11 +25,11 @@ public class Player : MonoBehaviour
 
         if (moveDirection.magnitude > 0)
         {
-            Vector3 checkDirection = transform.position + Vector3.up + moveDirection * speed * Time.deltaTime;
+            Vector3 checkDirection = transform.position + Vector3.up + moveDirection;
 
             if (RayCheckGround(checkDirection))
             {
-                transform.position = nextPosition;
+                transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
             }
             body.transform.forward = moveDirection;
             ChangeAnim("run");
@@ -39,22 +39,28 @@ public class Player : MonoBehaviour
 
     private bool RayCheckGround(Vector3 rayPointCheck)
     {
+        Debug.DrawRay(rayPointCheck, Vector3.down * 5, Color.red);
         if (Physics.Raycast(rayPointCheck, Vector3.down, out RaycastHit hit, 5f, groundLayerMask))
         {
             if (hit.transform.CompareTag("Ground"))
             {
-                Debug.Log("Ground");
                 nextPosition = hit.point;
                 return true;
             }
 
             if (hit.transform.CompareTag("Stair"))
             {
-                Debug.Log("Stair");
                 hit.transform.TryGetComponent<Stair>(out Stair nextStair);
-                nextStair.SetStairColor(colorIndex);
-                nextPosition = hit.point;
-                if (nextStair.StairColor == colorIndex) return true;
+                if (nextStair.StairColor == colorIndex)
+                {
+                    nextPosition = hit.point;
+                    return true;
+                }
+                else
+                {
+                    nextStair.SetStairColor(colorIndex);
+                    return false;
+                }
             }
         }
         return false;

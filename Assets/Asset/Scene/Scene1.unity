@@ -184,7 +184,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -208,6 +208,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  colorIndex: 0
 --- !u!114 &699730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13539,11 +13540,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3766226153317127291, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.313
       objectReference: {fileID: 0}
     - target: {fileID: 3766226153317127291, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.92682076
+      value: 1.407
       objectReference: {fileID: 0}
     - target: {fileID: 3766226153317127291, guid: 91d59e719820e6a40bcc0651da8d5702, type: 3}
       propertyPath: m_LocalRotation.w
