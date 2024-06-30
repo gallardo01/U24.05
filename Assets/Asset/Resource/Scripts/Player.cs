@@ -9,10 +9,16 @@ public class Player : MonoBehaviour
     [SerializeField] Transform body;
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
     [SerializeField] LayerMask groundLayerMask;
+    private CharacterBrick characterBrick;
     private string currentAnimName = "idle";
     private Vector3 moveDirection;
     private Vector3 nextPosition;
     public int colorIndex; public int ColorIndex => colorIndex;
+
+    private void Awake()
+    {
+        characterBrick = GetComponent<CharacterBrick>();
+    }
 
     void Update()
     {
@@ -56,9 +62,10 @@ public class Player : MonoBehaviour
                     nextPosition = hit.point;
                     return true;
                 }
-                else
+                else if (characterBrick.CharacterBrickNumbers > 0)
                 {
                     nextStair.SetStairColor(colorIndex);
+                    characterBrick.RemoveBrick();
                     return false;
                 }
             }

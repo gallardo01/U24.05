@@ -10,6 +10,7 @@ public class CharacterBrick : MonoBehaviour
     [SerializeField] LayerMask brickLayerMask;
 
     Stack<Transform> brickStack = new Stack<Transform>();
+    public int CharacterBrickNumbers => brickStack.Count;
 
     private void Awake()
     {
@@ -41,4 +42,11 @@ public class CharacterBrick : MonoBehaviour
             }
         }
     }
+
+    public void RemoveBrick()
+    {
+        Transform removeBrick = brickStack.Pop();
+        pointBrick.localPosition = removeBrick.localPosition;
+        Destroy(removeBrick.gameObject);
+    } 
 }
