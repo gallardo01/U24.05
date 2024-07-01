@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Brick : GameUnit
 {
-    public Color color;
+    private Color color;
+
+    public Color Color => color;
 
     [SerializeField] MeshRenderer meshRenderer;
     public Collider brickCollider;

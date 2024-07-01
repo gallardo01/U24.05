@@ -17,3 +17,10 @@ public enum PoolType
     Brick,
 
 }
+
+public enum SFXType
+{
+    ButtonClick,
+    Canon,
+    CloseRevive,
+}

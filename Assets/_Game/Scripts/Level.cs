@@ -18,7 +18,7 @@ public class Level : MonoBehaviour
 
         for (int i = 0; i < Constants.QUANTITY_COLOR_GENERATE; i++)
         {
-            floors[0].GenerateBrick((Color)ColorController.Ins.colorsIndexUsed[i], Constants.QUANTITY_BRICK_PER_COLOR);
+            floors[0].GenerateBrick(ColorController.Ins.colorsUsed[i], Constants.QUANTITY_BRICK_PER_COLOR);
         }
         //this.PostEvent(EventID.OnInitLevel, startPos.position);
     }

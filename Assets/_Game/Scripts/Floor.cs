@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,18 +9,30 @@ public class Floor : MonoBehaviour
     [SerializeField] List<Transform> brickTFs = new List<Transform>();
     [SerializeField] Brick brickPrefab;
 
-    private List<int> brickTFsIndexReady = new List<int>();
-    private List<int> brickTFsIndexUsed = new List<int>();
+    [SerializeField] List<Gate> gates = new List<Gate>();
+    [SerializeField] List<Bridge> bridges = new List<Bridge>();
+    [SerializeField] int floor;
 
-    private Dictionary<Brick, int> brickTFsIndex = new Dictionary<Brick, int>();
+    private List<int> brickTFsReady = new List<int>();
+    private List<int> brickTFsUsed = new List<int>();
 
     private Dictionary<Color, Dictionary<Brick, int>> colorBricks = new Dictionary<Color, Dictionary<Brick, int>>();
-
+    private List<Brick> clearBricks = new List<Brick>();
     public void InitFloor()
     {
         for (int i = 0; i < brickTFs.Count; i++)
         {
-            brickTFsIndexReady.Add(i);
+            brickTFsReady.Add(i);
+        }
+
+        for (int i = 0; i < gates.Count; i++)
+        {
+            gates[i].SetGateFloor(floor);
+        }
+
+        for (int i = 0; i < bridges.Count; i++)
+        {
+            bridges[i].InitBridge();
         }
     }
 
@@ -32,19 +45,18 @@ public class Floor : MonoBehaviour
 
         for (int i = 0; i < quantity; i++)
         {
-            if (brickTFsIndexReady.Count <= 0)
+            if (brickTFsReady.Count <= 0)
             {
                 break;
             }     
 
-            int temp = Random.Range(0, brickTFsIndexReady.Count);
-            int index = brickTFsIndexReady[temp];
-            brickTFsIndexReady.RemoveAt(temp);
-            brickTFsIndexUsed.Add(index);
+            int temp = Random.Range(0, brickTFsReady.Count);
+            int index = brickTFsReady[temp];
+            brickTFsReady.RemoveAt(temp);
+            brickTFsUsed.Add(index);
 
-            //Brick brick = Instantiate(brickPrefab, brickTFs[index]);
             Brick brick = (Brick) SimplePool.Spawn(PoolType.Brick, brickTFs[index].position, Quaternion.identity);
-            //brickTFsIndex.Add(brick, index);
+
             colorBricks[color].Add(brick, index);
 
             brick.SetBrickColor(color);
@@ -53,30 +65,32 @@ public class Floor : MonoBehaviour
 
     public void RemoveBrick(Brick brick)
     {
-        //int index = brickTFsIndex[brick];
-        //brickTFsIndexReady.Add(index);
-        //brickTFsIndexUsed.Remove(index);
+        int index = colorBricks[brick.Color][brick];
+        brickTFsReady.Add(index);
+        brickTFsUsed.Remove(index);
 
-        //brickTFsIndex.Remove(brick);
-
-
-        int index = colorBricks[brick.color][brick];
-        brickTFsIndexReady.Add(index);
-        brickTFsIndexUsed.Remove(index);
-
-        colorBricks[brick.color].Remove(brick);
-
-        //StartCoroutine(RegenerateBrick(brick.color, 1, 5f));
+        colorBricks[brick.Color].Remove(brick);
     }
 
-    //IEnumerator RegenerateBrick(Color color, int quantity, float duration)
-    //{
-    //    yield return new WaitForSeconds(duration);
-    //    GenerateBrick(color, quantity);
-    //}
-
-    public void ClearBrick()
+    public void ClearBrick(Color color)
     {
+        if (!colorBricks.ContainsKey(color)) 
+        { 
+            return; 
+        }
 
+        foreach (var colorBrick in colorBricks[color]) 
+        {
+            clearBricks.Add(colorBrick.Key);           
+        }
+
+        for (int i = 0; i < clearBricks.Count; i++)
+        {
+            SimplePool.Despawn(clearBricks[i]);
+            RemoveBrick(clearBricks[i]);
+        }
+
+        clearBricks.Clear();
+        colorBricks.Remove(color);
     }
 }
