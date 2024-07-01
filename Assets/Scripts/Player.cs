@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] Transform mesh;
     [SerializeField] SkinnedMeshRenderer body;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask stairLayer;
     public Animator animator;
     private string currentAnim = "idle";
 
@@ -27,7 +29,13 @@ public class Player : MonoBehaviour
 
         if(direction.magnitude > 0f)
         {
-            transform.Translate(direction * Time.deltaTime * speed);
+            Vector3 nextPoint = transform.position + JoystickControl.direct * Time.deltaTime * speed;
+            if(CanMove(nextPoint))
+            {
+                //transform.position = nextPoint;
+                transform.position = CheckGround(nextPoint);
+            }
+            //transform.Translate(direction * Time.deltaTime * speed);
             mesh.forward = JoystickControl.direct;
             ChangeAnim("run");
         }
@@ -35,6 +43,25 @@ public class Player : MonoBehaviour
         {
             ChangeAnim("idle");
         } 
+    }
+
+    private bool CanMove(Vector3 nextPoint)
+    {
+        RaycastHit hit;
+        //Debug.Log("Ground: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer));
+        //Debug.Log("Stair: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, stairLayer));
+        //Debug.DrawRay(nextPoint, Vector3.down, Color.red, 0.01f);
+        return Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer);
+    }
+
+    private Vector3 CheckGround(Vector3 nextPoint)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer))
+        {
+            return hit.point + Vector3.up * 0.5f;
+        }
+        return transform.position;
     }
 
     public void ChangeAnim(string animName)
