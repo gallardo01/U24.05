@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] SkinnedMeshRenderer body;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask stairLayer;
+    [SerializeField] float deltaY;
     public Animator animator;
     private string currentAnim = "idle";
 
@@ -48,10 +49,31 @@ public class Player : MonoBehaviour
     private bool CanMove(Vector3 nextPoint)
     {
         RaycastHit hit;
-        //Debug.Log("Ground: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer));
-        //Debug.Log("Stair: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, stairLayer));
+        Debug.Log("Ground: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer));
+        Debug.Log("Stair: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, stairLayer));
         //Debug.DrawRay(nextPoint, Vector3.down, Color.red, 0.01f);
-        return Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer);
+
+        if(Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, stairLayer))
+        {
+            int stairColorIndex = hit.collider.GetComponent<Stair>().m_ColorIndex;
+            if(m_ColorIndex != stairColorIndex)
+            {
+                if(m_BrickCollection.Count > 0)
+                {
+                    Brick brick = m_BrickCollection[m_BrickCollection.Count - 1];
+                    brick.gameObject.transform.SetParent(hit.collider.transform);
+                    brick.transform.localPosition = new Vector3(0f, 0.1f, -0.1f);
+                    brick.transform.localScale = new Vector3(1f, 1f, 0.85f);
+                    brick.transform.localRotation = Quaternion.Euler(0, 90, 0);
+                    m_BrickCollection.RemoveAt(m_BrickCollection.Count - 1);
+                    hit.collider.GetComponent<Stair>().m_ColorIndex = m_ColorIndex;
+                }
+                return false;
+                
+            }
+        }
+
+        return Physics.Raycast(nextPoint, Vector3.down, 2f, groundLayer);
     }
 
     private Vector3 CheckGround(Vector3 nextPoint)
@@ -59,7 +81,7 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(nextPoint, Vector3.down, out hit, 2f, groundLayer))
         {
-            return hit.point + Vector3.up * 0.5f;
+            return hit.point + Vector3.up * deltaY;
         }
         return transform.position;
     }
@@ -87,8 +109,8 @@ public class Player : MonoBehaviour
                 brick.transform.localRotation = Quaternion.Euler(90, 0, 0);
                 brick.transform.localPosition = new Vector3(0, 0, 0.3f * m_BrickCollection.Count);
                 m_BrickCollection.Add(brick);
-                //StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
-                StageController.Instance.SpawnNewBrickAtPos(brick.index);
+                StageController.Instance.SpawnNewBrick(brick.m_ColorIndex);
+                //StageController.Instance.SpawnNewBrickAtPos(brick.index);
             }    
         }    
     }
