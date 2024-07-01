@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterBrick : MonoBehaviour
 {
-    Player playerMovement;
+    Character character;
     [SerializeField] Transform body;
     [SerializeField] Transform pointBrick;
     [SerializeField] LayerMask brickLayerMask;
@@ -14,7 +14,7 @@ public class CharacterBrick : MonoBehaviour
 
     private void Awake()
     {
-        playerMovement = GetComponent<Player>();
+        character = GetComponent<Character>();
     }
 
     private void Start()
@@ -28,7 +28,7 @@ public class CharacterBrick : MonoBehaviour
         for (int i = 0; i < avalableBricks.Length; i++)
         {
             avalableBricks[i].TryGetComponent<Brick>(out Brick newPlayerBrick);
-            if (newPlayerBrick.BrickColor == playerMovement.ColorIndex)
+            if (newPlayerBrick.BrickColor == character.ColorIndex)
             {
                 SpawnBrick.Instance.SpawnNewBrick(newPlayerBrick);
                 avalableBricks[i].enabled = false;

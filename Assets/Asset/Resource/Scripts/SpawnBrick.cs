@@ -43,7 +43,8 @@ public class SpawnBrick : Singleton<SpawnBrick>
             colorNumberList.Add(random);
             number.Remove(random);
         }
-        FindObjectOfType<Player>().SetPlayerColor(colorNumberList[0]);
+        FindObjectOfType<Player>().SetCharacterColor(colorNumberList[0]);
+        FindObjectOfType<Bot>().SetCharacterColor(colorNumberList[1]);
     }
 
     public void InitBrickColor()

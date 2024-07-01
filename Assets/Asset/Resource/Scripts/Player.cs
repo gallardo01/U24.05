@@ -2,30 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] Animator animator;
-    [SerializeField] Transform body;
-    [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
-    [SerializeField] LayerMask groundLayerMask;
-    private CharacterBrick characterBrick;
-    private string currentAnimName = "idle";
     private Vector3 moveDirection;
     private Vector3 nextPosition;
-    public int colorIndex; public int ColorIndex => colorIndex;
 
-    private void Awake()
+    private void Update()
     {
-        characterBrick = GetComponent<CharacterBrick>();
+        PlayerMovement();
     }
 
-    void Update()
-    {
-        Move();
-    }
-
-    private void Move()
+    private void PlayerMovement()
     {
         moveDirection = JoystickControl.direct.normalized;
 
@@ -33,7 +20,7 @@ public class Player : MonoBehaviour
         {
             Vector3 checkDirection = transform.position + Vector3.up + moveDirection;
 
-            if (RayCheckGround(checkDirection))
+            if (RayCheckMove(checkDirection))
             {
                 transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
             }
@@ -43,7 +30,7 @@ public class Player : MonoBehaviour
         else { ChangeAnim("idle"); }
     }
 
-    private bool RayCheckGround(Vector3 rayPointCheck)
+    private bool RayCheckMove(Vector3 rayPointCheck)
     {
         Debug.DrawRay(rayPointCheck, Vector3.down * 5, Color.red);
         if (Physics.Raycast(rayPointCheck, Vector3.down, out RaycastHit hit, 5f, groundLayerMask))
@@ -66,26 +53,9 @@ public class Player : MonoBehaviour
                 {
                     nextStair.SetStairColor(colorIndex);
                     characterBrick.RemoveBrick();
-                    return false;
                 }
             }
         }
         return false;
-    }
-
-    private void ChangeAnim(string animName)
-    {
-        if (currentAnimName != animName)
-        {
-            animator.ResetTrigger(animName);
-            currentAnimName = animName;
-            animator.SetTrigger(currentAnimName);
-        }
-    }
-
-    public void SetPlayerColor(int color)
-    {
-        colorIndex = color;
-        skinnedMeshRenderer.material = ColorController.Instance.GetColor(colorIndex);
     }
 }

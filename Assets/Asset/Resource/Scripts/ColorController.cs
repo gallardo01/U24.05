@@ -17,4 +17,7 @@ public class ColorController : Singleton<ColorController>
     [SerializeField] private List<Material> colors = new List<Material>();
 
     public Material GetColor(int index) => colors[index];
+
+    public Material SetColor(Color color) => colors[((int)color)];
+
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stair : MonoBehaviour
 {
-    public int stairColor; public int StairColor => stairColor;
+    public int stairColor = -1; public int StairColor => stairColor;
     private MeshRenderer meshRenderer;
 
     private void Awake()
