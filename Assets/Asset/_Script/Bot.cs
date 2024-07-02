@@ -17,28 +17,36 @@ public class Bot : Character
 
     private GameObject AutoFindTheNearestBrickCanPick()
     {
-        List<GameObject> bricks = StageControler.Instance.bricks;
+        List<GameObject> bricks = StageControler.Instance.bricksList;
         GameObject nearestBrick = null;
         float minDistance = Mathf.Infinity;
-        for (int i = 0; i < bricks.Count; i++)
+        while (true)
         {
-            if (bricks[i].GetComponent<Brick>().brickColor == this.colorIndex)
+            for (int i = 0; i < bricks.Count; i++)
             {
-                float distance = Vector3.Distance(transform.position, bricks[i].transform.position);
-                if (distance < minDistance)
+                if (bricks[i].GetComponent<Brick>().brickColor == this.colorIndex)
                 {
-                    minDistance = distance;
-                    nearestBrick = bricks[i];
+                    float distance = Vector3.Distance(transform.position, bricks[i].transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestBrick = bricks[i];
+                    }
                 }
             }
+            if (nearestBrick != null)
+            {
+                return nearestBrick;
+            } else
+            {
+                return null;
+            }           
         }
-        return nearestBrick;
     }
     private void MoveToTheBrick(GameObject brick)
     {
         if (brick != null)
         {
-            Debug.Log(brick.GetComponent<Brick>().brickPosition);
             Vector3 direction = brick.transform.position - transform.position;
             Quaternion newRotation = Quaternion.LookRotation(direction);
             body.rotation = newRotation;

@@ -9,7 +9,9 @@ public class Player : Character
 {
     [SerializeField] Transform body;
     [SerializeField] LayerMask groundLayer;
-    
+    [SerializeField] LayerMask stairLayer;
+
+
 
     void Update()
     {
@@ -22,7 +24,8 @@ public class Player : Character
             Vector3 nextPoint = transform.position + JoystickControl.direct * speed * Time.deltaTime;
             if (CanMove(nextPoint))
             {
-                transform.position = nextPoint;
+                Debug.DrawRay(nextPoint, Vector3.down, Color.red);
+                transform.position = CheckGround(nextPoint);
             }
             ChangeAnim("run");
         } else
@@ -34,7 +37,31 @@ public class Player : Character
     private bool CanMove(Vector3 nextpoint)
     {
         RaycastHit hit;
-        Debug.DrawLine(nextpoint, nextpoint + Vector3.down * 2f, Color.red, 2f);
-        return Physics.Raycast(nextpoint, Vector3.down,out hit, 2f, groundLayer);
+       
+        if (Physics.Raycast(nextpoint,Vector3.down,out hit, 2f, stairLayer))
+        {
+            //Debug.Log("bantrung");
+            int stepColor = hit.collider.GetComponent<Bridge>().stepFloorColor;
+            if (stepColor != colorIndex)
+            {
+                Debug.Log("khong di duoc");
+                return false;
+            } else
+            {
+                Debug.Log("di duoc");
+                return true;
+            }
+        }
+        Debug.Log("di duoc");
+        return Physics.Raycast(nextpoint, Vector3.down, groundLayer);
+    }
+    private Vector3 CheckGround(Vector3 nextPoint)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(nextPoint,Vector3.down,out hit, 2f,groundLayer))
+        {
+            return hit.point + Vector3.up * 0.3f;
+        }
+        return transform.position;
     }
 }

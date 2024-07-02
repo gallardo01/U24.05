@@ -7,7 +7,7 @@ public class Character : MonoBehaviour
 {
     public SkinnedMeshRenderer character;
     public int colorIndex = 0;
-    public float speed = 9f;
+    public float speed = 1f;
     [SerializeField] Transform backPack;
     [SerializeField] GameObject brickPrefabs;
     public Animator animator;
@@ -48,9 +48,9 @@ public class Character : MonoBehaviour
         Bridge bridge = collision.GetComponent<Bridge>();
         if (brick != null)
         {
-            Destroy(brick);
             if (brick.brickColor == this.colorIndex)
             {
+                StageControler.Instance.bricksList.Remove(brick.gameObject);
                 Destroy(brick.gameObject);
                 PickBrickOnBackPack();
                 StageControler.Instance.CreatBrickRepeat(brick.brickPosition);
@@ -70,6 +70,11 @@ public class Character : MonoBehaviour
             {
                 //Do something
             }
+        }
+
+        if (collision.CompareTag("stage2"))
+        {
+            StageControler.Instance.CreatBrickStage2();
         }
     }
 }

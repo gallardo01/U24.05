@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bridge : MonoBehaviour
 {
-    public int stepFloorColor;
+    public int stepFloorColor =-1;
     [SerializeField] GameObject stepFloor;
 
     public void SetStepFloorColor(int color)

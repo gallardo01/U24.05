@@ -8,14 +8,18 @@ using Random = UnityEngine.Random;
 public class StageControler : Singleton<StageControler>
 {
     [SerializeField] List<Transform> transformBricks = new List<Transform>();
+    [SerializeField] List<Transform> transformBricksStage2 = new List<Transform>();
+
     [SerializeField] GameObject brickPrefab;
     int countBrickPlayer0 = 1;
     int countBrickPlayer1 = 1;
     int countBrickPlayer2 = 1;
 
-    public List<GameObject> bricks = new List<GameObject>();
+    public List<GameObject> bricksList = new List<GameObject>();
+    public List<GameObject> bricksListStage2 = new List<GameObject>();
 
     [SerializeField]  List<GameObject> getColorPlayers = new List<GameObject>();
+    List<GameObject> getColorBricksStage2 = new List<GameObject>();
 
     private void Start()
     {
@@ -32,7 +36,20 @@ public class StageControler : Singleton<StageControler>
             CreatColorBrick(brick);
             brick.GetComponent<Brick>().SetBrickPosition(i);
             brick.transform.SetParent(transformBricks[i]);
-            bricks.Add(brick);
+            bricksList.Add(brick);
+        }
+    }
+
+    public void CreatBrickStage2()
+    {
+        for (int i = 0; i < transformBricksStage2.Count; i++)
+        {
+            Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
+            GameObject brick = Instantiate(brickPrefab, transformBricksStage2[i].position, rotationBrick);
+            CreatColorBrick(brick);
+            brick.GetComponent<Brick>().SetBrickPosition(i);
+            brick.transform.SetParent(transformBricksStage2[i]);
+            bricksListStage2.Add(brick);
         }
     }
     public void CreatBrickRepeat(int pos)
@@ -46,11 +63,12 @@ public class StageControler : Singleton<StageControler>
         Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
         Brick brick = Instantiate(brickPrefab, transformBricks[pos].position, rotationBrick).GetComponent<Brick>();
         brick.SetBrickPosition(pos);
+        bricksList.Add(brick.gameObject);
         int random = Random.Range(0, getColorPlayers.Count);
         int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
         brick.SetBrickColor(colorBrick);
         brick.transform.SetParent(transformBricks[pos]);
-        bricks.Add(brick.gameObject);
+        bricksList.Add(brick.gameObject);
     }
 
     private void CreatColorPlayer()
