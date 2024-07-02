@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     private int totalBrick = 0;
     [SerializeField] private Transform stack;
     [SerializeField] private LayerMask planeLayer;
+    [SerializeField] private LayerMask bridgeLayer;
     
     
     // Start is called before the first frame update
@@ -59,54 +60,19 @@ public class Player : MonoBehaviour
             ChangeAnim("idle");
         }
         
-        // Vector3 direction = JoystickControl.direct;
-        // if (direction != Vector3.zero)
-        // {
-        //     Ray ray = new Ray(transform.position, Vector3.down);
-        //     RaycastHit hit;
-        //
-        //     // Draw the Raycast in the Unity editor
-        //     Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
-        //
-        //     if (Physics.Raycast(ray, out hit))
-        //     {
-        //         // Log the name of the object the Raycast hit
-        //         Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
-        //
-        //         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Plane") ||
-        //             hit.collider.gameObject.layer == LayerMask.NameToLayer("Bridge") ||
-        //             hit.collider.gameObject.layer == LayerMask.NameToLayer("Brick"))
-        //         {
-        //             Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-        //             transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
-        //             transform.position += direction * speed * Time.deltaTime;
-        //             ChangeAnim("run");
-        //         }
-        //         
-        //         else
-        //         {
-        //             // Stop moving if hit object does not have tag "Bridge" or "Plane" or "Stairs"
-        //             ChangeAnim("idle");
-        //         }
-        //     }
-        //     
-        //     if (currentBrick != null)
-        //     {
-        //         currentBrick.transform.localPosition = Vector3.zero; // Keep the brick at the center of the brick stack
-        //     }
-        //     
-        //     
-        // }
-        // else
-        // {
-        //     ChangeAnim("idle");
-        // }
     }
 
     private bool CanMove(Vector3 nextpoint)
     {
         RaycastHit hit;
         return Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, planeLayer);
+    }
+    
+    private bool CanJump(Vector3 nextpoint)
+    {
+        RaycastHit hit;
+        return Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, bridgeLayer);
+        
     }
 
     public void ChangeAnim(string animName)
@@ -148,14 +114,6 @@ public class Player : MonoBehaviour
 
                 // Update the availableTransforms list
                 stageController.UpdateAvailableTransforms();
-            }
-            else if (collider.gameObject.CompareTag("Bridge"))
-            {
-                // Apply a force or change the position of the player to simulate climbing
-                // This is a simple example, you may need to adjust this to fit your game
-                Vector3 climbDirection = new Vector3(0, 1, 0); // Change this to the direction you want the player to climb
-                float climbSpeed = 5f; // Change this to control the speed of climbing
-                transform.position += climbDirection * climbSpeed * Time.deltaTime;
             }
         }
     }
