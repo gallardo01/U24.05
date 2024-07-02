@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Brick
-  - Bridge
   layers:
   - Default
   - TransparentFX
@@ -13,9 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Plane
-  - Brick
-  - Bridge
+  - Ground
+  - Stair
+  - 
   - 
   - 
   - 
