@@ -6,18 +6,20 @@ public class GameController : MonoBehaviour
 {
     private List<int> gameColors = new List<int>();
     public Player player;
+    public List<Transform> startPoints;
+    public Bot bot;
 
     // Start is called before the first frame update
     void Start()
     {
         RandomGameColor();
-        SetUpPlayerColor();
+        SetUpCharacterInGame();
     }
 
     private void RandomGameColor()
     {
-        // Chon 5 so trong 0 1 2 3 4 5 6 7 8 9
-        for (int i = 0; i < 5; i++)
+        // Chon 4 so trong 0 1 2 3 4 5 6 7 8 9
+        for (int i = 0; i < 4; i++)
         {
             int randColor;
             while (true)
@@ -41,8 +43,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void SetUpPlayerColor()
+    private void SetUpCharacterInGame()
     {
-        player.SetPlayerColor(gameColors[0]);
+        player.SetCharacterColor(gameColors[0]);
+        int rand_pos = Random.Range(0, startPoints.Count);
+        player.transform.position = startPoints[rand_pos].position;
+        startPoints.RemoveAt(rand_pos);
+
+        for (int i = 0; i < 3; i++)
+        {
+            Bot botInGame = Instantiate(bot);
+            bot.SetCharacterColor(gameColors[i + 1]);
+            botInGame.transform.position = startPoints[i].position;
+        }
     }
 }

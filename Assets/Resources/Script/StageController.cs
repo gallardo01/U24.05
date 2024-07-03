@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageController : Singleton<StageController>
+public class StageController : MonoBehaviour
 {
     [SerializeField] List<Transform> listBricksTransform = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
@@ -35,12 +35,12 @@ public class StageController : Singleton<StageController>
             int pos = Random.Range(0, listBricksInMap.Count);  
             int pos_transform = listBricksInMap[pos]; 
             listBricksInMap.Remove(pos_transform);
-
             // Sinh ra gach 3  4
             Brick brick = Instantiate(brickPrefab, listBricksTransform[pos_transform].transform).GetComponent<Brick>();
             brick.transform.localPosition = Vector3.zero;
             brick.SetBrickPosition(pos_transform);
             brick.SetBrickColor(color);
+            brick.SetStage(this);
             listBricks.Add(brick);
         }
     }
@@ -57,7 +57,8 @@ public class StageController : Singleton<StageController>
         Brick brick = Instantiate(brickPrefab, listBricksTransform[position].transform).GetComponent<Brick>();
         brick.transform.localPosition = Vector3.zero;
         brick.SetBrickPosition(position);
-        brick.SetBrickColor(0);
+        brick.SetBrickColor(listColorPlayGame[Random.Range(0, listColorPlayGame.Count)]);
+        brick.SetStage(this);
         listBricks.Add(brick);
     }
 }
