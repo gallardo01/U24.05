@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int colorIndex = 0;
     public SkinnedMeshRenderer body;
     public Transform bricks;
-    private int totalBricks = 0;
+    public int totalBricks = 0;
     public LayerMask groundLayer;
     public LayerMask stairLayer;
     private List<Brick> listBricks = new List<Brick>();
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetPlayerColor(colorIndex);
     }
 
     public void SetPlayerColor(int color)
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour
 
         if(other.gameObject.tag == "Stage")
         {
-            StageController.Ins.UnlockStage2(colorIndex);
+            StageController.Ins.CharacterStartGame(colorIndex);
         }
     }
 }

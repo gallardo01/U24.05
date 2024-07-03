@@ -6,45 +6,46 @@ public class StageController : Singleton<StageController>
 {
     [SerializeField] List<Transform> listBricksTransform = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
-
-
-
     private List<Brick> listBricks = new List<Brick>();
-    // Start Game - Pick mau`
-    public List<int> gameColors = new List<int>();
-    public Player player;
+    private List<int> listColorPlayGame = new List<int>();
 
-    [SerializeField] List<Transform> listBricksTransformStage2 = new List<Transform>();
-    [SerializeField] List<int> gameColorsStage2 = new List<int>();
-
+    private List<int> listBricksInMap = new List<int>();
     // Start is called before the first frame update
     void Start()
     {
-        // Sinh ra 50 gach
-        OnInit();
-        // Chon 5 mau se xuat hien trong game
-        RandomGameColor();
-        // Sinh ra 50 vien gach, moi mau 10 vien
-        InitBricksColor();
-        // Set up mau cho nhan vat
-        SetUpPlayerColor();
-    }
-
-    public void UnlockStage2(int color)
-    {
-        if (!gameColorsStage2.Contains(color))
+        for (int i = 0; i < listBricksTransform.Count; i++)
         {
-            gameColorsStage2.Add(color);
-            for (int i = 0; i < 10; i++)
-            {
-                Brick brick = Instantiate(brickPrefab, listBricksTransformStage2[i].transform).GetComponent<Brick>();
-                brick.transform.localPosition = Vector3.zero;
-                brick.SetBrickPosition(i);
-                brick.SetBrickColor(color);
-                //listBricks.Add(brick);
-            }
+            listBricksInMap.Add(i);
         }
     }
+    public void CharacterStartGame(int color)
+    {
+        if (!listColorPlayGame.Contains(color))
+        {
+            listColorPlayGame.Add(color);
+            // Sinh ra 10 gach ngau nhien
+            CreateNewBricksForCharacter(color);
+        }
+    }
+    private void CreateNewBricksForCharacter(int color)
+    {
+        // Sinh ra 10 vien gach trong nhung diem con` lai chua co gach?
+        for (int i = 0; i < 10; i++)
+        {
+            int pos = Random.Range(0, listBricksInMap.Count);  
+            int pos_transform = listBricksInMap[pos]; 
+            listBricksInMap.Remove(pos_transform);
+
+            // Sinh ra gach 3  4
+            Brick brick = Instantiate(brickPrefab, listBricksTransform[pos_transform].transform).GetComponent<Brick>();
+            brick.transform.localPosition = Vector3.zero;
+            brick.SetBrickPosition(pos_transform);
+            brick.SetBrickColor(color);
+            listBricks.Add(brick);
+        }
+    }
+
+
     public void CreateNewBrick(int position)
     {
         StartCoroutine(CreateNewBrickAfterDelayTime(position));
@@ -56,72 +57,7 @@ public class StageController : Singleton<StageController>
         Brick brick = Instantiate(brickPrefab, listBricksTransform[position].transform).GetComponent<Brick>();
         brick.transform.localPosition = Vector3.zero;
         brick.SetBrickPosition(position);
-        brick.SetBrickColor(gameColors[Random.Range(0,5)]);
+        brick.SetBrickColor(0);
         listBricks.Add(brick);
-    }
-
-    private void SetUpPlayerColor()
-    {
-        player.SetPlayerColor(gameColors[0]);
-    }
-    private void RandomGameColor()
-    {
-        // Chon 5 so trong 0 1 2 3 4 5 6 7 8 9
-        for (int i = 0; i < 5; i++) 
-        {
-            int randColor;
-            while (true)
-            {
-                randColor = Random.Range(0, 10);
-                bool sameColor = false;
-                for (int j = 0; j < gameColors.Count; j++)
-                {
-                    if(randColor == gameColors[j])
-                    {
-                        sameColor = true;
-                        break;
-                    }
-                }
-                if (!sameColor)
-                {
-                    break;
-                }
-            }
-            gameColors.Add(randColor);
-        }
-    }
-
-    private void OnInit()
-    {
-        for (int i = 0; i < listBricksTransform.Count; i++)
-        {
-            Brick brick = Instantiate(brickPrefab, listBricksTransform[i].transform).GetComponent<Brick>();
-            brick.transform.localPosition = Vector3.zero;
-            brick.SetBrickPosition(i);
-            listBricks.Add(brick);
-        }
-    }
-
-    private void InitBricksColor()
-    {
-        // Dem' moi mau` co 10 vien
-        int[] totalBricksColor = { 10, 10, 10, 10, 10 };
-        // 50 vien gach, for tung` vien -> chon mau`
-        for (int i = 0; i < listBricks.Count; i++)
-        {
-            // Chon mau`
-            while (true)
-            {
-                // Chon 1 mau ngau~ nhien
-                int brickColor = Random.Range(0, 5);
-                // Kiem tra
-                if (totalBricksColor[brickColor] > 0)
-                {
-                    totalBricksColor[brickColor]--;
-                    listBricks[i].SetBrickColor(gameColors[brickColor]);
-                    break;
-                } 
-            }
-        }
     }
 }
