@@ -15,6 +15,8 @@ public class Character : MonoBehaviour
     protected Stack<Brick> bricks = new();
 
     protected Color color;
+    public Color Color => color;
+
     [SerializeField] protected SkinnedMeshRenderer playerMesh;
 
     [SerializeField] protected LayerMask groundLayer;
@@ -22,7 +24,8 @@ public class Character : MonoBehaviour
     [SerializeField] protected LayerMask bridgeLayer;
     [SerializeField] protected LayerMask gateLayer;
 
-    [SerializeField] protected int currentFloor;
+    protected int currentFloor;
+    public int CurrentFloor => currentFloor;
 
     protected int currentStep;
 

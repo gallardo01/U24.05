@@ -9,9 +9,9 @@ public class Floor : MonoBehaviour
     [SerializeField] List<Transform> brickTFs = new List<Transform>();
     [SerializeField] Brick brickPrefab;
 
+    [SerializeField] int floor;
     [SerializeField] List<Gate> gates = new List<Gate>();
     [SerializeField] List<Bridge> bridges = new List<Bridge>();
-    [SerializeField] int floor;
 
     private List<int> brickTFsReady = new List<int>();
     private List<int> brickTFsUsed = new List<int>();
@@ -88,5 +88,18 @@ public class Floor : MonoBehaviour
         }
 
         colorBricks.Remove(color);
+    }
+
+    public List<Vector3> GetListBrickPos(Color color)
+    {
+        List<int> brickPosIndexs = colorBricks[color].Values.ToList();
+        List<Vector3> brickPos = new List<Vector3>();
+
+        for (int i = 0; i < brickPosIndexs.Count; i++) 
+        {
+            brickPos.Add(brickTFs[i].position);
+        } 
+
+        return brickPos;
     }
 }

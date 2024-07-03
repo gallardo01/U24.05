@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IState
 {
-    void OnEnter(Character character);
-    void OnExecute(Character character);
-    void OnExit(Character character);
+    void OnEnter(Enemy enemy);
+    void OnExecute(Enemy enemy);
+    void OnExit(Enemy enemy);
 }
