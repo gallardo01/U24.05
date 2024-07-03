@@ -19,8 +19,11 @@ public class ColorController : Singleton<ColorController>
         return materials[color];
     }
 
-    public void GenerateColor()
+    public List<Color> GenerateColor()
     {
+        colorsUsed.Clear();
+        colorsReady.Clear();
+
         HashSet<Color> systemColorsSet = new(colorsSystem);
 
         for (int i = 0; i < colorMaterials.Count; i++)
@@ -33,7 +36,7 @@ public class ColorController : Singleton<ColorController>
             }
         }
 
-        for (int i = 0; i < Constants.QUANTITY_COLOR_GENERATE; i++)
+        for (int i = 0; i < Constants.QUANTITY_CHARACTER; i++)
         {
             if (colorsReady.Count > 0)
             {
@@ -42,6 +45,8 @@ public class ColorController : Singleton<ColorController>
                 colorsReady.RemoveAt(temp);
             }
         }
+
+        return colorsUsed;
     }
 }
 

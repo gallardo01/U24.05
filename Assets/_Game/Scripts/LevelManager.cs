@@ -8,7 +8,9 @@ public class LevelManager : Singleton<LevelManager>
     public Level currentLevel;
     public int currentLevelIndex;
 
-    void Awake()
+    public List<Character> characters = new();
+
+    void Start()
     {        
         OnInit();
         currentLevel.InitLevel();

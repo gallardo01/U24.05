@@ -6,20 +6,23 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     public List<Floor> floors = new List<Floor>();
+    public List<Color> colors = new List<Color>();
+
+    [SerializeField] List<Transform> startPos = new List<Transform>();
 
     public void InitLevel()
     {
-        ColorController.Ins.GenerateColor();
+        colors = ColorController.Ins.GenerateColor();
 
         for (int i = 0; i < floors.Count; i++)
         {
             floors[i].InitFloor();
         }
 
-        for (int i = 0; i < Constants.QUANTITY_COLOR_GENERATE; i++)
+        for (int i = 0; i < Constants.QUANTITY_CHARACTER; i++)
         {
-            floors[0].GenerateBrick(ColorController.Ins.colorsUsed[i], Constants.QUANTITY_BRICK_PER_COLOR);
+            LevelManager.Ins.characters[i].OnInit(colors[i], startPos[i]);
+            floors[0].GenerateBrick(colors[i], Constants.QUANTITY_BRICK_PER_COLOR);
         }
-        //this.PostEvent(EventID.OnInitLevel, startPos.position);
     }
 }

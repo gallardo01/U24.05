@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,7 +17,7 @@ public class Floor : MonoBehaviour
     private List<int> brickTFsUsed = new List<int>();
 
     private Dictionary<Color, Dictionary<Brick, int>> colorBricks = new Dictionary<Color, Dictionary<Brick, int>>();
-    private List<Brick> clearBricks = new List<Brick>();
+
     public void InitFloor()
     {
         for (int i = 0; i < brickTFs.Count; i++)
@@ -79,10 +79,7 @@ public class Floor : MonoBehaviour
             return; 
         }
 
-        foreach (var colorBrick in colorBricks[color]) 
-        {
-            clearBricks.Add(colorBrick.Key);           
-        }
+        List<Brick> clearBricks = colorBricks[color].Keys.ToList();
 
         for (int i = 0; i < clearBricks.Count; i++)
         {
@@ -90,7 +87,6 @@ public class Floor : MonoBehaviour
             RemoveBrick(clearBricks[i]);
         }
 
-        clearBricks.Clear();
         colorBricks.Remove(color);
     }
 }
