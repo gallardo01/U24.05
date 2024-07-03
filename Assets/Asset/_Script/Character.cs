@@ -46,14 +46,24 @@ public class Character : MonoBehaviour
     {
         Brick brick = collision.GetComponent<Brick>();
         Bridge bridge = collision.GetComponent<Bridge>();
-        if (brick != null)
+        if (brick != null && brick.brickColor == this.colorIndex)
         {
-            if (brick.brickColor == this.colorIndex)
+            StageControler.Instance.bricksListStage1.Remove(brick.gameObject);
+            Destroy(brick.gameObject);
+            PickBrickOnBackPack();
+
+            if (brick.brickStage == StageControler.Instance.transformBricksStagw1)
             {
-                StageControler.Instance.bricksList.Remove(brick.gameObject);
-                Destroy(brick.gameObject);
-                PickBrickOnBackPack();
-                StageControler.Instance.CreatBrickRepeat(brick.brickPosition);
+                List<GameObject> bricksList = StageControler.Instance.bricksListStage1;
+                StageControler.Instance.CreatBrickRepeat(brick.brickPosition,bricksList, brick.brickStage);
+            }
+            else if (brick.brickStage == StageControler.Instance.transformBricksStage2)
+            {
+                
+            }
+            {
+                List<GameObject> bricksList = StageControler.Instance.bricksListStage2;
+                StageControler.Instance.CreatBrickRepeat(brick.brickPosition, bricksList, brick.brickStage);
             }
         }
         if (bridge != null)
@@ -66,14 +76,11 @@ public class Character : MonoBehaviour
                     bridge.SetStepFloorColor(this.colorIndex);
                 }
             }
-            else
-            {
-                //Do something
-            }
         }
 
         if (collision.CompareTag("stage2"))
         {
+            StageControler.Instance.getColorPlayersStage2.Add(this.gameObject);
             StageControler.Instance.CreatBrickStage2();
         }
     }

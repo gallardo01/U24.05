@@ -11,13 +11,13 @@ public class Bot : Character
 
     private void Update()
     {
-        moveBrick = AutoFindTheNearestBrickCanPick();
-        MoveToTheBrick(moveBrick);
+        //moveBrick = AutoFindTheNearestBrickCanPick();
+        //MoveToTheBrick(moveBrick);
     }
 
     private GameObject AutoFindTheNearestBrickCanPick()
     {
-        List<GameObject> bricks = StageControler.Instance.bricksList;
+        List<GameObject> bricks = StageControler.Instance.bricksListStage1;
         GameObject nearestBrick = null;
         float minDistance = Mathf.Infinity;
         while (true)

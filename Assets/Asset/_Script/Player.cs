@@ -44,15 +44,12 @@ public class Player : Character
             int stepColor = hit.collider.GetComponent<Bridge>().stepFloorColor;
             if (stepColor != colorIndex)
             {
-                Debug.Log("khong di duoc");
                 return false;
             } else
             {
-                Debug.Log("di duoc");
                 return true;
             }
         }
-        Debug.Log("di duoc");
         return Physics.Raycast(nextpoint, Vector3.down, groundLayer);
     }
     private Vector3 CheckGround(Vector3 nextPoint)

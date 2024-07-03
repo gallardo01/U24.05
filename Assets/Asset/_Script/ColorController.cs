@@ -14,10 +14,7 @@ public class ColorController : Singleton<ColorController>
         Yellow
     }
     public List<Material> materials = new List<Material>();
-    private void Start()
-    {
-        
-    }
+
     public Material GetColor(int colorIndex)
     {
         return materials[colorIndex];
