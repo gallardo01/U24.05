@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1310537555996164325}
   mesh: {fileID: 1559740307850438403}
-  colorIndex: 4
+  colorIndex: 8
   body: {fileID: 7610498206454138207}
   bricks: {fileID: 8205865389481553501}
   totalBricks: 0
@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: -310153274918992457, guid: 93b6444b4be9ecc44a98a83cef570ca8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ab2e4fb1257dc584baf7a07a9d7b1eae, type: 2}
+      objectReference: {fileID: 2100000, guid: 62c6fe61ae484fc46a66b455b8f05f6d, type: 2}
     - target: {fileID: 919132149155446097, guid: 93b6444b4be9ecc44a98a83cef570ca8, type: 3}
       propertyPath: m_Name
       value: Characters_01_Tpose
