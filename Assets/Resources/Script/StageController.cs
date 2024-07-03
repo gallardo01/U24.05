@@ -7,10 +7,15 @@ public class StageController : Singleton<StageController>
     [SerializeField] List<Transform> listBricksTransform = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
 
+
+
     private List<Brick> listBricks = new List<Brick>();
     // Start Game - Pick mau`
     public List<int> gameColors = new List<int>();
     public Player player;
+
+    [SerializeField] List<Transform> listBricksTransformStage2 = new List<Transform>();
+    [SerializeField] List<int> gameColorsStage2 = new List<int>();
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +30,21 @@ public class StageController : Singleton<StageController>
         SetUpPlayerColor();
     }
 
+    public void UnlockStage2(int color)
+    {
+        if (!gameColorsStage2.Contains(color))
+        {
+            gameColorsStage2.Add(color);
+            for (int i = 0; i < 10; i++)
+            {
+                Brick brick = Instantiate(brickPrefab, listBricksTransformStage2[i].transform).GetComponent<Brick>();
+                brick.transform.localPosition = Vector3.zero;
+                brick.SetBrickPosition(i);
+                brick.SetBrickColor(color);
+                //listBricks.Add(brick);
+            }
+        }
+    }
     public void CreateNewBrick(int position)
     {
         StartCoroutine(CreateNewBrickAfterDelayTime(position));
