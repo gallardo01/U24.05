@@ -4,32 +4,54 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SpawnBrick : Singleton<SpawnBrick>
+public class StageController : Singleton<StageController>
 {
     [SerializeField] Brick brickPrefab;
     [SerializeField] int rows = 10;
     [SerializeField] int columns = 6;
     [SerializeField] float spacing = 4f;
+    List<GameObject> dots = new List<GameObject>();
+    List<int> numberList = new List<int>();
     List<Brick> brickList = new List<Brick>();
-    public List<int> colorNumberList = new List<int>();
+    List<int> colorNumberList = new List<int>();
 
     void Start()
     {
-        SpawnBricks();
-        RandomColor();
-        InitBrickColor();
+        SpawnDot();
     }
 
-    private void SpawnBricks()
+    private void SpawnDot()
     {
         for (int i = 0; i < rows; i++)
         {
             for(int j = 0; j < columns; j++)
             {
+                GameObject emty = new GameObject("Dot");
                 Vector3 position = new Vector3(i * spacing, 0, j * spacing);
-                Brick newBrick = Instantiate(brickPrefab, position, Quaternion.Euler(0f, 90f, 0f), this.transform);
-                brickList.Add(newBrick);
+                GameObject dot = Instantiate(emty, position, Quaternion.identity, this.transform);
+                dots.Add(dot);
             }
+        }
+        for(int i = 0; i < dots.Count; i++)
+        {
+            numberList.Add(i);
+        }
+    }
+
+    public void SpawnCharacterBricks(int color)
+    {
+        for(int i = 0;i < 10; i++)
+        {
+            int random = Random.Range(0, numberList.Count);
+            int bricknumber = numberList[random];
+            numberList.Remove(bricknumber);
+
+            Brick newBrick = Instantiate(brickPrefab, dots[bricknumber].transform);
+            newBrick.transform.localRotation = Quaternion.Euler(0, 90, 0);
+            newBrick.SetBrickNumber(bricknumber);
+            newBrick.SetBrickNumber(color);
+
+            brickList.Add(newBrick);
         }
     }
 

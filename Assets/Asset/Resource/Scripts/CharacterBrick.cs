@@ -30,7 +30,7 @@ public class CharacterBrick : MonoBehaviour
             avalableBricks[i].TryGetComponent<Brick>(out Brick newPlayerBrick);
             if (newPlayerBrick.BrickColor == character.ColorIndex)
             {
-                SpawnBrick.Instance.SpawnNewBrick(newPlayerBrick);
+                StageController.Instance.SpawnNewBrick(newPlayerBrick);
                 avalableBricks[i].enabled = false;
 
                 newPlayerBrick.transform.SetParent(body);

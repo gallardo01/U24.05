@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public float speed = 5f;
-    public Animator animator;
-    public Transform body;
-    public SkinnedMeshRenderer skinnedMeshRenderer;
-    public LayerMask groundLayerMask;
-    public CharacterBrick characterBrick;
-    public string currentAnimName = "idle";
-    public int colorIndex; public int ColorIndex => colorIndex;
+    protected float speed = 5f;
+    protected Animator animator;
+    protected Transform body;
+    protected SkinnedMeshRenderer skinnedMeshRenderer;
+    protected LayerMask groundLayerMask;
+    protected CharacterBrick characterBrick;
+    protected string currentAnimName = "idle";
+    protected int colorIndex; public int ColorIndex => colorIndex;
+    protected StageController currentStage;
 
     protected virtual void Awake()
     {
@@ -37,5 +38,13 @@ public class Character : MonoBehaviour
     {
         colorIndex = color;
         skinnedMeshRenderer.material = ColorController.Instance.GetColor(colorIndex);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Stage>(out Stage stage))
+        {
+            currentStage = stage.StageController;
+        }
     }
 }
