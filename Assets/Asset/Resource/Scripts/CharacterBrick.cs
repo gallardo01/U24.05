@@ -30,9 +30,8 @@ public class CharacterBrick : MonoBehaviour
             avalableBricks[i].TryGetComponent<Brick>(out Brick newPlayerBrick);
             if (newPlayerBrick.BrickColor == character.ColorIndex)
             {
-                StageController.Instance.SpawnNewBrick(newPlayerBrick);
                 avalableBricks[i].enabled = false;
-
+                newPlayerBrick.RefatoringBrick();
                 newPlayerBrick.transform.SetParent(body);
                 newPlayerBrick.transform.localPosition = pointBrick.localPosition;
                 newPlayerBrick.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);

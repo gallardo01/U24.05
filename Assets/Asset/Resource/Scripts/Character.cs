@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    protected float speed = 5f;
-    protected Animator animator;
-    protected Transform body;
-    protected SkinnedMeshRenderer skinnedMeshRenderer;
-    protected LayerMask groundLayerMask;
+    [SerializeField] protected float speed = 5f;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected Transform body;
+    [SerializeField] protected SkinnedMeshRenderer skinnedMeshRenderer;
+    [SerializeField] protected LayerMask groundLayerMask;
     protected CharacterBrick characterBrick;
     protected string currentAnimName = "idle";
     protected int colorIndex; public int ColorIndex => colorIndex;
@@ -42,9 +42,9 @@ public class Character : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Stage>(out Stage stage))
+        if (other.CompareTag("TriggerBox"))
         {
-            currentStage = stage.StageController;
+            other.GetComponent<Stage>().StageController.CharacterStartStage(colorIndex);
         }
     }
 }
