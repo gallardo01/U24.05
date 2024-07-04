@@ -6,16 +6,20 @@ public class BridgeState : IState
 {
     public void OnEnter(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        if (enemy.targetBridgePos == Vector3.zero)
+        {
+            enemy.targetBridgePos = LevelManager.Ins.currentLevel.floors[enemy.CurrentFloor].GetBridgePos();
+        }
     }
 
     public void OnExecute(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        enemy.targetPos.Add(enemy.targetBridgePos);
+        enemy.ChangeState(new RunState());
     }
 
     public void OnExit(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

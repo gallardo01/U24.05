@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
-    private Color color;
+    [SerializeField] Transform behindPos;
+    private GameColor color;
     private int floor;
 
-    public Color Color => color;
+    public Transform BehindPos => behindPos;
+    public GameColor Color => color;
     public int Floor => floor;
 
     [SerializeField] List<MeshRenderer> gateParts = new List<MeshRenderer>();
 
-    public void SetGateColor(Color color)
+    public void SetGateColor(GameColor color)
     {
         this.color = color;
         for (int i = 0; i < gateParts.Count; i++)

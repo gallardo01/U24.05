@@ -8,14 +8,17 @@ public class Character : MonoBehaviour
     protected Vector3 nextPoint;
     [SerializeField] protected float moveSpeed = 5f;
 
+    [SerializeField] protected Transform tf;
+
     [SerializeField] protected Animator anim;
     protected string currentAnimName;
 
     [SerializeField] protected Transform brickParent;
     protected Stack<Brick> bricks = new();
+    public Stack<Brick> Bricks => bricks;
 
-    protected Color color;
-    public Color Color => color;
+    protected GameColor color;
+    public GameColor Color => color;
 
     [SerializeField] protected SkinnedMeshRenderer playerMesh;
 
@@ -29,15 +32,15 @@ public class Character : MonoBehaviour
 
     protected int currentStep;
 
-    public void OnInit(Color color, Transform transform)
+    public virtual void OnInit(GameColor color, Transform transform)
     {
         currentFloor = 0;
         this.color = color;
-        this.transform.position = transform.position;
+        tf.position = transform.position;
         playerMesh.material = ColorController.Ins.GetMaterialColor(color);
     }
 
-    protected void ChangeAnim(string animName)
+    public void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)
         {
@@ -75,7 +78,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    protected bool CanMove(Vector3 nextPoint)
+    public bool CanMove(Vector3 nextPoint)
     {
         Vector3 raycastPos = nextPoint;
         raycastPos.y += 4f;
@@ -175,21 +178,36 @@ public class Character : MonoBehaviour
                 AddBrick(brick);
             }
         }
-    }
 
-    protected void OnTriggerExit(Collider other)
-    {
         if (other.CompareTag("Gate"))
         {
             Gate gate = Cache.Ins.GetCachedComponent<Gate>(other);
 
             if (currentFloor < gate.Floor)
             {
-                gate.SetGateColor(color);
-                LevelManager.Ins.currentLevel.floors[currentFloor].ClearBrick(color);
-                currentFloor = gate.Floor;
-                LevelManager.Ins.currentLevel.floors[currentFloor].GenerateBrick(color, Constants.QUANTITY_BRICK_PER_COLOR);
+                NextFloor(gate);
             }
         }
+
+        if (other.CompareTag("Finish"))
+        {
+            if (this.CompareTag("Player"))
+            {
+                Debug.Log("you win");
+            }
+            else
+            {
+                Debug.Log("you lose");
+            }
+        }
+    }
+
+    protected virtual void NextFloor(Gate gate)
+    {
+        gate.SetGateColor(color);
+        LevelManager.Ins.currentLevel.floors[currentFloor].ClearBrick(color);
+        currentFloor = gate.Floor;
+        LevelManager.Ins.currentLevel.floors[currentFloor].GenerateBrick(color, Constants.QUANTITY_BRICK_PER_COLOR);
+        tf.position = gate.BehindPos.position;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     public List<Floor> floors = new List<Floor>();
-    public List<Color> colors = new List<Color>();
+    public List<GameColor> colors = new List<GameColor>();
 
     [SerializeField] List<Transform> startPos = new List<Transform>();
 

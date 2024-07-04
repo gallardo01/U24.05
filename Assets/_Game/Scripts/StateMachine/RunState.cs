@@ -4,21 +4,38 @@ using UnityEngine;
 
 public class RunState : IState
 {
+    int targetPosIndex;
     public void OnEnter(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        enemy.ChangeAnim("run");
+        targetPosIndex = 0;
+        enemy.SetDestination(enemy.targetPos[targetPosIndex]);
     }
 
     public void OnExecute(Enemy enemy)
     {
-        for (int i = 0; i < enemy.targetPos.Count; i++)
-        {
-            // do move (targetPos[i] -> on complete -> do move ( [i+1])
+        if (enemy.targetPos.Count <= 0)
+        {                      
+            enemy.ChangeState(new IdleState());
         }
 
-        if (enemy.targetPos.Count <= 0)
+        if (!enemy.CanMove(enemy.NextPoint))
         {
+            enemy.transform.forward = -enemy.transform.forward;
             enemy.ChangeState(new IdleState());
+        }
+
+        if (enemy.IsDestionation)
+        {
+            if (targetPosIndex < enemy.targetPos.Count - 1)
+            {
+                targetPosIndex++;
+                enemy.SetDestination(enemy.targetPos[targetPosIndex]);
+            }
+            else
+            {
+                enemy.targetPos.Clear();
+            }
         }
     }
 

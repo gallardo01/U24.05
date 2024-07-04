@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Brick : GameUnit
 {
-    private Color color;
+    private GameColor color;
 
-    public Color Color => color;
+    public GameColor Color => color;
 
     [SerializeField] MeshRenderer meshRenderer;
     public Collider brickCollider;
 
-    public void SetBrickColor(Color color)
+    public void SetBrickColor(GameColor color)
     {
         this.color = color;
         meshRenderer.material = ColorController.Ins.GetMaterialColor(color);

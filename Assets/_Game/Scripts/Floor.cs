@@ -16,7 +16,7 @@ public class Floor : MonoBehaviour
     private List<int> brickTFsReady = new List<int>();
     private List<int> brickTFsUsed = new List<int>();
 
-    private Dictionary<Color, Dictionary<Brick, int>> colorBricks = new Dictionary<Color, Dictionary<Brick, int>>();
+    private Dictionary<GameColor, Dictionary<Brick, int>> colorBricks = new Dictionary<GameColor, Dictionary<Brick, int>>();
 
     public void InitFloor()
     {
@@ -36,7 +36,7 @@ public class Floor : MonoBehaviour
         }
     }
 
-    public void GenerateBrick(Color color, int quantity)
+    public void GenerateBrick(GameColor color, int quantity)
     {
         if (!colorBricks.ContainsKey(color))
         {
@@ -72,7 +72,7 @@ public class Floor : MonoBehaviour
         colorBricks[brick.Color].Remove(brick);
     }
 
-    public void ClearBrick(Color color)
+    public void ClearBrick(GameColor color)
     {
         if (!colorBricks.ContainsKey(color)) 
         { 
@@ -90,16 +90,22 @@ public class Floor : MonoBehaviour
         colorBricks.Remove(color);
     }
 
-    public List<Vector3> GetListBrickPos(Color color)
+    public List<Vector3> GetListBrickPos(GameColor color)
     {
         List<int> brickPosIndexs = colorBricks[color].Values.ToList();
         List<Vector3> brickPos = new List<Vector3>();
 
         for (int i = 0; i < brickPosIndexs.Count; i++) 
         {
-            brickPos.Add(brickTFs[i].position);
+            brickPos.Add(brickTFs[brickPosIndexs[i]].position);
         } 
 
         return brickPos;
+    }
+
+    public Vector3 GetBridgePos()
+    {
+        int bridgeIndex = Random.Range(0, bridges.Count);
+        return bridges[bridgeIndex].bridgeEndPoint;
     }
 }

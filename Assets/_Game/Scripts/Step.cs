@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Step : MonoBehaviour
 {
-    private Color color;
+    private GameColor color;
     private int stepIndex;
 
-    public Color Color => color;
+    public GameColor Color => color;
     public int StepIndex => stepIndex;
 
     [SerializeField] MeshRenderer meshRenderer;
 
-    public void SetStepColor(Color color)
+    public void SetStepColor(GameColor color)
     {
         this.color = color;
         meshRenderer.material = ColorController.Ins.GetMaterialColor(color);

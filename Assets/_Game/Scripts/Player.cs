@@ -11,14 +11,14 @@ public class Player : Character
 
         if (moveDirection.magnitude > 0)
         {
-            nextPoint = transform.position + moveDirection * Time.deltaTime * moveSpeed;
+            nextPoint = tf.position + moveDirection * Time.deltaTime * moveSpeed;
             
             if (CanMove(nextPoint))
             {
-                transform.position = nextPoint;
+                tf.position = nextPoint;
             }
 
-            transform.forward = moveDirection;
+            tf.forward = moveDirection;
             ChangeAnim("run");
         }
         else

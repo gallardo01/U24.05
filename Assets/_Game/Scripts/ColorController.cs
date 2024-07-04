@@ -5,26 +5,26 @@ using UnityEngine;
 public class ColorController : Singleton<ColorController>
 {
     [SerializeField] List<ColorMaterial> colorMaterials = new List<ColorMaterial>();
-    [SerializeField] List<Color> colorsSystem = new List<Color>();
+    [SerializeField] List<GameColor> colorsSystem = new List<GameColor>();
 
-    private Dictionary<Color, Material> materials = new Dictionary<Color, Material>();
+    private Dictionary<GameColor, Material> materials = new Dictionary<GameColor, Material>();
 
-    public List<Color> colorsUsed = new List<Color>();
-    public List<Color> colorsReady = new List<Color>();
+    public List<GameColor> colorsUsed = new List<GameColor>();
+    public List<GameColor> colorsReady = new List<GameColor>();
 
 
 
-    public Material GetMaterialColor(Color color)
+    public Material GetMaterialColor(GameColor color)
     {
         return materials[color];
     }
 
-    public List<Color> GenerateColor()
+    public List<GameColor> GenerateColor()
     {
         colorsUsed.Clear();
         colorsReady.Clear();
 
-        HashSet<Color> systemColorsSet = new(colorsSystem);
+        HashSet<GameColor> systemColorsSet = new(colorsSystem);
 
         for (int i = 0; i < colorMaterials.Count; i++)
         {
@@ -53,6 +53,6 @@ public class ColorController : Singleton<ColorController>
 [System.Serializable]
 public class ColorMaterial
 {
-    public Color color;
+    public GameColor color;
     public Material material;
 }

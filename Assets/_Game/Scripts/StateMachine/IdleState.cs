@@ -4,18 +4,37 @@ using UnityEngine;
 
 public class IdleState : IState
 {
+    float timer;
+    float randomTime;
+
     public void OnEnter(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        enemy.ChangeAnim("idle");
+        enemy.ResetPath();
+        enemy.targetPos.Clear();
+        timer = 0;
+        randomTime = Random.Range(1f, 3f);
     }
 
     public void OnExecute(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        timer += Time.deltaTime;
+
+        if (timer > randomTime)
+        {
+            if (enemy.Bricks.Count > 0)
+            {
+                enemy.ChangeState(new BridgeState());
+            }
+            else
+            {
+                enemy.ChangeState(new CollectState());
+            }
+        }      
     }
 
     public void OnExit(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

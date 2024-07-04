@@ -8,12 +8,12 @@ public class CollectState : IState
 
     public void OnEnter(Enemy enemy)
     {
-        brickPos = LevelManager.Ins.currentLevel.floors[enemy.CurrentFloor].GetListBrickPos(enemy.Color);
+        brickPos = LevelManager.Ins.currentLevel.floors[enemy.CurrentFloor].GetListBrickPos(enemy.Color);        
     }
 
     public void OnExecute(Enemy enemy)
     {
-        int quantityBrickToCollect = Random.Range(0, brickPos.Count);
+        int quantityBrickToCollect = Random.Range(1, brickPos.Count);
         
         for (int i = 0; i < quantityBrickToCollect; i++)
         {
