@@ -6,7 +6,7 @@ public class StageController : MonoBehaviour
 {
     [SerializeField] List<Transform> listBricksTransform = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
-    private List<Brick> listBricks = new List<Brick>();
+    public List<Brick> listBricks = new List<Brick>();
     private List<int> listColorPlayGame = new List<int>();
 
     private List<int> listBricksInMap = new List<int>();
@@ -17,6 +17,30 @@ public class StageController : MonoBehaviour
         {
             listBricksInMap.Add(i);
         }
+    }
+
+    public Transform GetNearestBricks(Bot bot)
+    {
+        float distanceMin = float.MaxValue;
+        int index = -1;
+
+        for (int i = 0; i < listBricks.Count; i++)
+        {
+            if (bot.colorIndex == listBricks[i].brickColor)
+            {
+                float distance = (bot.transform.position - listBricks[i].transform.position).magnitude;
+                if (distance < distanceMin)
+                {
+                    index = i;
+                    distanceMin = distance;
+                }
+            }
+        }
+        if(index >= 0)
+        {
+            return listBricks[index].transform;
+        }
+        return null;
     }
     public void CharacterStartGame(int color)
     {

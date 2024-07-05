@@ -112,7 +112,7 @@ MonoBehaviour:
   mesh: {fileID: 1559740307850438403}
   colorIndex: 8
   body: {fileID: 7610498206454138207}
-  bricks: {fileID: 8205865389481553501}
+  bricks: {fileID: 1310537556620586018}
   totalBricks: 0
   groundLayer:
     serializedVersion: 2
@@ -120,6 +120,7 @@ MonoBehaviour:
   stairLayer:
     serializedVersion: 2
     m_Bits: 128
+  stage: {fileID: 0}
 --- !u!1001 &1310537555996164328
 PrefabInstance:
   m_ObjectHideFlags: 0

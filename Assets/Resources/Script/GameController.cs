@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
         player.transform.position = startPoints[rand_pos].position;
         startPoints.RemoveAt(rand_pos);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             Bot botInGame = Instantiate(bot);
             bot.SetCharacterColor(gameColors[i + 1]);
