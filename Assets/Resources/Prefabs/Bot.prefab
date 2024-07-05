@@ -85,10 +85,10 @@ MonoBehaviour:
   totalBricks: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   stairLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!1 &2474084602452813523
 GameObject:
   m_ObjectHideFlags: 0

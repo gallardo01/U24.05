@@ -26,10 +26,8 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < 3; i++) 
         {
             Bot botIngame = Instantiate(bot);
-            bot.SetCharacterColor(gameColors[i +1 ]);
+            bot.SetCharacterColor(gameColors[i +1]);
             botIngame.transform.position = startPoint[i].position;
-            
-        
         }
     }
     private void RandomGameColor()
