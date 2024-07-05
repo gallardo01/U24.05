@@ -14,6 +14,9 @@ public class Character : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask stairLayer;
     private List<Brick> listBricks = new List<Brick>();
+
+    public StageController stage; 
+
     public void RemoveBrick()
     {
         if (totalBricks > 0)
@@ -46,6 +49,7 @@ public class Character : MonoBehaviour
             other.gameObject.transform.localPosition = new Vector3(0f, (totalBricks - 1) * 0.3f, 0f);
             other.gameObject.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
             other.enabled = false;
+            other.GetComponent<Brick>().RemoveBrick();
             listBricks.Add(other.GetComponent<Brick>());
             totalBricks++;
             other.GetComponent<Brick>().stage.CreateNewBrick(other.GetComponent<Brick>().brickPosition);
@@ -54,6 +58,7 @@ public class Character : MonoBehaviour
 
         if (other.gameObject.tag == "Stage")
         {
+            this.stage = other.gameObject.GetComponent<Stage>().stage;
             other.gameObject.GetComponent<Stage>().stage.CharacterStartGame(colorIndex);
             //StageController.Ins.CharacterStartGame(colorIndex);
         }

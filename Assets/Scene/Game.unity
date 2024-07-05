@@ -1046,6 +1046,7 @@ MonoBehaviour:
   - {fileID: 1495783163}
   - {fileID: 730326982}
   brickPrefab: {fileID: 7762472908924287542, guid: d84f5d83b5c44c547ba50558c6efce45, type: 3}
+  listBricks: []
 --- !u!1 &344880978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,12 +2755,12 @@ GameObject:
   - component: {fileID: 698240415}
   - component: {fileID: 698240418}
   m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-  m_Name: Main Camera
-  m_TagString: MainCamera
 --- !u!81 &698240415
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2820,18 +2821,18 @@ Transform:
   m_GameObject: {fileID: 698240414}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 12, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!114 &698240418
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-MonoBehaviour:
   m_GameObject: {fileID: 698240414}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -3389,6 +3390,7 @@ MonoBehaviour:
   - {fileID: 1323690649}
   - {fileID: 69160555}
   brickPrefab: {fileID: 7762472908924287542, guid: d84f5d83b5c44c547ba50558c6efce45, type: 3}
+  listBricks: []
 --- !u!1 &934489829
 GameObject:
   m_ObjectHideFlags: 0
@@ -6629,11 +6631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5176716387774198426, guid: cd8e18e41b9b895499f261b1744e179a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2321768
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5176716387774198426, guid: cd8e18e41b9b895499f261b1744e179a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.78
+      value: -8.73
       objectReference: {fileID: 0}
     - target: {fileID: 5176716387774198426, guid: cd8e18e41b9b895499f261b1744e179a, type: 3}
       propertyPath: m_LocalRotation.w

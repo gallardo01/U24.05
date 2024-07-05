@@ -27,4 +27,9 @@ public class Brick : MonoBehaviour
     {
         this.stage = stage;
     }
+
+    public void RemoveBrick()
+    {
+        stage.listBricks.Remove(this);
+    }
 }

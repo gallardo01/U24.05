@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bot : Character
 {
-    public Vector3 target;
     IState<Bot> currentState;
 
     private void Start()
