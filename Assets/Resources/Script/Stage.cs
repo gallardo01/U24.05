@@ -5,15 +5,4 @@ using UnityEngine;
 public class Stage : MonoBehaviour
 {
     public StageController stage;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

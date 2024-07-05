@@ -23,9 +23,8 @@ public class Brick : MonoBehaviour
         brickColor = color;
         GetComponent<MeshRenderer>().material = ColorController.Ins.GetMaterialColor(color);
     }
-
     public void SetStage(StageController stage)
     {
-           this.stage = stage;
+        this.stage = stage;
     }
 }

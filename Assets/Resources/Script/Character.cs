@@ -14,12 +14,6 @@ public class Character : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask stairLayer;
     private List<Brick> listBricks = new List<Brick>();
-
-    public void SetCharacterColor(int color)
-    {
-        colorIndex = color;
-        body.material = ColorController.Ins.GetMaterialColor(colorIndex);
-    }
     public void RemoveBrick()
     {
         if (totalBricks > 0)
@@ -28,6 +22,11 @@ public class Character : MonoBehaviour
             listBricks.RemoveAt(totalBricks - 1);
             totalBricks--;
         }
+    }
+    public void SetCharacterColor(int color)
+    {
+        colorIndex = color;
+        body.material = ColorController.Ins.GetMaterialColor(colorIndex);
     }
     public void ChangeAnim(string animName)
     {
@@ -50,11 +49,13 @@ public class Character : MonoBehaviour
             listBricks.Add(other.GetComponent<Brick>());
             totalBricks++;
             other.GetComponent<Brick>().stage.CreateNewBrick(other.GetComponent<Brick>().brickPosition);
+            //StageController.Ins.CreateNewBrick(other.GetComponent<Brick>().brickPosition);
         }
 
         if (other.gameObject.tag == "Stage")
         {
             other.gameObject.GetComponent<Stage>().stage.CharacterStartGame(colorIndex);
+            //StageController.Ins.CharacterStartGame(colorIndex);
         }
     }
 }

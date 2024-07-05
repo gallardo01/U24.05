@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class StageController : MonoBehaviour
 {
@@ -9,36 +8,34 @@ public class StageController : MonoBehaviour
     [SerializeField] GameObject brickPrefab;
     private List<Brick> listBricks = new List<Brick>();
     private List<int> listColorPlayGame = new List<int>();
-    private List<int> listBrickInMap = new List<int>();
-    // Start Game - Pick mau`
 
-
+    private List<int> listBricksInMap = new List<int>();
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < listBricksTransform.Count; i++) 
+        for (int i = 0; i < listBricksTransform.Count; i++)
         {
-            listBrickInMap.Add(i);
+            listBricksInMap.Add(i);
         }
     }
-
     public void CharacterStartGame(int color)
     {
-        if (!listColorPlayGame.Contains(color)) 
-        { 
+        if (!listColorPlayGame.Contains(color))
+        {
             listColorPlayGame.Add(color);
-
+            // Sinh ra 10 gach ngau nhien
             CreateNewBricksForCharacter(color);
         }
     }
-
     private void CreateNewBricksForCharacter(int color)
     {
+        // Sinh ra 10 vien gach trong nhung diem con` lai chua co gach?
         for (int i = 0; i < 10; i++)
         {
-            int pos = Random.Range(0, listBrickInMap.Count);
-            int pos_transform = listBrickInMap[pos];
-            listBrickInMap.Remove(pos_transform);
+            int pos = Random.Range(0, listBricksInMap.Count);  
+            int pos_transform = listBricksInMap[pos]; 
+            listBricksInMap.Remove(pos_transform);
+            // Sinh ra gach 3  4
             Brick brick = Instantiate(brickPrefab, listBricksTransform[pos_transform].transform).GetComponent<Brick>();
             brick.transform.localPosition = Vector3.zero;
             brick.SetBrickPosition(pos_transform);
@@ -47,6 +44,7 @@ public class StageController : MonoBehaviour
             listBricks.Add(brick);
         }
     }
+
 
     public void CreateNewBrick(int position)
     {
