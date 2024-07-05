@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : Character
 {
-    private IState currentState;
+    private IState<Enemy> currentState;
 
     public Vector3 targetBridgePos = Vector3.zero;
 
@@ -29,7 +29,7 @@ public class Enemy : Character
         nextPoint = tf.position + tf.forward * 0.5f;
     }
 
-    public void ChangeState(IState newState)
+    public void ChangeState(IState<Enemy> newState)
     {
         if (currentState != null)
         {

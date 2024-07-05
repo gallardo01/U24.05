@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IState
+public interface IState<T>
 {
-    void OnEnter(Enemy enemy);
-    void OnExecute(Enemy enemy);
-    void OnExit(Enemy enemy);
+    void OnEnter(T t);
+    void OnExecute(T t);
+    void OnExit(T t);
 }

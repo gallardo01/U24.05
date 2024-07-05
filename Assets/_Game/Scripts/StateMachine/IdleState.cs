@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : IState
+public class IdleState : IState<Enemy>
 {
     float timer;
     float randomTime;

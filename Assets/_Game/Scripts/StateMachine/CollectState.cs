@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectState : IState
+public class CollectState : IState<Enemy>
 {
     List<Vector3> brickPos = new List<Vector3>();
 
@@ -13,6 +13,11 @@ public class CollectState : IState
 
     public void OnExecute(Enemy enemy)
     {
+        if (brickPos.Count == 0)
+        {
+            return;
+        }
+
         int quantityBrickToCollect = Random.Range(1, brickPos.Count);
         
         for (int i = 0; i < quantityBrickToCollect; i++)

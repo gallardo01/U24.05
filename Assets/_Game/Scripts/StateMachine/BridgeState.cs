@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BridgeState : IState
+public class BridgeState : IState<Enemy>
 {
     public void OnEnter(Enemy enemy)
     {
