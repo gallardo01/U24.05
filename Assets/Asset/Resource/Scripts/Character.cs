@@ -24,7 +24,7 @@ public class Character : MonoBehaviour
         characterBrick = GetComponent<CharacterBrick>();
     }
 
-    protected void ChangeAnim(string animName)
+    public void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)
         {

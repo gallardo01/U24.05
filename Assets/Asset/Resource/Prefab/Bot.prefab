@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1131312913714356919}
   - component: {fileID: 1131312913714356922}
   - component: {fileID: 1131312913714356913}
+  - component: {fileID: 8980567049737927653}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Player
@@ -61,7 +62,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -85,9 +86,11 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  currentStage: {fileID: 0}
   brickLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  navMeshAgent: {fileID: 0}
 --- !u!114 &1131312913714356913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +108,28 @@ MonoBehaviour:
   brickLayerMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!195 &8980567049737927653
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131312913714356912}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1131312914228501378
 GameObject:
   m_ObjectHideFlags: 0
