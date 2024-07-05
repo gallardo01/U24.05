@@ -57,7 +57,7 @@ public class Player : Character
         RaycastHit hit;
         if (Physics.Raycast(nextPoint,Vector3.down,out hit, 2f,groundLayer))
         {
-            return hit.point + Vector3.up * 0.3f;
+            return hit.point + Vector3.up * 0.4f;
         }
         return transform.position;
     }

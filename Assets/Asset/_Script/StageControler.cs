@@ -3,114 +3,92 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
 
-public class StageControler : Singleton<StageControler>
+public class StageControler : MonoBehaviour
 {
-    [SerializeField] public List<Transform> transformBricksStagw1 = new List<Transform>();
-    [SerializeField] public List<Transform> transformBricksStage2 = new List<Transform>();
-
+    [SerializeField] public List<Transform> transformBricks = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
 
-    public List<GameObject> bricksListStage1 = new List<GameObject>();
-    public List<GameObject> bricksListStage2 = new List<GameObject>();
+    public List<Brick> bricksList = new List<Brick>();
 
-    [SerializeField] List<GameObject> getColorPlayersStage1 = new List<GameObject>();
-    [SerializeField] public List<GameObject> getColorPlayersStage2 = new List<GameObject>();
+    public List<GameObject> getColorPlayers = new List<GameObject>();
 
     private void Start()
     {
         OnInit();
     }
 
-    private void OnInit()
+    public void OnInit()
     {
-        CreatColorPlayer();
-        for (int i = 0; i < transformBricksStagw1.Count; i++)
+        for (int i = 0; i < transformBricks.Count; i++)
         {
             Quaternion rotationBrick = Quaternion.Euler(0,90,0);
-            GameObject brick = Instantiate(brickPrefab, transformBricksStagw1[i].position, rotationBrick);
-            CreatColorBrick(brick,getColorPlayersStage1);
-            brick.GetComponent<Brick>().SetBrickPosition(i,transformBricksStagw1);
-            brick.transform.SetParent(transformBricksStagw1[i]);
-            bricksListStage1.Add(brick);
+            GameObject brick = Instantiate(brickPrefab, transformBricks[i].position, rotationBrick);
+            GameController.Instance.CreatColorBrick(brick);
+            brick.GetComponent<Brick>().SetBrickPosition(i);
+            brick.transform.SetParent(transformBricks[i]);
+            brick.GetComponent<Brick>().SetBrickPosition(i);
+            brick.GetComponent<Brick>().SetStage(this);
+            bricksList.Add(brick.GetComponent<Brick>());
         }
     }
 
-    public void CreatBrickStage2()
+    public void CharacterStartGame(GameObject gameObject)
     {
-        for (int i = 0; i < transformBricksStage2.Count; i++)
+        if (!getColorPlayers.Contains(gameObject))
         {
-            Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
-            GameObject brick = Instantiate(brickPrefab, transformBricksStage2[i].position, rotationBrick);
-            CreatColorBrick(brick, getColorPlayersStage2);
-            brick.GetComponent<Brick>().SetBrickPosition(i,transformBricksStage2);
-            brick.transform.SetParent(transformBricksStage2[i]);
-            bricksListStage2.Add(brick);
+            getColorPlayers.Add(gameObject);
         }
     }
-    public void CreatBrickRepeat(int pos, List<GameObject> bricksList, List<Transform> transformBricks)
+
+    public void CreatBrickRepeat(int pos)
     {
-        StartCoroutine(CreatBrickRepeatCoroutine(pos, bricksList,transformBricks));
+        StartCoroutine(CreatBrickRepeatCoroutine(pos));
     }
 
-    IEnumerator CreatBrickRepeatCoroutine(int pos, List<GameObject> bricksList, List<Transform> transformBricks)
+    IEnumerator CreatBrickRepeatCoroutine(int pos)
     {
         yield return new WaitForSeconds(2f);
 
         //Tao brick va add vao list
         Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
         Brick brick = Instantiate(brickPrefab, transformBricks[pos].position, rotationBrick).GetComponent<Brick>();
-        brick.SetBrickPosition(pos, transformBricks);
-        bricksList.Add(brick.gameObject);
+        bricksList.Add(brick);
+        brick.SetBrickPosition(pos);
+        brick.SetStage(this);
 
         // Tao mau random cho brick moi va dat vao vi tri tuong ung
-        int random = Random.Range(0, getColorPlayersStage1.Count);
-        int colorBrick = getColorPlayersStage1[random].GetComponent<Character>().colorIndex;
+        int random = Random.Range(0, getColorPlayers.Count);
+        int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
         brick.SetBrickColor(colorBrick);
         brick.transform.SetParent(transformBricks[pos]);
-        bricksList.Add(brick.gameObject);
+        bricksList.Add(brick);
     }
 
-    private void CreatColorPlayer()
+    public Vector3 GetNearestBrick(Bot bot)
     {
-        int[] colorExists = new int[getColorPlayersStage1.Count];
-        for (int i = 0; i < getColorPlayersStage1.Count; i++)
+        float distanceMin = float.MaxValue;
+        int index = -1;
+        for (int i = 0; i < bricksList.Count; i++)
         {
-            int colorIndex;
-            do
+            float distance = Vector3.Distance(bricksList[i].transform.position, bot.transform.position);
+            if (bot.colorIndex == bricksList[i].brickColor)
             {
-                colorIndex = Random.Range(0, ColorController.Instance.materials.Count);
-                getColorPlayersStage1[i].GetComponent<Character>().SetPlayerColor(colorIndex);
-            } while (Array.Exists(colorExists, num => num == colorIndex));
-            colorExists[i] = colorIndex;
-        }  
-    }
-    private void CreatColorBrick(GameObject brick,List<GameObject> getcolorPlayers)
-    {
-        List<int> countColorBrick = new List<int>();
-        for (int i = 0; i < getcolorPlayers.Count; i++)
-        {
-            countColorBrick.Add(0);
-        }
-        while (true)
-        {
-            int random = Random.Range(0, getcolorPlayers.Count);
-            for (int i = 0; i < getcolorPlayers.Count; i++)
-            {
-                if (random == i)
+                if (distance < distanceMin)
                 {
-                    countColorBrick[i]++;
-                    if (countColorBrick[i]>18)
-                    {
-                        continue;
-                    }
+                    distanceMin = distance;
+                    index = i;
                 }
-            }        
-            int colorBrick = getcolorPlayers[random].GetComponent<Character>().colorIndex;
-            brick.GetComponent<Brick>().SetBrickColor(colorBrick);
-            break;
-        }     
-    }
+            }
+        }
 
+        if (index >=0)
+        {
+            Debug.Log(index);
+            return bricksList[index].transform.position;
+        }
+        return Vector3.zero;     
+    }
 }

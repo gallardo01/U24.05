@@ -12,6 +12,8 @@ public class Character : MonoBehaviour
     [SerializeField] GameObject brickPrefabs;
     public Animator animator;
     private string currentAnim = "idle";
+
+    public StageControler stage;
     private void Start()
     {
         backPack.transform.Rotate(Vector3.up * 90f);
@@ -46,24 +48,15 @@ public class Character : MonoBehaviour
     {
         Brick brick = collision.GetComponent<Brick>();
         Bridge bridge = collision.GetComponent<Bridge>();
-        if (brick != null && brick.brickColor == this.colorIndex)
+        if (brick != null )
         {
-            StageControler.Instance.bricksListStage1.Remove(brick.gameObject);
-            Destroy(brick.gameObject);
-            PickBrickOnBackPack();
-
-            if (brick.brickStage == StageControler.Instance.transformBricksStagw1)
+            if (brick.brickColor == this.colorIndex)
             {
-                List<GameObject> bricksList = StageControler.Instance.bricksListStage1;
-                StageControler.Instance.CreatBrickRepeat(brick.brickPosition,bricksList, brick.brickStage);
-            }
-            else if (brick.brickStage == StageControler.Instance.transformBricksStage2)
-            {
-                
-            }
-            {
-                List<GameObject> bricksList = StageControler.Instance.bricksListStage2;
-                StageControler.Instance.CreatBrickRepeat(brick.brickPosition, bricksList, brick.brickStage);
+                Debug.Log("cham vao brick");
+                brick.Removed();
+                Destroy(brick);
+                PickBrickOnBackPack();
+                stage.CreatBrickRepeat(brick.brickPosition);
             }
         }
         if (bridge != null)
@@ -78,10 +71,11 @@ public class Character : MonoBehaviour
             }
         }
 
-        if (collision.CompareTag("stage2"))
+        if (collision.CompareTag("Stage"))
         {
-            StageControler.Instance.getColorPlayersStage2.Add(this.gameObject);
-            StageControler.Instance.CreatBrickStage2();
+            Debug.Log("cham vao stage");
+            collision.GetComponent<StartStage>().stage.CharacterStartGame(this.gameObject);
+            this.stage = collision.GetComponent<StartStage>().stage;
         }
     }
 }

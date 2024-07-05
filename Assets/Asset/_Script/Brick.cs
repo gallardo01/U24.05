@@ -6,16 +6,25 @@ public class Brick : MonoBehaviour
 {
     public int brickColor;
     public int brickPosition;
-    public List<Transform> brickStage = new List<Transform>();
+    public StageControler stage;
 
     public void SetBrickColor(int color)
     {
         brickColor = color;
         GetComponent<MeshRenderer>().material = ColorController.Instance.GetColor(color); 
     }
-    public void SetBrickPosition(int brickPosition, List<Transform> brickStage)
+    public void SetBrickPosition(int brickPosition)
     {
         this.brickPosition = brickPosition;
-        this.brickStage = brickStage;
+    }
+
+    public void SetStage(StageControler stage)
+    {
+        this.stage = stage;
+    }
+    public void Removed()
+    {
+        stage.bricksList.Remove(this);
+        Debug.Log("xoa");
     }
 }
