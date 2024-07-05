@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameController : Singleton<GameController>
 {
+    [SerializeField] Bot botPrefab;
+    [SerializeField] Transform[] startPos;
+
     private List<int> gameColors = new List<int>();
     public List<int> GameColors => gameColors;
 
@@ -22,42 +25,13 @@ public class GameController : Singleton<GameController>
             gameColors.Add(random);
             number.Remove(random);
         }
+
         FindObjectOfType<Player>().SetCharacterColor(gameColors[0]);
-        //for(int i = 0; i < 5; i++)
-        //{
-        //    FindObjectOfType<Bot>().SetCharacterColor(colorsOnStage[i + 1]);
-        //}
+
+        for (int i = 1; i < gameColors.Count; i++)
+        {
+            Bot newBot = Instantiate(botPrefab, startPos[i - 1].position, Quaternion.identity);
+            newBot.SetCharacterColor(gameColors[i]);
+        }
     }
-
-
-
-    //public void InitBrickColor()
-    //{
-    //    int[] totalBricksColor = { 10, 10, 10, 10, 10, 10 };
-
-    //    for (int i = 0; i < brickList.Count; i++)
-    //    {
-    //        while (true)
-    //        {
-    //            int brickColor = Random.Range(0, 6);
-    //            if (totalBricksColor[brickColor] > 0)
-    //            {
-    //                brickList[i].SetBrickColor(colorsOnStage[brickColor]);
-    //                totalBricksColor[brickColor]--;
-    //                break;
-    //            }
-    //        }
-    //    }
-    //}
-
-    //void ShuffleList<T>(List<T> list) //ham xao tron cac phan tu trong list
-    //{
-    //    for (int i = 0; i < list.Count; i++)
-    //    {
-    //        T temp = list[i];
-    //        int randomIndex = Random.Range(i, list.Count);
-    //        list[i] = list[randomIndex];
-    //        list[randomIndex] = temp;
-    //    }
-    //}
 }

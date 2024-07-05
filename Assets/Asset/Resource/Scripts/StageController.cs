@@ -10,9 +10,10 @@ public class StageController : MonoBehaviour
     [SerializeField] int rows = 10;
     [SerializeField] int columns = 6;
     [SerializeField] float spacing = 4f;
+    [SerializeField] Vector3 startDotPos;
     List<GameObject> dots = new List<GameObject>();
     List<int> brickNumber = new List<int>();
-    List<Brick> brickList = new List<Brick>();
+    public List<Brick> brickList = new List<Brick>();
     List<int> colorsOnStage = new List<int>();
 
     void Awake()
@@ -27,7 +28,7 @@ public class StageController : MonoBehaviour
             for(int j = 0; j < columns; j++)
             {
                 GameObject dot = Instantiate(new GameObject("Dot"), this.transform);
-                dot.transform.localPosition = new Vector3(i * spacing, 0.5f, j * spacing);
+                dot.transform.localPosition = new Vector3(startDotPos.x + i * spacing, 0.5f, startDotPos.z + j * spacing);
                 dot.transform.localRotation = Quaternion.identity;
                 dots.Add(dot);
             }
@@ -49,7 +50,6 @@ public class StageController : MonoBehaviour
 
     private void SpawnCharacterBricks(int color)
     {
-        Debug.Log("work");
         for(int i = 0;i < 10; i++)
         {
             int random = Random.Range(0, brickNumber.Count);
@@ -84,5 +84,29 @@ public class StageController : MonoBehaviour
         newBrick.SetBrickColor(colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
 
         brickList.Add(newBrick);
+    }
+
+    public Brick FindNearBrick(Bot bot)
+    {
+        float min = float.MaxValue;
+        int index = -1;
+
+        for(int i = 0; i < brickList.Count; i++)
+        {
+            if (brickList[i].BrickColor == bot.ColorIndex)
+            {
+                float distance = (bot.transform.position - brickList[i].transform.position).magnitude;
+                if(distance < min)
+                {
+                    min = distance;
+                    index = i;
+                }
+            }
+        }
+        if(index >= 0)
+        {
+            return brickList[index];
+        }
+        return null;
     }
 }

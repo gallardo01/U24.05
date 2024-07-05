@@ -11,6 +11,7 @@ public class Brick : MonoBehaviour
 
     public void RefatoringBrick()
     {
+        brickStage.brickList.Remove(this);
         brickStage.SpawnNewBrick(brickNumber);
     }
 
@@ -27,7 +28,4 @@ public class Brick : MonoBehaviour
         brickColor = color;
         GetComponent<MeshRenderer>().material = ColorController.Instance.GetColor(color);
     }
-
-
-
 }

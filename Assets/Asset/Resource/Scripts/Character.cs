@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     protected CharacterBrick characterBrick;
     protected string currentAnimName = "idle";
     protected int colorIndex; public int ColorIndex => colorIndex;
-    protected StageController currentStage;
+    public StageController currentStage;
 
     protected virtual void Awake()
     {
@@ -44,7 +44,8 @@ public class Character : MonoBehaviour
     {
         if (other.CompareTag("TriggerBox"))
         {
-            other.GetComponent<Stage>().StageController.CharacterStartStage(colorIndex);
+            other.GetComponent<Stage>().stageController.CharacterStartStage(colorIndex);
+            currentStage = other.GetComponent<Stage>().stageController;
         }
     }
 }

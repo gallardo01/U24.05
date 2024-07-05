@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    [SerializeField] private StageController stageController;
+    public StageController stageController;
     public StageController StageController => this.stageController;
 }
