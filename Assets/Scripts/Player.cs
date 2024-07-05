@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
             {
                 //transform.position = nextPoint;
                 transform.position = CheckGround(nextPoint);
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
             //transform.Translate(direction * Time.deltaTime * speed);
             mesh.forward = JoystickControl.direct;
