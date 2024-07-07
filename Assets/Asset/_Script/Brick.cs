@@ -25,6 +25,5 @@ public class Brick : MonoBehaviour
     public void Removed()
     {
         stage.bricksList.Remove(this);
-        Debug.Log("xoa");
     }
 }

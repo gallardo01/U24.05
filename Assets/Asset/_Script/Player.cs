@@ -11,8 +11,6 @@ public class Player : Character
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask stairLayer;
 
-
-
     void Update()
     {
         Vector3 direction = JoystickControl.direct.normalized;

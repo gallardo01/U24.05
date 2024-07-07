@@ -14,7 +14,7 @@ public class IdleState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         timer +=Time.deltaTime;
-        if (timer > 1f)
+        if (timer > 0.3f)
         {
             bot.ChangeState(new RunningState());
         }

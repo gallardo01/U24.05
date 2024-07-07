@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class GameController : Singleton<GameController>
 {
-    [SerializeField] List<GameObject> getColorPlayers = new List<GameObject>();
+    [SerializeField] public List<GameObject> getColorPlayers = new List<GameObject>();
     [SerializeField] List<Transform> startPoint;
     [SerializeField] GameObject botPrefab;
 
@@ -39,30 +39,9 @@ public class GameController : Singleton<GameController>
             colorExists[i] = colorIndex;
         }
     }
-    public void CreatColorBrick(GameObject brick)
+    public void CreatColorBrick(Brick brick, Character player)
     {
-        List<int> countColorBrick = new List<int>();
-        for (int i = 0; i < getColorPlayers.Count; i++)
-        {
-            countColorBrick.Add(0);
-        }
-        while (true)
-        {
-            int random = Random.Range(0, getColorPlayers.Count);
-            for (int i = 0; i < getColorPlayers.Count; i++)
-            {
-                if (random == i)
-                {
-                    countColorBrick[i]++;
-                    if (countColorBrick[i] > 18)
-                    {
-                        continue;
-                    }
-                }
-            }
-            int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
-            brick.GetComponent<Brick>().SetBrickColor(colorBrick);
-            break;
-        }
+        int colorBrick = player.colorIndex;
+        brick.SetBrickColor(colorBrick);
     }
 }

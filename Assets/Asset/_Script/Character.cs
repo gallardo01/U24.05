@@ -8,13 +8,13 @@ public class Character : MonoBehaviour
     public SkinnedMeshRenderer character;
     public int colorIndex = 0;
     public float speed = 1f;
-    [SerializeField] Transform backPack;
+    [SerializeField] public Transform backPack;
     [SerializeField] GameObject brickPrefabs;
     public Animator animator;
     private string currentAnim = "idle";
 
     public StageControler stage;
-    private void Start()
+    private void OnEnable()
     {
         backPack.transform.Rotate(Vector3.up * 90f);
     }
@@ -44,7 +44,7 @@ public class Character : MonoBehaviour
         Transform lastChild = backPack.GetChild(backPack.childCount - 1);
         Destroy(lastChild.gameObject);
     }
-    private void OnTriggerEnter(Collider collision)
+    public void OnTriggerEnter(Collider collision)
     {
         Brick brick = collision.GetComponent<Brick>();
         Bridge bridge = collision.GetComponent<Bridge>();
@@ -52,9 +52,8 @@ public class Character : MonoBehaviour
         {
             if (brick.brickColor == this.colorIndex)
             {
-                Debug.Log("cham vao brick");
                 brick.Removed();
-                Destroy(brick);
+                Destroy(brick.gameObject);
                 PickBrickOnBackPack();
                 stage.CreatBrickRepeat(brick.brickPosition);
             }
@@ -73,8 +72,7 @@ public class Character : MonoBehaviour
 
         if (collision.CompareTag("Stage"))
         {
-            Debug.Log("cham vao stage");
-            collision.GetComponent<StartStage>().stage.CharacterStartGame(this.gameObject);
+            collision.GetComponent<StartStage>().stage.CharacterStartGame(this);
             this.stage = collision.GetComponent<StartStage>().stage;
         }
     }

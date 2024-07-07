@@ -10,36 +10,44 @@ public class StageControler : MonoBehaviour
 {
     [SerializeField] public List<Transform> transformBricks = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
+    [SerializeField] public List<Transform> finishStage = new List<Transform>();
 
+    List<int> numberPos = new List<int>();
     public List<Brick> bricksList = new List<Brick>();
-
-    public List<GameObject> getColorPlayers = new List<GameObject>();
+    public List<Character> colorPlayers = new List<Character>();
 
     private void Start()
-    {
-        OnInit();
-    }
-
-    public void OnInit()
-    {
+    {    
         for (int i = 0; i < transformBricks.Count; i++)
         {
-            Quaternion rotationBrick = Quaternion.Euler(0,90,0);
-            GameObject brick = Instantiate(brickPrefab, transformBricks[i].position, rotationBrick);
-            GameController.Instance.CreatColorBrick(brick);
-            brick.GetComponent<Brick>().SetBrickPosition(i);
-            brick.transform.SetParent(transformBricks[i]);
-            brick.GetComponent<Brick>().SetBrickPosition(i);
-            brick.GetComponent<Brick>().SetStage(this);
-            bricksList.Add(brick.GetComponent<Brick>());
+            numberPos.Add(i);
         }
     }
 
-    public void CharacterStartGame(GameObject gameObject)
+    public void OnInit(Character player)
     {
-        if (!getColorPlayers.Contains(gameObject))
+        int numberPlayer = GameController.Instance.getColorPlayers.Count;
+        for (int i = 0; i < (transformBricks.Count / numberPlayer); i++)
         {
-            getColorPlayers.Add(gameObject);
+            int random = Random.Range(0, numberPos.Count);
+            
+            Brick brick = Instantiate(brickPrefab, transformBricks[numberPos[random]].position, Quaternion.Euler(0, 90, 0)).GetComponent<Brick>();
+            GameController.Instance.CreatColorBrick(brick,player);
+
+            brick.transform.SetParent(transformBricks[numberPos[random]]);
+            brick.SetBrickPosition(numberPos[random]);
+            numberPos.Remove(numberPos[random]);
+            brick.SetStage(this);
+            bricksList.Add(brick);
+        }
+    }
+
+    public void CharacterStartGame(Character player)
+    {
+        if (!colorPlayers.Contains(player))
+        {
+            colorPlayers.Add(player);
+            OnInit(player);
         }
     }
 
@@ -55,13 +63,12 @@ public class StageControler : MonoBehaviour
         //Tao brick va add vao list
         Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
         Brick brick = Instantiate(brickPrefab, transformBricks[pos].position, rotationBrick).GetComponent<Brick>();
-        bricksList.Add(brick);
         brick.SetBrickPosition(pos);
         brick.SetStage(this);
 
         // Tao mau random cho brick moi va dat vao vi tri tuong ung
-        int random = Random.Range(0, getColorPlayers.Count);
-        int colorBrick = getColorPlayers[random].GetComponent<Character>().colorIndex;
+        int random = Random.Range(0, colorPlayers.Count);
+        int colorBrick = colorPlayers[random].GetComponent<Character>().colorIndex;
         brick.SetBrickColor(colorBrick);
         brick.transform.SetParent(transformBricks[pos]);
         bricksList.Add(brick);
@@ -83,12 +90,15 @@ public class StageControler : MonoBehaviour
                 }
             }
         }
-
         if (index >=0)
         {
-            Debug.Log(index);
             return bricksList[index].transform.position;
         }
         return Vector3.zero;     
+    }
+    public Transform SetRandomFinishPoint()
+    {
+        int random = Random.Range(0, finishStage.Count);
+        return finishStage[random];
     }
 }

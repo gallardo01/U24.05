@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 3534748987148715433}
   - component: {fileID: 7654348844203509319}
   - component: {fileID: 5568047319675597070}
+  - component: {fileID: 5524917887938621432}
   m_Layer: 6
   m_Name: Bridge
   m_TagString: Untagged
@@ -243,6 +244,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stepFloorColor: 0
   stepFloor: {fileID: 1141175421737787300}
+--- !u!114 &5524917887938621432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2762229100120644141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07ce676d7afda4dabb3b0f7dd5e654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &3537229619259121352
 GameObject:
   m_ObjectHideFlags: 0
