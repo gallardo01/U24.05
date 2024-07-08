@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1131312913714356922}
   - component: {fileID: 1131312913714356913}
   - component: {fileID: 8980567049737927653}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bot
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131312913714356912}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.5
@@ -117,7 +117,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1131312913714356912}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stairColor: 0
+  stairColor: -1
 --- !u!65 &9017367841695874633
 BoxCollider:
   m_ObjectHideFlags: 0

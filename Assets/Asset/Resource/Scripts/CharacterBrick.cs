@@ -10,7 +10,7 @@ public class CharacterBrick : MonoBehaviour
     [SerializeField] LayerMask brickLayerMask;
 
     Stack<Transform> brickStack = new Stack<Transform>();
-    public int CharacterBrickNumbers => brickStack.Count;
+    public int BrickNumbers => brickStack.Count;
 
     private void Awake()
     {

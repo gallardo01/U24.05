@@ -12,8 +12,10 @@ public class BrigeState : IState
 
     public void OnExecute(Bot bot)
     {
+
         bot.BotMovement(target);
-        if(Vector3.Distance(bot.transform.position, target) < 2f)
+        bot.RayCheckBrige();
+        if(bot.GetBotBrick() < 1 || Vector3.Distance(bot.transform.position, target) < 1f)
         {
             bot.ChangeState(new IdleState());
         }

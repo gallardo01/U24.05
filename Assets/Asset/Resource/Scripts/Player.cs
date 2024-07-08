@@ -49,7 +49,7 @@ public class Player : Character
                     nextPosition = hit.point;
                     return true;
                 }
-                else if (characterBrick.CharacterBrickNumbers > 0)
+                else if (characterBrick.BrickNumbers > 0)
                 {
                     nextStair.SetStairColor(colorIndex);
                     characterBrick.RemoveBrick();

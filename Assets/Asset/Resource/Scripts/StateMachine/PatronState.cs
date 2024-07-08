@@ -12,7 +12,6 @@ public class PatronState : IState
         if(bot.currentStage.FindNearBrick(bot) != null)
         {
             target = bot.currentStage.FindNearBrick(bot).transform.position;
-            target.y = bot.transform.position.y;
         }
         else
         {
@@ -23,7 +22,7 @@ public class PatronState : IState
     public void OnExecute(Bot bot)
     {
         bot.BotMovement(target);
-        if((bot.transform.position - target).magnitude < 0.1f)
+        if((Vector3.Distance(bot.transform.position, target) < 1f))
         {
             bot.ChangeState(new IdleState());
         }
@@ -33,9 +32,4 @@ public class PatronState : IState
     {
 
     }
-
-    //public void FindNewTarget()
-    //{
-    //    target = new Vector3(Random.Range(-9, 9), 0.5f, Random.Range(-9, 9));
-    //}
 }

@@ -48,6 +48,22 @@ public class Bot : Character
         ChangeAnim("run");
     }
 
-    public int GetBotBrick() => characterBrick.CharacterBrickNumbers;
-    //public void SetTarget(Vector3 target) { this.target = target; }
+    public int GetBotBrick() => characterBrick.BrickNumbers;
+    public void RayCheckBrige()
+    {
+        Debug.DrawRay(transform.position, Vector3.down * 5, Color.red);
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 5f, groundLayerMask))
+        {
+            if (hit.transform.CompareTag("Stair"))
+            {
+                hit.transform.TryGetComponent<Stair>(out Stair nextStair);
+                if (nextStair.StairColor == colorIndex) return;
+                else if (characterBrick.BrickNumbers > 0)
+                {
+                    nextStair.SetStairColor(colorIndex);
+                    characterBrick.RemoveBrick();
+                }
+            }
+        }
+    }
 }
