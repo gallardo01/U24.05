@@ -8,6 +8,7 @@ public class IdleState : IState
 
     public void OnEnter(Bot bot)
     {
+        bot.navMeshAgent.enabled = false;
         bot.ChangeAnim("idle");
     }
 

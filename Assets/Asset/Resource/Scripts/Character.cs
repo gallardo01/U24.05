@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected Transform body;
     [SerializeField] protected SkinnedMeshRenderer skinnedMeshRenderer;
     [SerializeField] protected LayerMask groundLayerMask;
-    protected CharacterBrick characterBrick;
+    public CharacterBrick characterBrick;
     protected string currentAnimName = "idle";
     protected int colorIndex; public int ColorIndex => colorIndex;
     public StageController currentStage;

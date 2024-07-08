@@ -9,7 +9,8 @@ public class PatronState : IState
 
     public void OnEnter(Bot bot)
     {
-        if(bot.currentStage.FindNearBrick(bot) != null)
+        bot.navMeshAgent.enabled = true;
+        if (bot.currentStage.FindNearBrick(bot) != null)
         {
             target = bot.currentStage.FindNearBrick(bot).transform.position;
         }

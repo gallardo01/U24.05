@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class StageController : MonoBehaviour
 {
     [SerializeField] Brick brickPrefab;
+    [SerializeField] GameObject dotPrefab;
     [SerializeField] int rows = 10;
     [SerializeField] int columns = 6;
     [SerializeField] float spacing = 4f;
@@ -29,7 +30,7 @@ public class StageController : MonoBehaviour
         {
             for(int j = 0; j < columns; j++)
             {
-                GameObject dot = Instantiate(new GameObject("Dot"), this.transform);
+                GameObject dot = Instantiate(dotPrefab, this.transform);
                 dot.transform.localPosition = new Vector3(startDotPos.x + i * spacing, 0.5f, startDotPos.z + j * spacing);
                 dot.transform.localRotation = Quaternion.identity;
                 dots.Add(dot);
