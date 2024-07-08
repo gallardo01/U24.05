@@ -16,7 +16,14 @@ public class IdleState : IState
         timer += Time.deltaTime;
         if(timer > 0.2f)
         {
-            bot.ChangeState(new PatronState());
+            if (bot.GetBotBrick() < 5)
+            {
+                bot.ChangeState(new PatronState());
+            }
+            else
+            {
+                bot.ChangeState(new BrigeState());
+            }
         }
     }
 
@@ -24,4 +31,5 @@ public class IdleState : IState
     {
 
     }
+
 }

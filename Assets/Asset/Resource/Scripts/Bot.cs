@@ -9,6 +9,7 @@ public class Bot : Character
     private IState currentState;
     private Vector3 target;
     public NavMeshAgent navMeshAgent;
+
     protected override void OnInit()
     {
         base.OnInit();
@@ -46,4 +47,7 @@ public class Bot : Character
         navMeshAgent.SetDestination(this.target);
         ChangeAnim("run");
     }
+
+    public int GetBotBrick() => characterBrick.CharacterBrickNumbers;
+    //public void SetTarget(Vector3 target) { this.target = target; }
 }

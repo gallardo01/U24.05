@@ -11,6 +11,8 @@ public class StageController : MonoBehaviour
     [SerializeField] int columns = 6;
     [SerializeField] float spacing = 4f;
     [SerializeField] Vector3 startDotPos;
+    [SerializeField] Transform botBrickPoint; public Transform BotBrickPoint => botBrickPoint;
+
     List<GameObject> dots = new List<GameObject>();
     List<int> brickNumber = new List<int>();
     public List<Brick> brickList = new List<Brick>();
