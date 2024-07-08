@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class Player : Character
 {
     [SerializeField] Transform body;
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] LayerMask stairLayer;
+    //[SerializeField] LayerMask groundLayer;
+    //[SerializeField] LayerMask stairLayer;
 
     void Update()
     {
@@ -31,19 +31,18 @@ public class Player : Character
             ChangeAnim("idle");
         }
     }
-    
-    private bool CanMove(Vector3 nextpoint)
+    public bool CanMove(Vector3 nextpoint)
     {
         RaycastHit hit;
-       
-        if (Physics.Raycast(nextpoint,Vector3.down,out hit, 2f, stairLayer))
+
+        if (Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, stairLayer))
         {
-            //Debug.Log("bantrung");
             int stepColor = hit.collider.GetComponent<Bridge>().stepFloorColor;
             if (stepColor != colorIndex)
             {
                 return false;
-            } else
+            }
+            else
             {
                 return true;
             }

@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
     public float speed = 1f;
     [SerializeField] public Transform backPack;
     [SerializeField] GameObject brickPrefabs;
+    [SerializeField] public LayerMask groundLayer;
+    [SerializeField] public LayerMask stairLayer;
     public Animator animator;
     private string currentAnim = "idle";
 

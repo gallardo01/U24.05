@@ -9,6 +9,7 @@ public class Bot : Character
 {
     public Vector3 target;
     public NavMeshAgent agent;
+    //public bool isDestination => Vector3.Distance(target,Vector3) < 0.1f;
     IState<Bot> currentState;
 
     private void Start()
@@ -39,13 +40,12 @@ public class Bot : Character
     }
     public int PickRandomBrick()
     {
-        int random = Random.RandomRange(7, 15);
+        int random = Random.Range(7, 15);
         return random;
     }
-    public void RunToNextFloor()
+    public void RunToNextTarget(Vector3 target)
     {
-         agent.SetDestination(target);
-        Debug.Log("daden");
+        agent.SetDestination(target);
     }
 
     new private void OnTriggerEnter(Collider other)
@@ -55,7 +55,6 @@ public class Bot : Character
         {
             target = other.GetComponent<StartStage>().stage.SetRandomFinishPoint().position;
             currentState.OnEnter(this);
-            Debug.Log("lenlevel 2");
         }
     }
 }

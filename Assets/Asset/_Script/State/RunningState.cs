@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RunningState : IState<Bot>
 {
@@ -12,13 +13,12 @@ public class RunningState : IState<Bot>
         if (bot.backPack.childCount > random)
         {
             target = bot.target;
+            
         }
         else
         {
             target = bot.stage.GetNearestBrick(bot);
-            Debug.Log("toa do ban dau" + target);
             target.y = bot.transform.position.y;
-            Debug.Log("toa do sau" + target);
         }
 
         if (target == null)
@@ -29,13 +29,7 @@ public class RunningState : IState<Bot>
     }
     public void OnExecute(Bot bot)
     {
-        Vector3 direction = (target - bot.transform.position).normalized;
-        if (direction != Vector3.zero)
-        {
-            Quaternion newRotation = Quaternion.LookRotation(direction);
-            bot.transform.rotation = newRotation;
-        }   
-        bot.transform.position = Vector3.MoveTowards(bot.transform.position, target, 0.03f);
+        bot.RunToNextTarget(target);
         bot.ChangeAnim("run");
         if ((target - bot.transform.position).magnitude <0.1f)
         {

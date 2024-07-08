@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.2
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.06666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -264,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68771139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43, y: 11.87, z: 34.08}
+  m_LocalPosition: {x: 0.43, y: 12.25, z: 34.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -764,7 +764,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290291858}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 3.5, z: 10}
+  m_LocalPosition: {x: -2, y: 3.88, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4323,15 +4323,15 @@ MonoBehaviour:
   speed: 9
   backPack: {fileID: 1679540303}
   brickPrefabs: {fileID: 9116134883837416292, guid: 37c9d9e1a38b9804fae6f8ba3e1d9a59, type: 3}
-  animator: {fileID: 1264683176}
-  stage: {fileID: 0}
-  body: {fileID: 651196003}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   stairLayer:
     serializedVersion: 2
     m_Bits: 64
+  animator: {fileID: 1264683176}
+  stage: {fileID: 0}
+  body: {fileID: 651196003}
 --- !u!1 &1208016311
 GameObject:
   m_ObjectHideFlags: 0
@@ -7719,7 +7719,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.06666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: dc0195edcc9498e4abaf9f4079f64652, type: 2}
 --- !u!1 &2015085745
