@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
     private List<int> gameColors = new List<int>();
     public Player player;
     public List<Transform> startPoints;
     public Bot bot;
+    public Transform finishPoints;
 
     // Start is called before the first frame update
     void Start()
@@ -50,10 +51,10 @@ public class GameController : MonoBehaviour
         player.transform.position = startPoints[rand_pos].position;
         startPoints.RemoveAt(rand_pos);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 3; i++)
         {
             Bot botInGame = Instantiate(bot);
-            bot.SetCharacterColor(gameColors[i + 1]);
+            botInGame.SetCharacterColor(gameColors[i + 1]);
             botInGame.transform.position = startPoints[i].position;
         }
     }

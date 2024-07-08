@@ -7,6 +7,7 @@ public class IdleState : IState<Bot>
     float timer = 0f;
     public void OnEnter(Bot bot)
     {
+        bot.agent.enabled = false;
         timer = 0f;
     }
 
