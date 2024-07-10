@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7851105261121801418}
   m_Layer: 0
-  m_Name: LadderPoint
+  m_Name: LadderEndPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,6 +30,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3766226153317127291}
   m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1550621824442867285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8285163531002912263}
+  m_Layer: 0
+  m_Name: LadderStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8285163531002912263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550621824442867285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3766226153317127291}
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3766226153317127290
 GameObject:
@@ -79,6 +110,7 @@ Transform:
   - {fileID: 5287352396380285865}
   - {fileID: 5287352397350027304}
   - {fileID: 7851105261121801418}
+  - {fileID: 8285163531002912263}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,7 +145,8 @@ MonoBehaviour:
   - {fileID: 8231555466924849882}
   - {fileID: 8231555466554003675}
   - {fileID: 8231555467515870042}
-  ladderPoint: {fileID: 7851105261121801418}
+  ladderEndPoint: {fileID: 7851105261121801418}
+  ladderStartPoint: {fileID: 8285163531002912263}
 --- !u!1001 &3766226151666521571
 PrefabInstance:
   m_ObjectHideFlags: 0

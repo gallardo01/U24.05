@@ -113,7 +113,7 @@ public class StageController : MonoBehaviour
         return null;
     }
 
-    public Vector3 GetLadderPoint(int color)
+    public Ladder GetLadderPoint(int color)
     {
         int max = 0;
         Ladder choseLadder = null;
@@ -129,9 +129,8 @@ public class StageController : MonoBehaviour
 
         if (choseLadder == null)
         {
-            Ladder randomLadder = ladderList[Random.Range(0, ladderList.Length)];
-            return randomLadder.ladderPoint.position;
+            return ladderList[Random.Range(0, ladderList.Length)];
         }
-        else return choseLadder.ladderPoint.position;
+        else return choseLadder;
     }
 }

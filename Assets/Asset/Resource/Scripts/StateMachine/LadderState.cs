@@ -5,19 +5,29 @@ using UnityEngine;
 public class LadderState : IState
 {
     Vector3 target;
+    Ladder targetLadder;
     public void OnEnter(Bot bot)
     {
         bot.navMeshAgent.enabled = true;
-        target = bot.currentStage.GetLadderPoint(bot.ColorIndex);
+        targetLadder = bot.currentStage.GetLadderPoint(bot.ColorIndex);
+        target = targetLadder.ladderStartPoint.position;
     }
 
     public void OnExecute(Bot bot)
     {
         bot.BotMovement(target);
         bot.RayCheckBrige();
+
         if(bot.GetBotBrick() < 1 || Vector3.Distance(bot.transform.position, target) < 1f)
         {
-            bot.ChangeState(new IdleState());
+            if (target == targetLadder.ladderStartPoint.position)
+            {
+                target = targetLadder.ladderEndPoint.position;
+            }
+            else
+            {
+                bot.ChangeState(new IdleState());
+            }
         }
     }
 

@@ -5,7 +5,8 @@ using UnityEngine;
 public class Ladder : MonoBehaviour
 {
     [SerializeField] List<LadderStep> ladderSteps;
-    public Transform ladderPoint;
+    public Transform ladderEndPoint;
+    public Transform ladderStartPoint;
 
     public int GetLadderStepColors(int color)
     {

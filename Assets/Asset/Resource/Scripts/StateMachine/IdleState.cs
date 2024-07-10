@@ -17,7 +17,7 @@ public class IdleState : IState
         timer += Time.deltaTime;
         if(timer > 0.2f)
         {
-            if (bot.GetBotBrick() <= 5)
+            if (bot.GetBotBrick() <= Random.Range(3,7))
             {
                 bot.ChangeState(new PatronState());
             }
