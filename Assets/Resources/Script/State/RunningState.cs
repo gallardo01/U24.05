@@ -17,6 +17,7 @@ public class RunningState : IState<Bot>
             target = bot.stage.GetPathDestination(bot);
             bot.SetDestination(target[0].position);
             index = 0;
+            //Debug.Log("destination: " + target[0].position);
         } else
         {
             SeekTarget(bot);
@@ -34,6 +35,7 @@ public class RunningState : IState<Bot>
             bot.isRotate = true;
             index++;
             bot.SetDestination(target[index].position);
+            Debug.Log("destination: " + target[index].position);
         }
     }
 
@@ -48,12 +50,12 @@ public class RunningState : IState<Bot>
         {
             index = 0;
             target.Add(bot.stage.GetNearestBricks(bot));
+            bot.SetDestination(target[0].position);
         }
         else
         {
             bot.ChangeState(new IdleState());
         }
 
-        bot.SetDestination(target[0].position);
     }
 }

@@ -43,9 +43,9 @@ public class StageController : MonoBehaviour
                         count++;
                     }
                 }
-                if (count < maxColor)
+                if (count > maxColor)
                 {
-                    count = maxColor;
+                    maxColor = count;
                     index = i;
                 }
             }
