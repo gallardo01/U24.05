@@ -9,7 +9,7 @@ public class Bot : Character
     public NavMeshAgent agent;
     //dynamic check distance, 
     //only check distance depend on X, Z axis (Y = 0) 
-    public bool isDestination => Vector3.Distance(destination, Vector3.right * transform.position.x + Vector3.forward * transform.position.z) < 0.1f; 
+    public bool isDestination => Vector3.Distance(destination, Vector3.right * transform.position.x + Vector3.forward * transform.position.z) < 0.4f; 
     private Vector3 destination;
 
     public bool isRotate = true;
@@ -40,7 +40,6 @@ public class Bot : Character
 
     public void ChangeState(IState<Bot> state)
     {
-        Debug.Log($"{gameObject.name}: {currentState} - {state}");
         if(currentState != null)
         {
             currentState.OnExit(this);

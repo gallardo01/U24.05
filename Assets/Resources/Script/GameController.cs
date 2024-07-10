@@ -51,7 +51,7 @@ public class GameController : Singleton<GameController>
         player.transform.position = startPoints[rand_pos].position;
         startPoints.RemoveAt(rand_pos);
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             Bot botInGame = Instantiate(bot);
             botInGame.name = "Bot " + i;

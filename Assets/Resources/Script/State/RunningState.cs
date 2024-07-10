@@ -4,38 +4,40 @@ using UnityEngine;
 
 public class RunningState : IState<Bot>
 {
-    Vector3 target; 
+    //Find shortest bridge
+    //Collect random 3-5 brick at the first time
+    //Collect enough brick to finish bridge
+
+    List<Transform> target = new List<Transform>();
+    int index = 0; 
+
     public void OnEnter(Bot bot)
     {
         bot.ChangeAnim("run");
-        SeekTarget(bot);
+        if(bot.stage.GetDestinationOfBot(bot))
+        {
+            target = bot.stage.GetPathDestination(bot);
+            bot.SetDestination(target[0].position);
+            index = 0;
+        }    
+        else
+        {
+            SeekTarget(bot);
+        }
     }
 
     public void OnExecute(Bot bot)
     {
-        //bot.transform.position = Vector3.MoveTowards(bot.transform.position, target, 0.03f);
-
-        //Vector3 direction = target - bot.transform.position;// + offset;
-        //Quaternion targetRotation = Quaternion.LookRotation(direction);
-        //bot.transform.rotation = Quaternion.Slerp(bot.transform.rotation, targetRotation, 0.125f);
-
-        //if((target - bot.transform.position).magnitude < 0.1f)
-        //{
-        //    bot.ChangeState(new IdleState());
-        //}
-
-        if(bot.isDestination)
+        if(bot.isDestination && index == target.Count - 1)
         {
-            //SeekTarget(bot);
-            if(bot.totalBricks >= 3)
-            {
-                bot.isRotate = true;
-                bot.SetDestination(GameController.Ins.finishPoints.position);
-            }
-            else
-            {
-                bot.ChangeState(new IdleState());
-            }
+            bot.isRotate = true;
+            bot.ChangeState(new IdleState());
+        }
+        else if(bot.isDestination &&  index < target.Count - 1)
+        {
+            bot.isRotate = true;
+            index++;
+            bot.SetDestination(target[index].position);
         }
     }
 
@@ -48,12 +50,13 @@ public class RunningState : IState<Bot>
     {
         if (bot.stage.GetNearestBricks(bot) != null)
         {
-            target = bot.stage.GetNearestBricks(bot).position;
+            index = 0;
+            target.Add(bot.stage.GetNearestBricks(bot));
+            bot.SetDestination(target[0].position);
         }
         else
         {
             bot.ChangeState(new IdleState());
         }
-        bot.SetDestination(target);
     }
 }
