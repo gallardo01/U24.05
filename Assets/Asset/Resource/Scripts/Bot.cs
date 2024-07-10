@@ -54,10 +54,10 @@ public class Bot : Character
         Debug.DrawRay(transform.position, Vector3.down * 5, Color.red);
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 5f, groundLayerMask))
         {
-            if (hit.transform.CompareTag("Stair"))
+            if (hit.transform.CompareTag("LadderStep"))
             {
-                hit.transform.TryGetComponent<Stair>(out Stair nextStair);
-                if (nextStair.StairColor == colorIndex) return;
+                hit.transform.TryGetComponent<LadderStep>(out LadderStep nextStair);
+                if (nextStair.StepColor == colorIndex) return;
                 else if (characterBrick.BrickNumbers > 0)
                 {
                     nextStair.SetStairColor(colorIndex);

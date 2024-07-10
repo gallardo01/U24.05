@@ -44,8 +44,8 @@ public class Character : MonoBehaviour
     {
         if (other.CompareTag("TriggerBox"))
         {
-            other.GetComponent<Stage>().stageController.CharacterStartStage(colorIndex);
-            currentStage = other.GetComponent<Stage>().stageController;
+            other.GetComponent<StageTrigger>().stageController.CharacterStartStage(colorIndex);
+            currentStage = other.GetComponent<StageTrigger>().stageController;
         }
     }
 }

@@ -12,11 +12,11 @@ public class StageController : MonoBehaviour
     [SerializeField] int columns = 6;
     [SerializeField] float spacing = 4f;
     [SerializeField] Vector3 startDotPos;
-    [SerializeField] Transform botBrickPoint; public Transform BotBrickPoint => botBrickPoint;
+    [SerializeField] Ladder[] ladderList;
 
     List<GameObject> dots = new List<GameObject>();
     List<int> brickNumber = new List<int>();
-    public List<Brick> brickList = new List<Brick>();
+    [HideInInspector] public List<Brick> brickList = new List<Brick>();
     List<int> colorsOnStage = new List<int>();
 
     void Awake()
@@ -111,5 +111,27 @@ public class StageController : MonoBehaviour
             return brickList[index];
         }
         return null;
+    }
+
+    public Vector3 GetLadderPoint(int color)
+    {
+        int max = 0;
+        Ladder choseLadder = null;
+
+        for(int i = 0;i < ladderList.Length; i++)
+        {
+            if (ladderList[i].GetLadderStepColors(color) > max)
+            {
+                choseLadder = ladderList[i];
+                max = ladderList[i].GetLadderStepColors(color);
+            }
+        }
+
+        if (choseLadder == null)
+        {
+            Ladder randomLadder = ladderList[Random.Range(0, ladderList.Length)];
+            return randomLadder.ladderPoint.position;
+        }
+        else return choseLadder.ladderPoint.position;
     }
 }

@@ -23,7 +23,7 @@ public class IdleState : IState
             }
             else
             {
-                bot.ChangeState(new BrigeState());
+                bot.ChangeState(new LadderState());
             }
         }
     }

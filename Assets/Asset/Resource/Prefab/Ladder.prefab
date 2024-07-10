@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &413906203796860858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7851105261121801418}
+  m_Layer: 0
+  m_Name: LadderPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7851105261121801418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413906203796860858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 9, z: 19}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3766226153317127291}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3766226153317127290
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,12 +40,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3766226153317127291}
+  - component: {fileID: 6362783371239054299}
   m_Layer: 0
-  m_Name: LongBridge
+  m_Name: Ladder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3766226153317127291
 Transform:
@@ -23,7 +55,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3766226153317127290}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -30, y: 0, z: 0.92682076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,9 +78,42 @@ Transform:
   - {fileID: 5287352395675992488}
   - {fileID: 5287352396380285865}
   - {fileID: 5287352397350027304}
+  - {fileID: 7851105261121801418}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6362783371239054299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3766226153317127290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff2cbab9776d974438e88af6341c4c0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ladderSteps:
+  - {fileID: 8231555467536109989}
+  - {fileID: 8231555467937255732}
+  - {fileID: 8231555467052096873}
+  - {fileID: 8231555467790210489}
+  - {fileID: 8231555468432133495}
+  - {fileID: 8231555467708088454}
+  - {fileID: 8231555468285173398}
+  - {fileID: 8231555467966922498}
+  - {fileID: 8231555467933949344}
+  - {fileID: 8231555467816564519}
+  - {fileID: 8231555466647187296}
+  - {fileID: 8231555467209310144}
+  - {fileID: 8231555467157453010}
+  - {fileID: 8231555467560519779}
+  - {fileID: 8231555467708518685}
+  - {fileID: 8231555466924849882}
+  - {fileID: 8231555466554003675}
+  - {fileID: 8231555467515870042}
+  ladderPoint: {fileID: 7851105261121801418}
 --- !u!1001 &3766226151666521571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,7 +123,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (16)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -111,6 +180,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226151666521571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555466554003675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226151666521571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226151892118104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,7 +200,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (10)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -173,6 +257,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226151892118104}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555466647187296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226151892118104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152168112098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,7 +277,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (15)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -235,6 +334,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152168112098}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555466924849882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152168112098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152300894289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -244,7 +354,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (2)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -297,6 +411,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152300894289}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467052096873 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152300894289}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152405269994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -306,7 +431,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (12)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -359,6 +488,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152405269994}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467157453010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152405269994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152420653816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -368,7 +508,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (11)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -421,6 +565,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152420653816}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467209310144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152420653816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152613794973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -430,7 +585,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -483,6 +642,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152613794973}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467536109989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152613794973}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152625798754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,7 +662,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (17)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -545,6 +719,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152625798754}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467515870042 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152625798754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152807484763
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -554,7 +739,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (13)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -607,6 +796,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152807484763}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467560519779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152807484763}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152905085057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -616,7 +816,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (3)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -669,6 +873,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152905085057}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467790210489 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152905085057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152919536677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -678,7 +893,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (14)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -731,6 +950,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152919536677}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467708518685 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152919536677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226152919958974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -740,7 +970,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (5)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -793,6 +1027,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226152919958974}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467708088454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226152919958974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226153012877464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -802,7 +1047,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (8)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -855,6 +1104,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226153012877464}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467933949344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226153012877464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226153018086412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -864,7 +1124,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (1)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -917,6 +1181,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226153018086412}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467937255732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226153018086412}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226153063297567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -926,7 +1201,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (9)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -979,6 +1258,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226153063297567}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467816564519 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226153063297567}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226153181379130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -988,7 +1278,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (7)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -1041,6 +1335,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226153181379130}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555467966922498 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226153181379130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226153399983022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1050,7 +1355,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (6)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -1103,6 +1412,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226153399983022}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555468285173398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226153399983022}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3766226153546483791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1112,7 +1432,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_Name
-      value: Bridge (4)
+      value: LadderStep
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017367841695874630, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
       propertyPath: m_RootOrder
@@ -1165,3 +1489,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9017367841695874634, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
   m_PrefabInstance: {fileID: 3766226153546483791}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8231555468432133495 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5077824722582816056, guid: aca2e29c7f3f32445bc363a992c4194b, type: 3}
+  m_PrefabInstance: {fileID: 3766226153546483791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384551a06097b2742bea4b71ac293846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

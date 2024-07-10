@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrigeState : IState
+public class LadderState : IState
 {
     Vector3 target;
     public void OnEnter(Bot bot)
     {
         bot.navMeshAgent.enabled = true;
-        target = bot.currentStage.BotBrickPoint.position;
+        target = bot.currentStage.GetLadderPoint(bot.ColorIndex);
     }
 
     public void OnExecute(Bot bot)

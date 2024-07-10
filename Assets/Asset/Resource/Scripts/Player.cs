@@ -41,10 +41,10 @@ public class Player : Character
                 return true;
             }
 
-            if (hit.transform.CompareTag("Stair"))
+            if (hit.transform.CompareTag("LadderStep"))
             {
-                hit.transform.TryGetComponent<Stair>(out Stair nextStair);
-                if (nextStair.StairColor == colorIndex)
+                hit.transform.TryGetComponent<LadderStep>(out LadderStep nextStair);
+                if (nextStair.StepColor == colorIndex)
                 {
                     nextPosition = hit.point;
                     return true;
