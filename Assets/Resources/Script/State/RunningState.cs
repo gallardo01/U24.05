@@ -35,7 +35,6 @@ public class RunningState : IState<Bot>
             bot.isRotate = true;
             index++;
             bot.SetDestination(target[index].position);
-            Debug.Log("destination: " + target[index].position);
         }
     }
 

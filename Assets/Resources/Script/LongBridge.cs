@@ -6,15 +6,16 @@ public class LongBridge : MonoBehaviour
 {
     public List<Stair> listStairs = new List<Stair>();
 
-    // Start is called before the first frame update
-    void Start()
+    public int GetTotalBricksColor(int color)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int count = 0;
+        for (int i = 0; i < listStairs.Count; i++)
+        {
+            if (color == listStairs[i].stairColor)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }

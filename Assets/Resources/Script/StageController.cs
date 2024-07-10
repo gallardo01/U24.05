@@ -23,26 +23,18 @@ public class StageController : MonoBehaviour
     public List<Transform> GetPathDestination(Bot bot)
     {
         List<Transform> path = new List<Transform>();
-        if (GetTotalBricksInStair(bot.colorIndex) == 0)
+        if (GetTotalBricksInStair(bot.colorIndex) == 0)  // Chua tha? gach - chon 1 cau thang ngau nhien
         {
             int index = Random.Range(0, 3);
             path.Add(listBridges[index].listStairs[0].transform);
             path.Add(listBridges[index].listStairs[listBridges[index].listStairs.Count-1].transform);
-        } else
+        } else // Da~ tha gach roi` -> Chon cau thang co nhieu mau` trung` nhat'
         {
             int index = 0;
             int maxColor = 0;
-            for (int i = 0; i < listBridges.Count; i++) // Cau` thang
+            for (int i = 0; i < listBridges.Count; i++) // Cau` thang dai`
             {
-                int count = 0;
-                // Bac thang
-                for (int j = 0; j < listBridges[i].listStairs.Count; j++)
-                {
-                    if (listBridges[i].listStairs[j].GetComponent<Stair>().stairColor == bot.colorIndex)
-                    {
-                        count++;
-                    }
-                }
+                int count = listBridges[i].GetTotalBricksColor(bot.colorIndex);
                 if (count > maxColor)
                 {
                     maxColor = count;
@@ -71,14 +63,7 @@ public class StageController : MonoBehaviour
         int count = 0;
         for (int i = 0; i < listBridges.Count; i++) // Cau` thang
         {
-            // Bac thang
-            for (int j = 0; j < listBridges[i].listStairs.Count; j++)
-            {
-                if (listBridges[i].listStairs[j].GetComponent<Stair>().stairColor == color)
-                {
-                    count++;
-                }
-            }
+            count += listBridges[i].GetTotalBricksColor(color);
         }
         return count;
     }
