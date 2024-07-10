@@ -63,4 +63,28 @@ public class Character : MonoBehaviour
             //StageController.Ins.CharacterStartGame(colorIndex);
         }
     }
+
+    public bool CanMove(Vector3 nextpoint)
+    {
+        RaycastHit hit;
+        //Debug.Log("Ground" + Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, groundLayer));
+        //Debug.Log("Stair" + Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, stairLayer));
+        if (Physics.Raycast(nextpoint, Vector3.down, out hit, 2f, stairLayer))
+        {
+            int stairColor = hit.collider.gameObject.GetComponent<Stair>().stairColor;
+            if (colorIndex != stairColor)
+            {
+                // Check con` gach hay k
+                if (totalBricks > 0)
+                {
+                    RemoveBrick();
+                    // Tha gach
+                    hit.collider.gameObject.GetComponent<Stair>().SetStairColor(colorIndex);
+                } 
+
+                return false;
+            }
+        }
+        return Physics.Raycast(nextpoint, Vector3.down, groundLayer);
+    }
 }

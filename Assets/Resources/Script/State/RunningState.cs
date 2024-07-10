@@ -27,7 +27,15 @@ public class RunningState : IState<Bot>
         if(bot.isDestination)
         {
             //SeekTarget(bot);
-            bot.ChangeState(new IdleState());
+            if(bot.totalBricks >= 3)
+            {
+                bot.isRotate = true;
+                bot.SetDestination(GameController.Ins.finishPoints.position);
+            }
+            else
+            {
+                bot.ChangeState(new IdleState());
+            }
         }
     }
 
@@ -41,7 +49,6 @@ public class RunningState : IState<Bot>
         if (bot.stage.GetNearestBricks(bot) != null)
         {
             target = bot.stage.GetNearestBricks(bot).position;
-            target.y = bot.transform.position.y;
         }
         else
         {
