@@ -7,7 +7,7 @@ public class Bot : Character
 {
     IState<Bot> currentState;
     public NavMeshAgent agent;
-    public bool isDestination => Vector3.Distance(destination, Vector3.right * transform.position.x + Vector3.forward * transform.position.z) < 0.2f;
+    public bool isDestination => Vector3.Distance(destination, Vector3.right * transform.position.x + Vector3.forward * transform.position.z) < 0.4f;
     public Vector3 destination;
     public bool isRotate = true;
 

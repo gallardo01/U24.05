@@ -7,8 +7,9 @@ public class StageController : MonoBehaviour
     [SerializeField] List<Transform> listBricksTransform = new List<Transform>();
     [SerializeField] GameObject brickPrefab;
     public List<Brick> listBricks = new List<Brick>();
-    private List<int> listColorPlayGame = new List<int>();
+    public List<LongBridge> listBridges = new List<LongBridge>();
 
+    private List<int> listColorPlayGame = new List<int>();
     private List<int> listBricksInMap = new List<int>();
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,69 @@ public class StageController : MonoBehaviour
         {
             listBricksInMap.Add(i);
         }
+    }
+    
+    public List<Transform> GetPathDestination(Bot bot)
+    {
+        List<Transform> path = new List<Transform>();
+        if (GetTotalBricksInStair(bot.colorIndex) == 0)
+        {
+            int index = Random.Range(0, 3);
+            path.Add(listBridges[index].listStairs[0].transform);
+            path.Add(listBridges[index].listStairs[listBridges[index].listStairs.Count-1].transform);
+        } else
+        {
+            int index = 0;
+            int maxColor = 0;
+            for (int i = 0; i < listBridges.Count; i++) // Cau` thang
+            {
+                int count = 0;
+                // Bac thang
+                for (int j = 0; j < listBridges[i].listStairs.Count; j++)
+                {
+                    if (listBridges[i].listStairs[j].GetComponent<Stair>().stairColor == bot.colorIndex)
+                    {
+                        count++;
+                    }
+                }
+                if (count < maxColor)
+                {
+                    count = maxColor;
+                    index = i;
+                }
+            }
+            path.Add(listBridges[index].listStairs[0].transform);
+            path.Add(listBridges[index].listStairs[listBridges[index].listStairs.Count-1].transform);
+        }
+        return path;
+    }
+
+
+    public bool GetDestinationOfBot(Bot bot)
+    {
+        // Khi chua tha duoc gach len cau` thang
+        if (bot.totalBricks >= 3 && Random.Range(0,10) < 5)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private int GetTotalBricksInStair(int color)
+    {
+        int count = 0;
+        for (int i = 0; i < listBridges.Count; i++) // Cau` thang
+        {
+            // Bac thang
+            for (int j = 0; j < listBridges[i].listStairs.Count; j++)
+            {
+                if (listBridges[i].listStairs[j].GetComponent<Stair>().stairColor == color)
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public Transform GetNearestBricks(Bot bot)

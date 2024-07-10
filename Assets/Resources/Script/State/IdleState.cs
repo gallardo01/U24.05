@@ -7,6 +7,7 @@ public class IdleState : IState<Bot>
     float timer = 0f;
     public void OnEnter(Bot bot)
     {
+        bot.GetComponent<Rigidbody>().velocity = Vector3.zero;
         bot.agent.enabled = false;
         timer = 0f;
     }
