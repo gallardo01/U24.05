@@ -8,6 +8,7 @@ public class StageController : MonoBehaviour
     [SerializeField] GameObject brickPrefab;
     public List<Brick> listBricks = new List<Brick>();
     public List<LongBridge> listBridges = new List<LongBridge>();
+    public bool isFinalStage = false;
 
     private List<int> listColorPlayGame = new List<int>();
     private List<int> listBricksInMap = new List<int>();
@@ -43,6 +44,10 @@ public class StageController : MonoBehaviour
             }
             path.Add(listBridges[index].listStairs[0].transform);
             path.Add(listBridges[index].listStairs[listBridges[index].listStairs.Count-1].transform);
+        }
+        if(isFinalStage)
+        {
+            path.Add(GameController.Ins.finishPoints);
         }
         return path;
     }

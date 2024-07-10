@@ -1062,6 +1062,7 @@ MonoBehaviour:
   - {fileID: 6867600277073435970}
   - {fileID: 2077216749}
   - {fileID: 1437372539}
+  isFinalStage: 0
 --- !u!1 &344880978
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,6 +3423,7 @@ MonoBehaviour:
   - {fileID: 1370594214}
   - {fileID: 431380371}
   - {fileID: 112306039}
+  isFinalStage: 1
 --- !u!1 &934489829
 GameObject:
   m_ObjectHideFlags: 0
