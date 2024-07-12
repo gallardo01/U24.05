@@ -13,7 +13,7 @@ public class GameController : Singleton<GameController>
     public List<GameColor> colorsUsed = new List<GameColor>();
     public List<GameColor> colorsReady = new List<GameColor>();
 
-    public GameColor playerColor = GameColor.Blue;
+    public GameColor playerColor;
 
     [SerializeField] Player playerPrefab;
     [SerializeField] Enemy enemyPrefab;
@@ -77,6 +77,8 @@ public class GameController : Singleton<GameController>
     {
         colorsUsed.Clear();
         colorsReady.Clear();
+
+        playerColor = DataManager.Ins.GetPlayerSkin();
         colorsUsed.Add(playerColor);
 
         for (int i = 0; i < colorMaterials.Count; i++)

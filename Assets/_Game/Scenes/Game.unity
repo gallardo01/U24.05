@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: becca447864728d4e86e9d4861b90158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skinData: {fileID: 1325794073}
 --- !u!4 &113112646
 Transform:
   m_ObjectHideFlags: 0
@@ -268,7 +269,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1325794074}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -800,6 +802,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1325794072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325794074}
+  - component: {fileID: 1325794073}
+  m_Layer: 0
+  m_Name: SkinData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1325794073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325794072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434a579065ab50548b5c236a199725e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skins:
+  - color: 2
+    unlockType: 0
+    price: 0
+    skinImage: {fileID: 2800000, guid: c8903df3c4149334fa162d220e86f0b3, type: 3}
+  - color: 3
+    unlockType: 1
+    price: 100
+    skinImage: {fileID: 2800000, guid: 2369630c52cb69f42b97b8d1cece133b, type: 3}
+  - color: 4
+    unlockType: 1
+    price: 200
+    skinImage: {fileID: 2800000, guid: f0fdfebf836bdde4d9c5cccdbb84461a, type: 3}
+  - color: 5
+    unlockType: 1
+    price: 300
+    skinImage: {fileID: 2800000, guid: dd2c314be2a56fe42a80bd26c6ef868c, type: 3}
+  - color: 6
+    unlockType: 1
+    price: 400
+    skinImage: {fileID: 2800000, guid: f14648aa84c494e4f98fdb533974bc63, type: 3}
+  - color: 7
+    unlockType: 1
+    price: 500
+    skinImage: {fileID: 2800000, guid: 914bc526e5f3c1f43bdfaad663964fe3, type: 3}
+  - color: 8
+    unlockType: 1
+    price: 600
+    skinImage: {fileID: 2800000, guid: 9c1299b9d7f3a4240bbd27f51a03f13c, type: 3}
+--- !u!4 &1325794074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325794072}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 113112646}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1956304700
 GameObject:

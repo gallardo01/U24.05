@@ -24,3 +24,9 @@ public enum SFXType
     Canon,
     CloseRevive,
 }
+
+public enum SkinUnlockType
+{
+    Free,
+    Coin,
+}

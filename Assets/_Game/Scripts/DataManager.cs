@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager : Singleton<DataManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] SkinData skinData;
+
+    public GameColor GetPlayerSkin()
     {
-        
+        return GameColor.Red;
     }
 
-    // Update is called once per frame
-    void Update()
+    public List<Skin> GetSkinList()
     {
-        
+        return skinData.Skins;
+    }
+
+    public Skin GetSkin(GameColor color)
+    {
+        return skinData.GetSkin(color);
     }
 }
