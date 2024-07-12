@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MarchingBytes;
 
 public class StageController : MonoBehaviour
 {
@@ -114,8 +115,12 @@ public class StageController : MonoBehaviour
             int pos_transform = listBricksInMap[pos]; 
             listBricksInMap.Remove(pos_transform);
             // Sinh ra gach 3  4
-            Brick brick = Instantiate(brickPrefab, listBricksTransform[pos_transform].transform).GetComponent<Brick>();
+            //Brick brick = Instantiate(brickPrefab).GetComponent<Brick>();
+            Brick brick = EasyObjectPool.Ins.GetObjectFromPool("Brick", listBricksTransform[pos_transform].transform.position, Quaternion.identity).GetComponent<Brick>();
+            brick.transform.SetParent(listBricksTransform[pos_transform].transform);
             brick.transform.localPosition = Vector3.zero;
+            brick.transform.rotation = Quaternion.Euler(0, 90f, 0);
+            brick.GetComponent<BoxCollider>().enabled = true;
             brick.SetBrickPosition(pos_transform);
             brick.SetBrickColor(color);
             brick.SetStage(this);
@@ -132,8 +137,13 @@ public class StageController : MonoBehaviour
     IEnumerator CreateNewBrickAfterDelayTime(int position)
     {
         yield return new WaitForSeconds(5f);
-        Brick brick = Instantiate(brickPrefab, listBricksTransform[position].transform).GetComponent<Brick>();
+        //Brick brick = Instantiate(brickPrefab, listBricksTransform[position].transform).GetComponent<Brick>();
+        Brick brick = EasyObjectPool.Ins.GetObjectFromPool("Brick", listBricksTransform[position].transform.position, Quaternion.identity).GetComponent<Brick>();
+        brick.transform.SetParent(listBricksTransform[position].transform);
+        brick.GetComponent<BoxCollider>().enabled = true;
         brick.transform.localPosition = Vector3.zero;
+        brick.transform.rotation = Quaternion.Euler(0, 90f, 0);
+
         brick.SetBrickPosition(position);
         brick.SetBrickColor(listColorPlayGame[Random.Range(0, listColorPlayGame.Count)]);
         brick.SetStage(this);

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using MarchingBytes;
 public class Character : MonoBehaviour
 {
     public Animator animator;
@@ -20,7 +20,8 @@ public class Character : MonoBehaviour
     {
         if (totalBricks > 0)
         {
-            Destroy(listBricks[totalBricks - 1].gameObject);
+            //Destroy(listBricks[totalBricks - 1].gameObject);
+            EasyObjectPool.instance.ReturnObjectToPool(listBricks[totalBricks - 1].gameObject);
             listBricks.RemoveAt(totalBricks - 1);
             totalBricks--;
         }
@@ -32,7 +33,7 @@ public class Character : MonoBehaviour
     }
     public void ChangeAnim(string animName)
     {
-        if (currentAnim != animName)
+        if (currentAnim != animName && currentAnim != "victory")
         {
             animator.ResetTrigger(currentAnim);
             currentAnim = animName;
@@ -60,6 +61,11 @@ public class Character : MonoBehaviour
             this.stage = other.gameObject.GetComponent<Stage>().stage;
             other.gameObject.GetComponent<Stage>().stage.CharacterStartGame(colorIndex);
             //StageController.Ins.CharacterStartGame(colorIndex);
+        }
+
+        if (other.gameObject.tag == "Finish")
+        {
+            GameController.Ins.EndGame(this);
         }
     }
 
