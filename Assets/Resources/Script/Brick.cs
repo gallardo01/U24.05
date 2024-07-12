@@ -13,7 +13,10 @@ public class Brick : MonoBehaviour
     {
         
     }
-
+    public void RemoveBricks()
+    {
+        stage.listBricks.Remove(this);
+    }
     public void SetBrickPosition(int position)
     {
         brickPosition = position;

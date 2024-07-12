@@ -1,19 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
     private List<int> gameColors = new List<int>();
     public Player player;
     public List<Transform> startPoints;
     public Bot bot;
+    public Transform finishPoints;
+    public JoystickControl joystick;
+    private List<Character> players = new List<Character>();
+    public GameObject startGamePanel;
+    public GameObject finishGamePanel;
+    public GameObject joyStickPanel;
+    public Button startGameButton;
+    public Button restartGameButton;
+   
 
     // Start is called before the first frame update
     void Start()
     {
         RandomGameColor();
         SetUpCharacterInGame();
+        startGameButton.onClick.AddListener(PlayGame);
+        restartGameButton.onClick.AddListener(RestartGame);
+        startGamePanel.SetActive(true);
+        finishGamePanel.SetActive(false);
     }
 
     private void RandomGameColor()
@@ -49,12 +63,59 @@ public class GameController : MonoBehaviour
         int rand_pos = Random.Range(0, startPoints.Count);
         player.transform.position = startPoints[rand_pos].position;
         startPoints.RemoveAt(rand_pos);
-
+        players.Add(player);
         for (int i = 0; i < 3; i++)
         {
             Bot botInGame = Instantiate(bot);
-            bot.SetCharacterColor(gameColors[i + 1]);
+            botInGame.SetCharacterColor(gameColors[i + 1]);
             botInGame.transform.position = startPoints[i].position;
+            players.Add(botInGame);
         }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].enabled = false;
+        }
+
+        joystick.enabled = false;
+    }
+    
+    public void PlayGame()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            players[i].enabled = true;
+        }
+        joystick.enabled = true;
+        startGamePanel.SetActive(false);
+    }
+    
+    public void EndGame(Character winner)
+    {
+       Debug.Log("End Game");
+       for(int i = 0; i < players.Count; i++)
+       {
+           if (winner == players[i])
+           {
+               //
+               winner.ChangeAnim("victory");
+               winner.transform.position = finishPoints.transform.position + Vector3.up;
+               finishGamePanel.SetActive(true);
+               joyStickPanel.SetActive(false);
+           }
+           else
+           {
+               Destroy(players[i].gameObject);
+           }
+       }
+    }
+    
+    public void RestartGame()
+    {
+        players.Clear();
+        RandomGameColor();
+        SetUpCharacterInGame();
+        finishGamePanel.SetActive(false);
+       
     }
 }
