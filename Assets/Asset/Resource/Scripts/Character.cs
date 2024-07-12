@@ -40,12 +40,17 @@ public class Character : MonoBehaviour
         skinnedMeshRenderer.material = ColorController.Instance.GetColor(colorIndex);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("TriggerBox"))
         {
             other.GetComponent<StageTrigger>().stageController.CharacterStartStage(colorIndex);
             currentStage = other.GetComponent<StageTrigger>().stageController;
+            if (currentStage.isFinalStage)
+            {
+                ChangeAnim("victory");
+                GameController.Instance.EndGame(this);
+            }
         }
     }
 }

@@ -20,6 +20,8 @@ public class StageController : MonoBehaviour
     [HideInInspector] public List<Brick> brickList = new List<Brick>();
     List<int> colorsOnStage = new List<int>();
 
+    public bool isFinalStage;
+
     void Awake()
     {
         SpawnDot();
@@ -27,6 +29,7 @@ public class StageController : MonoBehaviour
 
     private void SpawnDot()
     {
+        if (isFinalStage) return;
         for (int i = 0; i < rows; i++)
         {
             for(int j = 0; j < columns; j++)
@@ -45,6 +48,7 @@ public class StageController : MonoBehaviour
 
     public void CharacterStartStage(int characterColor)
     {
+        if (isFinalStage) return;
         if (!colorsOnStage.Contains(characterColor))
         {
             colorsOnStage.Add(characterColor);
@@ -60,14 +64,10 @@ public class StageController : MonoBehaviour
             int brickNumber = this.brickNumber[random];
             this.brickNumber.Remove(brickNumber);
 
-            //Brick newBrick = Instantiate(brickPrefab, dots[brickNumber].transform);
             Brick newBrick = LeanPool.Spawn(brickPrefab, dots[brickNumber].transform);
             newBrick.transform.localPosition = Vector3.zero;
             newBrick.transform.localRotation = Quaternion.Euler(0, 90, 0);
             newBrick.OnInit(this, brickNumber, colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
-            //newBrick.SetStage(this);
-            //newBrick.SetBrickNumber(brickNumber);
-            //newBrick.SetBrickColor(color);
 
             brickList.Add(newBrick);
         }
@@ -82,15 +82,10 @@ public class StageController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        //Brick newBrick = Instantiate(brickPrefab, dots[brickNumber].transform);
         Brick newBrick = LeanPool.Spawn(brickPrefab, dots[brickNumber].transform);
         newBrick.transform.localPosition = Vector3.zero;
         newBrick.transform.localRotation = Quaternion.Euler(0, 90, 0);
         newBrick.OnInit(this, brickNumber, colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
-        //newBrick.SetStage(this);
-        //newBrick.SetBrickNumber(brickNumber);
-        //newBrick.SetBrickColor(colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
-
         brickList.Add(newBrick);
     }
 

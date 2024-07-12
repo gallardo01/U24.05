@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore.Text;
 
 public class Bot : Character
 {
@@ -65,5 +66,9 @@ public class Bot : Character
                 }
             }
         }
+    }
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
     }
 }
