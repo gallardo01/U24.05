@@ -9,7 +9,7 @@ public class LadderState : IState
     public void OnEnter(Bot bot)
     {
         bot.navMeshAgent.enabled = true;
-        targetLadder = bot.currentStage.GetLadderPoint(bot.ColorIndex);
+        targetLadder = bot.currentStage.GetTargetLadder(bot.ColorIndex);
         target = targetLadder.ladderStartPoint.position;
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Lean.Pool;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,16 +56,18 @@ public class StageController : MonoBehaviour
     {
         for(int i = 0;i < 10; i++)
         {
-            int random = Random.Range(0, brickNumber.Count);
-            int bricknumber = brickNumber[random];
-            brickNumber.Remove(bricknumber);
+            int random = Random.Range(0, this.brickNumber.Count);
+            int brickNumber = this.brickNumber[random];
+            this.brickNumber.Remove(brickNumber);
 
-            Brick newBrick = Instantiate(brickPrefab, dots[bricknumber].transform);
+            //Brick newBrick = Instantiate(brickPrefab, dots[brickNumber].transform);
+            Brick newBrick = LeanPool.Spawn(brickPrefab, dots[brickNumber].transform);
             newBrick.transform.localPosition = Vector3.zero;
             newBrick.transform.localRotation = Quaternion.Euler(0, 90, 0);
-            newBrick.SetStage(this);
-            newBrick.SetBrickNumber(bricknumber);
-            newBrick.SetBrickColor(color);
+            newBrick.OnInit(this, brickNumber, colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
+            //newBrick.SetStage(this);
+            //newBrick.SetBrickNumber(brickNumber);
+            //newBrick.SetBrickColor(color);
 
             brickList.Add(newBrick);
         }
@@ -79,12 +82,14 @@ public class StageController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        Brick newBrick = Instantiate(brickPrefab, dots[brickNumber].transform);
+        //Brick newBrick = Instantiate(brickPrefab, dots[brickNumber].transform);
+        Brick newBrick = LeanPool.Spawn(brickPrefab, dots[brickNumber].transform);
         newBrick.transform.localPosition = Vector3.zero;
         newBrick.transform.localRotation = Quaternion.Euler(0, 90, 0);
-        newBrick.SetStage(this);
-        newBrick.SetBrickNumber(brickNumber);
-        newBrick.SetBrickColor(colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
+        newBrick.OnInit(this, brickNumber, colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
+        //newBrick.SetStage(this);
+        //newBrick.SetBrickNumber(brickNumber);
+        //newBrick.SetBrickColor(colorsOnStage[Random.Range(0, colorsOnStage.Count)]);
 
         brickList.Add(newBrick);
     }
@@ -113,7 +118,7 @@ public class StageController : MonoBehaviour
         return null;
     }
 
-    public Ladder GetLadderPoint(int color)
+    public Ladder GetTargetLadder(int color)
     {
         int max = 0;
         Ladder choseLadder = null;

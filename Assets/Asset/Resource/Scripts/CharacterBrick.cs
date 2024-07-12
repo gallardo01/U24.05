@@ -1,3 +1,4 @@
+using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,8 +45,8 @@ public class CharacterBrick : MonoBehaviour
 
     public void RemoveBrick()
     {
-        Transform removeBrick = brickStack.Pop();
-        pointBrick.localPosition = removeBrick.localPosition;
-        Destroy(removeBrick.gameObject);
+        GameObject removeBrick = brickStack.Pop().gameObject;
+        pointBrick.localPosition = removeBrick.transform.localPosition;
+        LeanPool.Despawn(removeBrick);
     } 
 }
