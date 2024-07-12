@@ -25,5 +25,11 @@ public class Player : Character
         {
             ChangeAnim("idle");
         }
-    }   
+    }
+
+    public override void OnInit(GameColor color, Transform transform)
+    {
+        base.OnInit(color, transform);
+        this.PostEvent(EventID.OnInitPlayer, tf);
+    }
 }

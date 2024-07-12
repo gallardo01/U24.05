@@ -19,7 +19,7 @@ public class Gate : MonoBehaviour
         this.color = color;
         for (int i = 0; i < gateParts.Count; i++)
         {
-            gateParts[i].material = ColorController.Ins.GetMaterialColor(color);
+            gateParts[i].material = GameController.Ins.GetMaterialColor(color);
         }
     }
 

@@ -15,7 +15,7 @@ public class Step : MonoBehaviour
     public void SetStepColor(GameColor color)
     {
         this.color = color;
-        meshRenderer.material = ColorController.Ins.GetMaterialColor(color);
+        meshRenderer.material = GameController.Ins.GetMaterialColor(color);
     }
 
     public void SetStepIndex(int stepIndex)

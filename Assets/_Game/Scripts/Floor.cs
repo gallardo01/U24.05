@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -90,8 +91,23 @@ public class Floor : MonoBehaviour
         colorBricks.Remove(color);
     }
 
+    public void ClearAllBrick()
+    {
+        List<GameColor> colors = colorBricks.Keys.ToList();
+
+        for (int i = 0; i < colors.Count; i++)
+        {
+            ClearBrick(colors[i]);
+        }
+    }
+
     public List<Vector3> GetListBrickPos(GameColor color)
     {
+        if (!colorBricks.ContainsKey(color))
+        {
+            return null;
+        }
+
         List<int> brickPosIndexs = colorBricks[color].Values.ToList();
         List<Vector3> brickPos = new List<Vector3>();
 

@@ -14,6 +14,6 @@ public class Brick : GameUnit
     public void SetBrickColor(GameColor color)
     {
         this.color = color;
-        meshRenderer.material = ColorController.Ins.GetMaterialColor(color);
+        meshRenderer.material = GameController.Ins.GetMaterialColor(color);
     }    
 }

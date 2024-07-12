@@ -8,18 +8,6 @@ public class LevelManager : Singleton<LevelManager>
     public Level currentLevel;
     public int currentLevelIndex;
 
-    public List<Character> characters = new();
-
-    void Start()
-    {        
-        OnInit();
-        currentLevel.InitLevel();
-    }
-
-    public void OnInit()
-    {     
-        
-    }
 
     public void OnLoadLevel(int levelIndex)
     {
@@ -34,5 +22,10 @@ public class LevelManager : Singleton<LevelManager>
             currentLevel = Instantiate(levels[levelIndex]);
             currentLevel.InitLevel();
         }
+    }
+
+    public void PlayAgain()
+    {
+        OnLoadLevel(currentLevelIndex);
     }
 }

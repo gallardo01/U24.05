@@ -5,6 +5,6 @@ using UnityEngine;
 public enum EventID
 {
     None = 0,
-    OnBrickCollected,
-    OnGatePassed
+    OnInitPlayer,
+    OnGameFinish,
 }

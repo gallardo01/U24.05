@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollectState : IState<Enemy>
 {
-    List<Vector3> brickPos = new List<Vector3>();
+    List<Vector3> brickPos;
 
     public void OnEnter(Enemy enemy)
     {
@@ -13,19 +13,21 @@ public class CollectState : IState<Enemy>
 
     public void OnExecute(Enemy enemy)
     {
-        if (brickPos.Count == 0)
+        if (brickPos == null)
         {
-            return;
+            enemy.ChangeState(new IdleState());
         }
-
-        int quantityBrickToCollect = Random.Range(1, brickPos.Count);
-        
-        for (int i = 0; i < quantityBrickToCollect; i++)
+        else
         {
-            enemy.targetPos.Add(brickPos[i]);
-        }
+            int quantityBrickToCollect = Random.Range(1, brickPos.Count);
 
-        enemy.ChangeState(new RunState());
+            for (int i = 0; i < quantityBrickToCollect; i++)
+            {
+                enemy.targetPos.Add(brickPos[i]);
+            }
+
+            enemy.ChangeState(new RunState());
+        }        
     }
 
     public void OnExit(Enemy enemy)

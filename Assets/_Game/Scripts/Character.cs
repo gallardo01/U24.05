@@ -37,7 +37,7 @@ public class Character : MonoBehaviour
         currentFloor = 0;
         this.color = color;
         tf.position = transform.position;
-        playerMesh.material = ColorController.Ins.GetMaterialColor(color);
+        playerMesh.material = GameController.Ins.GetMaterialColor(color);
     }
 
     public void ChangeAnim(string animName)
@@ -75,6 +75,15 @@ public class Character : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void ClearBrick()
+    {
+        int bricksCount = bricks.Count;
+        for (int i = 0; i < bricksCount; i++)
+        {
+            RemoveBrick();
         }
     }
 
@@ -191,13 +200,18 @@ public class Character : MonoBehaviour
 
         if (other.CompareTag("Finish"))
         {
+            tf.position = LevelManager.Ins.currentLevel.finishPos.position;
+            LevelManager.Ins.currentLevel.DestroyLevel();
+            UIManager.Ins.CloseUI<UIGameplay>();
+            this.PostEvent(EventID.OnGameFinish, tf);
+
             if (this.CompareTag("Player"))
             {
-                Debug.Log("you win");
+                UIManager.Ins.OpenUI<UIWin>();
             }
             else
             {
-                Debug.Log("you lose");
+                UIManager.Ins.OpenUI<UILose>();
             }
         }
     }

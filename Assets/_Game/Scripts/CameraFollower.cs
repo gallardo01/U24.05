@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class CameraFollower : MonoBehaviour
 {
-    public Transform TF;
-    public Transform playerTF;
+    [SerializeField] Transform TF;
+    [SerializeField] Transform targetTF;
 
     [SerializeField] Vector3 offset;
 
+    private void Start()
+    {
+        this.RegisterListener(EventID.OnInitPlayer, (param) => SetTargetTF((Transform) param));
+        this.RegisterListener(EventID.OnGameFinish, (param) => SetTargetTF((Transform) param));
+    }
+
     private void LateUpdate()
     {
-        TF.position = Vector3.Lerp(TF.position, playerTF.position + offset, Time.deltaTime * 5f);
+        if (targetTF == null)
+        {
+            return;
+        }
+
+        TF.position = Vector3.Lerp(TF.position, targetTF.position + offset, Time.deltaTime * 5f);
+    }
+
+    private void SetTargetTF(Transform param)
+    {
+        targetTF = param;
     }
 }
