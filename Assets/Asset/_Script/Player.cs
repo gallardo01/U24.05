@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class Player : Character
 {
     [SerializeField] Transform body;
-    //[SerializeField] LayerMask groundLayer;
-    //[SerializeField] LayerMask stairLayer;
 
     void Update()
     {
@@ -24,6 +22,7 @@ public class Player : Character
             {
                 Debug.DrawRay(nextPoint, Vector3.down, Color.red);
                 transform.position = CheckGround(nextPoint);
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
             ChangeAnim("run");
         } else

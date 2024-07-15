@@ -6,35 +6,39 @@ using Random = UnityEngine.Random;
 
 public class GameController : Singleton<GameController>
 {
-    [SerializeField] public List<GameObject> getColorPlayers = new List<GameObject>();
+    [SerializeField] public List<GameObject> playerList = new List<GameObject>();
     [SerializeField] List<Transform> startPoint;
     [SerializeField] GameObject botPrefab;
-
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject finishPoint;
+    public JoystickControl joystick;
+    public GameObject gamePanel;
 
     private void OnEnable()
     {
-        SetUpBot();
-        CreatColorPlayer();
+        joystick.enabled = false; joystick.enabled = false;
+        gamePanel.SetActive(true);
     }
 
-    private void SetUpBot()
+    private void SetUpPlayerList()
     {
         for (int i = 0; i < startPoint.Count; i++)
         {
             GameObject bot = Instantiate(botPrefab, startPoint[i].position, Quaternion.identity);
-            getColorPlayers.Add(bot);
+            playerList.Add(bot);
         }
+        playerList.Add(player);
     }
     public void CreatColorPlayer()
     {
-        int[] colorExists = new int[getColorPlayers.Count];
-        for (int i = 0; i < getColorPlayers.Count; i++)
+        int[] colorExists = new int[playerList.Count];
+        for (int i = 0; i < playerList.Count; i++)
         {
             int colorIndex;
             do
             {
                 colorIndex = Random.Range(0, ColorController.Instance.materials.Count);
-                getColorPlayers[i].GetComponent<Character>().SetPlayerColor(colorIndex);
+                playerList[i].GetComponent<Character>().SetPlayerColor(colorIndex);
             } while (Array.Exists(colorExists, num => num == colorIndex));
             colorExists[i] = colorIndex;
         }
@@ -43,5 +47,27 @@ public class GameController : Singleton<GameController>
     {
         int colorBrick = player.colorIndex;
         brick.SetBrickColor(colorBrick);
+    }
+    public void EndGame(Character character)
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            if (character.gameObject == playerList[i])
+            {
+                playerList[i].transform.position = finishPoint.transform.position + Vector3.up ;
+            }
+            else
+            {
+                playerList[i].SetActive(false);
+            }
+        }
+    }
+    public void StartGame()
+    {
+        SetUpPlayerList();
+        CreatColorPlayer();
+        player.SetActive(true);
+        joystick.enabled = true;
+        gamePanel.SetActive(false);      
     }
 }

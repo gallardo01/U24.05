@@ -3,6 +3,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class Bot : Character
@@ -18,10 +19,6 @@ public class Bot : Character
     }
     private void Update()
     {
-        if (backPack.childCount == 0)
-        {
-            currentState.OnEnter(this);
-        }
         currentState.OnExecute(this);
     }
     public void ChangeState(IState<Bot> newState)

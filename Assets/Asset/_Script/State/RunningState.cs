@@ -10,10 +10,9 @@ public class RunningState : IState<Bot>
     public void OnEnter(Bot bot)
     {
         int random = bot.PickRandomBrick();
-        if (bot.backPack.childCount > random)
+        if (bot.backPack.childCount >= random)
         {
-            target = bot.target;
-            
+            target = bot.target;          
         }
         else
         {
@@ -29,6 +28,10 @@ public class RunningState : IState<Bot>
     }
     public void OnExecute(Bot bot)
     {
+        if (bot.backPack.childCount <=1)
+        {
+            OnEnter(bot);
+        }
         bot.RunToNextTarget(target);
         bot.ChangeAnim("run");
         if ((target - bot.transform.position).magnitude <0.1f)

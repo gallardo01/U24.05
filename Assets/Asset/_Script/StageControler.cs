@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using MarchingBytes;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
@@ -26,18 +26,19 @@ public class StageControler : MonoBehaviour
 
     public void OnInit(Character player)
     {
-        int numberPlayer = GameController.Instance.getColorPlayers.Count;
+        int numberPlayer = GameController.Instance.playerList.Count;
         for (int i = 0; i < (transformBricks.Count / numberPlayer); i++)
         {
             int random = Random.Range(0, numberPos.Count);
             
-            Brick brick = Instantiate(brickPrefab, transformBricks[numberPos[random]].position, Quaternion.Euler(0, 90, 0)).GetComponent<Brick>();
+            Brick brick = EasyObjectPool.Instance.GetObjectFromPool("Brick", transformBricks[numberPos[random]].position, Quaternion.Euler(0, 90, 0)).GetComponent<Brick>();
             GameController.Instance.CreatColorBrick(brick,player);
 
             brick.transform.SetParent(transformBricks[numberPos[random]]);
             brick.SetBrickPosition(numberPos[random]);
             numberPos.Remove(numberPos[random]);
             brick.SetStage(this);
+            brick.GetComponent<BoxCollider>().enabled = true;
             bricksList.Add(brick);
         }
     }
@@ -62,9 +63,10 @@ public class StageControler : MonoBehaviour
 
         //Tao brick va add vao list
         Quaternion rotationBrick = Quaternion.Euler(0, 90, 0);
-        Brick brick = Instantiate(brickPrefab, transformBricks[pos].position, rotationBrick).GetComponent<Brick>();
+        Brick brick = EasyObjectPool.Instance.GetObjectFromPool("Brick", transformBricks[pos].position, rotationBrick).GetComponent<Brick>();
         brick.SetBrickPosition(pos);
         brick.SetStage(this);
+        brick.GetComponent<BoxCollider>().enabled = true;
 
         // Tao mau random cho brick moi va dat vao vi tri tuong ung
         int random = Random.Range(0, colorPlayers.Count);
@@ -81,7 +83,7 @@ public class StageControler : MonoBehaviour
         for (int i = 0; i < bricksList.Count; i++)
         {
             float distance = Vector3.Distance(bricksList[i].transform.position, bot.transform.position);
-            if (bot.colorIndex == bricksList[i].brickColor)
+            if (bricksList[i].brickColor == bot.colorIndex)
             {
                 if (distance < distanceMin)
                 {

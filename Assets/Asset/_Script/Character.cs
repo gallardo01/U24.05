@@ -1,3 +1,4 @@
+using MarchingBytes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class Character : MonoBehaviour
     }
     public void ChangeAnim(string animName)
     {
-        if (currentAnim != animName)
+        if (currentAnim != animName && currentAnim != "victory")
         {
             animator.ResetTrigger(currentAnim);
             currentAnim = animName;
@@ -36,15 +37,17 @@ public class Character : MonoBehaviour
     }
     private void PickBrickOnBackPack()
     {
-        GameObject brick = Instantiate(brickPrefabs, backPack.position + backPack.childCount * Vector3.up * 0.15f, backPack.rotation);
+        GameObject brick = EasyObjectPool.Instance.GetObjectFromPool("Brick", backPack.position + backPack.childCount * Vector3.up * 0.15f, backPack.rotation);
         brick.GetComponent<Brick>().SetBrickColor(this.colorIndex);
         brick.transform.SetParent(backPack);
         brick.GetComponent<BoxCollider>().enabled = false;
     }
-    private void DesTroyBrickOnBackPack()
+    public void DestroyBrickOnBackPack()
     {
         Transform lastChild = backPack.GetChild(backPack.childCount - 1);
-        Destroy(lastChild.gameObject);
+        EasyObjectPool.Instance.ReturnObjectToPool(lastChild.gameObject);
+        lastChild.gameObject.transform.SetParent(null);
+
     }
     public void OnTriggerEnter(Collider collision)
     {
@@ -55,7 +58,7 @@ public class Character : MonoBehaviour
             if (brick.brickColor == this.colorIndex)
             {
                 brick.Removed();
-                Destroy(brick.gameObject);
+                EasyObjectPool.Instance.ReturnObjectToPool(brick.gameObject);
                 PickBrickOnBackPack();
                 stage.CreatBrickRepeat(brick.brickPosition);
             }
@@ -66,7 +69,7 @@ public class Character : MonoBehaviour
             {
                 if (this.colorIndex != bridge.stepFloorColor)
                 {
-                    DesTroyBrickOnBackPack();
+                    DestroyBrickOnBackPack();
                     bridge.SetStepFloorColor(this.colorIndex);
                 }
             }
@@ -76,6 +79,11 @@ public class Character : MonoBehaviour
         {
             collision.GetComponent<StartStage>().stage.CharacterStartGame(this);
             this.stage = collision.GetComponent<StartStage>().stage;
+        }
+        if (collision.CompareTag("finishPoint"))
+        {
+            GameController.Instance.EndGame(this);
+            ChangeAnim("victory");
         }
     }
 }
