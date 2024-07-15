@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-
     [SerializeField] Transform playerTransform;
 
     public Animator animator;
@@ -39,9 +38,9 @@ public class Character : MonoBehaviour
         body.material = ColorController.Instance.GetMaterialColor(colorIndex);
     }
 
-    protected void ChangeAnim(string animName)
+    public void ChangeAnim(string animName)
     {
-        if (currentAnimName != animName)
+        if (currentAnimName != animName && currentAnimName != "victory")
         {
             animator.ResetTrigger(animName);
             currentAnimName = animName;
@@ -78,17 +77,46 @@ public class Character : MonoBehaviour
                 brickStack.Add(brick);
                 totalBrick++;
 
-                //StageController.Instance.CreateNewBrick(other.GetComponent<Brick>().brickPosition);
                 other.gameObject.GetComponent<Brick>().stage.CreateNewBrick(other.GetComponent<Brick>().brickPosition);
             }
         }
 
-        if (other.CompareTag("Stage"))
+        if (other.gameObject.CompareTag("Stage"))
         {
-            //debug.log("da va cham voi stage 2");
-            //StageController.Instance.CharacterStartGame(colorIndex);
             this.stage = other.gameObject.GetComponent<Stage>().stage;
             other.gameObject.GetComponent<Stage>().stage.CharacterStartGame(colorIndex);
         }
+
+        
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            Debug.Log("cham");
+            GameController.Instance.EndGame(this);
+        }
+    }
+
+    public bool CanMove(Vector3 nextPoint)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(nextPoint, Vector3.down, out hit, 9f, stairLayer))
+        {
+            int stairColor = hit.collider.gameObject.GetComponent<Stair>().stairColor;
+            if (colorIndex != stairColor)
+            {
+                //Check con gach hay khong
+                if (totalBrick > 0)
+                {
+                    RemoveBrick();
+                    //Tha gach
+                    hit.collider.gameObject.GetComponent<Stair>().SetStairColor(colorIndex);
+                }
+                return false;
+            }
+        }
+        return Physics.Raycast(nextPoint, Vector3.down, groundLayer);
     }
 }

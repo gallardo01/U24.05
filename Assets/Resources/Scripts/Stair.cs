@@ -6,10 +6,6 @@ public class Stair : MonoBehaviour
 {
     public int stairColor = -1;
 
-    private void Start()
-    {
-        
-    }
     public void SetStairColor(int color)
     {
         stairColor = color;

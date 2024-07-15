@@ -1,41 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RunningState : IState<Bot>
 {
-    Vector3 target;
+    List<Transform> target = new List<Transform>();
+    int index = 0;
 
     public void OnEnter(Bot bot)
     {
-        if (bot.stage == null)
-        {
-            bot.ChangeState(new IdleState());
-            return;
-        }
+        bot.ChangeAnim("run");
 
-        if (bot.stage.GetNearestBricks(bot) != null)
+        //if (bot.stage == null)
+        //{
+        //    Debug.Log("Stage is null.");
+        //    bot.ChangeState(new IdleState());
+        //    return;
+        //}
+
+        if (bot.stage.GetDestinationOfBot(bot))
         {
-            target = bot.stage.GetNearestBricks(bot).position;
-            target.y = bot.transform.position.y;
+            target = bot.stage.GetPathDestination(bot);
+            bot.SetDestination(target[0].position);
+            index = 0;
         }
-        else
+        else 
         {
-            bot.ChangeState(new IdleState());
+            SeekTarget(bot);
         }
     }
 
     public void OnExecute(Bot bot)
     {
-        bot.transform.position = Vector3.MoveTowards(bot.transform.position, target, 0.08f);
-        if ((target - bot.transform.position).magnitude < 0.1f)
+        if (bot.isDestination && index == target.Count - 1)
         {
+            bot.isRotate = true;
             bot.ChangeState(new IdleState());
+        }
+        else if(bot.isDestination && index < target.Count - 1)
+        {
+            bot.isRotate = true;
+            index++;
+            bot.SetDestination(target[index].position);
+            //Debug.Log("destination: " + target[index].position);
         }
     }
 
     public void OnExit(Bot bot)
     {
+        bot.ChangeAnim("idle");
+    }
 
+    public void SeekTarget(Bot bot)
+    {
+        //if (bot.stage == null)
+        //{
+        //    bot.ChangeState(new IdleState());
+        //    return;
+        //}
+
+        if (bot.stage.GetNearestBricks(bot) != null)
+        {
+            index = 0;
+            target.Add(bot.stage.GetNearestBricks(bot));
+            bot.SetDestination(target[0].position);
+        }
+        else
+        {
+            bot.ChangeState(new IdleState());
+        }
     }
 }

@@ -1,3 +1,4 @@
+using MarchingBytes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,9 +11,12 @@ public class StageController : MonoBehaviour
     [SerializeField] Brick brickPrefabs;
 
     public List<Brick> listBricks = new List<Brick>();
+    public List<LongBridge> longBridges = new List<LongBridge>();
+    public bool isFinalStage = false;   
+
     private List<int> listColorPlayGame = new List<int>();
     private List<int> listBricksInMap = new List<int>();
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +24,59 @@ public class StageController : MonoBehaviour
         {
             listBricksInMap.Add(i);
         }
+    }
+
+    public List<Transform> GetPathDestination(Bot bot)
+    {
+        List<Transform> path = new List<Transform>();
+
+        if(GetTotalBricksInStair(bot.colorIndex) == 0)
+        {
+            int index = Random.Range(0, 3);
+            path.Add(longBridges[index].listStairs[0].transform);
+            path.Add(longBridges[index].listStairs[longBridges[index].listStairs.Count - 1].transform);
+        }
+        else
+        {
+            int index = 0;
+            int maxColor = 0;
+            for (int i = 0; i < longBridges.Count; i++)
+            {
+                int count = longBridges[i].GetTotalBricksColor(bot.colorIndex);
+                if (count > maxColor)
+                {
+                    count = maxColor;
+                    index = i;
+                }
+            }
+            path.Add(longBridges[index].listStairs[0].transform);
+            path.Add(longBridges[index].listStairs[longBridges[index].listStairs.Count - 1].transform);
+        }
+        if (isFinalStage)
+        {
+            path.Add(GameController.Instance.finishPoints);
+        }
+        return path;
+    }
+
+    public bool GetDestinationOfBot(Bot bot)
+    {
+        //khi chua tha duoc gach len cau thang
+        if (bot.totalBrick >= 3 && Random.Range(0, 10) < 5)
+        {
+            return true;
+        }
+        return false;    
+    }
+
+    private int GetTotalBricksInStair(int color)
+    {
+        int count = 0;
+        for(int i = 0; i < longBridges.Count; i++)
+        {
+            count += longBridges[i].GetTotalBricksColor(color);
+        }
+        return count;
     }
 
     public Transform GetNearestBricks(Bot bot)
@@ -65,6 +122,7 @@ public class StageController : MonoBehaviour
             listBricksInMap.Remove(pos_tranform);
 
             Brick brick = Instantiate(brickPrefabs, listBricksTranform[pos_tranform].transform).GetComponent<Brick>();
+            //Brick brick = EasyObjectPool.Instance.GetObjectFromPool("Brick", )
             brick.transform.localPosition = Vector3.zero;
             brick.SetBrickPosition(pos_tranform);
             brick.SetBrickColor(color);
