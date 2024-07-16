@@ -42,7 +42,7 @@ public class JoystickControl : MonoBehaviour
             updatePoint = MousePosition;
             joystickControl.anchoredPosition = Vector3.ClampMagnitude((updatePoint - startPoint), magnitude) + startPoint;
 
-            direct = (updatePoint - startPoint).normalized;
+            direct = ( startPoint - updatePoint).normalized;
             direct.z = direct.y;
             direct.y = 0;
         }
