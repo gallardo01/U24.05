@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JoystickControl : MonoBehaviour
 {
+
     public static Vector3 direct;
 
     private Vector3 screen;
