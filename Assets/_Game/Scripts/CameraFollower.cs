@@ -9,7 +9,7 @@ public class CameraFollower : MonoBehaviour
 
     [SerializeField] Vector3 offset;
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (targetTF == null)
         {
