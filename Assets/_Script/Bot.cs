@@ -7,7 +7,7 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.HPbar.GetComponent<HPbar>().SetHP();
     }
 
     // Update is called once per frame

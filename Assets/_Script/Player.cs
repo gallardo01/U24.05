@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class Player : Character
 {
-    
     public InputAction fire;
     private float cooldownTime = 3f;
     private float time;
@@ -14,6 +13,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
+        this.HPbar.GetComponent<HPbar>().SetHP();
         fire.Enable();
     }
 
@@ -37,6 +37,7 @@ public class Player : Character
         {
             FireWeapon();
             time = 0;
+            this.health = this.HPbar.GetComponent<HPbar>().ChangeHealth(-10);
         }
     }
 }

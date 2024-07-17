@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        transform.Rotate(Vector3.forward * 170f * Time.deltaTime);
+        transform.Rotate(Vector3.forward * 250f * Time.deltaTime);
         if (time > timeDissappear)
         {
             Destroy(gameObject);
@@ -18,10 +18,16 @@ public class Weapon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Bot bot = other.GetComponent<Bot>();
         if (other.CompareTag("bot"))
         {
             Destroy(gameObject);
-            Destroy(other.gameObject);
+            bot.health = bot.HPbar.GetComponent<HPbar>().ChangeHealth(-10);
+            float healthBot = other.GetComponent<Bot>().health;
+            if (healthBot < 0)
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

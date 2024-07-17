@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] List<Transform> summonPoint;
+    [SerializeField] public List<Transform> summonPoint;
     [SerializeField] GameObject playerPrebs;
     [SerializeField] GameObject botPrefs;
     private int botNumber = 4;
@@ -16,14 +16,7 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        CreatPlayerAndBot();
-      
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        CreatPlayerAndBot();   
     }
     private void CreatPlayerAndBot()
     {
