@@ -11,6 +11,9 @@ public class CameraFollower : MonoBehaviour
 
     private void LateUpdate()
     {
-        TF.position = Vector3.Lerp(TF.position, playerTF.position + offset, Time.deltaTime * 5f);
+        if (playerTF != null)
+        {
+            TF.position = Vector3.Lerp(TF.position, playerTF.position + offset, Time.deltaTime * 5f);
+        }
     }
 }

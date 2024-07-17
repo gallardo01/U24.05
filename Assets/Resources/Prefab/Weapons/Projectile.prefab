@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4803704379194891170}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49035c1e08d3348498c13533a1a69810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 10
+  rotateSpeed: 5
   weapdamage: 5
 --- !u!1 &4803704380262196054
 GameObject:

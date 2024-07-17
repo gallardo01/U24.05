@@ -5,20 +5,27 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
+    [SerializeField] float rotateSpeed;
     [SerializeField] int weapdamage;
 
-    private Vector3 direction;
+    private Vector3 target;
+    private float rotationY;
+
+
+    private void OnEnable()
+    {
+        rotationY = Random.Range(0, 30);
+    }
 
     void Update()
     {
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target ,moveSpeed * Time.deltaTime);
     }
 
-    public void SetDirection(Vector3 direction)
+    public void SetDirection(Vector3 target)
     {
-        this.direction = direction;
+        this.target = target;
     }
-
 
 
 }
