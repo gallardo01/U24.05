@@ -114,12 +114,12 @@ MonoBehaviour:
   animator: {fileID: 6156859703938654893}
   target: {fileID: 0}
   moveSpeed: 5
-  detectRadius: 5
+  detectRadius: 10
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  detectDelay: 0.5
-  attackDelay: 0.1
+  detectDelay: 1
+  attackDelay: 0.5
 --- !u!1001 &9115629006667064525
 PrefabInstance:
   m_ObjectHideFlags: 0

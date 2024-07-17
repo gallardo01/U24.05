@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatronState : IState<Character> 
+public class PatronState : IState<Bot> 
 {
-    public void OnEnter(Character character)
+    public void OnEnter(Bot bot)
     {
-        character.InvokeRepeating(nameof(character.DetectTarget), 0f, character.detectDelay);
+        bot.InvokeRepeating(nameof(bot.DetectTarget), 1f, bot.detectDelay);
     }
 
-    public void OnExecute(Character character)
+    public void OnExecute(Bot bot)
     {
-        if(character.target == null)
+        if(bot.target == null)
         {
-            character.Move();
+            bot.Move();
         }
         else
         {
-            character.ChangeState(new AttackState());
+            bot.ChangeState(new AttackState());
         }
     }
 
-    public void OnExit(Character character)
+    public void OnExit(Bot bot)
     {
 
     }

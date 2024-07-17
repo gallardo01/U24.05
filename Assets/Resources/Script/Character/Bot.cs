@@ -6,12 +6,22 @@ using UnityEngine.AI;
 
 public class Bot : Character
 {
+    private IState<Bot> currentState;
+    private NavMeshAgent agent;
+
+    protected override void OnInit()
+    {
+        base.OnInit();
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     public override void Move()
     {
         agent.SetDestination(moveDirection);
-        if((transform.position - moveDirection).magnitude <= 1f)
+        if((transform.position - moveDirection).magnitude < 0.1f)
         {
-            moveDirection = RandomPoint(transform.position, 10, out Vector3 result);
+            moveDirection = transform.position + Random.insideUnitSphere.normalized * detectRadius;
+                //RandomPoint(transform.position, 10, out Vector3 result);
         }
     }
 
@@ -30,5 +40,20 @@ public class Bot : Character
         }
         result = Vector3.zero;
         return result;
+    }
+
+    public void ChangeState(IState<Bot> newState)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit(this);
+        }
+
+        currentState = newState;
+
+        if (currentState != null)
+        {
+            currentState.OnEnter(this);
+        }
     }
 }

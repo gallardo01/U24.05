@@ -8,9 +8,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] float rotateSpeed;
     [SerializeField] int weapdamage;
 
-    private Vector3 target;
+    private Vector3 direction;
     private float rotationY;
-
 
     private void OnEnable()
     {
@@ -19,12 +18,12 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target ,moveSpeed * Time.deltaTime);
+        transform.Translate(direction * moveSpeed * Time.deltaTime);
     }
 
-    public void SetDirection(Vector3 target)
+    public void SetDirection(Vector3 direction)
     {
-        this.target = target;
+        this.direction = direction;
     }
 
 

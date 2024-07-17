@@ -2,24 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : IState<Character>
+public class IdleState : IState<Bot>
 {
-    float timer = 0;
-
-    public void OnEnter(Character character)
+    public void OnEnter(Bot bot)
     {
-        character.ChangAnim("idle");
-        character.InvokeRepeating(nameof(character.DetectTarget), 0f, character.detectDelay);
+        bot.ChangAnim("idle");
+        bot.DetectTarget();
     }
-    public void OnExecute(Character character)
+    public void OnExecute(Bot bot)
     {
-        if (character.target != null)
+        if (bot.target != null)
         {
-            character.ChangeState(new AttackState());
+            bot.ChangeState(new AttackState());
         }
-        else character.ChangeState(new PatronState());
+        else bot.ChangeState(new PatronState());
     }
-    public void OnExit(Character character)
+    public void OnExit(Bot bot)
     {
         
     }

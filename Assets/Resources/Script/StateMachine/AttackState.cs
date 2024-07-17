@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : IState<Character>
+public class AttackState : IState<Bot>
 {
-    private float timer;
-    public void OnEnter(Character character)
+    private float timer = 0f;
+
+    public void OnEnter(Bot bot)
     {
-        character.Attack(character.target);
+        bot.Attack(bot.target);
     }
 
-    public void OnExecute(Character character)
+    public void OnExecute(Bot bot)
     {
         timer += Time.deltaTime;
-        if(timer > character.attackDelay)
+        if(timer > bot.attackDelay)
         {
-            character.ChangeState(new IdleState());
+            bot.ChangeState(new IdleState());
         }
     }
 
-    public void OnExit(Character character)
+    public void OnExit(Bot bot)
     {
 
     }

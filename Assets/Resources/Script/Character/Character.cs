@@ -12,11 +12,10 @@ public class Character : MonoBehaviour
     [SerializeField] protected Projectile projectilePrefab;
     [SerializeField] protected Animator animator;
     protected string currentAnimName = "idle";
-    protected NavMeshAgent agent;
 
     protected Vector3 moveDirection;
     [HideInInspector] public Transform target;
-    protected Collider[] enemies = new Collider[10];
+    protected Collider[] targets = new Collider[10];
 
 
     [Header("Setting")]
@@ -25,25 +24,15 @@ public class Character : MonoBehaviour
     [SerializeField] protected LayerMask targetLayerMask;
     public float detectDelay;
     public float attackDelay;
-    protected float timer;
 
-    protected IState<Character> currentState;
-
-    private void OnEnable()
+    private void Awake()
     {
-        
         OnInit();
     }
 
-    protected void OnInit()
+    protected virtual void OnInit()
     {
-        agent = GetComponent<NavMeshAgent>();
-        currentState = new IdleState();
-    }
 
-    private void Update()
-    {
-        currentState.OnExecute(this);
     }
 
     public virtual void Move()
@@ -53,21 +42,20 @@ public class Character : MonoBehaviour
 
     public virtual void DetectTarget()
     {
-        int availableEnemies = Physics.OverlapSphereNonAlloc(this.transform.position, detectRadius, enemies, targetLayerMask);
-        if (availableEnemies < 0) return;
+        int availableTargets = Physics.OverlapSphereNonAlloc(this.transform.position, detectRadius, targets, targetLayerMask);
+        if (availableTargets <= 0) return;
 
         Transform target = null;
         float min = float.MaxValue;
-        for (int i = 0; i < availableEnemies; i++)
+        for (int i = 0; i < availableTargets; i++)
         {
-            float distance = Vector3.Distance(transform.position, enemies[i].transform.position);
+            float distance = Vector3.Distance(transform.position, targets[i].transform.position);
             if (distance < min)
             {
                 min = distance;
-                target = enemies[i].transform;
+                target = targets[i].transform;
             }
         }
-
         this.target = target;
     }
 
@@ -76,7 +64,7 @@ public class Character : MonoBehaviour
         ChangAnim("attack");
         Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
         LeanPool.Despawn(projectTile, 3);
-        projectTile.SetDirection(target.position + Vector3.up);
+        projectTile.SetDirection((target.position + Vector3.up - shotingPoint.transform.position).normalized);
     }
 
 
@@ -87,21 +75,6 @@ public class Character : MonoBehaviour
             animator.ResetTrigger(animName);
             currentAnimName = animName;
             animator.SetTrigger(currentAnimName);
-        }
-    }
-
-    public void ChangeState(IState<Character> newState)
-    {
-        if (currentState != null)
-        {
-            currentState.OnExit(this);
-        }
-
-        currentState = newState;
-
-        if (currentState != null)
-        {
-            currentState.OnEnter(this);
         }
     }
 
