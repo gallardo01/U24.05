@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    public Transform body;
-    public float speed = 5.0f;
-    public Animator animator;
-    private string currentAinm = "idle";
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -32,13 +28,5 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ChangeAnim(string animName)
-    {
-        if (currentAinm != animName)
-        {
-            animator.ResetTrigger(currentAinm);
-            currentAinm = animName;
-            animator.SetTrigger(currentAinm);
-        }
-    }
+   
 }
