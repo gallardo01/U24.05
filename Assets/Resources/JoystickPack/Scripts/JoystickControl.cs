@@ -29,7 +29,7 @@ public class JoystickControl : MonoBehaviour
 
         direct = Vector3.zero;
 
-        joystickPanel.SetActive(false);
+        joystickPanel.SetActive(true);
         active = false;
     }
 

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Transform mesh;
+    public Transform body;
+    public float speed = 5.0f;
+    public Animator animator;
+    private string currentAinm = "idle";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +20,25 @@ public class Player : MonoBehaviour
     {
         Vector3 direction = JoystickControl.direct;
         direction = direction.normalized;
-        if(direction.magnitude > 0f)
+        if (direction != Vector3.zero)
         {
-            transform.Translate(direction * Time.deltaTime * 5f);
-            mesh.forward = JoystickControl.direct;
+            body.rotation = Quaternion.LookRotation(direction);
+            body.Translate(direction * speed * Time.deltaTime, Space.World);
+            ChangeAnim("run");
+        }
+        else
+        {
+            ChangeAnim("idle");
+        }
+    }
+
+    public void ChangeAnim(string animName)
+    {
+        if (currentAinm != animName)
+        {
+            animator.ResetTrigger(currentAinm);
+            currentAinm = animName;
+            animator.SetTrigger(currentAinm);
         }
     }
 }
