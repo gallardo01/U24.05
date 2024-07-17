@@ -21,7 +21,6 @@ public class JoystickControl : Singleton<JoystickControl>
 
     private bool active;
 
-    // Start is called before the first frame update
     void Awake()
     {
         screen.x = Screen.width;
@@ -33,7 +32,6 @@ public class JoystickControl : Singleton<JoystickControl>
         active = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (active)
