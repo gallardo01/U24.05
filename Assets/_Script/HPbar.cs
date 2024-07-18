@@ -7,10 +7,13 @@ public class HPbar : MonoBehaviour
 {
     [SerializeField] Slider slider;
     [SerializeField] GameObject player;
-    public Transform cameraTransform;
+    Transform cameraTransform;
     float maxHP;
     float health;
-
+    private void Start()
+    {
+        cameraTransform = Camera.instance.TF;
+    }
     void LateUpdate()
     {
         transform.LookAt(transform.position + cameraTransform.forward);

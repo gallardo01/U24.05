@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    [SerializeField] Transform TF;
+    [SerializeField] public Transform TF;
     [SerializeField] Transform TFPlayer;
     public Vector3 offset;
-
+    public static Camera instance;
+    private void Awake()
+    {
+        instance = this;
+    }
     // Update is called once per frame
     void Update()
     {

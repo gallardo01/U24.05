@@ -1,29 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameController;
 
 public class Character : MonoBehaviour
 {
     [SerializeField] public Transform body;
     [SerializeField] public Animator anim;
-    [SerializeField] public GameObject weaponPrefabs;
     [SerializeField] public Transform firePoint;
     [SerializeField] public GameObject HPbar;
+
+    public GameObject weaponPrefabs;
+    public bool isAttack = false;
+    public float cooldownTime = 2f;
+    public float time;
     public float maxHP = 100;
     public float health;
     public string currentAnimName;
+    public float detectionRadius = 25f;
+
     // Start is called before the first frame update
     void OnEnable()
     {
         health = maxHP;
+        weaponPrefabs = instance.UseWeapon(WeaponName.candy);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    protected void ChangeAnim(string animName)
+    public void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)
         {
@@ -33,11 +35,11 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void FireWeapon()
+    public void FireWeapon(GameObject weaponPrefabs)
     {
         ChangeAnim("attack");
         GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
-        weapon.GetComponent<Rigidbody>().AddForce(body.forward * 900f);
+        weapon.GetComponent<Rigidbody>().AddForce(body.forward * 1400f);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -8,6 +8,16 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject playerPrebs;
     [SerializeField] GameObject botPrefs;
     private int botNumber = 4;
+    [SerializeField] List<GameObject> weaponList;
+
+    public enum WeaponName
+    {
+        axe1,
+        axe2,
+        gun,
+        boomerang,
+        candy
+    }
 
     public static GameController instance;
     private void Awake()
@@ -43,6 +53,25 @@ public class GameController : MonoBehaviour
                 playerPrebs.GetComponent<Player>().body.position = summonPoint[randomIndex].position;
                 break;
             }
+        }
+    }
+
+    public GameObject UseWeapon (WeaponName weaponNum)
+    {
+        switch (weaponNum)
+        {
+            case WeaponName.axe1:
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[0];
+            case WeaponName.axe2:
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[1];
+            case WeaponName.gun:
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[2];
+            case WeaponName.boomerang:
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[3];
+            case WeaponName.candy:
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[4];
+            default:
+                return null;
         }
     }
 }

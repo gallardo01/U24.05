@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : Character
 {
-    public InputAction fire;
-    private float cooldownTime = 3f;
-    private float time;
+
     public float speed = 25f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         this.HPbar.GetComponent<HPbar>().SetHP();
-        fire.Enable();
     }
 
     // Update is called once per frame
@@ -22,7 +19,7 @@ public class Player : Character
     {
         time += Time.deltaTime;
         Vector3 direction = JoystickControl.direct.normalized;
-        if (direction != Vector3.zero)
+        if (direction != Vector3.zero && isAttack == false)
         {
             Quaternion newRotation = Quaternion.LookRotation(direction);
             body.rotation = newRotation;
@@ -33,11 +30,22 @@ public class Player : Character
         {
             ChangeAnim("idle");
         }
-        if (fire.triggered && time > cooldownTime)
+
+        if (time > 0.9f)
         {
-            FireWeapon();
-            time = 0;
-            this.health = this.HPbar.GetComponent<HPbar>().ChangeHealth(-10);
+            isAttack = false;
+        }
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.CompareTag("bot") && time > cooldownTime)
+            {
+                isAttack = true;
+                FireWeapon(this.weaponPrefabs);
+                time = 0;
+                break;
+            }
         }
     }
 }
