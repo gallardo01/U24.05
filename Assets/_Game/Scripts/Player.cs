@@ -4,46 +4,52 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] protected Animator anim;
-    protected string currentAnimName;
-
     [SerializeField] float moveSpeed;
     [SerializeField] FloatingJoystick joystick;
     [SerializeField] Rigidbody rb;
 
-    private WeaponType weaponType;
-    [SerializeField] Transform weaponStartPoint;
 
-    private int level = 0;
+    private void Start()
+    {
+        sphereCollider.radius = baseAttackRange + weaponStartPoint.localPosition.z;
 
-    List<Character> characters = new List<Character>();
+        weaponType = WeaponType.Axe;
+        Instantiate(WeaponManager.Ins.WeaponDataMap[weaponType].weaponHoldPrefab, weaponHoldParent);
+    }
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, weaponStartPoint.position, tf.forward, attackRange);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            WeaponManager.Ins.InitWeapon(WeaponType.Boomerang, levelScale, weaponStartPoint.position, tf.forward, attackRange);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            level++;
+            tf.localScale = new Vector3(levelScale, levelScale, levelScale);
+        }
+    }
     public void FixedUpdate()
     {
+        rb.velocity = new Vector3(joystick.Horizontal * moveSpeed, rb.velocity.y, joystick.Vertical * moveSpeed);
         Vector3 direction = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
 
         if (direction.magnitude > 0.1f)
         {
-            transform.rotation = Quaternion.LookRotation(direction);
-            rb.velocity = new Vector3(joystick.Horizontal * moveSpeed, rb.velocity.y, joystick.Vertical * moveSpeed);
-            ChangeAnim("run");
+            tf.rotation = Quaternion.LookRotation(direction);
+            ChangeAnim(Constants.ANIM_RUN);
         }
         else
         {
-            ChangeAnim("idle");
+            ChangeAnim(Constants.ANIM_IDLE);
         }
     }
 
-    public void ChangeAnim(string animName)
-    {
-        if (currentAnimName != animName)
-        {
-            anim.ResetTrigger(animName);
-            currentAnimName = animName;
-            anim.SetTrigger(currentAnimName);
-        }
-    }
+    
 
     private void Attack()
     {

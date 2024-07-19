@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Weapon : GameUnit
 {
-    [SerializeField] List<Vector3> listPaths = new List<Vector3>();
+    [SerializeField] protected List<Vector3> listPaths = new List<Vector3>();
 
     public void InitWeapon(Vector3 startPoint, Vector3 moveDirection, float attackRange)
     {
@@ -27,11 +27,12 @@ public class Weapon : GameUnit
 
         for (int i = 0; i < listPaths.Count; i++)
         {
-            sequence.Append(transform.DOMove(listPaths[i], 2f).SetEase(Ease.Linear));
+            sequence.Append(transform.DOMove(listPaths[i], 1f).SetEase(Ease.Linear));
         }
 
         sequence.OnComplete(() =>
         {
+            listPaths.Clear();
             SimplePool.Despawn(this);
         });
 

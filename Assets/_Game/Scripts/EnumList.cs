@@ -6,7 +6,8 @@ public enum PoolType
     Boomerang,
     Candy,
     Hammer,
-
+    Knife,
+    Lollipop
 }
 
 public enum WeaponType
@@ -16,5 +17,6 @@ public enum WeaponType
     Boomerang,
     Candy,
     Hammer,
-
+    Knife,
+    Lollipop
 }

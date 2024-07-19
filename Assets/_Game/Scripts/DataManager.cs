@@ -5,4 +5,9 @@ using UnityEngine;
 public class DataManager : Singleton<DataManager>
 {
     [SerializeField] WeaponData weaponData;
+
+    public List<WeaponDataDetail> GetWeaponDataList()
+    {
+        return weaponData.WeaponDataList;
+    }
 }
