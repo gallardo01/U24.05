@@ -16,12 +16,35 @@ public class Character : MonoBehaviour
     protected int level = 0;
     protected float baseAttackRange = 5f;
 
+    protected bool isMoving = false;
+    protected bool isAttacking = false;
+
+    protected Coroutine attackCoroutine;
+
     protected List<Character> targetInRange = new List<Character>();
 
     protected WeaponType weaponType;
 
     protected float levelScale => 1.0f + level * 0.05f;
     protected float attackRange => baseAttackRange * levelScale;
+
+    protected virtual void Start()
+    {
+        float range = baseAttackRange + weaponStartPoint.localPosition.z;
+        sphereCollider.gameObject.transform.localScale = new Vector3(range / sphereCollider.radius, range / sphereCollider.radius, range / sphereCollider.radius);
+    }
+
+    protected virtual void Update()
+    {
+        if (!isMoving && !isAttacking)
+        {            
+            attackCoroutine = StartCoroutine(Attack());
+        }
+        if (isMoving)
+        {
+            StopCoroutine(attackCoroutine);
+        }
+    }
 
     protected void ChangeAnim(string animName)
     {
@@ -41,6 +64,16 @@ public class Character : MonoBehaviour
     public void RemoveTarget(Character character)
     {
         targetInRange.Remove(character);
+    }
+
+    protected IEnumerator Attack()
+    {
+        isAttacking = true;
+        ChangeAnim(Constants.ANIM_ATTACK);
+        yield return new WaitForSeconds(0.5f);
+        WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, weaponStartPoint.position, tf.forward, attackRange);
+        yield return new WaitForSeconds(2f);
+        isAttacking = false;
     }
 }
 

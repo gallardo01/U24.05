@@ -4,4 +4,5 @@ public static class Constants
 
     public const string ANIM_IDLE = "idle";
     public const string ANIM_RUN = "run";
+    public const string ANIM_ATTACK = "attack";
 }

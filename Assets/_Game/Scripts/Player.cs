@@ -9,16 +9,18 @@ public class Player : Character
     [SerializeField] Rigidbody rb;
 
 
-    private void Start()
+    protected override void Start()
     {
-        sphereCollider.radius = baseAttackRange + weaponStartPoint.localPosition.z;
-
+        base.Start();
+        
         weaponType = WeaponType.Axe;
         Instantiate(WeaponManager.Ins.WeaponDataMap[weaponType].weaponHoldPrefab, weaponHoldParent);
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, weaponStartPoint.position, tf.forward, attackRange);
@@ -40,25 +42,19 @@ public class Player : Character
 
         if (direction.magnitude > 0.1f)
         {
+            isMoving = true;
+            isAttacking = false;
             tf.rotation = Quaternion.LookRotation(direction);
             ChangeAnim(Constants.ANIM_RUN);
         }
         else
         {
-            ChangeAnim(Constants.ANIM_IDLE);
+            isMoving = false;
+            if (!isAttacking)
+            {
+                ChangeAnim(Constants.ANIM_IDLE);
+            }
         }
-    }
-
-    
-
-    private void Attack()
-    {
-
-    }
-
-    private void Dead()
-    {
-
     }
 
 

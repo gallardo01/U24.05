@@ -12,8 +12,10 @@ public class Bot : Character
     private Vector3 destination;
     public bool IsDestionation => Vector3.Distance(tf.position, destination + (tf.position.y - destination.y) * Vector3.up) < 0.1f;
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (currentState != null)
         {
             currentState.OnExecute(this);
