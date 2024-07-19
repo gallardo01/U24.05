@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2035463105392280863}
   - component: {fileID: 1554167095820254671}
   - component: {fileID: 2627911352892826654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +108,8 @@ MonoBehaviour:
   body: {fileID: 4135093646139274139}
   speed: 5
   animator: {fileID: 3903126989377942941}
+  attackRange: 1
+  attackRangeCollider: {fileID: 0}
 --- !u!54 &1554167095820254671
 Rigidbody:
   m_ObjectHideFlags: 0
