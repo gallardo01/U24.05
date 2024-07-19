@@ -411,7 +411,7 @@ namespace DG.DOTweenEditor
                 if (_refreshRequired || prevAnimType != _src.animationType || ComponentsChanged()) {
                     _refreshRequired = false;
                     _src.isValid = Validate(targetGO);
-                    // See if we need to choose between multiple targets
+                    // See if we need to choose between multiple targetsList
 #if true // UI_MARKER
                     if (_src.animationType == DOTweenAnimation.AnimationType.Fade && targetGO.GetComponent<CanvasGroup>() != null && targetGO.GetComponent<Image>() != null) {
                         _chooseTargetMode = ChooseTargetMode.BetweenCanvasGroupAndImage;

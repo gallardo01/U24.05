@@ -88,7 +88,7 @@ namespace DG.Tweening
         public Component target;
         public AnimationType animationType;
         public TargetType targetType;
-        public TargetType forcedTargetType; // Used when choosing between multiple targets
+        public TargetType forcedTargetType; // Used when choosing between multiple targetsList
         public bool autoPlay = true;
         public bool useTargetAsV3;
 

@@ -15,7 +15,7 @@ public class Bot : Character
     {
         base.OnInit();
         agent = GetComponent<NavMeshAgent>();
-        movePos = RandomPoint(transform.position, detectRadius * 2);
+        movePos = GetRandomPoint(transform.position, detectRadius * 2);
         ChangeState(new IdleState());
     }
 
@@ -38,13 +38,9 @@ public class Bot : Character
         {
             currentState.OnExecute(this);
         }
-
     }
 
-    public Vector3 RandomPos() => new Vector3(Random.Range(0, -9), 0, Random.Range(0, 9));
-
-
-    public Vector3 RandomPoint(Vector3 center, float range)
+    public Vector3 GetRandomPoint(Vector3 center, float range)
     {
         Vector3 result = Vector3.zero;
         
@@ -57,9 +53,13 @@ public class Bot : Character
                 return result;
             }
         }
-
         return result;
+    }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        ChangeState(null);
     }
 
     public void ChangeState(IState newState)

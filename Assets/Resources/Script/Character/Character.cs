@@ -1,6 +1,7 @@
 using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,18 +10,21 @@ public class Character : MonoBehaviour
 {
     [Header("Element")]
     [SerializeField] protected Transform shotingPoint;
-    [SerializeField] protected Projectile projectilePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected Collider collider;
+    [SerializeField] protected Health health;
     protected string currentAnimName = "idle";
 
-    [HideInInspector] public Character target;
-    protected Collider[] targets = new Collider[10];
+    [HideInInspector] public Transform target;
+    protected Collider[] targetsList = new Collider[10];
 
 
     [Header("Setting")]
     [SerializeField] protected float moveSpeed;
     [SerializeField] public float detectRadius;
     [SerializeField] protected LayerMask targetLayerMask;
+    [SerializeField] protected int characterDamage;
     public float detectDelay;
     public float attackDelay;
 
@@ -31,7 +35,7 @@ public class Character : MonoBehaviour
 
     protected virtual void OnInit()
     {
-
+        collider.enabled = true;
     }
 
     protected void Start()
@@ -41,7 +45,8 @@ public class Character : MonoBehaviour
 
     protected virtual void DetectTarget()
     {
-        int availableTargets = Physics.OverlapSphereNonAlloc(this.transform.position, detectRadius, targets, targetLayerMask);
+        int availableTargets = Physics.OverlapSphereNonAlloc(this.transform.position, detectRadius, targetsList, targetLayerMask);
+
         if (availableTargets <= 0)
         {
             this.target = null;
@@ -52,25 +57,36 @@ public class Character : MonoBehaviour
         float min = float.MaxValue;
         for (int i = 0; i < availableTargets; i++)
         {
-            float distance = Vector3.Distance(transform.position, targets[i].transform.position);
+            if (targetsList[i] == this.collider) continue;
+            float distance = Vector3.Distance(transform.position, targetsList[i].transform.position);
             if (distance < min)
             {
                 min = distance;
-                target = targets[i].transform;
+                target = targetsList[i].transform;
             }
         }
-        this.target = target.GetComponent<Character>();
+        this.target = target;
     }
 
     public virtual void Attack(Transform target)
     {
         ChangAnim("attack");
         transform.forward = (target.position - transform.position).normalized;
-        Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
-        LeanPool.Despawn(projectTile, 3);
-        projectTile.SetDirection((target.position + Vector3.up - shotingPoint.transform.position).normalized);
+        Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity).GetComponent<Projectile>();
+        LeanPool.Despawn(projectTile.gameObject, 3);
+        projectTile.Shoot((target.position + Vector3.up - shotingPoint.transform.position).normalized, characterDamage);                      
     }
 
+    public virtual void TakeDamage(int damage)
+    {
+        health.TakeDamage(damage);
+    }
+
+    public virtual void OnDeath()
+    {
+        ChangAnim("dead");
+        collider.enabled = false;
+    }
 
     public void ChangAnim(string animName)
     {
@@ -79,14 +95,6 @@ public class Character : MonoBehaviour
             animator.ResetTrigger(animName);
             currentAnimName = animName;
             animator.SetTrigger(currentAnimName);
-        }
-    }
-
-    protected virtual void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Projectile"))
-        {
-            Destroy(gameObject);
         }
     }
 

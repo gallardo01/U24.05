@@ -77,4 +77,11 @@ public class Player : Character
         timer = 0;
         state = State.Move;
     }
+
+    public override void OnDeath()
+    {
+        this.gameObject.SetActive(false);
+        PlayersManager.Instance.Reborn(this);
+        base.OnDeath();
+    }
 }

@@ -8,10 +8,7 @@ public class AttackState : IState
 
     public void OnEnter(Bot bot)
     {
-        if(bot.target != null)
-        {
-            bot.Attack(bot.target.transform);
-        }
+        bot.Attack(bot.target);
     }
 
     public void OnExecute(Bot bot)

@@ -18,14 +18,14 @@ public class PatronState : IState
 
         if (Vector3.Distance(bot.transform.position, bot.movePos) < 1f)
         {
-            bot.movePos = bot.RandomPoint(bot.transform.position, bot.detectRadius * 2);
+            bot.movePos = bot.GetRandomPoint(bot.transform.position, bot.detectRadius * 2);
             bot.Move();
         }
 
-        //if (bot.target != null && timer > bot.detectDelay);
-        //{
-        //    bot.ChangeState(new AttackState());
-        //}
+        if (bot.target != null && timer > bot.detectDelay)
+        {
+            bot.ChangeState(new AttackState());
+        }
     }
 
     public void OnExit(Bot bot)
