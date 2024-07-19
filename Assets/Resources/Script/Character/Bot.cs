@@ -3,46 +3,66 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Bot : Character
 {
-    private IState<Bot> currentState;
+    private IState currentState;
     private NavMeshAgent agent;
+    [HideInInspector] public Vector3 movePos;
 
     protected override void OnInit()
     {
         base.OnInit();
         agent = GetComponent<NavMeshAgent>();
+        movePos = RandomPoint(transform.position, detectRadius * 2);
+        ChangeState(new IdleState());
     }
 
-    public override void Move()
+    public void Move()
     {
-        agent.SetDestination(moveDirection);
-        if((transform.position - moveDirection).magnitude < 0.1f)
+        agent.isStopped = false;
+        agent.SetDestination(movePos);
+        ChangAnim("run");
+    }
+
+    public void Stop()
+    {
+        agent.isStopped = true;
+    }
+
+    private void Update()
+    {
+        Debug.Log(this.gameObject.name + " - " + currentState);
+        if(currentState != null)
         {
-            moveDirection = transform.position + Random.insideUnitSphere.normalized * detectRadius;
-                //RandomPoint(transform.position, 10, out Vector3 result);
+            currentState.OnExecute(this);
         }
+
     }
 
+    public Vector3 RandomPos() => new Vector3(Random.Range(0, -9), 0, Random.Range(0, 9));
 
-    private Vector3 RandomPoint(Vector3 center, float range, out Vector3 result)
+
+    public Vector3 RandomPoint(Vector3 center, float range)
     {
-        for (int i = 0; i < 30; i++)
+        Vector3 result = Vector3.zero;
+        
+        for (int i = 0; i < 10; i++)
         {
             Vector3 randomPoint = center + Random.insideUnitSphere * range;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
             {
                 result = hit.position;
                 return result;
             }
         }
-        result = Vector3.zero;
+
         return result;
+
     }
 
-    public void ChangeState(IState<Bot> newState)
+    public void ChangeState(IState newState)
     {
         if (currentState != null)
         {

@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Player : Character
 {
     public enum State
@@ -16,12 +15,8 @@ public class Player : Character
     private State state;
     private float timer = 0f;
     private bool isOnAttack;
+    private Vector3 moveDirection;
 
-    private void Start()
-    {
-        OnInit();
-        InvokeRepeating(nameof(DetectTarget), 0f, detectDelay);
-    }
 
     protected override void OnInit()
     {
@@ -42,11 +37,9 @@ public class Player : Character
                 Move();
                 break;
         }
-
-        Debug.Log(state);
     }
 
-    public override void Move()
+    private void Move()
     {
         moveDirection = JoystickControl.direct;
         if (moveDirection.magnitude > 0)
@@ -69,7 +62,7 @@ public class Player : Character
 
     void OnAttack()
     {
-        if(!isOnAttack) Attack(target);
+        if(!isOnAttack) Attack(target.transform);
         isOnAttack = true;
 
         if(timer > attackDelay)

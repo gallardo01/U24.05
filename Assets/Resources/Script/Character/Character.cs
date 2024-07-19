@@ -13,19 +13,18 @@ public class Character : MonoBehaviour
     [SerializeField] protected Animator animator;
     protected string currentAnimName = "idle";
 
-    protected Vector3 moveDirection;
-    [HideInInspector] public Transform target;
+    [HideInInspector] public Character target;
     protected Collider[] targets = new Collider[10];
 
 
     [Header("Setting")]
     [SerializeField] protected float moveSpeed;
-    [SerializeField] protected float detectRadius;
+    [SerializeField] public float detectRadius;
     [SerializeField] protected LayerMask targetLayerMask;
     public float detectDelay;
     public float attackDelay;
 
-    private void Awake()
+    protected void Awake()
     {
         OnInit();
     }
@@ -35,15 +34,19 @@ public class Character : MonoBehaviour
 
     }
 
-    public virtual void Move()
+    protected void Start()
     {
-
+        InvokeRepeating(nameof(DetectTarget), 0f, detectDelay);
     }
 
-    public virtual void DetectTarget()
+    protected virtual void DetectTarget()
     {
         int availableTargets = Physics.OverlapSphereNonAlloc(this.transform.position, detectRadius, targets, targetLayerMask);
-        if (availableTargets <= 0) return;
+        if (availableTargets <= 0)
+        {
+            this.target = null;
+            return;
+        }
 
         Transform target = null;
         float min = float.MaxValue;
@@ -56,12 +59,13 @@ public class Character : MonoBehaviour
                 target = targets[i].transform;
             }
         }
-        this.target = target;
+        this.target = target.GetComponent<Character>();
     }
 
     public virtual void Attack(Transform target)
     {
         ChangAnim("attack");
+        transform.forward = (target.position - transform.position).normalized;
         Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
         LeanPool.Despawn(projectTile, 3);
         projectTile.SetDirection((target.position + Vector3.up - shotingPoint.transform.position).normalized);

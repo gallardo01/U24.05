@@ -1,28 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class PatronState : IState<Bot> 
+public class PatronState : IState
 {
+    private float timer = 0f;
+
     public void OnEnter(Bot bot)
     {
-        bot.InvokeRepeating(nameof(bot.DetectTarget), 1f, bot.detectDelay);
+        bot.Move();
     }
 
     public void OnExecute(Bot bot)
     {
-        if(bot.target == null)
+        timer += Time.deltaTime;
+
+        if (Vector3.Distance(bot.transform.position, bot.movePos) < 1f)
         {
+            bot.movePos = bot.RandomPoint(bot.transform.position, bot.detectRadius * 2);
             bot.Move();
         }
-        else
-        {
-            bot.ChangeState(new AttackState());
-        }
+
+        //if (bot.target != null && timer > bot.detectDelay);
+        //{
+        //    bot.ChangeState(new AttackState());
+        //}
     }
 
     public void OnExit(Bot bot)
     {
-
+        bot.Stop();
     }
 }
