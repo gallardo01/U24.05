@@ -15,16 +15,16 @@ public class Weapon : GameUnit
 
     protected Sequence sequence;
 
-    public void InitWeapon(Character owner, Vector3 startPoint, Vector3 moveDirection, float attackRange)
+    public void InitWeapon(Character owner, Vector3 startPoint, Vector3 direction, float attackRange)
     {
         this.owner = owner;
-        SetPath(startPoint, moveDirection, attackRange);
+        SetPath(startPoint, direction, attackRange);
         Move();
     }
 
-    protected virtual void SetPath(Vector3 startPoint, Vector3 moveDirection, float attackRange)
+    protected virtual void SetPath(Vector3 startPoint, Vector3 direction, float attackRange)
     {
-        Vector3 targetPoint = startPoint + (moveDirection.normalized * attackRange);
+        Vector3 targetPoint = startPoint + (direction.normalized * attackRange);
 
         listPaths.Add(targetPoint);
     }

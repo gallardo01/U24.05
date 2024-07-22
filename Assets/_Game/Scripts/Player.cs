@@ -40,7 +40,7 @@ public class Player : Character
         rb.velocity = new Vector3(joystick.Horizontal * moveSpeed, rb.velocity.y, joystick.Vertical * moveSpeed);
         Vector3 direction = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
 
-        if (direction.magnitude > 0.1f)
+        if (direction != Vector3.zero)
         {
             isMoving = true;
             isAttacking = false;

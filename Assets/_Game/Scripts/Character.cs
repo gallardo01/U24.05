@@ -15,8 +15,8 @@ public class Character : GameUnit
     protected int level = 0;
     protected float baseAttackRange = 5f;
 
-    protected bool isMoving = false;
-    protected bool isAttacking = false;
+    public bool isMoving = false;
+    public bool isAttacking = false;
 
     protected Coroutine attackCoroutine;
 
@@ -57,7 +57,7 @@ public class Character : GameUnit
         }
     }
 
-    protected void ChangeAnim(string animName)
+    public void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)
         {
@@ -88,6 +88,7 @@ public class Character : GameUnit
         WeaponManager.Ins.InitWeapon(weaponType, levelScale, this, weaponStartPoint.position, direction, attackRange);
         yield return new WaitForSeconds(1f);
         weaponHoldParent.gameObject.SetActive(true);
+        ChangeAnim(Constants.ANIM_IDLE);
         isAttacking = false;
     }
 
