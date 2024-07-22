@@ -269,11 +269,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5461612325036580090}
-  - component: {fileID: 5056147286556947594}
   - component: {fileID: 1657213772382845822}
   - component: {fileID: 4005821333652443274}
   - component: {fileID: 5258254161609034783}
-  m_Layer: 0
+  - component: {fileID: 5056147286556947594}
+  m_Layer: 8
   m_Name: Bot
   m_TagString: bot
   m_Icon: {fileID: 0}
@@ -299,28 +299,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5056147286556947594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5461612325036580088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23e2cb2349045a4f904b5f1bf087d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 5461612325036580090}
-  anim: {fileID: 6934202528858689125}
-  firePoint: {fileID: 5461612326541438016}
-  HPbar: {fileID: 6965749245987461444}
-  weaponPrefabs: {fileID: 3770543599948866396, guid: 02168e00fde29e244a5eb7d21f85492d, type: 3}
-  maxHP: 100
-  health: 0
-  currentAnimName: 
-  agent: {fileID: 5258254161609034783}
-  target: {fileID: 0}
 --- !u!136 &1657213772382845822
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -373,6 +351,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5056147286556947594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5461612325036580088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23e2cb2349045a4f904b5f1bf087d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 5461612325036580090}
+  anim: {fileID: 6934202528858689125}
+  firePoint: {fileID: 5461612326541438016}
+  HPbar: {fileID: 6965749245987461444}
+  weaponPrefabs: {fileID: 3770543599948866396, guid: 02168e00fde29e244a5eb7d21f85492d, type: 3}
+  isAttack: 0
+  cooldownTime: 2
+  maxHP: 100
+  health: 0
+  currentAnimName: 
+  detectionRadius: 25
+  agent: {fileID: 5258254161609034783}
+  target: {fileID: 0}
+  time: 0
+  randomRadius: 30
 --- !u!1 &5461612325365412702
 GameObject:
   m_ObjectHideFlags: 0

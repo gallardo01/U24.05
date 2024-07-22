@@ -6,12 +6,13 @@ public class Player : Character
 {
 
     public float speed = 25f;
+    float time;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        this.HPbar.GetComponent<HPbar>().SetHP();
+
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class Player : Character
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
         foreach (Collider collider in hitColliders)
         {
-            if (collider.CompareTag("bot") && time > cooldownTime)
+            if (collider.CompareTag("bot") && time > cooldownTimeAttack)
             {
                 isAttack = true;
                 FireWeapon(this.weaponPrefabs);

@@ -12,8 +12,7 @@ public class Character : MonoBehaviour
 
     public GameObject weaponPrefabs;
     public bool isAttack = false;
-    public float cooldownTime = 2f;
-    public float time;
+    public float cooldownTimeAttack = 2f;
     public float maxHP = 100;
     public float health;
     public string currentAnimName;
@@ -23,7 +22,8 @@ public class Character : MonoBehaviour
     void OnEnable()
     {
         health = maxHP;
-        weaponPrefabs = instance.UseWeapon(WeaponName.candy);
+        weaponPrefabs = instance.UseWeapon(WeaponName.boomerang);
+        this.HPbar.GetComponent<HPbar>().SetHP();
     }
     public void ChangeAnim(string animName)
     {

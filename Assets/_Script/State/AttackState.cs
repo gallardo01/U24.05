@@ -7,12 +7,27 @@ public class AttackState : IState<Bot>
 {
     public void OnEnter(Bot bot)
     {
-        bot.ChangeAnim("attack");
+        
+        Collider[] hitColliders = Physics.OverlapSphere(bot.transform.position, bot.detectionRadius);
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.CompareTag("player") && bot.time > bot.cooldownTimeAttack)
+            {
+                bot.isAttack = true;
+                OnExecute(bot);
+                bot.time = 0;
+                break;
+            }
+            else
+            {
+                bot.ChangeState(new MoveState());
+            }
+        }
     }
     public void OnExecute(Bot bot)
     {
         bot.FireWeapon(bot.weaponPrefabs);
-        bot.ChangeState(new MoveState());
+        bot.ChangeAnim("attack");
     }
     public void OnExit(Bot bot)
     {

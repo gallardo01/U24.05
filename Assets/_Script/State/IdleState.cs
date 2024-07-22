@@ -6,11 +6,16 @@ public class IdleState : IState<Bot>
 {
     public void OnEnter(Bot bot)
     {
+        Debug.Log("Enter");
         bot.ChangeAnim("idle");
     }
     public void OnExecute(Bot bot)
     {
-        bot.ChangeState(new MoveState());
+        
+        if (bot.time >0.5f)
+        {
+            bot.ChangeState(new MoveState());
+        }
     }
     public void OnExit(Bot bot)
     {

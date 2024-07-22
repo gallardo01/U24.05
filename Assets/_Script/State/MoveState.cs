@@ -3,39 +3,30 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 
 public class MoveState : IState<Bot>
 {
-    Vector3 target;
+    Vector3 newPos;
     public void OnEnter(Bot bot)
     {
-        bot.FindTarget();
-        target = bot.target.position;
-        target.y = bot.transform.position.y;
+        newPos = bot.RandomNavSphere(bot.transform.position, bot.randomRadius, -1);
     }
     public void OnExecute(Bot bot)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(bot.transform.position, bot.detectionRadius);
-        foreach (Collider collider in hitColliders)
+        bot.ChangeAnim("run");
+        if (bot.isAttack == false)
         {
-            if (collider.CompareTag("player") && bot.time > bot.cooldownTime)
+            if (bot.IsObstacleDetected())
             {
-                bot.ChangeState(new AttackState());
-                bot.isAttack = true;
-                bot.time = 0;
-                break;
+                bot.ChangeDirection(bot.transform.position, bot.randomRadius, -1);
             }
-            else
+            if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.5f)
             {
-                Debug.Log("run");
-                bot.agent.SetDestination(target);
-                bot.ChangeAnim("run");
+                OnEnter(bot);
+                bot.agent.SetDestination(newPos);
             }
-        }    
-        if ((target - bot.transform.position).magnitude < 0.5f)
-        {       
-            OnEnter(bot);
         }
     }
     public void OnExit(Bot bot)

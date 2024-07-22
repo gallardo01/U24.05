@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Bot bot = other.GetComponent<Bot>();
-        if (other.CompareTag("bot") || other.CompareTag("player"))
+        if (other.CompareTag("bot"))
         {
             Destroy(gameObject);
             bot.health = bot.HPbar.GetComponent<HPbar>().ChangeHealth(-10);

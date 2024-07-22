@@ -1,39 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 public class Bot : Character
 {
     IState<Bot> currentState;
     public NavMeshAgent agent;
     public Transform target;
+    public float time;
+    public float randomRadius = 30f;
+    float detectObtaclesRadius = 10f;
+    float cooldownMove = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
-        this.HPbar.GetComponent<HPbar>().SetHP();
-        currentState = new IdleState();
+        currentState = new IdleState();   
+        time = cooldownMove;
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if (isAttack == false)
+        if (time >= cooldownMove)
         {
-            ChangeState(new MoveState());
-        } else
-        {
-            currentState.OnEnter(this);
+            currentState.OnExecute(this);
+            time = 0;
         }
+
         if (time > 0.9f)
         {
             isAttack = false;
         }
 
-        currentState.OnExecute(this);
     }
 
     public void ChangeState(IState<Bot> newState)
@@ -50,9 +49,25 @@ public class Bot : Character
             currentState.OnEnter(this);
         }
     }
-    public void FindTarget()
+    public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
-        int random = Random.Range(0, GameController.instance.summonPoint.Count);
-        target = GameController.instance.summonPoint[random];
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+        randDirection += origin;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return navHit.position;
+    }
+
+    public bool IsObstacleDetected()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position,detectObtaclesRadius,-1);
+        return hitColliders.Length > 0;
+    }
+
+    public void ChangeDirection(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 finalPosition = RandomNavSphere(origin, dist, layermask);
+        agent.SetDestination(finalPosition);
     }
 }
+
