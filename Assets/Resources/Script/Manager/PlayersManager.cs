@@ -34,7 +34,6 @@ public class PlayersManager : Singleton<PlayersManager>
                 if (pos.Count == numberChar) break;
             }
         }
-
         return pos;
     }
 
@@ -49,13 +48,13 @@ public class PlayersManager : Singleton<PlayersManager>
         }
     }
 
-    public void Reborn(Player player)
+    public void Reborn()
     {
         Debug.Log("reborn");
-        StartCoroutine(OnReborn(player));
+        StartCoroutine(OnReborn());
     }
 
-    IEnumerator OnReborn(Player player)
+    IEnumerator OnReborn()
     {
         yield return new WaitForSeconds(3f);
 
@@ -72,7 +71,6 @@ public class PlayersManager : Singleton<PlayersManager>
 
         player.transform.position = random;
         player.gameObject.SetActive(true);
-        this.player = player;
     }
 
     public void Recycle(Bot bot)

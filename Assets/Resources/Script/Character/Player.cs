@@ -80,6 +80,7 @@ public class Player : Character
 
     public override void OnDeath()
     {
+        Debug.Log("reborn");
         this.gameObject.SetActive(false);
         PlayersManager.Instance.Reborn(this);
         base.OnDeath();
