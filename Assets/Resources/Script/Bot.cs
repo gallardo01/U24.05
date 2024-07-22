@@ -35,6 +35,16 @@ public class Bot : Character
             currentState.OnEnter(this);
         }
     }
+
+    public void ChangeIsAttackBot()
+    {
+        Invoke(nameof(ResetAttack), 1f);
+    }
+
+    private void ResetAttack()
+    {
+        isAttack = false;
+    }
     public void SetDestination(Vector3 des)
     {
         agent.enabled = true;

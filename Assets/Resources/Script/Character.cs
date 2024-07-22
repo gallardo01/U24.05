@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     public Animator animator;
     public CharacterRange range;
     public Bullet bulletPrefabs;
+    public bool isAttack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,16 +16,18 @@ public class Character : MonoBehaviour
         
     }
 
-    public void AttackTarget()
+    public void Throw()
     {
         range.RemoveNullTarget();
         if (range.botInRange.Count > 0)
         {
             Bullet bullet = Instantiate(bulletPrefabs);
             bullet.transform.position = transform.position;
+            bullet.self = this;
             Vector3 direction = (range.GetNearestTarget().position - transform.position).normalized;
             bullet.transform.forward = direction;
             bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
+            transform.forward = direction;
         }
     }
 
@@ -32,11 +35,7 @@ public class Character : MonoBehaviour
     {
         if (currentAnim != animName)
         {
-            if (animName == "idle")
-            {
-                AttackTarget();
-            }
-            animator.ResetTrigger(currentAnim);
+            animator.ResetTrigger(animName);
             currentAnim = animName;
             animator.SetTrigger(currentAnim);
         }

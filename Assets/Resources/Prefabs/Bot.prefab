@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7513933344638388955}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.3, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7513933346697902922}
@@ -194,6 +194,7 @@ MonoBehaviour:
   animator: {fileID: 4879207772164647120}
   range: {fileID: 7513933344638388954}
   bulletPrefabs: {fileID: 6186435644729915178, guid: f3ee2d59512a66349a44359b5fcc9ea3, type: 3}
+  isAttack: 0
   agent: {fileID: 7513933346697902926}
   destination: {x: 0, y: 0, z: 0}
 --- !u!195 &7513933346697902926
