@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     private string currentAnim = "idle";
     public CharacterRange characterRange;
     public Bullet bulletPrefab;
+    public bool isAttack = false;
 
 
     // private FieldOfView fieldOfView;
@@ -24,34 +25,29 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Update called");
-        AttackTarget();
     }
 
-    public void AttackTarget()
+  
+    public void  Throw()
     {
-        Debug.Log("AttackTarget called");
         characterRange.RemoveNullTarget();
         if (characterRange.botInRange.Count > 0)
         {
             Bullet bullet = Instantiate(bulletPrefab);
             bullet.transform.position = transform.position;
             Vector3 direction = (characterRange.GetNearestTarget().position - transform.position).normalized;
+            bullet.self = this;
             bullet.transform.forward = direction;
             bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
+            transform.forward = direction;
         }
     }
-
 
     public void ChangeAnim(string animName)
     {
         if (currentAnim != animName)
         {
-            if (animName == "idle")
-            {
-                AttackTarget();
-            }
-            animator.ResetTrigger(currentAnim);
+            animator.ResetTrigger(animName);
             currentAnim = animName;
             animator.SetTrigger(currentAnim);
         }

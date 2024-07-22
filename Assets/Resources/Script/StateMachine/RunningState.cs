@@ -25,11 +25,11 @@ public class RunningState : IState<Bot>
     
     public void OnExecute(Bot bot)
     {
-        // if (bot.characterRange.botInRange.Count > 0)
-        // {
-        //     bot.ChangeState(new AttackState());
-        // }
-        // else
+        if (bot.characterRange.botInRange.Count > 0 && !bot.isAttack)
+        {
+            bot.ChangeState(new AttackState());
+        }
+        else
         if (!bot.agent.pathPending &&
                  (bot.agent.remainingDistance <= bot.agent.stoppingDistance || bot.agent.velocity.magnitude < 0.1f))
         {

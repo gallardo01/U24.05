@@ -26,7 +26,7 @@
 //         {
 //             yield return new WaitForSeconds(delay);
 //             FindVisibleTargets();
-//         }
+//         }0
 //     }
 //
 //     void FindVisibleTargets()

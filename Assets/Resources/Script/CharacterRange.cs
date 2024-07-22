@@ -42,13 +42,9 @@ public class CharacterRange : MonoBehaviour
     // OnTriggerEnter is called when the Collider other enters the trigger
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter called with " + other.gameObject.name);
-
         if (other.gameObject.CompareTag("Bot"))
         {
-            Character bot = other.GetComponent<Character>();
             botInRange.Add(other.GetComponent<Character>());
-            bot.AttackTarget();
         }
     }
 
@@ -58,7 +54,6 @@ public class CharacterRange : MonoBehaviour
         if (other.gameObject.CompareTag("Bot"))
         {
             botInRange.Remove(other.GetComponent<Character>());
-
         }
     }
     

@@ -18,6 +18,16 @@ public class Bot : Character
     {
         currentState.OnExecute(this);
     }
+
+    public void ChangeIsAttackBot()
+    {
+        Invoke("ResetAttack", 0.5f);
+    }
+    
+    private void ResetAttack()
+    {
+        isAttack = false;
+    }
     
     public void ChangeState(IState<Bot> state)
     {
