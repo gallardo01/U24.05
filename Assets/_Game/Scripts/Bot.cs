@@ -12,6 +12,14 @@ public class Bot : Character
     private Vector3 destination;
     public bool IsDestionation => Vector3.Distance(tf.position, destination + (tf.position.y - destination.y) * Vector3.up) < 0.1f;
 
+    protected override void Start()
+    {
+        base.Start();
+
+        weaponType = WeaponType.Axe;
+        Instantiate(WeaponManager.Ins.WeaponDataMap[weaponType].weaponHoldPrefab, weaponHoldParent);
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -35,5 +43,11 @@ public class Bot : Character
         {
             currentState.OnEnter(this);
         }
+    }
+
+    protected override void OnDead()
+    {
+        base.OnDead();
+        SimplePool.Despawn(this);       
     }
 }

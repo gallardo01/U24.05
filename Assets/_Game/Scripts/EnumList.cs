@@ -7,7 +7,8 @@ public enum PoolType
     Candy,
     Hammer,
     Knife,
-    Lollipop
+    Lollipop,
+    Bot
 }
 
 public enum WeaponType

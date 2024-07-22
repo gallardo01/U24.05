@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boomerang : Weapon
 {
-    public override void SetPath(Vector3 startPoint, Vector3 moveDirection, float attackRange)
+    protected override void SetPath(Vector3 startPoint, Vector3 moveDirection, float attackRange)
     {
         base.SetPath(startPoint, moveDirection, attackRange);
         listPaths.Add(startPoint);

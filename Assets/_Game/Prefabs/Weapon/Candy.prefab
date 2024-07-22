@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4601629256586420210}
+  - component: {fileID: 8328500641375166880}
+  - component: {fileID: 4561455455357383631}
+  - component: {fileID: -1101861950554145684}
   m_Layer: 0
   m_Name: Candy
   m_TagString: Untagged
@@ -32,6 +35,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8328500641375166880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056024832209986745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0620d55526032734e9efd31d68004187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 4
+  tf: {fileID: 4601629256586420210}
+  characterLayer: 9
+  propLayer: 8
+  owner: {fileID: 0}
+  listPaths: []
+--- !u!65 &4561455455357383631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056024832209986745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.1, z: 1.1}
+  m_Center: {x: -0.2, y: 0, z: 0}
+--- !u!54 &-1101861950554145684
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056024832209986745}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &8703572077024359504
 PrefabInstance:
   m_ObjectHideFlags: 0

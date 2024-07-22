@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
     [SerializeField] protected Animator anim;
-    [SerializeField] protected Transform tf;
     [SerializeField] protected Transform weaponHoldParent;
     [SerializeField] protected Transform weaponStartPoint;
     [SerializeField] protected SphereCollider sphereCollider;
@@ -21,12 +20,20 @@ public class Character : MonoBehaviour
 
     protected Coroutine attackCoroutine;
 
-    protected List<Character> targetInRange = new List<Character>();
+    public List<Character> targetInRange = new List<Character>();
 
     protected WeaponType weaponType;
 
     protected float levelScale => 1.0f + level * 0.05f;
     protected float attackRange => baseAttackRange * levelScale;
+
+    private void Awake()
+    {
+        this.RegisterListener(EventID.OnCharacterDead, (param) =>
+        {
+            targetInRange.Remove((Character)param);
+        });
+    }
 
     protected virtual void Start()
     {
@@ -36,13 +43,17 @@ public class Character : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!isMoving && !isAttacking)
+        if (!isMoving && !isAttacking && targetInRange.Count > 0)
         {            
             attackCoroutine = StartCoroutine(Attack());
         }
         if (isMoving)
         {
-            StopCoroutine(attackCoroutine);
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+            }
+            weaponHoldParent.gameObject.SetActive(true);
         }
     }
 
@@ -67,13 +78,27 @@ public class Character : MonoBehaviour
     }
 
     protected IEnumerator Attack()
-    {
+    {       
         isAttacking = true;
         ChangeAnim(Constants.ANIM_ATTACK);
+        Vector3 direction = targetInRange[0].tf.position - tf.position;
+        tf.rotation = Quaternion.LookRotation(direction);
         yield return new WaitForSeconds(0.5f);
-        WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, weaponStartPoint.position, tf.forward, attackRange);
-        yield return new WaitForSeconds(2f);
+        weaponHoldParent.gameObject.SetActive(false);
+        WeaponManager.Ins.InitWeapon(weaponType, levelScale, this, weaponStartPoint.position, direction, attackRange);
+        yield return new WaitForSeconds(1f);
+        weaponHoldParent.gameObject.SetActive(true);
         isAttacking = false;
+    }
+
+    protected virtual void OnDead()
+    {
+        this.PostEvent(EventID.OnCharacterDead, this);
+    }
+
+    public void OnHitByWeapon()
+    {
+        OnDead();
     }
 }
 

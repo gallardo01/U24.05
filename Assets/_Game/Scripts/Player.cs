@@ -23,11 +23,11 @@ public class Player : Character
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, weaponStartPoint.position, tf.forward, attackRange);
+            WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, this, weaponStartPoint.position, tf.forward, attackRange);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            WeaponManager.Ins.InitWeapon(WeaponType.Boomerang, levelScale, weaponStartPoint.position, tf.forward, attackRange);
+            WeaponManager.Ins.InitWeapon(WeaponType.Boomerang, levelScale, this, weaponStartPoint.position, tf.forward, attackRange);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -57,5 +57,9 @@ public class Player : Character
         }
     }
 
-
+    protected override void OnDead()
+    {
+        base.OnDead();
+        Debug.Log("player dead");
+    }
 }
