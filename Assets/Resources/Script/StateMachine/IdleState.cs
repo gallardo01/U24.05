@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class IdleState : IState
 {
-    //private float timer = 0f;
-
     public void OnEnter(Bot bot)
     {
         bot.ChangAnim("idle");
@@ -13,9 +11,6 @@ public class IdleState : IState
 
     public void OnExecute(Bot bot)
     {
-        //timer += Time.deltaTime;
-        //if (timer < 0.2f) return;
-
         if (bot.target == null)
         {
             bot.ChangeState(new PatronState());

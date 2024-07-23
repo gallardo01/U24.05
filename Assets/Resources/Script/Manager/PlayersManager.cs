@@ -50,27 +50,28 @@ public class PlayersManager : Singleton<PlayersManager>
 
     public void Reborn()
     {
-        Debug.Log("reborn");
         StartCoroutine(OnReborn());
     }
 
     IEnumerator OnReborn()
     {
-        yield return new WaitForSeconds(3f);
+        Debug.Log("reborn");
+        yield return new WaitForSeconds(1f);
 
         Vector3 random = Vector3.zero;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * 50;
             if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
             {
-                random = randomPoint;
+                random = hit.position;
                 break;
             }
         }
 
         player.transform.position = random;
-        player.gameObject.SetActive(true);
+        player.enabled = true;
+        player.OnInit();
     }
 
     public void Recycle(Bot bot)

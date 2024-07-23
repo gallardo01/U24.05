@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float rotateSpeed;
     [SerializeField] int weapondamage;
+    [SerializeField] bool needRotate;
     [SerializeField] Animator animator;
     [SerializeField] Rigidbody rb;
 
@@ -25,6 +26,7 @@ public class Projectile : MonoBehaviour
         this.direction = direction;
         this.weapondamage = weapondamage;
         rb.velocity = this.direction * moveSpeed;
+        if (needRotate) animator.Play("Rotate");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,9 +41,6 @@ public class Projectile : MonoBehaviour
                 other.GetComponent<Character>().TakeDamage(weapondamage);
                 LeanPool.Despawn(this.gameObject);
                 break;
-            //case 0:
-            //    LeanPool.Despawn(this.gameObject);
-            //    break;
         }
     }
 }

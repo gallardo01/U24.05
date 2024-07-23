@@ -17,16 +17,23 @@ public class Player : Character
     private bool isOnAttack;
     private Vector3 moveDirection;
 
-
-    protected override void OnInit()
+    public override void OnInit()
     {
         base.OnInit();
+        GetComponent<Rigidbody>().isKinematic = false;
         state = State.Move;
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
+
+        if (JoystickControl.direct.magnitude > 0)
+        {
+            CancelInvoke(nameof(OnThrow));
+            state = State.Move;
+            timer = 0f;
+        }
 
         switch (state)
         {
@@ -53,7 +60,7 @@ public class Player : Character
             ChangAnim("idle");
         }
 
-        if(timer > detectDelay && target != null)
+        if(timer > 0 && target != null)
         {
             timer = 0f;
             state = State.Attack;
@@ -62,13 +69,23 @@ public class Player : Character
 
     void OnAttack()
     {
-        if(!isOnAttack) Attack(target.transform);
+        if(!isOnAttack)
+        {
+            Attack(target.transform);
+            Invoke(nameof(OnThrow), attackDelay);
+        }
+
         isOnAttack = true;
 
         if(timer > attackDelay)
         {
             StopAttack();
         }
+    }
+
+    private void OnThrow()
+    {
+        Throw(target.transform);
     }
     
     private void StopAttack()
@@ -80,9 +97,9 @@ public class Player : Character
 
     public override void OnDeath()
     {
-        Debug.Log("reborn");
-        this.gameObject.SetActive(false);
-        PlayersManager.Instance.Reborn(this);
         base.OnDeath();
+        GetComponent<Rigidbody>().isKinematic = true;
+        PlayersManager.Instance.Reborn();
+        this.enabled = false;
     }
 }

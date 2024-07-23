@@ -24,11 +24,9 @@ public class Health : MonoBehaviour
     public void HandleDeath(Character charater)
     {   
         charater.OnDeath();
-        LeanPool.Despawn(gameObject, 2f);
-        if(isPlayer)
+        if(!isPlayer)
         {
-            charater.gameObject.SetActive(false);
+            LeanPool.Despawn(gameObject, 2f);
         }
-        else LeanPool.Despawn(gameObject, 2f);
     }
 }

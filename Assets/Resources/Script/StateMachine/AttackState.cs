@@ -9,6 +9,7 @@ public class AttackState : IState
     public void OnEnter(Bot bot)
     {
         bot.Attack(bot.target);
+        bot.Throw(bot.target);
     }
 
     public void OnExecute(Bot bot)

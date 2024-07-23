@@ -11,7 +11,7 @@ public class Bot : Character
     private NavMeshAgent agent;
     [HideInInspector] public Vector3 movePos;
 
-    protected override void OnInit()
+    public override void OnInit()
     {
         base.OnInit();
         agent = GetComponent<NavMeshAgent>();
@@ -33,7 +33,6 @@ public class Bot : Character
 
     private void Update()
     {
-        Debug.Log(this.gameObject.name + " - " + currentState);
         if(currentState != null)
         {
             currentState.OnExecute(this);

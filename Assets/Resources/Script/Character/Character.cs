@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
         OnInit();
     }
 
-    protected virtual void OnInit()
+    public virtual void OnInit()
     {
         collider.enabled = true;
     }
@@ -70,11 +70,17 @@ public class Character : MonoBehaviour
 
     public virtual void Attack(Transform target)
     {
+        transform.forward = (target.position - transform.position).normalized;               
         ChangAnim("attack");
-        transform.forward = (target.position - transform.position).normalized;
+    }
+
+    public void Throw(Transform target)
+    {
         Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity).GetComponent<Projectile>();
         LeanPool.Despawn(projectTile.gameObject, 3);
-        projectTile.Shoot((target.position + Vector3.up - shotingPoint.transform.position).normalized, characterDamage);                      
+        Vector3 direction = (target.position + Vector3.up - shotingPoint.transform.position).normalized;
+        projectTile.transform.forward = direction;
+        projectTile.Shoot(direction, characterDamage);
     }
 
     public virtual void TakeDamage(int damage)
