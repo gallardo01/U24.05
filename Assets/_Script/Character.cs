@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     public float detectionRadius = 25f;
 
     // Start is called before the first frame update
-    void OnEnable()
+    public void Start()
     {
         health = maxHP;
         this.HPbar.GetComponent<HPbar>().SetHP();
@@ -50,6 +50,8 @@ public class Character : MonoBehaviour
         weaponPrefabs = instance.UseWeapon(weaponName);
         weaponPrefabs.gameObject.tag = "chooseWeapon";
         GameObject weaponEquip = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
+        weaponEquip.GetComponent<Weapon>().self = this;
+        weaponEquip.transform.localScale = new Vector3(20,20,20);
         weaponEquip.GetComponent<Weapon>().enabled = false;
         weaponEquip.transform.SetParent(weaponEquipPos.transform);
     }

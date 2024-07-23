@@ -8,16 +8,11 @@ public class Player : Character
 
     public float speed = 25f;
     float time;
-    private CounterTime counter = new CounterTime();
-
-
-    // Start is called before the first frame update
-    void Start()
+    //private CounterTime counter = new CounterTime();
+    private void Start()
     {
-
+        base.Start();
     }
-
-    // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
@@ -30,13 +25,18 @@ public class Player : Character
             body.Translate(body.forward * Time.deltaTime * speed, Space.World);
             ChangeAnim("run");
             isRunning = true;
+            CancelInvoke(nameof(FindTarget));
         }
         else
         {
             ChangeAnim("idle");
             isRunning = false;
+            Invoke(nameof(FindTarget),1f);
         }
-
+       
+    }
+    public void FindTarget()
+    {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
         foreach (Collider collider in hitColliders)
         {

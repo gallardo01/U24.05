@@ -20,12 +20,22 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Bot bot = other.GetComponent<Bot>();
-        if (other.CompareTag("bot") && other.GetComponent<Character>() != self || other.CompareTag("player") && other.GetComponent<Character>() != self)
+        Player player = other.GetComponent<Player>();
+        if (other.CompareTag("bot") && other.GetComponent<Character>() != self)
         {
             Destroy(gameObject);
             bot.health = bot.HPbar.GetComponent<HPbar>().ChangeHealth(-10);
             float healthBot = other.GetComponent<Bot>().health;
             if (healthBot < 0)
+            {
+                Destroy(other.gameObject);
+            }
+        } else if (other.CompareTag("player") && other.GetComponent<Character>() != self)
+        {
+            Destroy(gameObject);
+            player.health = player.HPbar.GetComponent<HPbar>().ChangeHealth(-10);
+            float healthPlayer = other.GetComponent<Player>().health;
+            if (healthPlayer < 0)
             {
                 Destroy(other.gameObject);
             }

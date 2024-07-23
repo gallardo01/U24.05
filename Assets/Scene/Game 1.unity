@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44992113, g: 0.49997687, b: 0.5755558, a: 1}
+  m_IndirectSpecularColor: {r: 0.44992167, g: 0.49997765, b: 0.5755568, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -2818,11 +2818,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4768373528014018, guid: b4f843017807dfb45a67046282e14faf, type: 3}
   m_PrefabInstance: {fileID: 478003720}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &492471341 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8585864217506347401, guid: a4bb1884bb3143f4981df142c49b2728, type: 3}
-  m_PrefabInstance: {fileID: 703003657}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &493816681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3477,6 +3472,7 @@ MonoBehaviour:
   - {fileID: 2361645414305955778, guid: 0a7ec7add1d9dcd418a070db563e7839, type: 3}
   - {fileID: 1725852025673744274, guid: e2ecfd8d77ebad44f80b54c2804c1115, type: 3}
   - {fileID: 338937129561226658, guid: 1f181f5547118fd489c0c4e2559fb941, type: 3}
+  weaponTag: []
 --- !u!4 &613946608
 Transform:
   m_ObjectHideFlags: 0
@@ -3902,7 +3898,7 @@ PrefabInstance:
     - target: {fileID: 5461612325036580091, guid: a4bb1884bb3143f4981df142c49b2728, type: 3}
       propertyPath: weaponEquipPos
       value: 
-      objectReference: {fileID: 492471341}
+      objectReference: {fileID: 2052427848}
     - target: {fileID: 6593119355574932242, guid: a4bb1884bb3143f4981df142c49b2728, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12683,6 +12679,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4219504137179772, guid: 5c6d758d37ba80347ba0f4683cb854ad, type: 3}
   m_PrefabInstance: {fileID: 2049332870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2052427848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1480443410504284426, guid: a4bb1884bb3143f4981df142c49b2728, type: 3}
+  m_PrefabInstance: {fileID: 703003657}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2052773547
 PrefabInstance:
