@@ -18,14 +18,16 @@ public class MoveState : IState<Bot>
         bot.ChangeAnim("run");
         if (bot.isAttack == false)
         {
-            if (bot.IsObstacleDetected())
+            if (!bot.IsObstacleDetected())
+            {
+                bot.agent.SetDestination(newPos);
+            }else
             {
                 bot.ChangeDirection(bot.transform.position, bot.randomRadius, -1);
             }
             if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.5f)
             {
-                OnEnter(bot);
-                bot.agent.SetDestination(newPos);
+                bot.ChangeState(new AttackState());
             }
         }
     }

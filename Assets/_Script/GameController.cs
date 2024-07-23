@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
@@ -8,16 +9,9 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject playerPrebs;
     [SerializeField] GameObject botPrefs;
     private int botNumber = 4;
+    public int countWeaponSummon = 0;
     [SerializeField] List<GameObject> weaponList;
-
-    public enum WeaponName
-    {
-        axe1,
-        axe2,
-        gun,
-        boomerang,
-        candy
-    }
+    public List<string> weaponTag;
 
     public static GameController instance;
     private void Awake()
@@ -26,7 +20,12 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        CreatPlayerAndBot();   
+        CreatPlayerAndBot();
+        StartCoroutine(SummonWeapon());
+        for (int i = 0; i < weaponList.Count; i++)
+        {
+            weaponTag.Add(weaponList[i].tag);
+        }
     }
     private void CreatPlayerAndBot()
     {
@@ -56,22 +55,43 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public GameObject UseWeapon (WeaponName weaponNum)
+    public GameObject UseWeapon(string weaponName)
     {
-        switch (weaponNum)
+        switch (weaponName)
         {
-            case WeaponName.axe1:
+            case "axe1":
                 return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[0];
-            case WeaponName.axe2:
+            case "axe2":
                 return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[1];
-            case WeaponName.gun:
+            case "gun":
                 return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[2];
-            case WeaponName.boomerang:
+            case "boomerang":
                 return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[3];
-            case WeaponName.candy:
+            case "candy":
                 return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[4];
             default:
                 return null;
         }
     }
+    public IEnumerator SummonWeapon()
+    {
+        while (countWeaponSummon < 6)
+        {
+            yield return new WaitForSeconds(5f);
+            Vector3 summonPos = RandomNavSphere(Vector3.zero, 50f, 1) + new Vector3(0,3,0);
+            Weapon weaponSummon = Instantiate(weaponList[Random.Range(0, weaponList.Count)], summonPos, Quaternion.identity).GetComponent<Weapon>();
+            weaponSummon.GetComponent<Weapon>().enabled = false;
+            countWeaponSummon++;
+        }
+    }
+
+    public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+        randDirection += origin;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return navHit.position;
+    }
+
 }

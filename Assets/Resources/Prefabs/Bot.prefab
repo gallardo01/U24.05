@@ -368,8 +368,10 @@ MonoBehaviour:
   firePoint: {fileID: 5461612326541438016}
   HPbar: {fileID: 6965749245987461444}
   weaponPrefabs: {fileID: 3770543599948866396, guid: 02168e00fde29e244a5eb7d21f85492d, type: 3}
+  weaponEquipPos: {fileID: 4808137124545264297}
   isAttack: 0
-  cooldownTime: 2
+  isRunning: 0
+  cooldownTimeAttack: 2
   maxHP: 100
   health: 0
   currentAnimName: 

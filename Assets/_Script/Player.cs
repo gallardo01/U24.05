@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Player : Character
 
     public float speed = 25f;
     float time;
+    private CounterTime counter = new CounterTime();
 
 
     // Start is called before the first frame update
@@ -20,21 +22,19 @@ public class Player : Character
     {
         time += Time.deltaTime;
         Vector3 direction = JoystickControl.direct.normalized;
-        if (direction != Vector3.zero && isAttack == false)
+        if (direction != Vector3.zero)
         {
+            //counter.Cancel();
             Quaternion newRotation = Quaternion.LookRotation(direction);
             body.rotation = newRotation;
             body.Translate(body.forward * Time.deltaTime * speed, Space.World);
             ChangeAnim("run");
+            isRunning = true;
         }
         else
         {
             ChangeAnim("idle");
-        }
-
-        if (time > 0.9f)
-        {
-            isAttack = false;
+            isRunning = false;
         }
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
@@ -42,8 +42,12 @@ public class Player : Character
         {
             if (collider.CompareTag("bot") && time > cooldownTimeAttack)
             {
-                isAttack = true;
-                FireWeapon(this.weaponPrefabs);
+                if (isRunning == false)
+                {
+                    ChangeAnim("attack");
+                    isAttack = true;
+                    FireWeapon(this.weaponPrefabs, collider.gameObject);
+                }
                 time = 0;
                 break;
             }

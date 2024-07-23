@@ -11,7 +11,9 @@ public class Character : MonoBehaviour
     [SerializeField] public GameObject HPbar;
 
     public GameObject weaponPrefabs;
+    public GameObject weaponEquipPos;
     public bool isAttack = false;
+    public bool isRunning = false;
     public float cooldownTimeAttack = 2f;
     public float maxHP = 100;
     public float health;
@@ -22,8 +24,8 @@ public class Character : MonoBehaviour
     void OnEnable()
     {
         health = maxHP;
-        weaponPrefabs = instance.UseWeapon(WeaponName.boomerang);
         this.HPbar.GetComponent<HPbar>().SetHP();
+        EquipWeapon("boomerang");
     }
     public void ChangeAnim(string animName)
     {
@@ -35,13 +37,22 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void FireWeapon(GameObject weaponPrefabs)
+    public void FireWeapon(GameObject weaponPrefabs, GameObject bot)
     {
-        ChangeAnim("attack");
+        Vector3 directionToBot = (bot.GetComponent<Bot>().transform.position - transform.position).normalized;
+        body.rotation = Quaternion.LookRotation(directionToBot);
         GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
+        weapon.GetComponent<Weapon>().self = this;
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 1400f);
     }
-
+    void EquipWeapon(string weaponName)
+    {
+        weaponPrefabs = instance.UseWeapon(weaponName);
+        weaponPrefabs.gameObject.tag = "chooseWeapon";
+        GameObject weaponEquip = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
+        weaponEquip.GetComponent<Weapon>().enabled = false;
+        weaponEquip.transform.SetParent(weaponEquipPos.transform);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("death"))
@@ -50,5 +61,11 @@ public class Character : MonoBehaviour
             int randomIndex = Random.Range(0, GameController.instance.summonPoint.Count);
             transform.position = GameController.instance.summonPoint[randomIndex].position;
         }
+        //if (GameController.instance.weaponTag.Contains(other.tag))
+        //{
+        //    EquipWeapon(other.tag);
+        //    weaponPrefabs.GetComponent<Weapon>().enabled = true;
+        //    GameController.instance.countWeaponSummon--;
+        //}
     }
 }

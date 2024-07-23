@@ -14,6 +14,7 @@ public class AttackState : IState<Bot>
             if (collider.CompareTag("player") && bot.time > bot.cooldownTimeAttack)
             {
                 bot.isAttack = true;
+                bot.ChangeAnim("attack");
                 OnExecute(bot);
                 bot.time = 0;
                 break;
@@ -26,8 +27,8 @@ public class AttackState : IState<Bot>
     }
     public void OnExecute(Bot bot)
     {
-        bot.FireWeapon(bot.weaponPrefabs);
-        bot.ChangeAnim("attack");
+        bot.FireWeapon(bot.weaponPrefabs,bot.target.gameObject);
+
     }
     public void OnExit(Bot bot)
     {
