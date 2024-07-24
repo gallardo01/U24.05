@@ -155,9 +155,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.0015686
+  m_Height: 2.0632455
   m_Direction: 1
-  m_Center: {x: 0, y: 1.3021303, z: 0}
+  m_Center: {x: 0, y: 1.2712919, z: 0}
 --- !u!195 &3606422004846864601
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -192,6 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8451253bf740d754db41c5662d2a894e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  botPrefab: {fileID: 0}
+  numberOfBots: 10
+  spawnAreaSize: 50
 --- !u!114 &3606422004846864603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +212,7 @@ MonoBehaviour:
   animator: {fileID: 3606422004846864596}
   characterRange: {fileID: 3606422005457927886}
   bulletPrefab: {fileID: 4203873496761262272, guid: fe4734c338ee65c4f84ad83f49c15155, type: 3}
+  isAttack: 0
   agent: {fileID: 3606422004846864601}
 --- !u!1 &3606422004994189946
 GameObject:

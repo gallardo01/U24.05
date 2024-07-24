@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class Character : MonoBehaviour
 {
     public Transform body;
@@ -13,8 +14,7 @@ public class Character : MonoBehaviour
     public CharacterRange characterRange;
     public Bullet bulletPrefab;
     public bool isAttack = false;
-
-
+    public TargetIndicator indicator;
     // private FieldOfView fieldOfView;
     
     // Start is called before the first frame update
@@ -55,8 +55,9 @@ public class Character : MonoBehaviour
 
     public void OnDeath()
     {
-        ChangeAnim("death");
-        Destroy(gameObject,1f);
+        Destroy(gameObject);
     }
+    
+    
     
 }
