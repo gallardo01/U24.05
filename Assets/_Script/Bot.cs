@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Bot : Character
 {
+    [SerializeField] public GameObject inAreaAtack;
+
     IState<Bot> currentState;
     public NavMeshAgent agent;
     public Transform target;
     public float time;
     public float randomRadius = 30f;
-    float detectObtaclesRadius = 10f;
     float cooldownMove = 1.5f;
 
     // Start is called before the first frame update
@@ -18,6 +21,8 @@ public class Bot : Character
         base.Start();
         currentState = new IdleState();   
         time = cooldownMove;
+        inAreaAtack.SetActive(false);
+        //namePlayer = RandomNameGenerator.GenerateRandomName();
     }
 
     // Update is called once per frame

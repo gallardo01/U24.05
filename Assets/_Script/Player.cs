@@ -19,21 +19,34 @@ public class Player : Character
         Vector3 direction = JoystickControl.direct.normalized;
         if (direction != Vector3.zero)
         {
-            //counter.Cancel();
             Quaternion newRotation = Quaternion.LookRotation(direction);
             body.rotation = newRotation;
             body.Translate(body.forward * Time.deltaTime * speed, Space.World);
             ChangeAnim("run");
             isRunning = true;
-            CancelInvoke(nameof(FindTarget));
         }
         else
         {
             ChangeAnim("idle");
             isRunning = false;
-            Invoke(nameof(FindTarget),1f);
+            FindTarget();
         }
-       
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.CompareTag("bot"))
+            {
+                if (Vector3.Distance(transform.position, collider.transform.position) < detectionRadius)
+                {
+                    collider.GetComponent<Bot>().inAreaAtack.SetActive(true);
+                }
+                else
+                {
+                    collider.GetComponent<Bot>().inAreaAtack.SetActive(false);
+                }
+            }
+        }
     }
     public void FindTarget()
     {
@@ -42,7 +55,7 @@ public class Player : Character
         {
             if (collider.CompareTag("bot") && time > cooldownTimeAttack)
             {
-                if (isRunning == false)
+                if (isRunning == false )
                 {
                     ChangeAnim("attack");
                     isAttack = true;

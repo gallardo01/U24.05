@@ -31,6 +31,7 @@ public class AttackState : IState<Bot>
         {
             bot.ChangeAnim("attack");
             bot.FireWeapon(bot.weaponPrefabs, bot.target.gameObject);
+            bot.time = 0;
             OnEnter(bot);
         }
     }

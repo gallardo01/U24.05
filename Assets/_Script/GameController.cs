@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,12 +9,15 @@ public class GameController : MonoBehaviour
     [SerializeField] public List<Transform> summonPoint;
     [SerializeField] GameObject playerPrebs;
     [SerializeField] GameObject botPrefs;
-    private int botNumber = 4;
-    public int countWeaponSummon = 0;
+    [SerializeField] TMP_Text numberAlive;
     [SerializeField] List<GameObject> weaponList;
-    public List<string> weaponTag;
 
+    private int botNumber = 10;
+    public int countPlayer = 0;
+    public int countWeaponSummon = 0;
+    public List<string> weaponTag;
     public static GameController instance;
+
     private void Awake()
     {
         instance = this;
@@ -26,6 +30,8 @@ public class GameController : MonoBehaviour
         {
             weaponTag.Add(weaponList[i].tag);
         }
+        countPlayer = ++botNumber;
+        CountPlayer(countPlayer);
     }
     private void CreatPlayerAndBot()
     {
@@ -94,4 +100,8 @@ public class GameController : MonoBehaviour
         return navHit.position;
     }
 
+    public void CountPlayer(int numberPlayer)
+    {
+        numberAlive.text = numberPlayer.ToString();
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HPbar : MonoBehaviour
+public class TargetIndicator : MonoBehaviour
 {
     [SerializeField] Slider slider;
     [SerializeField] GameObject player;
