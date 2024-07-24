@@ -28,15 +28,15 @@ public class Character : MonoBehaviour
     }
 
   
-    public void  Throw()
+    public void Throw()
     {
         characterRange.RemoveNullTarget();
         if (characterRange.botInRange.Count > 0)
         {
             Bullet bullet = Instantiate(bulletPrefab);
             bullet.transform.position = transform.position;
-            Vector3 direction = (characterRange.GetNearestTarget().position - transform.position).normalized;
             bullet.self = this;
+            Vector3 direction = (characterRange.GetNearestTarget().position - transform.position).normalized;
             bullet.transform.forward = direction;
             bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
             transform.forward = direction;

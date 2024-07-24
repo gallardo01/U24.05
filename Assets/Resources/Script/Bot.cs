@@ -21,7 +21,7 @@ public class Bot : Character
 
     public void ChangeIsAttackBot()
     {
-        Invoke("ResetAttack", 0.5f);
+        Invoke("ResetAttack", 1f);
     }
     
     private void ResetAttack()
