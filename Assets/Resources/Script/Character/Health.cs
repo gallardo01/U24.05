@@ -29,11 +29,7 @@ public class Health : MonoBehaviour
 
     public void HandleDeath(Character charater)
     {
+        if(!isPlayer) LeanPool.Despawn(gameObject, 2f);
         charater.OnDeath();
-        if(!isPlayer)
-        {
-            PlayersManager.Instance.Recycle(charater);
-            LeanPool.Despawn(gameObject, 2f);
-        }
     }
 }

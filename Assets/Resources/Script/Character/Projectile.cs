@@ -16,11 +16,6 @@ public class Projectile : MonoBehaviour
     private Vector3 direction;
     private float rotationY;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
     public void Shoot(Vector3 direction, int weapondamage)
     {
         this.direction = direction;

@@ -208,7 +208,7 @@ MonoBehaviour:
     m_Bits: 256
   characterDamage: 5
   detectDelay: 0.5
-  attackDelay: 0.5
+  attackDelay: 2
 --- !u!114 &2659144792891299173
 MonoBehaviour:
   m_ObjectHideFlags: 0

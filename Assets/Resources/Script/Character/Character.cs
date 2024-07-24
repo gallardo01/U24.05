@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected Collider collider;
     [SerializeField] protected Health health;
     protected string currentAnimName = "idle";
+    protected Indicator indicator; public void SetIndicator(Indicator indicator) {  this.indicator = indicator; } 
 
     [HideInInspector] public Transform target;
     protected Collider[] targetsList = new Collider[10];
@@ -28,14 +29,11 @@ public class Character : MonoBehaviour
     public float detectDelay;
     public float attackDelay;
 
-    protected void Awake()
-    {
-        OnInit();
-    }
-
     public virtual void OnInit()
     {
+        this.enabled = true;
         collider.enabled = true;
+        indicator.gameObject.SetActive(true);
     }
 
     protected void Start()
@@ -92,6 +90,8 @@ public class Character : MonoBehaviour
     {
         ChangAnim("dead");
         collider.enabled = false;
+        indicator.gameObject.SetActive(false);
+        this.enabled = false;
     }
 
     public void ChangAnim(string animName)

@@ -31,8 +31,7 @@ public class Player : Character
         if (JoystickControl.direct.magnitude > 0)
         {
             CancelInvoke(nameof(OnThrow));
-            state = State.Move;
-            timer = 0f;
+            ExitAttack();
         }
 
         switch (state)
@@ -72,14 +71,13 @@ public class Player : Character
         if(!isOnAttack)
         {
             Attack(target.transform);
-            Invoke(nameof(OnThrow), attackDelay);
+            Invoke(nameof(OnThrow), 0.3f);
+            isOnAttack = true;
         }
-
-        isOnAttack = true;
 
         if(timer > attackDelay)
         {
-            StopAttack();
+            ExitAttack();
         }
     }
 
@@ -88,7 +86,7 @@ public class Player : Character
         Throw(target.transform);
     }
     
-    private void StopAttack()
+    private void ExitAttack()
     {
         isOnAttack = false;
         timer = 0;
@@ -100,6 +98,5 @@ public class Player : Character
         base.OnDeath();
         GetComponent<Rigidbody>().isKinematic = true;
         PlayersManager.Instance.Reborn();
-        this.enabled = false;
     }
 }

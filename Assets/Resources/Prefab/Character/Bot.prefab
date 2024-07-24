@@ -130,7 +130,7 @@ MonoBehaviour:
     m_Bits: 128
   characterDamage: 5
   detectDelay: 1
-  attackDelay: 2
+  attackDelay: 1.5
   movePos: {x: 0, y: 0, z: 0}
 --- !u!114 &1450483521837757057
 MonoBehaviour:
