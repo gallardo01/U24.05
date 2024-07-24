@@ -16,7 +16,7 @@ public class Bot : Character
     {
         base.Start();
 
-        weaponType = WeaponType.Axe;
+        weaponType = (WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count);
         Instantiate(WeaponManager.Ins.WeaponDataMap[weaponType].weaponHoldPrefab, weaponHoldParent);
     }
 
