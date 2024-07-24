@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     public CharacterRange range;
     public Bullet bulletPrefabs;
     public bool isAttack = false;
+    public TargetIndicator indicator;
 
     // Start is called before the first frame update
     void Start()

@@ -52,4 +52,9 @@ public class Bot : Character
         agent.SetDestination(des);
         destination.y = 0f;
     }
+
+    public void OnDestroy()
+    {
+        indicator.gameObject.SetActive(false);
+    }
 }
