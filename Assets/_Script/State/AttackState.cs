@@ -1,34 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using static UnityEngine.GraphicsBuffer;
 
 public class AttackState : IState<Bot>
 {
     public void OnEnter(Bot bot)
     {
-        
-        Collider[] hitColliders = Physics.OverlapSphere(bot.transform.position, bot.detectionRadius);
-        foreach (Collider collider in hitColliders)
+        List<GameObject> listTarget = bot.FindTarget();
+        float minHealth = Mathf.Infinity;
+        if (listTarget.Count > 0)
         {
-            if (collider.CompareTag("player") && bot.time > bot.cooldownTimeAttack)
+            for (int i = 0; i < listTarget.Count; i++)
             {
-                bot.isAttack = true;
-                bot.ChangeAnim("attack");
-                OnExecute(bot);
-                bot.time = 0;
-                break;
+                if (listTarget[i].GetComponent<Character>().health < minHealth)
+                {
+                    minHealth = listTarget[i].GetComponent<Character>().health;
+                    bot.target = listTarget[i].transform;
+                }
             }
-            else
-            {
-                bot.ChangeState(new MoveState());
-            }
+        }
+        else
+        {
+            bot.ChangeState(new MoveState());
         }
     }
     public void OnExecute(Bot bot)
     {
-        bot.FireWeapon(bot.weaponPrefabs,bot.target.gameObject);
-
+        if (bot.target != null)
+        {
+            bot.ChangeAnim("attack");
+            bot.FireWeapon(bot.weaponPrefabs, bot.target.gameObject);
+            OnEnter(bot);
+        }
     }
     public void OnExit(Bot bot)
     {

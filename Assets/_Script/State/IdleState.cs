@@ -12,7 +12,7 @@ public class IdleState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         
-        if (bot.time >0.5f)
+        if (bot.time >1f)
         {
             bot.ChangeState(new MoveState());
         }

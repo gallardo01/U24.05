@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.AI;
 
 
 public class MoveState : IState<Bot>
@@ -16,19 +15,12 @@ public class MoveState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         bot.ChangeAnim("run");
-        if (bot.isAttack == false)
+        bot.agent.SetDestination(newPos);
+        Debug.DrawRay(newPos, bot.transform.position,Color.red,5f);
+        if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.1f)
         {
-            if (!bot.IsObstacleDetected())
-            {
-                bot.agent.SetDestination(newPos);
-            }else
-            {
-                bot.ChangeDirection(bot.transform.position, bot.randomRadius, -1);
-            }
-            if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.5f)
-            {
-                bot.ChangeState(new AttackState());
-            }
+            bot.ChangeAnim("idle");
+            bot.ChangeState(new AttackState());
         }
     }
     public void OnExit(Bot bot)

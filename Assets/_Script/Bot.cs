@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,12 +29,6 @@ public class Bot : Character
             currentState.OnExecute(this);
             time = 0;
         }
-
-        if (time > 0.9f)
-        {
-            isAttack = false;
-        }
-
     }
 
     public void ChangeState(IState<Bot> newState)
@@ -59,16 +54,21 @@ public class Bot : Character
         return navHit.position;
     }
 
-    public bool IsObstacleDetected()
+    public List<GameObject> FindTarget()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position,detectObtaclesRadius,-1);
-        return hitColliders.Length > 0;
-    }
-
-    public void ChangeDirection(Vector3 origin, float dist, int layermask)
-    {
-        Vector3 finalPosition = RandomNavSphere(origin, dist, layermask);
-        agent.SetDestination(finalPosition);
+        List<GameObject> listTarget = new List<GameObject>();
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius, -1);
+        foreach (Collider collider in hitColliders)
+        {
+            if (collider.gameObject != gameObject)
+            {
+                if (collider.CompareTag("player") || collider.CompareTag("bot"))
+                {
+                    listTarget.Add(collider.gameObject);
+                }
+            }
+        }
+        return listTarget;
     }
 }
 

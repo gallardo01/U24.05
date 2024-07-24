@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
     {
         health = maxHP;
         this.HPbar.GetComponent<HPbar>().SetHP();
-        EquipWeapon("boomerang");
+        //EquipWeapon("boomerang");
     }
     public void ChangeAnim(string animName)
     {
@@ -37,24 +37,24 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void FireWeapon(GameObject weaponPrefabs, GameObject bot)
+    public void FireWeapon(GameObject weaponPrefabs, GameObject target)
     {
-        Vector3 directionToBot = (bot.GetComponent<Bot>().transform.position - transform.position).normalized;
-        body.rotation = Quaternion.LookRotation(directionToBot);
+        Vector3 directionToTarget = (target.GetComponent<Character>().transform.position - transform.position).normalized;
+        body.rotation = Quaternion.LookRotation(directionToTarget);
         GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
         weapon.GetComponent<Weapon>().self = this;
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 1400f);
     }
-    void EquipWeapon(string weaponName)
-    {
-        weaponPrefabs = instance.UseWeapon(weaponName);
-        weaponPrefabs.gameObject.tag = "chooseWeapon";
-        GameObject weaponEquip = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
-        weaponEquip.GetComponent<Weapon>().self = this;
-        weaponEquip.transform.localScale = new Vector3(20,20,20);
-        weaponEquip.GetComponent<Weapon>().enabled = false;
-        weaponEquip.transform.SetParent(weaponEquipPos.transform);
-    }
+    //void EquipWeapon(string weaponName)
+    //{
+    //    weaponPrefabs = instance.UseWeapon(weaponName);
+    //    //weaponPrefabs.gameObject.tag = "chooseWeapon";
+    //    GameObject weaponEquip = Instantiate(weaponPrefabs, weaponEquipPos.transform.position, Quaternion.Euler(90, 0, 0));
+    //    weaponEquip.GetComponent<Weapon>().self = this;
+    //    weaponEquip.transform.localScale = new Vector3(20,20,20);
+    //    weaponEquip.GetComponent<Weapon>().enabled = false;
+    //    weaponEquip.transform.SetParent(weaponEquipPos.transform);
+    //}
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("death"))
