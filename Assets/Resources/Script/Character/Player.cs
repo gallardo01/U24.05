@@ -62,8 +62,8 @@ public class Player : Character
 
         if(timer > 0 && target != null)
         {
-            timer = 0f;
             state = State.Attack;
+            timer = 0f;
         }
     }
 
