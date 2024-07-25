@@ -40,10 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3606422004778736326}
-  - component: {fileID: 3457986791968939565}
-  - component: {fileID: 280751719477108273}
-  - component: {fileID: 9207791595739118503}
-  - component: {fileID: 696961070242442354}
+  - component: {fileID: 1419817214828068225}
+  - component: {fileID: 9067027015765270128}
+  - component: {fileID: 4742595334650308501}
+  - component: {fileID: 7057614737808777414}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Bot
@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004778736329}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.875997, y: 0, z: -7.258333}
+  m_LocalPosition: {x: 7.875997, y: 1.3579912, z: -7.258333}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -67,21 +67,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &3457986791968939565
-CapsuleCollider:
+--- !u!114 &1419817214828068225
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004778736329}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.9719317
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.3169488, z: 0}
---- !u!54 &280751719477108273
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f04c250a4e3b7f4ebd9b43c61115108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3606422004778736326}
+  speed: 5
+  animator: {fileID: 3606422004846864596}
+  characterRange: {fileID: 3606422005457927886}
+  bulletPrefab: {fileID: 4203873496761262272, guid: fe4734c338ee65c4f84ad83f49c15155, type: 3}
+  isAttack: 0
+  agent: {fileID: 4742595334650308501}
+--- !u!54 &9067027015765270128
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +102,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!195 &9207791595739118503
+--- !u!195 &4742595334650308501
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,26 +124,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &696961070242442354
-MonoBehaviour:
+--- !u!136 &7057614737808777414
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004778736329}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f04c250a4e3b7f4ebd9b43c61115108, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 3606422004778736326}
-  speed: 5
-  animator: {fileID: 3606422004846864596}
-  characterRange: {fileID: 3606422005457927886}
-  bulletPrefab: {fileID: 4203873496761262272, guid: fe4734c338ee65c4f84ad83f49c15155, type: 3}
-  isAttack: 0
-  indicator: {fileID: 0}
-  agent: {fileID: 9207791595739118503}
+  m_Radius: 0.5
+  m_Height: 2.0015686
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3021303, z: 0}
 --- !u!1 &3606422004846864605
 GameObject:
   m_ObjectHideFlags: 0

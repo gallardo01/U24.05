@@ -15,13 +15,11 @@ public class Character : MonoBehaviour
     public bool isAttack = false;
     public TargetIndicator indicator;
 
-
     // private FieldOfView fieldOfView;
     
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
