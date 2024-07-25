@@ -36,8 +36,8 @@ public class GameController : MonoBehaviour
             TargetIndicator botIndicator = Instantiate(indicator, indicatorCanvas.transform);
             botIndicator.character = bot;
             bot.indicator = botIndicator;
-            Color color = UnityEngine.Random.ColorHSV();
-            string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)];
+            Color color = Random.ColorHSV();
+            string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)] + Random.Range(0, 10000);
             botIndicator.InitTarget(color, 1, botName);
         }
     }
