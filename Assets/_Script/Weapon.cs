@@ -7,11 +7,7 @@ public class Weapon : MonoBehaviour
     public Character self;
     float timeDissappear = 1f;
     float time;
-    int playerAlive;
-    private void Start()
-    {
-        playerAlive = GameController.instance.countPlayer;
-    }
+
     // Update is called once per frame
     void Update()
     {
@@ -34,8 +30,7 @@ public class Weapon : MonoBehaviour
             if (bot.health < 0)
             {
                 bot.ChangeAnim("dead");
-                playerAlive--;
-                GameController.instance.CountPlayer(playerAlive);
+                GameController.instance.countPlayers.Remove(other.gameObject);
                 Destroy(other.gameObject,1.5f);
             }
         } else if (other.CompareTag("player") && other.GetComponent<Character>() != self)
@@ -45,8 +40,7 @@ public class Weapon : MonoBehaviour
             if (player.health < 0)
             {
                 player.ChangeAnim("dead");
-                playerAlive--;
-                GameController.instance.CountPlayer(playerAlive);
+                GameController.instance.countPlayers.Remove(other.gameObject);
                 Destroy(other.gameObject,1.5f);   
             }
         }

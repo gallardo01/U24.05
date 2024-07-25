@@ -13,10 +13,10 @@ public class GameController : MonoBehaviour
     [SerializeField] List<GameObject> weaponList;
 
     private int botNumber = 10;
-    public int countPlayer = 0;
     public int countWeaponSummon = 0;
     public List<string> weaponTag;
     public static GameController instance;
+    public List<GameObject> countPlayers;
 
     private void Awake()
     {
@@ -30,8 +30,11 @@ public class GameController : MonoBehaviour
         {
             weaponTag.Add(weaponList[i].tag);
         }
-        countPlayer = ++botNumber;
-        CountPlayer(countPlayer);
+    }
+
+    private void Update()
+    {
+        CountPlayer(countPlayers.Count);
     }
     private void CreatPlayerAndBot()
     {
@@ -45,6 +48,7 @@ public class GameController : MonoBehaviour
                 {
                     randomPos.Add(randomIndex);
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
+                    countPlayers.Add(bot.gameObject);
                     break;
                 }
             }
@@ -56,6 +60,7 @@ public class GameController : MonoBehaviour
             {
                 randomPos.Add(randomIndex);
                 playerPrebs.GetComponent<Player>().body.position = summonPoint[randomIndex].position;
+                countPlayers.Add(playerPrebs);
                 break;
             }
         }
