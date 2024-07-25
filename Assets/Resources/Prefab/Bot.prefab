@@ -40,6 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3606422004778736326}
+  - component: {fileID: 6492320665071750595}
+  - component: {fileID: 3457986791968939565}
+  - component: {fileID: 280751719477108273}
+  - component: {fileID: 9207791595739118503}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Bot
@@ -55,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004778736329}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.875997, y: 1.3579912, z: -7.258333}
+  m_LocalPosition: {x: 7.875997, y: 0, z: -7.258333}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -63,6 +67,77 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6492320665071750595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606422004778736329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f04c250a4e3b7f4ebd9b43c61115108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3606422004778736326}
+  speed: 5
+  animator: {fileID: 3606422004846864596}
+  characterRange: {fileID: 3606422005457927886}
+  bulletPrefab: {fileID: 4203873496761262272, guid: fe4734c338ee65c4f84ad83f49c15155, type: 3}
+  isAttack: 0
+  agent: {fileID: 9207791595739118503}
+--- !u!136 &3457986791968939565
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606422004778736329}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.9719317
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3169488, z: 0}
+--- !u!54 &280751719477108273
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606422004778736329}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!195 &9207791595739118503
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3606422004778736329}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3606422004846864605
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,10 +148,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3606422004846864602}
   - component: {fileID: 3606422004846864596}
-  - component: {fileID: 3606422004846864599}
   - component: {fileID: 3606422004846864598}
   - component: {fileID: 3606422004846864601}
-  - component: {fileID: 3606422004846864600}
   - component: {fileID: 3606422004846864603}
   m_Layer: 7
   m_Name: Character_Optimieze2
@@ -93,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004846864605}
   m_LocalRotation: {x: -0, y: -0.0714975, z: -0, w: 0.9974408}
-  m_LocalPosition: {x: -0.005997181, y: -1.0699912, z: -0.031666756}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -128,22 +201,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!54 &3606422004846864599
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3606422004846864605}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!136 &3606422004846864598
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -153,11 +210,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 3606422004846864605}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
-  m_Height: 2.0632455
+  m_Height: 2.0015686
   m_Direction: 1
-  m_Center: {x: 0, y: 1.2712919, z: 0}
+  m_Center: {x: 0, y: 1.3021303, z: 0}
 --- !u!195 &3606422004846864601
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -165,7 +222,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004846864605}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -180,21 +237,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3606422004846864600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3606422004846864605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8451253bf740d754db41c5662d2a894e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  botPrefab: {fileID: 0}
-  numberOfBots: 10
-  spawnAreaSize: 50
 --- !u!114 &3606422004846864603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +244,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3606422004846864605}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f04c250a4e3b7f4ebd9b43c61115108, type: 3}
   m_Name: 

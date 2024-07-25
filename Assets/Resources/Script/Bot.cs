@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,5 +41,10 @@ public class Bot : Character
         {
             currentState.OnEnter(this);
         }
+    }
+
+    public void OnDestroy()
+    {
+        indicator.gameObject.SetActive(false);
     }
 }

@@ -3,27 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class TargetIndicator : MonoBehaviour
 {
-    private Character character;
+    public Character character;
     public Image colorImage;
-    public TextMeshProUGUI nameText;
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI nameText;
+    public Camera Camera => CameraFollower.Ins.gameCamera;
+    Vector3 viewPoint;
+    Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
-    public void InitTargetIndicator(Color color, string name, int level)
+    private void LateUpdate()
+    {
+        viewPoint = Camera.WorldToViewportPoint(character.transform.position + Vector3.forward*3);
+        GetComponent<RectTransform>().anchoredPosition = Camera.ViewportToScreenPoint(viewPoint) - screenHalf;
+    }
+
+    
+
+    public void InitTarget(Color color, int level, string name)
     {
         colorImage.color = color;
-        nameText.text = name;
         levelText.text = level.ToString();
+        nameText.text = name;
     }
-    
-    public void InitTargetIndicator  (int level)
+
+    public void InitTarget(int level)
     {
         levelText.text = level.ToString();
     }

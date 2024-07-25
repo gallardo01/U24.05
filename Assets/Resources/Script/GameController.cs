@@ -1,37 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
-    public Bot botPrefab;
-    public Player playerPrefab;
-    public int numberOfBots = 10;
-    public float spawnAreaSize = 50f;
+    public Canvas indicatorCanvas;
+    public Bot Bot;
+    public int botNumber = 10;
+    public Player player;
     public TargetIndicator indicator;
 
+    public List<Transform> listSpawn = new List<Transform>();
+    // Start is called before the first frame update
     void Start()
     {
-        SpawnBots();
-    }
-
-    void SpawnBots()
-    {
-        for (int i = 0; i < numberOfBots; i++)
+        CreateBotNewGame();
+        if (botNumber > listSpawn.Count-1)
         {
-            Vector3 randomPosition = GetRandomNavMeshPosition();
-            Instantiate(botPrefab, randomPosition, Quaternion.identity);
+            botNumber = listSpawn.Count - 1;
         }
     }
     
-    
-    Vector3 GetRandomNavMeshPosition()
+    public void CreateBotNewGame()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * spawnAreaSize;
-        randomDirection += transform.position;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection, out hit, spawnAreaSize, 1);
-        return hit.position;
+        player.transform.position = listSpawn[listSpawn.Count - 1].position;
+        TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
+        player.indicator = playerIndicator;
+        playerIndicator.character = player;
+        playerIndicator.InitTarget(Color.black, 1, "Player");
+
+        for (int i = 0; i < botNumber; i++)
+        {
+            Bot bot = Instantiate(Bot);
+            bot.transform.position = listSpawn[i].position;
+            TargetIndicator botIndicator = Instantiate(indicator, indicatorCanvas.transform);
+            botIndicator.character = bot;
+            bot.indicator = botIndicator;
+            Color color = UnityEngine.Random.ColorHSV();
+            string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)] + Random.Range(0, 10000);
+            botIndicator.InitTarget(color, 1, botName);
+        }
     }
+    
 }

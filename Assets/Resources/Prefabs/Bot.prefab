@@ -191,13 +191,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3992716e3e7db2341ad37d3675a94f3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 3259601587615974826}
-  speed: 5
   animator: {fileID: 4879207772164647120}
   range: {fileID: 7513933344638388954}
   bulletPrefabs: {fileID: 6186435644729915178, guid: f3ee2d59512a66349a44359b5fcc9ea3, type: 3}
   isAttack: 0
-  indicator: {fileID: 0}
   agent: {fileID: 7513933346697902926}
   destination: {x: 0, y: 0, z: 0}
 --- !u!195 &7513933346697902926
