@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SpawnBots();
-        SpawnPlayer();
     }
 
     void SpawnBots()
@@ -23,16 +22,9 @@ public class GameController : MonoBehaviour
         {
             Vector3 randomPosition = GetRandomNavMeshPosition();
             Instantiate(botPrefab, randomPosition, Quaternion.identity);
-            TargetIndicator botIndicator = Instantiate(indicator);
-            botPrefab.GetComponent<Character>().indicator = botIndicator;
         }
     }
     
-    void SpawnPlayer()
-    {
-        Vector3 playerPosition = GetRandomNavMeshPosition();
-        Instantiate(playerPrefab, playerPosition, Quaternion.identity);
-    }
     
     Vector3 GetRandomNavMeshPosition()
     {
