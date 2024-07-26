@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 1f + 0.05f * self.level);
     }
 
     
@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Bot") && other.GetComponent<Character>() != self)
         {
             other.GetComponent<Character>().OnDeath();
+            self.GainLevel();
             Destroy(gameObject);
         }
     }

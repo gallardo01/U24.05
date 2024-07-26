@@ -14,7 +14,18 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
+        OnInit();
+    }
+
+    public override void OnInit()
+    {
         ChangeState(new IdleState());
+        base.OnInit();
+    }
+
+    public override void OnAttack()
+    {
+        base.OnAttack();
     }
 
     // Update is called once per frame
@@ -53,8 +64,10 @@ public class Bot : Character
         destination.y = 0f;
     }
 
-    public void OnDestroy()
+    public override void OnDeath()
     {
-        indicator.gameObject.SetActive(false);
+        // Bot chet?
+        Debug.Log("Bot death");
+        base.OnDeath();
     }
 }

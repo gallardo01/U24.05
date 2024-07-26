@@ -12,7 +12,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
-       
+        OnInit();
     }
 
     // Update is called once per frame
@@ -41,12 +41,18 @@ public class Player : Character
         }
     }
 
+    public override void OnInit()
+    {
+        base.OnInit();
+    }
+
+    
     public void AttackTarget()
     {
         isAttack = true;
         Invoke(nameof(ChangeIsAttack), 1.5f);
         ChangeAnim("attack");
-        counter.Start(Throw, 0.5f);
+        counter.Start(OnAttack, 0.5f);
     }
 
     private void ChangeIsAttack()
@@ -60,5 +66,11 @@ public class Player : Character
         return Physics.Raycast(points + Vector3.up * 2, Vector3.down, out hit, 3f, groundLayer);
     }
 
+    public override void OnDeath()
+    {
+        // Player chet?
+        Debug.Log("Player death");
+        base.OnDeath();
+    }
 
 }

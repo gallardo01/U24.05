@@ -20,7 +20,7 @@ public class AttackState : IState<Bot>
             bot.range.RemoveNullTarget();
             if (bot.range.botInRange.Count > 0)
             {
-                bot.Throw();
+                bot.OnAttack();
             }
             bot.ChangeState(new IdleState());
         }
