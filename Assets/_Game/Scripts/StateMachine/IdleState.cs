@@ -23,7 +23,7 @@ public class IdleState : IState<Bot>
 
         if (timer > randomTime)
         {
-            if (bot.TargetedCharacter == null)
+            if (bot.TargetedCharacter == null || timer > 5f)
             {
                 bot.ChangeState(new MoveState());
             }

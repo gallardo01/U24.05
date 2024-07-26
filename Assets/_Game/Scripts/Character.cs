@@ -15,7 +15,12 @@ public class Character : GameUnit
     protected string currentAnimName;
 
     protected int level = 0;
+    protected float baseMoveSpeed = 5f;
     protected float baseAttackRange = 5f;
+    protected float baseAttackSpeed = 100f; //??? test
+    public float bonusMoveSpeed = 0;
+    public float bonusAttackRange = 0;
+    public float bonusAttackSpeed = 0;
 
     public bool isMoving = false;
     public bool isAttacking = false;
@@ -32,8 +37,10 @@ public class Character : GameUnit
 
     protected WeaponType weaponType;
 
-    protected float levelScale => 1.0f + level * 0.05f;
-    protected float attackRange => baseAttackRange * levelScale;
+    protected float LevelScale => 1.0f + level * 0.1f;
+    protected float AttackRange => (baseAttackRange + bonusAttackRange) * LevelScale;
+    protected float MoveSpeed => (baseMoveSpeed + bonusMoveSpeed) * LevelScale;
+    protected float AttackSpeed => baseAttackSpeed + bonusAttackSpeed;
 
     private void Awake()
     {
@@ -94,7 +101,7 @@ public class Character : GameUnit
     public void LevelUp(int level)
     {
         this.level += level;
-        tf.localScale = new Vector3(levelScale, levelScale, levelScale);
+        tf.localScale = new Vector3(LevelScale, LevelScale, LevelScale);
     }
 
     public void ChangeAnim(string animName)
@@ -138,9 +145,10 @@ public class Character : GameUnit
         weaponHoldParent.gameObject.SetActive(false);
         isWeaponHoldActive = false;
 
-        WeaponManager.Ins.InitWeapon(weaponType, levelScale, this, weaponStartPoint.position, direction, attackRange);
+        WeaponManager.Ins.InitWeapon(weaponType, LevelScale, this, weaponStartPoint.position, direction, AttackRange);
         yield return new WaitForSeconds(1f);
         weaponHoldParent.gameObject.SetActive(true);
+        isWeaponHoldActive = true;
 
         isAttacking = false;
         ChangeAnim(Constants.ANIM_IDLE);

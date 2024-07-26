@@ -66,9 +66,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &7130603375081991964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +89,8 @@ MonoBehaviour:
   sphereCollider: {fileID: 3045882536218785533}
   isMoving: 0
   isAttacking: 0
+  targetInRange: []
+  targetedCharacter: {fileID: 0}
   targetedImage: {fileID: 8637891093123851525}
   agent: {fileID: 1075180348529251017}
 --- !u!195 &1075180348529251017

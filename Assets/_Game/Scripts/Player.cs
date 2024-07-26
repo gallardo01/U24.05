@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Player : Character
 {
-    [SerializeField] float moveSpeed;
+    
     [SerializeField] FloatingJoystick joystick;
     [SerializeField] Rigidbody rb;
 
+    public int Level => level;
 
     protected override void Update()
     {
@@ -16,13 +17,13 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.R))
         {
             level++;
-            tf.localScale = new Vector3(levelScale, levelScale, levelScale);
+            tf.localScale = new Vector3(LevelScale, LevelScale, LevelScale);
         }
     }
 
     public void FixedUpdate()
     {
-        rb.velocity = new Vector3(joystick.Horizontal * moveSpeed, rb.velocity.y, joystick.Vertical * moveSpeed);
+        rb.velocity = new Vector3(joystick.Horizontal * MoveSpeed, rb.velocity.y, joystick.Vertical * MoveSpeed);
         Vector3 direction = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
 
         if (direction != Vector3.zero)

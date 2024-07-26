@@ -41,6 +41,7 @@ public class Bot : Character
     public override void InitCharacter(Transform NodeStart, WeaponType weaponType, int level)
     {
         base.InitCharacter(NodeStart, weaponType, level);
+        agent.speed = MoveSpeed;
         ChangeState(new IdleState());
     }
 

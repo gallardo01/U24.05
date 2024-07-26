@@ -57,6 +57,8 @@ public class Level : MonoBehaviour
         botTotal--;
         Transform NodeStart = GetRandomNodeStart();
         Bot bot = (Bot)SimplePool.Spawn(PoolType.Bot, NodeStart.position, Quaternion.identity);
-        bot.InitCharacter(NodeStart, (WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count), 0);
+        int playerLevel = LevelManager.Ins.player.Level;
+        int botLevel = playerLevel + Random.Range(0, 2);
+        bot.InitCharacter(NodeStart, (WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count), botLevel);
     }
 }
