@@ -8,8 +8,8 @@ using static UnityEditor.PlayerSettings;
 
 public class PlayersManager : Singleton<PlayersManager>
 {
-    [SerializeField] GameObject botPrefab;
-    [SerializeField] GameObject playerPrefab;
+    [SerializeField] Bot botPrefab;
+    [SerializeField] Player playerPrefab;
     [SerializeField] Indicator indicatorPrefab;
     [SerializeField] Canvas mainCanvas;
     [SerializeField] int numberChar;
@@ -42,7 +42,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
     public void SpawnCharacter()
     {
-        player = Instantiate(playerPrefab, spawnPosList[0], Quaternion.identity).GetComponent<Player>();
+        player = Instantiate(playerPrefab, spawnPosList[0], Quaternion.identity);
         Indicator playerIndicator = Instantiate(indicatorPrefab, mainCanvas.transform);
         player.SetIndicator(playerIndicator);
         player.OnInit();
@@ -51,7 +51,7 @@ public class PlayersManager : Singleton<PlayersManager>
 
         for (int i = 1; i < spawnPosList.Count; i++)
         {
-            Bot newBot = LeanPool.Spawn(botPrefab, spawnPosList[i], Quaternion.identity).GetComponent<Bot>();
+            Bot newBot = LeanPool.Spawn(botPrefab, spawnPosList[i], Quaternion.identity);
             Indicator botIndicator = Instantiate(indicatorPrefab, mainCanvas.transform);
             newBot.SetIndicator(botIndicator);
             newBot.OnInit();

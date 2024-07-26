@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
 {
     [Header("Element")]
     [SerializeField] protected Transform shotingPoint;
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected Projectile projectilePrefab;
     [SerializeField] protected Animator animator;
     [SerializeField] protected Collider collider;
     [SerializeField] protected Health health;
@@ -74,7 +74,7 @@ public class Character : MonoBehaviour
 
     public void Throw(Transform target)
     {
-        Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity).GetComponent<Projectile>();
+        Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
         LeanPool.Despawn(projectTile.gameObject, 3);
         Vector3 direction = (target.position + Vector3.up - shotingPoint.transform.position).normalized;
         projectTile.transform.forward = direction;
