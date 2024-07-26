@@ -11,9 +11,9 @@ public class Indicator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private Image levelImage;
     private Character character;
+    private int level;
     private RectTransform rectTransform;
     private Camera mainCamera;
-    Vector3 viewPoint;
     Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
 
     private void Awake()
@@ -30,16 +30,15 @@ public class Indicator : MonoBehaviour
         this.character = character;
     }
 
-    public void UpdateLevel(int level)
+    public void UpdateLevel()
     {
+        level++;
         levelText.text = level.ToString();
+        rectTransform.anchoredPosition += Vector2.up * 2;
     }
 
     private void LateUpdate()
     {
-       //viewPoint = Camera.main.WorldToViewportPoint(character.transform.position + Vector3.up * 5);
-       //rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint(viewPoint) - screenHalf;
        rectTransform.anchoredPosition = mainCamera.WorldToScreenPoint(character.transform.position + Vector3.up * 5) - screenHalf;
     }
-
 }

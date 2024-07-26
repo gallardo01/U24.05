@@ -8,15 +8,4 @@ public class GameManager : Singleton<GameManager>
     {
         PlayersManager.Instance.OnInit();
     }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

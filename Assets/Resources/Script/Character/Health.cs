@@ -16,20 +16,20 @@ public class Health : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Character whoProjectile)
     {
         int realDamageTaken = Mathf.Clamp(damage, currentHealth, damage);
         currentHealth -= realDamageTaken;
 
         if(currentHealth <= 0)
         {
-            HandleDeath(character);
+            HandleDeath(character, whoProjectile);
         }
     }
 
-    public void HandleDeath(Character charater)
+    public void HandleDeath(Character charater, Character killerCharacter)
     {
         if(!isPlayer) LeanPool.Despawn(gameObject, 2f);
-        charater.OnDeath();
+        charater.OnDeath(killerCharacter);
     }
 }

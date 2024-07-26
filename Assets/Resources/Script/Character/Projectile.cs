@@ -12,13 +12,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Rigidbody rb;
 
+    private Character whoProjectile;
     private Vector3 direction;
     private float rotationY;
 
-    public void Shoot(Vector3 direction, int weapondamage)
+    public void Shoot(Vector3 direction, int weapondamage, Character whoProjectile)
     {
         this.direction = direction;
         this.weapondamage = weapondamage;
+        this.whoProjectile = whoProjectile;
         rb.velocity = this.direction * moveSpeed;
         if (needRotate) animator.Play("Rotate");
     }
@@ -28,11 +30,11 @@ public class Projectile : MonoBehaviour
         switch (other.gameObject.layer)
         {
             case 7:
-                other.GetComponent<Character>().TakeDamage(weapondamage);
+                other.GetComponent<Character>().TakeDamage(weapondamage, whoProjectile);
                 LeanPool.Despawn(this.gameObject);
                 break;
             case 8:
-                other.GetComponent<Character>().TakeDamage(weapondamage);
+                other.GetComponent<Character>().TakeDamage(weapondamage, whoProjectile);
                 LeanPool.Despawn(this.gameObject);
                 break;
         }

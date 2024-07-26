@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Lean.Pool;
 using System;
 using System.Collections;
@@ -93,10 +94,16 @@ public class Player : Character
         state = State.Move;
     }
 
-    public override void OnDeath()
+    public override void OnDeath(Character killerCharacter)
     {
-        base.OnDeath();
+        base.OnDeath(killerCharacter);
         GetComponent<Rigidbody>().isKinematic = true;
         PlayersManager.Instance.Reborn();
+    }
+
+    public override void GainLevel(Character character)
+    {
+        base.GainLevel(character);
+        Camera.main.transform.DOLocalMoveY(transform.localPosition.y + 2, 1);
     }
 }

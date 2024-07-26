@@ -55,11 +55,11 @@ public class Bot : Character
         return result;
     }
 
-    public override void OnDeath()
+    public override void OnDeath(Character killerCharacter)
     {
         ChangeState(null);
         //PlayersManager.Instance.Recycle(this);
-        base.OnDeath();
+        base.OnDeath(killerCharacter);
     }
 
     public void ChangeState(IState newState)
