@@ -14,6 +14,7 @@ public class IdleState : IState<Bot>
         bot.ChangeAnim(Constants.ANIM_IDLE);
         timer = 0;
         randomTime = Random.Range(0.5f, 2f);
+        bot.SetDestination(bot.tf.position);
     }
 
     public void OnExecute(Bot bot)
@@ -22,14 +23,10 @@ public class IdleState : IState<Bot>
 
         if (timer > randomTime)
         {
-            if (bot.targetInRange.Count == 0)
+            if (bot.TargetedCharacter == null)
             {
                 bot.ChangeState(new MoveState());
             }
-            else
-            {
-                timer = 0;
-            }    
         }
     }
 

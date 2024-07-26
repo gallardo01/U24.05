@@ -53,7 +53,8 @@ public class Weapon : GameUnit
             Character character = Cache.Ins.GetCachedComponent<Character>(other);
             if (character != owner)
             {
-                character.OnHitByWeapon();
+                character.OnDead();
+                owner.LevelUp(1);
                 OnDespawn();
             }
         }

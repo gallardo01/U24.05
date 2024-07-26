@@ -5,20 +5,13 @@ using UnityEngine.AI;
 
 public class Bot : Character
 {
-    private IState<Bot> currentState;
+    private IState<Bot> currentState;   
 
     [SerializeField] NavMeshAgent agent;
 
     private Vector3 destination;
     public bool IsDestionation => Vector3.Distance(tf.position, destination + (tf.position.y - destination.y) * Vector3.up) < 0.1f;
 
-    protected override void Start()
-    {
-        base.Start();
-
-        weaponType = (WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count);
-        Instantiate(WeaponManager.Ins.WeaponDataMap[weaponType].weaponHoldPrefab, weaponHoldParent);
-    }
 
     protected override void Update()
     {
@@ -45,9 +38,24 @@ public class Bot : Character
         }
     }
 
-    protected override void OnDead()
+    public override void InitCharacter(Transform NodeStart, WeaponType weaponType, int level)
+    {
+        base.InitCharacter(NodeStart, weaponType, level);
+        ChangeState(new IdleState());
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        this.destination = destination;
+        agent.SetDestination(destination);
+    }
+
+    public override void OnDead()
     {
         base.OnDead();
-        SimplePool.Despawn(this);       
+        SetDestination(tf.position);
+        targetedImage.SetActive(false);
+        ResetCharacter();
+        SimplePool.Despawn(this);
     }
 }

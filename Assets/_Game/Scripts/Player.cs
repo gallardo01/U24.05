@@ -9,32 +9,17 @@ public class Player : Character
     [SerializeField] Rigidbody rb;
 
 
-    protected override void Start()
-    {
-        base.Start();
-        
-        weaponType = WeaponType.Axe;
-        Instantiate(WeaponManager.Ins.WeaponDataMap[weaponType].weaponHoldPrefab, weaponHoldParent);
-    }
-
     protected override void Update()
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            WeaponManager.Ins.InitWeapon(WeaponType.Axe, levelScale, this, weaponStartPoint.position, tf.forward, attackRange);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            WeaponManager.Ins.InitWeapon(WeaponType.Boomerang, levelScale, this, weaponStartPoint.position, tf.forward, attackRange);
-        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             level++;
             tf.localScale = new Vector3(levelScale, levelScale, levelScale);
         }
     }
+
     public void FixedUpdate()
     {
         rb.velocity = new Vector3(joystick.Horizontal * moveSpeed, rb.velocity.y, joystick.Vertical * moveSpeed);
@@ -57,7 +42,25 @@ public class Player : Character
         }
     }
 
-    protected override void OnDead()
+    public override void SetTarget()
+    {
+        base.SetTarget();
+        if (targetedCharacter != null)
+        {
+            targetedCharacter.targetedImage.SetActive(true);
+        }
+    }
+
+    public override void RemoveTarget(Character character)
+    {
+        base.RemoveTarget(character);
+        if (character == targetedCharacter)
+        {
+            character.targetedImage.SetActive(false);
+        }
+    }
+
+    public override void OnDead()
     {
         base.OnDead();
         Debug.Log("player dead");
