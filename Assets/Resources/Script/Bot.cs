@@ -31,7 +31,10 @@ public class Bot : Character
     // Update is called once per frame
     void Update()
     {
-        currentState.OnExecute(this);
+        if (currentState != null && !isDeath)
+        {
+            currentState.OnExecute(this);
+        }
     }
 
     public void ChangeState(IState<Bot> newState)
@@ -40,9 +43,9 @@ public class Bot : Character
         {
             currentState.OnExit(this);
         }
-        if (currentState != newState)
+        currentState = newState;
+        if (currentState != null)
         {
-            currentState = newState;
             currentState.OnEnter(this);
         }
     }
@@ -66,8 +69,9 @@ public class Bot : Character
 
     public override void OnDeath()
     {
-        // Bot chet?
-        Debug.Log("Bot death");
+        ChangeState(null);
+        agent.enabled = false;
         base.OnDeath();
+        Destroy(gameObject, 2);
     }
 }

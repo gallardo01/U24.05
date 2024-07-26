@@ -11,7 +11,7 @@ public class Character : AbstractCharacter
     public bool isAttack = false;
     public TargetIndicator indicator;
     public int level = 1;
-    private bool isDeath = false;
+    public bool isDeath = false;
 
     public override void OnInit()
     {
@@ -25,11 +25,11 @@ public class Character : AbstractCharacter
 
     public override void OnDeath()
     {
+        GameController.Instance.CharacterDead();
         isDeath = true;
         indicator.gameObject.SetActive(false);
         ChangeAnim("dead");
-        //gameObject.tag = "";
-        Destroy(gameObject);
+        gameObject.tag = "Untagged";
     }
 
     public void SetBodyScale()

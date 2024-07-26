@@ -15,7 +15,7 @@ public class CharacterRange : MonoBehaviour
     {
         for (int i = 0; i < botInRange.Count; i++)
         {
-            if (botInRange[i] == null)
+            if (botInRange[i] == null || !botInRange[i].CompareTag("Bot"))
             {
                 botInRange.Remove(botInRange[i]);
             }

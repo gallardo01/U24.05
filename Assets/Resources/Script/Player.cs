@@ -69,7 +69,9 @@ public class Player : Character
     public override void OnDeath()
     {
         // Player chet?
-        Debug.Log("Player death");
+        counter.Cancel();
+        GameController.Instance.EndGame();
+        this.enabled = false;
         base.OnDeath();
     }
 

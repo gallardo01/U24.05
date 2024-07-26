@@ -1,24 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
     public Canvas indicatorCanvas;
     public Bot Bot;
     public int botNumber = 10;
     public Player player;
     public TargetIndicator indicator;
-
     public List<Transform> listSpawn = new List<Transform>();
+    public TextMeshProUGUI aliveText;
+    private int totalCharacter;
+
     // Start is called before the first frame update
     void Start()
     {
+        totalCharacter = botNumber + 1;
         CreateBotNewGame();
         if (botNumber > listSpawn.Count-1)
         {
             botNumber = listSpawn.Count - 1;
         }
+        InitTextAlive();
+    }
+
+    public void InitTextAlive()
+    {
+        aliveText.text = "Alive: " + totalCharacter;
+    }
+
+    public void CharacterDead()
+    {
+        totalCharacter--;
+        aliveText.text = "Alive: " + totalCharacter;
+    }
+
+    public void EndGame()
+    {
+        JoystickControl.direct = Vector3.zero;
+        JoystickControl.Instance.gameObject.SetActive(false);
+        // UI?
     }
     
     public void CreateBotNewGame()
