@@ -20,7 +20,7 @@ public class TargetIndicator : MonoBehaviour
 
     private void LateUpdate()
     {
-        viewPoint = Camera.WorldToViewportPoint(character.transform.position + Vector3.forward*3);
+        viewPoint = Camera.WorldToViewportPoint(character.transform.position + Vector3.forward* 4f);
         GetComponent<RectTransform>().anchoredPosition = Camera.ViewportToScreenPoint(viewPoint) - screenHalf;
     }
 

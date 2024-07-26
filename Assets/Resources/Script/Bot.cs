@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,10 +9,14 @@ public class Bot : Character
 {
     public NavMeshAgent agent;
     private IState<Bot> currentState;
+    public GameObject targetCircle;
+
     // Start is called before the first frame update
     void Start()
     {
         ChangeState(new IdleState());
+        targetCircle.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -40,5 +46,16 @@ public class Bot : Character
         {
             currentState.OnEnter(this);
         }
+    }
+
+    private void OnDestroy()
+    {
+        indicator.gameObject.SetActive(false);
+    }
+
+    public void SetTarget()
+    {
+        targetCircle.transform.position = transform.position;
+        targetCircle.SetActive(true);
     }
 }

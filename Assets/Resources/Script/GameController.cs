@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
     public Canvas indicatorCanvas;
     public Bot Bot;
     public int botNumber = 10;
     public Player player;
     public TargetIndicator indicator;
+    public TextMeshProUGUI aliveCountText;
+    private int aliveCount;
 
     public List<Transform> listSpawn = new List<Transform>();
     // Start is called before the first frame update
@@ -19,6 +22,20 @@ public class GameController : MonoBehaviour
         {
             botNumber = listSpawn.Count - 1;
         }
+        
+        aliveCount = botNumber + 1;
+        UpdateAliveCountUI();
+    }
+    
+    public void UpdateAliveCountUI()
+    {
+        aliveCountText.text = "Alive: " + aliveCount;
+    }
+    
+    public void DecreaseAliveCount()
+    {
+        aliveCount--;
+        UpdateAliveCountUI();
     }
     
     public void CreateBotNewGame()
@@ -37,7 +54,7 @@ public class GameController : MonoBehaviour
             botIndicator.character = bot;
             bot.indicator = botIndicator;
             Color color = UnityEngine.Random.ColorHSV();
-            string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)] + Random.Range(0, 10000);
+            string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)];
             botIndicator.InitTarget(color, 1, botName);
         }
     }

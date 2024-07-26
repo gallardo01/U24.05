@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterRange : MonoBehaviour
 {
     public List<Character> botInRange = new List<Character>();
+    public Bot currentTarget = null;
 
     public void RemoveNullTarget()
     {
@@ -39,21 +40,56 @@ public class CharacterRange : MonoBehaviour
             return botInRange[index].transform;
         }
     }
+
+    public void SetNearestTarget()
+    {
+        RemoveNullTarget();
+        if (botInRange.Count > 0 && currentTarget == null)
+        {
+            currentTarget = botInRange[0].GetComponent<Bot>(); // The nearest bot is at the start of the list
+            if (currentTarget != null)
+            {
+                currentTarget.SetTarget();
+            }
+        }
+    }
+    
     // OnTriggerEnter is called when the Collider other enters the trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bot"))
         {
-            botInRange.Add(other.GetComponent<Character>());
+            Character bot = other.GetComponent<Character>();
+            botInRange.Add(bot);
+            botInRange.Sort((bot1, bot2) => Vector3.Distance(transform.position, bot1.transform.position)
+                .CompareTo(Vector3.Distance(transform.position, bot2.transform.position)));
+            if (currentTarget == null)
+            {
+                SetNearestTarget();
+            }
         }
     }
 
-    // OnTriggerExit is called when the Collider other has stopped touching the trigger
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Bot"))
         {
+            Bot bot = other.GetComponent<Bot>();
+            if (bot != null)
+            {
+                bot.targetCircle.SetActive(false);
+                if (bot == currentTarget) // If the current target is leaving the range
+                {
+                    currentTarget = null; // Reset the current target
+                }
+            }
             botInRange.Remove(other.GetComponent<Character>());
+            botInRange.Sort((bot1, bot2) => Vector3.Distance(transform.position, bot1.transform.position)
+                .CompareTo(Vector3.Distance(transform.position, bot2.transform.position)));
+            if (currentTarget == null)
+            {
+                SetNearestTarget();
+            }
         }
     }
     

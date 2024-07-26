@@ -27,6 +27,10 @@ public class Character : MonoBehaviour
     {
     }
 
+    public void PrepareAttack()
+    {
+        
+    }
   
     public void Throw()
     {
@@ -40,6 +44,8 @@ public class Character : MonoBehaviour
             bullet.transform.forward = direction;
             bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
             transform.forward = direction;
+            
+           
         }
     }
 
@@ -55,7 +61,9 @@ public class Character : MonoBehaviour
 
     public void OnDeath()
     {
+        GameController.Ins.DecreaseAliveCount();
         Destroy(gameObject);
     }
+
     
 }
