@@ -14,15 +14,16 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
-        ChangeState(new IdleState());
-        targetCircle.SetActive(false);
-
+        OnInit();
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentState.OnExecute(this);
+        if (currentState != null && !isDead)
+        {
+            currentState.OnExecute(this);
+        }
     }
 
     public void ChangeIsAttackBot()
@@ -47,15 +48,31 @@ public class Bot : Character
             currentState.OnEnter(this);
         }
     }
-
-    private void OnDestroy()
-    {
-        indicator.gameObject.SetActive(false);
-    }
+    
 
     public void SetTarget()
     {
         targetCircle.transform.position = transform.position;
         targetCircle.SetActive(true);
+    }
+    
+    public override void OnDeath()
+    {
+        ChangeState(null);
+        agent.enabled = false;
+        // Bot chet
+        base.OnDeath();
+    }
+    
+    public override void OnAttack()
+    {
+        base.OnAttack();
+    }
+    
+    public override void OnInit()
+    {
+        ChangeState(new IdleState());
+        targetCircle.SetActive(false);
+        base.OnInit();
     }
 }

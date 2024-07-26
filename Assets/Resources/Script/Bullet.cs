@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 1f + (0.1f * self.level));
 
     }
 
@@ -24,6 +24,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Bot") && other.GetComponent<Character>() != self)
         {
             other.GetComponent<Character>().OnDeath();
+            self.GainLevel();
         }
     }
 }

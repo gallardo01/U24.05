@@ -27,6 +27,12 @@ public class GameController : Singleton<GameController>
         UpdateAliveCountUI();
     }
     
+    public void EndGame()
+    {
+        JoystickControl.direct = Vector3.zero;
+        JoystickControl.instance.gameObject.SetActive(false);
+    }
+    
     public void UpdateAliveCountUI()
     {
         aliveCountText.text = "Alive: " + aliveCount;

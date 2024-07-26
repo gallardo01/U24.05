@@ -21,7 +21,7 @@ public class AttackState : IState<Bot>
            bot.characterRange.RemoveNullTarget();
            if(bot.characterRange.botInRange.Count > 0)
            {
-               bot.Throw();
+               bot.OnAttack();
            }
            bot.ChangeState(new IdleState());
         }

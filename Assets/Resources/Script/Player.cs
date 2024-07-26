@@ -44,14 +44,32 @@ public class Player : Character
         isAttack = true;
         Invoke("ChangeIsAttack", 1.5f);
         ChangeAnim("attack");
-        counter.Start(Throw, 0.5f);
+        counter.Start(OnAttack, 0.5f);
     }
 
     private void ChangeIsAttack()
     {
         isAttack = false;
     }
-
+    
+    public override void OnDeath()
+    {
+        counter.Cancel();
+        GameController.Ins.EndGame();
+        this.enabled = false;
+        base.OnDeath();
+    }
+    
+    
+    public override void OnAttack()
+    {
+        base.OnAttack();
+    }
+    
+    public override void OnInit()
+    {
+        base.OnInit();
+    }
 
    
 }

@@ -11,7 +11,7 @@ public class CharacterRange : MonoBehaviour
     {
         for (int i = 0; i < botInRange.Count; i++)
         {
-            if (botInRange[i] == null)
+            if (!botInRange[i].CompareTag("Bot") || botInRange[i] == null)
             {
                 botInRange.RemoveAt(i);
             }
@@ -46,7 +46,7 @@ public class CharacterRange : MonoBehaviour
         RemoveNullTarget();
         if (botInRange.Count > 0 && currentTarget == null)
         {
-            currentTarget = botInRange[0].GetComponent<Bot>(); // The nearest bot is at the start of the list
+            currentTarget = GetNearestTarget().GetComponent<Bot>(); // The nearest bot is at the start of the list
             if (currentTarget != null)
             {
                 currentTarget.SetTarget();
@@ -59,14 +59,8 @@ public class CharacterRange : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bot"))
         {
-            Character bot = other.GetComponent<Character>();
-            botInRange.Add(bot);
-            botInRange.Sort((bot1, bot2) => Vector3.Distance(transform.position, bot1.transform.position)
-                .CompareTo(Vector3.Distance(transform.position, bot2.transform.position)));
-            if (currentTarget == null)
-            {
-                SetNearestTarget();
-            }
+            botInRange.Add(other.GetComponent<Character>());
+            SetNearestTarget();
         }
     }
 
@@ -81,15 +75,10 @@ public class CharacterRange : MonoBehaviour
                 if (bot == currentTarget) // If the current target is leaving the range
                 {
                     currentTarget = null; // Reset the current target
+                    SetNearestTarget(); // Set the nearest target
                 }
             }
             botInRange.Remove(other.GetComponent<Character>());
-            botInRange.Sort((bot1, bot2) => Vector3.Distance(transform.position, bot1.transform.position)
-                .CompareTo(Vector3.Distance(transform.position, bot2.transform.position)));
-            if (currentTarget == null)
-            {
-                SetNearestTarget();
-            }
         }
     }
     
