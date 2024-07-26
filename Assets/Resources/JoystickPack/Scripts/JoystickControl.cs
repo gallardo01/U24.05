@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JoystickControl : MonoBehaviour
 {
-
+    public static JoystickControl instance;
     public static Vector3 direct;
 
     private Vector3 screen;
@@ -27,6 +27,7 @@ public class JoystickControl : MonoBehaviour
     {
         screen.x = Screen.width;
         screen.y = Screen.height;
+        instance = this;
 
         direct = Vector3.zero;
 

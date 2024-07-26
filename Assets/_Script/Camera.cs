@@ -10,21 +10,18 @@ public class Camera : MonoBehaviour
 
     public Vector3 offset;
     public static Camera instance;
+    public int levelPlayer;
 
     private void Awake()
     {
         instance = this;
+        levelPlayer = TFPlayer.GetComponent<Character>().level;
+
     }
     // Update is called once per frame
     void Update()
     {
         TF.position = TFPlayer.position + offset;
-        for (int i = 0; i < GameController.instance.countPlayers.Count; i++)
-        {
-            GameObject player = GameController.instance.countPlayers[i];
-            Debug.DrawLine(TF.position, player.transform.position, Color.blue, 5f);
-        }
-        
     }
 
     public void FindPlayer(GameObject character)
@@ -32,6 +29,12 @@ public class Camera : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(TF.position, character.transform.position);
         Physics.Raycast(ray,out hit, Mathf.Infinity);
+    }
+
+    private Vector3 UpdateOffset(int level)
+    {
+        offset += new Vector3(0, 3, 2)*level;
+        return offset;
     }
 }
 

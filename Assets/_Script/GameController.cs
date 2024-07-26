@@ -66,6 +66,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void EndGame()
+    {
+        JoystickControl.instance.enabled = false;
+        JoystickControl.direct = Vector3.zero;
+    }
     public GameObject UseWeapon(string weaponName)
     {
         switch (weaponName)
@@ -95,7 +100,6 @@ public class GameController : MonoBehaviour
             countWeaponSummon++;
         }
     }
-
     public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;

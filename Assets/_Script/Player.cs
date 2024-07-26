@@ -17,19 +17,23 @@ public class Player : Character
     {
         time += Time.deltaTime;
         Vector3 direction = JoystickControl.direct.normalized;
-        if (direction != Vector3.zero)
+
+        if (isDead == false)
         {
-            Quaternion newRotation = Quaternion.LookRotation(direction);
-            body.rotation = newRotation;
-            body.Translate(body.forward * Time.deltaTime * speed, Space.World);
-            ChangeAnim("run");
-            isRunning = true;
-        }
-        else
-        {
-            ChangeAnim("idle");
-            isRunning = false;
-            FindTarget();
+            if (direction != Vector3.zero)
+            {
+                Quaternion newRotation = Quaternion.LookRotation(direction);
+                body.rotation = newRotation;
+                body.Translate(body.forward * Time.deltaTime * speed, Space.World);
+                ChangeAnim("run");
+                isRunning = true;
+            }
+            else
+            {
+                ChangeAnim("idle");
+                isRunning = false;
+                FindTarget();
+            }
         }
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
@@ -59,11 +63,18 @@ public class Player : Character
                 {
                     ChangeAnim("attack");
                     isAttack = true;
-                    FireWeapon(this.weaponPrefabs, collider.gameObject);
+                    target = collider.GetComponent<Character>().gameObject;
+                    OnAttack();
                 }
                 time = 0;
                 break;
             }
         }
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+        GameController.instance.EndGame();
     }
 }

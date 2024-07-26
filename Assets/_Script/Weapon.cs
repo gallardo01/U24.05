@@ -8,6 +8,11 @@ public class Weapon : MonoBehaviour
     float timeDissappear = 1f;
     float time;
 
+    private void Start()
+    {
+        timeDissappear = 1f + (self.level * 0.1f);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -20,29 +25,28 @@ public class Weapon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Bot bot = other.GetComponent<Bot>();
+        Character character = other.GetComponent<Character>();
         Player player = other.GetComponent<Player>();
-
-        if (other.CompareTag("bot") && other.GetComponent<Character>() != self)
+        if (character != self)
         {
-            Destroy(gameObject);
-            bot.health = bot.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-40);        
-            if (bot.health < 0)
+            if (other.CompareTag("bot") || other.CompareTag("player"))
             {
-                bot.ChangeAnim("dead");
-                GameController.instance.countPlayers.Remove(other.gameObject);
-                Destroy(other.gameObject,1.5f);
-            }
-        } else if (other.CompareTag("player") && other.GetComponent<Character>() != self)
-        {
-            Destroy(gameObject);
-            player.health = player.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-40);
-            if (player.health < 0)
-            {
-                player.ChangeAnim("dead");
-                GameController.instance.countPlayers.Remove(other.gameObject);
-                Destroy(other.gameObject,1.5f);   
+                Destroy(gameObject);
+                character.health = character.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-40);
+                if (character.health < 0)
+                {
+                    self.LevelUp();
+                    if (other.CompareTag("player"))
+                    {
+                        player.OnDeath();
+                    }
+                    else
+                    {
+                        character.OnDeath();
+                    }
+                }
             }
         }
+  
     }
 }

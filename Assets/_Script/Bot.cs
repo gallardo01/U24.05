@@ -10,7 +10,6 @@ public class Bot : Character
 
     IState<Bot> currentState;
     public NavMeshAgent agent;
-    public Transform target;
     public float time;
     public float randomRadius = 30f;
     float cooldownMove = 1.5f;
@@ -29,7 +28,7 @@ public class Bot : Character
     void Update()
     {
         time += Time.deltaTime;
-        if (time >= cooldownMove)
+        if (time >= cooldownMove && isDead == false)
         {
             currentState.OnExecute(this);
             time = 0;

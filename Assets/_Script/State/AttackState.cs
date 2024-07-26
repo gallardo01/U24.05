@@ -16,7 +16,7 @@ public class AttackState : IState<Bot>
                 if (listTarget[i].GetComponent<Character>().health < minHealth)
                 {
                     minHealth = listTarget[i].GetComponent<Character>().health;
-                    bot.target = listTarget[i].transform;
+                    bot.target = listTarget[i];
                 }
             }
         }
@@ -30,9 +30,13 @@ public class AttackState : IState<Bot>
         if (bot.target != null)
         {
             bot.ChangeAnim("attack");
-            bot.FireWeapon(bot.weaponPrefabs, bot.target.gameObject);
+            bot.OnAttack();
             bot.time = 0;
             OnEnter(bot);
+        }
+        else
+        {
+            OnExit(bot);
         }
     }
     public void OnExit(Bot bot)
