@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IState<T>
 {
-    void OnEnter(T t);
-    void OnExecute(T t);
-    void OnExit(T t);
+    public void OnEnter(T t);
+    public void OnExecute(T t);
+    public void OnExit(T t);
 }
