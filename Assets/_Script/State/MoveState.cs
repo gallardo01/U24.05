@@ -16,7 +16,6 @@ public class MoveState : IState<Bot>
     {
         bot.ChangeAnim("run");
         bot.agent.SetDestination(newPos);
-        Debug.DrawRay(newPos, bot.transform.position, Color.red, 5f);
         if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.1f)
         {
             bot.ChangeAnim("idle");

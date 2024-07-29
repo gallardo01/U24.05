@@ -371,17 +371,19 @@ MonoBehaviour:
   image: {fileID: 393174149645578939}
   levelPlayer: {fileID: 6852825273900181259}
   weaponPrefabs: {fileID: 3770543599948866396, guid: 02168e00fde29e244a5eb7d21f85492d, type: 3}
+  target: {fileID: 0}
   weaponEquipPos: {fileID: 4808137124545264297}
   isAttack: 0
   isRunning: 0
+  isDead: 0
   cooldownTimeAttack: 2
   maxHP: 100
   health: 0
   currentAnimName: 
   detectionRadius: 15
+  level: 1
   inAreaAtack: {fileID: 5461612326755245647}
   agent: {fileID: 5258254161609034783}
-  target: {fileID: 0}
   time: 0
   randomRadius: 30
 --- !u!1 &5461612325365412702
@@ -816,6 +818,18 @@ PrefabInstance:
     - target: {fileID: 5623720204870734832, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212574781481800766, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212574781481800766, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9424448
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212574781481800766, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6618800832142367658, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
       propertyPath: m_LocalScale.x

@@ -12,7 +12,7 @@ public class Character : AbstractCharacter
     [SerializeField] public Animator anim;
     [SerializeField] public Transform firePoint;
     [SerializeField] public GameObject HPbar;
-    [SerializeField] TMP_Text namePlayer;
+    [SerializeField] public TMP_Text namePlayer;
     [SerializeField] Image image;
     [SerializeField] TMP_Text levelPlayer;
 

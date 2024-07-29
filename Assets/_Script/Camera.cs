@@ -24,13 +24,6 @@ public class Camera : MonoBehaviour
         TF.position = TFPlayer.position + offset;
     }
 
-    public void FindPlayer(GameObject character)
-    {
-        RaycastHit hit;
-        Ray ray = new Ray(TF.position, character.transform.position);
-        Physics.Raycast(ray,out hit, Mathf.Infinity);
-    }
-
     private Vector3 UpdateOffset(int level)
     {
         offset += new Vector3(0, 3, 2)*level;
