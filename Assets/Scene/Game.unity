@@ -1855,7 +1855,7 @@ GameObject:
   - component: {fileID: 943441599}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Bot
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1897,6 +1897,7 @@ MonoBehaviour:
   indicator: {fileID: 0}
   level: 1
   isDead: 0
+  isPlayer: 0
 --- !u!195 &943441600
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2858,8 +2859,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2800003
-  m_Center: {x: 0, y: -0.00000023841858, z: -0.000000014901161}
+  m_Radius: 1.2157631
+  m_Center: {x: 0.000000001915162, y: 0.02294255, z: -0.041294973}
 --- !u!1 &1366931097
 GameObject:
   m_ObjectHideFlags: 0

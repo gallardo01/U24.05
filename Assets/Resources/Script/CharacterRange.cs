@@ -44,12 +44,17 @@ public class CharacterRange : MonoBehaviour
     public void SetNearestTarget()
     {
         RemoveNullTarget();
-        if (botInRange.Count > 0 && currentTarget == null)
+        if (botInRange.Count > 0)
         {
-            currentTarget = GetNearestTarget().GetComponent<Bot>(); // The nearest bot is at the start of the list
-            if (currentTarget != null)
+            Bot nearestBot = GetNearestTarget().GetComponent<Bot>(); // The nearest bot is at the start of the list
+            if (nearestBot != null)
             {
-                currentTarget.SetTarget();
+                if (currentTarget != null && currentTarget != nearestBot)
+                {
+                    currentTarget.RemoveTarget(); // Remove the target circle from the old currentTarget
+                }
+                currentTarget = nearestBot;
+                currentTarget.SetTarget(); // Show the target circle on the new currentTarget
             }
         }
     }
@@ -59,6 +64,11 @@ public class CharacterRange : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bot"))
         {
+            Bot bot = other.GetComponent<Bot>();
+            if (bot != null)
+            {
+                bot.SetTarget(); // Show the target circle
+            }
             botInRange.Add(other.GetComponent<Character>());
             SetNearestTarget();
         }
@@ -71,11 +81,11 @@ public class CharacterRange : MonoBehaviour
             Bot bot = other.GetComponent<Bot>();
             if (bot != null)
             {
-                bot.targetCircle.SetActive(false);
                 if (bot == currentTarget) // If the current target is leaving the range
                 {
                     currentTarget = null; // Reset the current target
                     SetNearestTarget(); // Set the nearest target
+                    bot.targetCircle.SetActive(false);
                 }
             }
             botInRange.Remove(other.GetComponent<Character>());

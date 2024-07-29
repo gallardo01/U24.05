@@ -86,6 +86,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4203873496761262272, guid: fe4734c338ee65c4f84ad83f49c15155, type: 3}
   isAttack: 0
   indicator: {fileID: 0}
+  level: 1
+  isDead: 0
   agent: {fileID: 4742595334650308501}
   targetCircle: {fileID: 9070687621505478986}
 --- !u!54 &9067027015765270128
@@ -340,7 +342,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 926d9b489f2bdd840a304a012ea8df32, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

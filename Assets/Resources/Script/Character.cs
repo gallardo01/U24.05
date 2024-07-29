@@ -16,6 +16,7 @@ public class Character : AbstractCharacter
     public TargetIndicator indicator;
     public int level = 1;
     public bool isDead = false;
+    public bool isPlayer = false;
 
     // private FieldOfView fieldOfView;
     

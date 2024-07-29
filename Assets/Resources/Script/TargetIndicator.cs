@@ -12,7 +12,7 @@ public class TargetIndicator : MonoBehaviour
     public Camera Camera => CameraFollower.Ins.gameCamera;
     Vector3 viewPoint;
     Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
-    private float indicatorY = 1f;
+    private float indicatorY = 4f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class TargetIndicator : MonoBehaviour
 
     private void LateUpdate()
     {
-        viewPoint = Camera.WorldToViewportPoint(character.transform.position + Vector3.forward * 4f);
+        viewPoint = Camera.WorldToViewportPoint(character.transform.position + Vector3.forward * indicatorY);
         GetComponent<RectTransform>().anchoredPosition = Camera.ViewportToScreenPoint(viewPoint) - screenHalf;
     }
 
@@ -36,6 +36,6 @@ public class TargetIndicator : MonoBehaviour
     public void InitTarget(int level)
     {
         levelText.text = level.ToString();
-        indicatorY = 3f + level * 0.5f;
+        indicatorY = 3f + level * 0.3f;
     }
 }
