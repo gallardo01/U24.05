@@ -42,7 +42,7 @@ public class Bot : Character
     {
         base.InitCharacter(NodeStart, weaponType, level);
         agent.speed = MoveSpeed;
-        ChangeState(new IdleState());
+        ChangeState(new MoveState());
     }
 
     public void SetDestination(Vector3 destination)
@@ -51,11 +51,15 @@ public class Bot : Character
         agent.SetDestination(destination);
     }
 
-    public override void OnDead()
+    public override void ResetCharacter()
     {
-        base.OnDead();
+        base.ResetCharacter();
         SetDestination(tf.position);
         targetedImage.SetActive(false);
+    }
+    public override void OnDead()
+    {
+        base.OnDead();      
         ResetCharacter();
         SimplePool.Despawn(this);
     }

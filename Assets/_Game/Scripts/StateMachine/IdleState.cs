@@ -13,7 +13,7 @@ public class IdleState : IState<Bot>
         bot.isMoving = false;
         bot.ChangeAnim(Constants.ANIM_IDLE);
         timer = 0;
-        randomTime = Random.Range(0.5f, 2f);
+        randomTime = Random.Range(1f, 2f);
         bot.SetDestination(bot.tf.position);
     }
 

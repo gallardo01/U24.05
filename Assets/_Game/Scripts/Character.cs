@@ -37,7 +37,7 @@ public class Character : GameUnit
 
     protected WeaponType weaponType;
 
-    protected float LevelScale => 1.0f + level * 0.1f;
+    public float LevelScale => 1.0f + level * 0.1f;
     protected float AttackRange => (baseAttackRange + bonusAttackRange) * LevelScale;
     protected float MoveSpeed => (baseMoveSpeed + bonusMoveSpeed) * LevelScale;
     protected float AttackSpeed => baseAttackSpeed + bonusAttackSpeed;
@@ -89,9 +89,10 @@ public class Character : GameUnit
         weaponHold = Instantiate(WeaponManager.Ins.WeaponDataMap[this.weaponType].weaponHoldPrefab, weaponHoldParent);
     }
 
-    public void ResetCharacter()
+    public virtual void ResetCharacter()
     {
         level = 0;
+        currentAnimName = null;
         Destroy(weaponHold);
         isAttacking = false;
         isMoving = false;

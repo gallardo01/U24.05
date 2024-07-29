@@ -87,6 +87,9 @@ MonoBehaviour:
   weaponHoldParent: {fileID: 2918377490448083682}
   weaponStartPoint: {fileID: 4813261906935833081}
   sphereCollider: {fileID: 3045882536218785533}
+  bonusMoveSpeed: 0
+  bonusAttackRange: 0
+  bonusAttackSpeed: 0
   isMoving: 0
   isAttacking: 0
   targetInRange: []
@@ -114,7 +117,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5967004331000583641
 GameObject:
   m_ObjectHideFlags: 0

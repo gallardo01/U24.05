@@ -24,13 +24,20 @@ public class LevelManager : Singleton<LevelManager>
             currentLevel.InitLevel();
         }
 
+        InitPlayer();
+    }
+
+    public void InitPlayer()
+    {
         player.gameObject.SetActive(true);
         player.InitCharacter(currentLevel.GetRandomNodeStart(), WeaponType.Axe, 0);
     }
 
     public void PlayAgain()
     {
-        OnLoadLevel(currentLevelIndex);
+        currentLevel.ResetLevel();
+        player.ResetCharacter();
+        InitPlayer();
     }
 }
 

@@ -13,7 +13,7 @@ public class MoveState : IState<Bot>
         bot.isAttacking = false;
         bot.ChangeAnim(Constants.ANIM_RUN);
         timer = 0;
-        randomTime = Random.Range(0.5f, 2f);
+        randomTime = Random.Range(3f, 6f);
         bot.SetDestination(LevelManager.Ins.currentLevel.GetRandomNodeMove().position);
     }
 

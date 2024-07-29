@@ -7,24 +7,36 @@ public class Level : MonoBehaviour
     [SerializeField] List<Transform> listNodeStart = new List<Transform>();
     [SerializeField] List<Transform> listNodeMove = new List<Transform>();
 
+    [SerializeField] List<Character> listBot = new List<Character>(); 
+
     WaitForSeconds countDownTime = new WaitForSeconds(0.5f);
 
-    int botAtSameTime = 8;
-    public int botTotal = 100;
+    int botAtSameTime = 6;
+    int botTotal = 50;
+    public int botAlive;
 
     private void Awake()
     {
         this.RegisterListener(EventID.OnCharacterDead, (param) =>
         {
-            if ((Character)param is Bot && botTotal > 0)
+            Character character = (Character)param;
+            if (character is Bot)
             {
-                GenerateBot();
+                botAlive--;
+                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(botAlive);
+                listBot.Remove(character);
+                if (botAlive > 0)
+                {
+                    GenerateBot();
+                }
             }
         });
     }
 
     public void InitLevel()
     {
+        botAlive = botTotal;
+
         for (int i = 0; i < botAtSameTime; i++)
         {
             GenerateBot();
@@ -52,13 +64,26 @@ public class Level : MonoBehaviour
         listNode.Add(node);
     }
 
-    protected void GenerateBot()
+    private void GenerateBot()
     {
-        botTotal--;
         Transform NodeStart = GetRandomNodeStart();
         Bot bot = (Bot)SimplePool.Spawn(PoolType.Bot, NodeStart.position, Quaternion.identity);
         int playerLevel = LevelManager.Ins.player.Level;
         int botLevel = playerLevel + Random.Range(0, 2);
         bot.InitCharacter(NodeStart, (WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count), botLevel);
+
+        listBot.Add(bot);
+    }
+
+    public void ResetLevel()
+    {
+        for (int i = 0; i < listBot.Count; i++)
+        {
+            listBot[i].ResetCharacter();
+            SimplePool.Despawn(listBot[i]);
+        }
+        listBot.Clear();
+
+        InitLevel();
     }
 }

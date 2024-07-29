@@ -7,5 +7,6 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         LevelManager.Ins.OnLoadLevel(0);
+        UIManager.Ins.OpenUI<UIMainmenu>();
     }
 }
