@@ -14,7 +14,8 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
-        OnInit();
+        //OnInit();
+        ChangeAnim("idle");
     }
 
     public override void OnInit()

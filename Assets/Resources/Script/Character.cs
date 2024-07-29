@@ -27,7 +27,7 @@ public class Character : AbstractCharacter
     {
         GameController.Instance.CharacterDead();
         isDeath = true;
-        indicator.gameObject.SetActive(false);
+        Destroy(indicator);
         ChangeAnim("dead");
         gameObject.tag = "Untagged";
     }
