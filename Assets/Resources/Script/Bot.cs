@@ -14,7 +14,7 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
-        OnInit();
+        ChangeAnim("idle");
     }
 
     // Update is called once per frame
@@ -67,6 +67,7 @@ public class Bot : Character
         ChangeState(null);
         agent.enabled = false;
         RemoveTarget();
+        Destroy(indicator.gameObject);
         // Bot chet
         base.OnDeath();
     }

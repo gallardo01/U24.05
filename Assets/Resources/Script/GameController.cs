@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : Singleton<GameController>
 {
@@ -12,6 +13,9 @@ public class GameController : Singleton<GameController>
     public TargetIndicator indicator;
     public TextMeshProUGUI aliveCountText;
     private int aliveCount;
+    public List<Bot> bots;
+    public GameObject aliveUI;
+    
 
     public List<Transform> listSpawn = new List<Transform>();
     // Start is called before the first frame update
@@ -26,12 +30,48 @@ public class GameController : Singleton<GameController>
         
         aliveCount = botNumber + 1;
         UpdateAliveCountUI();
+        JoystickControl.instance.gameObject.SetActive(false);
+        
+    }
+    
+    public void StartGame()
+    {
+        foreach (var bot in bots)
+        {
+           bot.ChangeState(new RunningState());
+        }
+        // Xoa tat ca bot
+        // tao bot moi
+        // 
+    }
+    
+    public void PlayAgain()
+    {
+        // Reset player
+        player.OnInit();
+        player.transform.position = listSpawn[listSpawn.Count - 1].position;
+
+        // Destroy existing bots
+        foreach (var bot in bots)
+        {
+            Destroy(bot.gameObject);
+            Destroy(bot.indicator.gameObject);
+        }
+        bots.Clear();
+
+        // Create new bots
+        CreateBotNewGame();
+
+        // Reset UI
+        aliveUI.SetActive(false);
+        UpdateAliveCountUI();
     }
     
     public void EndGame()
     {
         JoystickControl.direct = Vector3.zero;
         JoystickControl.instance.gameObject.SetActive(false);
+        aliveUI.SetActive(false);
     }
     
     public void UpdateAliveCountUI()
@@ -69,6 +109,9 @@ public class GameController : Singleton<GameController>
             Color color = UnityEngine.Random.ColorHSV();
             string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)];
             botIndicator.InitTarget(color, 1, botName);
+            bots.Add(bot);
+            bot.ChangeAnim("idle");
+            bot.targetCircle.SetActive(false);
         }
     }
     

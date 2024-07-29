@@ -9,9 +9,9 @@ public class CharacterRange : MonoBehaviour
 
     public void RemoveNullTarget()
     {
-        for (int i = 0; i < botInRange.Count; i++)
+        for (int i = botInRange.Count - 1; i >= 0; i--)
         {
-            if (!botInRange[i].CompareTag("Bot") || botInRange[i] == null)
+            if (botInRange[i] == null || !botInRange[i].CompareTag("Bot"))
             {
                 botInRange.RemoveAt(i);
             }
@@ -30,6 +30,7 @@ public class CharacterRange : MonoBehaviour
             int index = 0;
             for (int i = 0; i < botInRange.Count; i++)
             {
+                if (botInRange[i] == null) continue; // Add null check
                 float distance = (transform.position - botInRange[i].transform.position).sqrMagnitude;
                 if (distance < distanceMin)
                 {
@@ -37,7 +38,7 @@ public class CharacterRange : MonoBehaviour
                     index = i;
                 }
             }
-            return botInRange[index].transform;
+            return botInRange[index]?.transform; // Add null check
         }
     }
 
@@ -46,7 +47,9 @@ public class CharacterRange : MonoBehaviour
         RemoveNullTarget();
         if (botInRange.Count > 0)
         {
-            Bot nearestBot = GetNearestTarget().GetComponent<Bot>(); // The nearest bot is at the start of the list
+            Transform nearestTargetTransform = GetNearestTarget();
+            if (nearestTargetTransform == null) return; // Add null check
+            Bot nearestBot = nearestTargetTransform.GetComponent<Bot>();
             if (nearestBot != null)
             {
                 if (currentTarget != null && currentTarget != nearestBot)
@@ -58,7 +61,7 @@ public class CharacterRange : MonoBehaviour
             }
         }
     }
-    
+
     // OnTriggerEnter is called when the Collider other enters the trigger
     private void OnTriggerEnter(Collider other)
     {
@@ -91,5 +94,4 @@ public class CharacterRange : MonoBehaviour
             botInRange.Remove(other.GetComponent<Character>());
         }
     }
-    
 }

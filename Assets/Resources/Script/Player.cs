@@ -58,6 +58,8 @@ public class Player : Character
         GameController.Ins.EndGame();
         this.enabled = false;
         base.OnDeath();
+        
+
     }
     
     
