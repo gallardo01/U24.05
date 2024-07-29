@@ -82,26 +82,21 @@ public abstract class Character : MonoBehaviour
         projectTile.Shoot(direction, characterDamage,this);
     }
 
-    public virtual void TakeDamage(int damage, Character whoBullet)
+    public virtual void TakeDamage(int damage, Character sender)
     {
-        health.TakeDamage(damage, whoBullet);
+        health.TakeDamage(damage, sender);
     }
 
-    public virtual void OnDeath(Character killerCharacter)
+    public virtual void OnDeath(Character sender)
     {
-        EventManager.OnCharacterDeath?.Invoke(killerCharacter);
+        EventManager.OnCharacterDeath?.Invoke(sender);
         ChangAnim("dead");
         collider.enabled = false;
         indicator.gameObject.SetActive(false);
         this.enabled = false;
     }
 
-    public virtual void GainLevel(Character character)
-    {
-        if(character != this) return;
-        transform.DOScale(transform.localScale.x + 0.2f, 1f);
-        this.indicator.UpdateLevel();
-    }
+    public void UpdateLevel() => indicator.UpdateLevel();
 
     public void ChangAnim(string animName)
     {
@@ -117,16 +112,5 @@ public abstract class Character : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
-    }
-
-    private void OnEnable()
-    {
-        EventManager.OnCharacterDeath += GainLevel;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.OnCharacterDeath -= GainLevel;
-
     }
 }

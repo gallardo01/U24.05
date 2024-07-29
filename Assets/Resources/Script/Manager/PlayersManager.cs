@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
-public class PlayersManager : Singleton<PlayersManager>
+public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
 {
     [SerializeField] Bot botPrefab;
     [SerializeField] Player playerPrefab;
@@ -17,6 +18,23 @@ public class PlayersManager : Singleton<PlayersManager>
     
     private List<Vector3> spawnPosList = new List<Vector3>();
     private List<Character> characterList = new List<Character>();
+
+    private void OnEnable()
+    {
+        EventManager.OnCharacterDeath += CharacterLevelUp;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnCharacterDeath -= CharacterLevelUp;
+    }
+
+    public virtual void CharacterLevelUp(Character character)
+    {
+        character.transform.DOScale(transform.localScale.x + 0.2f, 1f);
+        character.UpdateLevel();
+        if(character.gameObject.layer == 7) Camera.main.transform.DOLocalMoveY(transform.localPosition.y + 2, 1);
+    }
 
     public void OnInit()
     {
@@ -60,28 +78,63 @@ public class PlayersManager : Singleton<PlayersManager>
         }
     }
 
-    public void Reborn()
+    private void SetPlayersActive(bool active)
     {
-        StartCoroutine(OnReborn());
-    }
-
-    IEnumerator OnReborn()
-    {
-        yield return new WaitForSeconds(1f);
-
-        Vector3 random = Vector3.zero;
-        for (int i = 0; i < 20; i++)
+        for(int i = 0; i < characterList.Count; i++)
         {
-            Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * 50;
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
-            {
-                random = hit.position;
-                break;
-            }
+            characterList[i].enabled = active;
         }
-        player.transform.position = random;
-        player.OnInit();
     }
+
+    public void OnGameStateChange(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.MENU:
+                SetPlayersActive(false);
+                break;
+            case GameState.GAME:
+                SetPlayersActive(true);
+
+                break;
+            case GameState.WEAPONSECTION:
+
+                break;
+            case GameState.SETTING:
+
+                break;
+            case GameState.GAMEOVER:
+                SetPlayersActive(false);
+
+                break;
+            case GameState.SHOP:
+
+                break;
+        }
+    }
+
+    //public void Reborn()
+    //{
+    //    StartCoroutine(OnReborn());
+    //}
+
+    //IEnumerator OnReborn()
+    //{
+    //    yield return new WaitForSeconds(1f);
+
+    //    Vector3 random = Vector3.zero;
+    //    for (int i = 0; i < 20; i++)
+    //    {
+    //        Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * 50;
+    //        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+    //        {
+    //            random = hit.position;
+    //            break;
+    //        }
+    //    }
+    //    player.transform.position = random;
+    //    player.OnInit();
+    //}
 
     //public void Recycle(Character bot)
     //{

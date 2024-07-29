@@ -98,12 +98,6 @@ public class Player : Character
     {
         base.OnDeath(killerCharacter);
         GetComponent<Rigidbody>().isKinematic = true;
-        PlayersManager.Instance.Reborn();
-    }
-
-    public override void GainLevel(Character character)
-    {
-        base.GainLevel(character);
-        Camera.main.transform.DOLocalMoveY(transform.localPosition.y + 2, 1);
+        GameManager.Instance.SetGameState(GameState.GAMEOVER);
     }
 }
