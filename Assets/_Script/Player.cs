@@ -32,7 +32,7 @@ public class Player : Character
             {
                 ChangeAnim("idle");
                 isRunning = false;
-                FindTarget();
+                //FindTarget();
             }
         }
 
@@ -75,6 +75,20 @@ public class Player : Character
     public override void OnDeath()
     {
         base.OnDeath();
+        Invoke("DeActive", 3f);
+        this.tag = "Untagged";
         GameController.instance.EndGame();
+    }
+
+    private void DeActive()
+    {
+        gameObject.SetActive(false);
+        Time.timeScale = 0f;
+    }
+
+    public void OnInit()
+    {
+        base.OnInit();
+        this.tag = "player";
     }
 }

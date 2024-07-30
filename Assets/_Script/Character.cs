@@ -21,7 +21,7 @@ public class Character : AbstractCharacter
     public GameObject weaponEquipPos;
     public bool isAttack = false;
     public bool isRunning = false;
-    public bool isDead = false;
+    public bool isDead;
     public float cooldownTimeAttack = 1.5f;
     public float maxHP = 100;
     public float health;
@@ -31,12 +31,8 @@ public class Character : AbstractCharacter
 
     public void Start()
     {
-        health = maxHP;
-        this.HPbar.GetComponent<TargetIndicator>().SetHP();
-        weaponPrefabs = GameController.instance.UseWeapon("boomerang");
-        namePlayer.text = RandomNameGenerator.GenerateRandomName();
-        namePlayer.color = Random.ColorHSV();
-        image.color = namePlayer.color;
+        namePlayer.enabled = false;
+        isDead = true;
     }
     public void ChangeAnim(string animName)
     {
@@ -50,7 +46,13 @@ public class Character : AbstractCharacter
 
     public override void OnInit()
     {
-
+        health = maxHP;
+        this.HPbar.GetComponent<TargetIndicator>().SetHP();
+        weaponPrefabs = GameController.instance.UseWeapon("boomerang");
+        namePlayer.enabled = true;
+        namePlayer.text = RandomNameGenerator.GenerateRandomName();
+        namePlayer.color = Random.ColorHSV();
+        image.color = namePlayer.color;
     }
     public override void OnAttack()
     {
@@ -77,10 +79,9 @@ public class Character : AbstractCharacter
 
     private void SetDetectionRadius(int level) 
     {         
-        detectionRadius = 15f + (level * 1f);
+        detectionRadius = 15f + (level * 2f);
     }
         
-
     public void LevelUp()
     {
         level++;
@@ -88,13 +89,11 @@ public class Character : AbstractCharacter
         SetDetectionRadius(level);
         levelPlayer.text = level.ToString();
     }
-
     public void CharacterDeath()
     {
         isDead = true;
         ChangeAnim("dead");
         GameController.instance.countPlayers.Remove(gameObject);
-        Destroy(gameObject, 3f);
     }
     private void OnTriggerEnter(Collider other)
     {

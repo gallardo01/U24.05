@@ -349,7 +349,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5461612325036580088}
   m_LocalRotation: {x: 0, y: -0.947671, z: 0, w: 0.3192488}
-  m_LocalPosition: {x: -28.010853, y: 0, z: -43.20735}
+  m_LocalPosition: {x: -27, y: 2, z: -83.3}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -379,15 +379,18 @@ MonoBehaviour:
   namePlayer: {fileID: 4477371080508960858}
   image: {fileID: 7500092755653843548}
   levelPlayer: {fileID: 3637601277466398700}
-  weaponPrefabs: {fileID: 3770543599948866396, guid: 02168e00fde29e244a5eb7d21f85492d, type: 3}
+  weaponPrefabs: {fileID: 1725852025673744274, guid: e2ecfd8d77ebad44f80b54c2804c1115, type: 3}
+  target: {fileID: 0}
   weaponEquipPos: {fileID: 1480443410504284426}
   isAttack: 0
   isRunning: 0
+  isDead: 0
   cooldownTimeAttack: 2
   maxHP: 100
-  health: 0
+  health: 100
   currentAnimName: 
   detectionRadius: 15
+  level: 1
   speed: 25
 --- !u!54 &703003661
 Rigidbody:
@@ -671,8 +674,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 5461612325036580090}
     m_Modifications:
     - target: {fileID: 1353219640, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_text
+      value: Quinn Taylor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353219640, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
       propertyPath: m_fontSize
       value: 35.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353219640, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.5446247
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353219640, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.67180663
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353219640, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.6202239
       objectReference: {fileID: 0}
     - target: {fileID: 1353219640, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
       propertyPath: m_enableAutoSizing
@@ -770,6 +789,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 5461612325036580088}
+    - target: {fileID: 6212574781481800766, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5446247
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212574781481800766, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.67180663
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212574781481800766, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6202239
+      objectReference: {fileID: 0}
     - target: {fileID: 6618800832142367658, guid: cf500e94e40362c4f8bed4e27df4cbf8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6

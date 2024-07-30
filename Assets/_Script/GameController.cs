@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject botPrefs;
     [SerializeField] TMP_Text numberAlive;
     [SerializeField] List<GameObject> weaponList;
+    //[SerializeField] GameObject startButton;
+    //[SerializeField] public GameObject tryANewGame;
 
     private int botNumber = 10;
     public int countWeaponSummon = 0;
@@ -56,6 +59,7 @@ public class GameController : MonoBehaviour
         while (true)
         {
             int randomIndex = Random.Range(0, summonPoint.Count);
+
             if (!randomPos.Contains(randomIndex))
             {
                 randomPos.Add(randomIndex);
@@ -65,10 +69,38 @@ public class GameController : MonoBehaviour
             }
         }
     }
-
+    public void StartGame()
+    {
+        for (int i = 0; i < countPlayers.Count; i++)
+        {
+            countPlayers[i].GetComponent<Character>().isDead = false;
+            if (countPlayers[i].GetComponent<Player>())
+            {
+                countPlayers[i].GetComponent<Character>().OnInit();
+            }
+            else
+            {
+                countPlayers[i].GetComponent<Bot>().OnInit();
+            }
+        }
+    }
+    public void TryANewGame()
+    {
+        for (int i = 0; i < countPlayers.Count; i++)
+        {
+            if (!countPlayers[i].GetComponent<Player>())
+            {
+                Destroy(countPlayers[i]);
+            }
+        }
+        countPlayers.Clear();
+        playerPrebs.SetActive(true);
+        CreatPlayerAndBot();
+        StartCoroutine(SummonWeapon());
+    }
     public void EndGame()
     {
-        JoystickControl.instance.enabled = false;
+        JoystickControl.instance.gameObject.SetActive(false);
         JoystickControl.direct = Vector3.zero;
     }
     public GameObject UseWeapon(string weaponName)
@@ -108,7 +140,6 @@ public class GameController : MonoBehaviour
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
         return navHit.position;
     }
-
     public void CountPlayer(int numberPlayer)
     {
         numberAlive.text = numberPlayer.ToString();

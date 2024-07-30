@@ -17,11 +17,8 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
+        ChangeAnim("idle");
         base.Start();
-        currentState = new IdleState();   
-        time = cooldownMove;
-        inAreaAtack.SetActive(false);
-        //namePlayer = RandomNameGenerator.GenerateRandomName();
     }
 
     // Update is called once per frame
@@ -34,7 +31,19 @@ public class Bot : Character
             time = 0;
         }
     }
-
+    public override void OnInit()
+    {
+        base.OnInit();
+        time = cooldownMove;
+        inAreaAtack.SetActive(false);
+        currentState = new IdleState();
+    }
+    public override void OnDeath()
+    {
+        base.OnDeath();
+        inAreaAtack.SetActive(false);
+        Destroy(gameObject,3f);
+    }
     public void ChangeState(IState<Bot> newState)
     {
         if (currentState != null)
