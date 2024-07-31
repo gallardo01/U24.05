@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     private void InitGameState(int state)
     {
-        Debug.Log("InitGameState: " + (state == 2));
         UIPanel.SetActive(state == 1);
         InGamePanel.SetActive(state == 2 );
         JoyStickPanel.SetActive(state == 2);

@@ -61,13 +61,18 @@ public class Bot : Character
     {
         targetCircle.SetActive(false);
     }
+
+    public void Stop()
+    {
+        agent.enabled = false;
+        OnInit();
+    }
     
     public override void OnDeath()
     {
         ChangeState(null);
         agent.enabled = false;
         RemoveTarget();
-        Destroy(indicator.gameObject);
         // Bot chet
         base.OnDeath();
     }

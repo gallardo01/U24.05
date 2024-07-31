@@ -21,7 +21,7 @@ public class GameController : Singleton<GameController>
     // Start is called before the first frame update
     void Start()
     {
-        botNumber = Random.Range(1, 21);
+        botNumber = Random.Range(1, 20);
         CreateBotNewGame();
         if (botNumber > listSpawn.Count-1)
         {
@@ -36,13 +36,12 @@ public class GameController : Singleton<GameController>
     
     public void StartGame()
     {
-        foreach (var bot in bots)
+        // for (int i = 0; i < bots.Count; i++)
+        //     bots[i].OnInit();
+        foreach (Bot bot in bots)
         {
-           bot.ChangeState(new RunningState());
+            bot.OnInit();
         }
-        // Xoa tat ca bot
-        // tao bot moi
-        // 
     }
     
     public void PlayAgain()
@@ -50,20 +49,24 @@ public class GameController : Singleton<GameController>
         // Reset player
         player.OnInit();
         player.transform.position = listSpawn[listSpawn.Count - 1].position;
+        Destroy(player.indicator.gameObject);
 
-        // Destroy existing bots
-        foreach (var bot in bots)
+        // Destroy all bots and their indicators
+        foreach (Bot bot in bots)
         {
-            Destroy(bot.gameObject);
             Destroy(bot.indicator.gameObject);
+            Destroy(bot.gameObject);
         }
+
+        // Clear the bots list
         bots.Clear();
 
         // Create new bots
         CreateBotNewGame();
 
         // Reset UI
-        aliveUI.SetActive(false);
+        aliveUI.SetActive(true);
+        JoystickControl.instance.gameObject.SetActive(true);
         UpdateAliveCountUI();
     }
     

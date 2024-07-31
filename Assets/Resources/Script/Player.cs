@@ -53,11 +53,15 @@ public class Player : Character
     }
     
     public override void OnDeath()
-    {
+    {        
+        base.OnDeath();
         counter.Cancel();
         GameController.Ins.EndGame();
         this.enabled = false;
-        base.OnDeath();
+        foreach (Bot bot in GameController.Ins.bots)
+        {
+            bot.Stop();
+        }
         
 
     }
