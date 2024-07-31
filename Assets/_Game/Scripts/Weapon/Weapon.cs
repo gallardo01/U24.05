@@ -8,16 +8,18 @@ public class Weapon : GameUnit
 {
     [SerializeField] protected int characterLayer;
     [SerializeField] protected int propLayer;
-
     [SerializeField] protected Character owner;
-
     [SerializeField] protected List<Vector3> listPaths = new List<Vector3>();
+
+    protected float attackSpeed;
+    protected float duration => Mathf.Max(1 - attackSpeed / 200, 0.25f);
 
     protected Sequence sequence;
 
-    public void InitWeapon(Character owner, Vector3 startPoint, Vector3 direction, float attackRange)
+    public void InitWeapon(Character owner, float attackSpeed, Vector3 startPoint, Vector3 direction, float attackRange)
     {
         this.owner = owner;
+        this.attackSpeed = attackSpeed;
         SetPath(startPoint, direction, attackRange);
         Move();
     }
@@ -35,7 +37,7 @@ public class Weapon : GameUnit
 
         for (int i = 0; i < listPaths.Count; i++)
         {
-            sequence.Append(transform.DOMove(listPaths[i], 1f).SetEase(Ease.Linear));
+            sequence.Append(transform.DOMove(listPaths[i], duration).SetEase(Ease.Linear));
         }
 
         sequence.OnComplete(() =>

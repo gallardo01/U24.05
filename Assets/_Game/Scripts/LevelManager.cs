@@ -30,7 +30,8 @@ public class LevelManager : Singleton<LevelManager>
     public void InitPlayer()
     {
         player.gameObject.SetActive(true);
-        player.InitCharacter(currentLevel.GetRandomNodeStart(), WeaponType.Axe, 0);
+        player.InitCharacter(WeaponType.Axe, 0);
+        player.tf.position = currentLevel.GetRandomNodeStart().position;
     }
 
     public void PlayAgain()

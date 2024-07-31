@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollower : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform TF;
     [SerializeField] Transform targetTF;
@@ -12,11 +12,6 @@ public class CameraFollower : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (targetTF == null)
-        {
-            return;
-        }
-
         TF.position = Vector3.Lerp(TF.position, targetTF.position + Offset, Time.deltaTime * 5f);
     }
 }

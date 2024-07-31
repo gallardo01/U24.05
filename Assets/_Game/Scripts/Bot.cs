@@ -38,9 +38,9 @@ public class Bot : Character
         }
     }
 
-    public override void InitCharacter(Transform NodeStart, WeaponType weaponType, int level)
+    public override void InitCharacter(WeaponType weaponType, int level)
     {
-        base.InitCharacter(NodeStart, weaponType, level);
+        base.InitCharacter(weaponType, level);
         agent.speed = MoveSpeed;
         ChangeState(new MoveState());
     }
@@ -54,6 +54,7 @@ public class Bot : Character
     public override void ResetCharacter()
     {
         base.ResetCharacter();
+        currentState = null;
         SetDestination(tf.position);
         targetedImage.SetActive(false);
     }

@@ -22,13 +22,14 @@ public class Level : MonoBehaviour
             Character character = (Character)param;
             if (character is Bot)
             {
-                botAlive--;
-                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(botAlive);
-                listBot.Remove(character);
-                if (botAlive > 0)
+                if (botAlive - botAtSameTime > 0)
                 {
                     GenerateBot();
                 }
+
+                botAlive--;
+                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(botAlive);
+                listBot.Remove(character);
             }
         });
     }
@@ -70,7 +71,7 @@ public class Level : MonoBehaviour
         Bot bot = (Bot)SimplePool.Spawn(PoolType.Bot, NodeStart.position, Quaternion.identity);
         int playerLevel = LevelManager.Ins.player.Level;
         int botLevel = playerLevel + Random.Range(0, 2);
-        bot.InitCharacter(NodeStart, (WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count), botLevel);
+        bot.InitCharacter((WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count), botLevel);
 
         listBot.Add(bot);
     }

@@ -21,3 +21,14 @@ public enum WeaponType
     Knife,
     Lollipop
 }
+
+public enum GameState
+{
+    Mainmenu,
+    Gameplay,
+    Finish,
+    Revive,
+    Setting,
+    Shop
+
+}

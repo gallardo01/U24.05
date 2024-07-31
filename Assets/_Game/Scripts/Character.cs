@@ -17,7 +17,7 @@ public class Character : GameUnit
     protected int level = 0;
     protected float baseMoveSpeed = 5f;
     protected float baseAttackRange = 5f;
-    protected float baseAttackSpeed = 100f; //??? test
+    protected float baseAttackSpeed = 100f;
     public float bonusMoveSpeed = 0;
     public float bonusAttackRange = 0;
     public float bonusAttackSpeed = 0;
@@ -77,14 +77,14 @@ public class Character : GameUnit
         }
     }
 
-    public virtual void InitCharacter(Transform NodeStart, WeaponType weaponType, int level)
+    public virtual void InitCharacter(WeaponType weaponType, int level)
     {
-        float range = baseAttackRange + weaponStartPoint.localPosition.z;
-        sphereCollider.gameObject.transform.localScale = new Vector3(range / sphereCollider.radius, range / sphereCollider.radius, range / sphereCollider.radius);
+        float range = AttackRange + weaponStartPoint.localPosition.z;
+        float scale = range / sphereCollider.radius;
+        sphereCollider.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
         LevelUp(level);
 
-        tf.position = NodeStart.position;
         this.weaponType = weaponType;
         weaponHold = Instantiate(WeaponManager.Ins.WeaponDataMap[this.weaponType].weaponHoldPrefab, weaponHoldParent);
     }
@@ -146,7 +146,7 @@ public class Character : GameUnit
         weaponHoldParent.gameObject.SetActive(false);
         isWeaponHoldActive = false;
 
-        WeaponManager.Ins.InitWeapon(weaponType, LevelScale, this, weaponStartPoint.position, direction, AttackRange);
+        WeaponManager.Ins.InitWeapon(weaponType, LevelScale, this, AttackSpeed, weaponStartPoint.position, direction, AttackRange);
         yield return new WaitForSeconds(1f);
         weaponHoldParent.gameObject.SetActive(true);
         isWeaponHoldActive = true;

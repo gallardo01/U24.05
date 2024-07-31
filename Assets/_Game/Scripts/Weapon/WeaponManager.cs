@@ -22,11 +22,11 @@ public class WeaponManager : Singleton<WeaponManager>
         }
     }
 
-    public void InitWeapon(WeaponType weaponType, float levelScale, Character owner, Vector3 startPoint, Vector3 direction, float attackRange)
+    public void InitWeapon(WeaponType weaponType, float levelScale, Character owner, float attackSpeed, Vector3 startPoint, Vector3 direction, float attackRange)
     {
         Weapon weapon = (Weapon)SimplePool.Spawn(weaponDataMap[weaponType].poolType, startPoint, Quaternion.identity);
         weapon.transform.localScale = new Vector3(levelScale, levelScale, levelScale);
         weapon.transform.rotation = Quaternion.LookRotation(direction);
-        weapon.InitWeapon(owner, startPoint, direction, attackRange);
+        weapon.InitWeapon(owner, attackSpeed, startPoint, direction, attackRange);
     }
 }
