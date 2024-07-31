@@ -43,6 +43,11 @@ public class Player : Character
 
     public override void OnInit()
     {
+        this.enabled = true;
+        isDeath = false;
+        gameObject.tag = "Bot";
+        ChangeAnim("idle");
+        indicator.InitTarget(Color.black, 1, "Player");
         base.OnInit();
     }
 
@@ -72,7 +77,12 @@ public class Player : Character
         counter.Cancel();
         GameController.Instance.EndGame();
         this.enabled = false;
+        UIManager.Instance.OpenAwardUI(level);
         base.OnDeath();
     }
 
+    public void OnDespawn()
+    {
+        counter.Cancel();
+    }
 }

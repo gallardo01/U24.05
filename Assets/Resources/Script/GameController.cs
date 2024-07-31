@@ -13,18 +13,44 @@ public class GameController : Singleton<GameController>
     public List<Transform> listSpawn = new List<Transform>();
     public TextMeshProUGUI aliveText;
     private int totalCharacter;
-    private List<Bot> bots = new List<Bot>();
+    public List<Bot> bots = new List<Bot>();
+    public int gold;
 
     // Start is called before the first frame update
     void Start()
     {
         totalCharacter = botNumber + 1;
-        CreateBotNewGame();
         if (botNumber > listSpawn.Count-1)
         {
             botNumber = listSpawn.Count - 1;
         }
         InitTextAlive();
+
+        TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
+        player.indicator = playerIndicator;
+        playerIndicator.character = player;
+
+        CreateBotNewGame();
+        InitGold();
+    }
+
+    public void InitGold()
+    {
+        if (!PlayerPrefs.HasKey("Gold"))
+        {
+            gold = 0;
+            PlayerPrefs.SetInt("Gold", 0);
+        } else
+        {
+            gold = PlayerPrefs.GetInt("Gold");
+        }
+
+    }
+
+    public void GainGold(int num)
+    {
+        gold += num;
+        PlayerPrefs.SetInt("Gold", gold);
     }
 
     public void InitTextAlive()
@@ -55,21 +81,18 @@ public class GameController : Singleton<GameController>
     {
         for (int i = 0; i < bots.Count; i++)
         {
-            Destroy(bots[i].indicator);
-            Destroy(bots[i]);
+            Destroy(bots[i].indicator.gameObject);
+            Destroy(bots[i].gameObject);
         }
         bots.Clear();
+        player.OnDespawn();
         CreateBotNewGame();
     }
     
     public void CreateBotNewGame()
     {
         player.transform.position = listSpawn[listSpawn.Count - 1].position;
-        TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
-        player.indicator = playerIndicator;
-        playerIndicator.character = player;
-        playerIndicator.InitTarget(Color.black, 1, "Player");
-
+        player.OnInit();
         for (int i = 0; i < botNumber; i++)
         {
             Bot bot = Instantiate(botPrefabs);

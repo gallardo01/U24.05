@@ -73,6 +73,14 @@ public class Bot : Character
         ChangeState(null);
         agent.enabled = false;
         base.OnDeath();
-        Destroy(gameObject, 2);
+        StartCoroutine(DestroyBot());
+    }
+
+    IEnumerator DestroyBot()
+    {
+        yield return new WaitForSeconds(2f);
+        GameController.Instance.bots.Remove(this);
+        Destroy(indicator.gameObject);
+        Destroy(gameObject);
     }
 }
