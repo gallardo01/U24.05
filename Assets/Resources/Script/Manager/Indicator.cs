@@ -39,6 +39,6 @@ public class Indicator : MonoBehaviour
 
     private void LateUpdate()
     {
-       rectTransform.anchoredPosition = mainCamera.WorldToScreenPoint(character.transform.position + Vector3.up * 5) - screenHalf;
+       rectTransform.anchoredPosition = mainCamera.WorldToScreenPoint(character.transform.position + Vector3.up * 2) - screenHalf;
     }
 }

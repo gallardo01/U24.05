@@ -33,7 +33,10 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
     {
         character.transform.DOScale(transform.localScale.x + 0.2f, 1f);
         character.UpdateLevel();
-        if(character.gameObject.layer == 7) Camera.main.transform.DOLocalMoveY(transform.localPosition.y + 2, 1);
+        if (character.gameObject.layer == 7)
+        {
+            Camera.main.fieldOfView += 1;
+        }
     }
 
     public void OnInit()
@@ -83,6 +86,7 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         for(int i = 0; i < characterList.Count; i++)
         {
             characterList[i].enabled = active;
+            characterList[i].Indicator.gameObject.SetActive(active);
         }
     }
 
@@ -93,20 +97,25 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
             case GameState.MENU:
                 SetPlayersActive(false);
                 break;
+
             case GameState.GAME:
                 SetPlayersActive(true);
 
                 break;
+
             case GameState.WEAPONSECTION:
 
                 break;
-            case GameState.SETTING:
 
+            case GameState.SETTING:
+                SetPlayersActive(false);
                 break;
+
             case GameState.GAMEOVER:
                 SetPlayersActive(false);
 
                 break;
+
             case GameState.SHOP:
 
                 break;

@@ -9,12 +9,15 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] Button playButton;
     [SerializeField] Button replayButton;
+    [SerializeField] Button settingButton;
+    
+
 
     private void OnEnable()
     {
         playButton.onClick.AddListener(() => SetGameState(GameState.GAME));
         replayButton.onClick.AddListener(() => LoadScene());
-
+        settingButton.onClick.AddListener(() => SetGameState(GameState.SETTING));
     }
 
     private void Awake()

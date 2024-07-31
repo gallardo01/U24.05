@@ -16,7 +16,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Collider collider;
     [SerializeField] protected Health health;
     protected string currentAnimName = "idle";
-    protected Indicator indicator; public void SetIndicator(Indicator indicator) {  this.indicator = indicator; } 
+    protected Indicator indicator; public Indicator Indicator => indicator;
+    public void SetIndicator(Indicator indicator) {  this.indicator = indicator; } 
 
     [HideInInspector] public Transform target;
     protected Collider[] targetsList = new Collider[10];

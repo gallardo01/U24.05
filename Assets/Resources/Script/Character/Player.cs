@@ -29,7 +29,7 @@ public class Player : Character
     {
         timer += Time.deltaTime;
 
-        if (JoystickControl.direct.magnitude > 0)
+        if (MobileJoystick.Instance.GetMoveVector().magnitude > 0)
         {
             CancelInvoke(nameof(OnThrow));
             ExitAttack();
@@ -48,7 +48,7 @@ public class Player : Character
 
     private void Move()
     {
-        moveDirection = JoystickControl.direct;
+        moveDirection = new Vector3(MobileJoystick.Instance.GetMoveVector().x, 0, MobileJoystick.Instance.GetMoveVector().y);
         if (moveDirection.magnitude > 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + moveDirection, Time.deltaTime * moveSpeed);

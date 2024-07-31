@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour, IGameStateListener
 {
@@ -12,6 +13,8 @@ public class UIManager : MonoBehaviour, IGameStateListener
     [SerializeField] GameObject weaponSelecPanel;
   
     List<GameObject> panels = new List<GameObject>();
+
+    [SerializeField] Button settingButton;
 
     private void Awake()
     {

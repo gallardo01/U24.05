@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MobileJoystick : MonoBehaviour
+public class MobileJoystick : Singleton<MobileJoystick>
 {
     [Header(" Elements ")]
     [SerializeField] private RectTransform joystickOutline;
