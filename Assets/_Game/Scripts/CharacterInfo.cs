@@ -16,4 +16,14 @@ public class CharacterInfo : MonoBehaviour
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
         tf.position = screenPos + offset;
     }
+
+    public void UpdateTextLevel(int level)
+    {
+        textLevel.text = level.ToString();
+    }
+
+    public void SetActiveCharacterInfo(bool isActive)
+    {
+        gameObject.SetActive(isActive);
+    }
 }

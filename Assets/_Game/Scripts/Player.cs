@@ -10,6 +10,17 @@ public class Player : Character
 
     public int Level => level;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        this.RegisterListener(EventID.OnGameStateChanged, (param) =>
+        {
+            bool isActive = (GameState)param == GameState.Gameplay ? true : false;
+
+            sphereCollider.gameObject.SetActive(isActive);
+        });
+    }
+
     protected override void Update()
     {
         base.Update();

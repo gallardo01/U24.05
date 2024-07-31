@@ -12,8 +12,8 @@ public class Level : MonoBehaviour
     WaitForSeconds countDownTime = new WaitForSeconds(0.5f);
 
     int botAtSameTime = 6;
-    int botTotal = 50;
-    public int botAlive;
+    int botTotal = 49;
+    public int alive;
 
     private void Awake()
     {
@@ -22,21 +22,32 @@ public class Level : MonoBehaviour
             Character character = (Character)param;
             if (character is Bot)
             {
-                if (botAlive - botAtSameTime > 0)
+                if (alive - botAtSameTime > 1)
                 {
                     GenerateBot();
                 }
 
-                botAlive--;
-                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(botAlive);
+                alive--;
+                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(alive);
                 listBot.Remove(character);
+            }
+        });
+
+        this.RegisterListener(EventID.OnGameStateChanged, (param) =>
+        {
+            bool isActive = (GameState)param == GameState.Gameplay ? true : false;
+
+            LevelManager.Ins.player.characterInfo.SetActiveCharacterInfo(isActive);
+            for (int i = 0; i < listBot.Count; i++)
+            {
+                listBot[i].characterInfo.SetActiveCharacterInfo(isActive);
             }
         });
     }
 
     public void InitLevel()
     {
-        botAlive = botTotal;
+        alive = botTotal + 1;
 
         for (int i = 0; i < botAtSameTime; i++)
         {

@@ -89,6 +89,7 @@ MonoBehaviour:
   weaponHoldParent: {fileID: 2918377490448083682}
   weaponStartPoint: {fileID: 4813261906935833081}
   sphereCollider: {fileID: 3045882536218785533}
+  characterInfo: {fileID: 8856547931942393261}
   bonusMoveSpeed: 0
   bonusAttackRange: 0
   bonusAttackSpeed: 0
@@ -418,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1764762347129178544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -515,7 +516,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

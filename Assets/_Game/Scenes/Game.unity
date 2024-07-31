@@ -514,6 +514,7 @@ MonoBehaviour:
   weaponHoldParent: {fileID: 1561884499}
   weaponStartPoint: {fileID: 1065416187}
   sphereCollider: {fileID: 1437212075}
+  characterInfo: {fileID: 1354373212}
   bonusMoveSpeed: 0
   bonusAttackRange: 0
   bonusAttackSpeed: 0
@@ -1078,7 +1079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1354373211
 RectTransform:
   m_ObjectHideFlags: 0

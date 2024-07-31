@@ -15,6 +15,6 @@ public class UIGameplay : UICanvas
     public override void Open()
     {
         base.Open();
-        UpdateTextBotAlive(LevelManager.Ins.currentLevel.botAlive);
+        UpdateTextBotAlive(LevelManager.Ins.currentLevel.alive);
     }
 }

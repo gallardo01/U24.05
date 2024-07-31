@@ -11,6 +11,7 @@ public class UIMainmenu : UICanvas
     {
         btnPlay.onClick.AddListener(() =>
         {
+            GameManager.Ins.ChangeGameState(GameState.Gameplay);
             CloseDirectly();
             UIManager.Ins.OpenUI<UIGameplay>();
         });

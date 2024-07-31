@@ -42,7 +42,7 @@ public class Bot : Character
     {
         base.InitCharacter(weaponType, level);
         agent.speed = MoveSpeed;
-        ChangeState(new MoveState());
+        ChangeState(new WaitState());
     }
 
     public void SetDestination(Vector3 destination)

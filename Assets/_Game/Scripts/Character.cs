@@ -10,6 +10,7 @@ public class Character : GameUnit
     [SerializeField] protected Transform weaponHoldParent;
     [SerializeField] protected Transform weaponStartPoint;
     [SerializeField] protected SphereCollider sphereCollider;
+    public CharacterInfo characterInfo;
 
     protected GameObject weaponHold;
     protected string currentAnimName;
@@ -42,7 +43,7 @@ public class Character : GameUnit
     protected float MoveSpeed => (baseMoveSpeed + bonusMoveSpeed) * LevelScale;
     protected float AttackSpeed => baseAttackSpeed + bonusAttackSpeed;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         this.RegisterListener(EventID.OnCharacterDead, (param) =>
         {
@@ -87,6 +88,11 @@ public class Character : GameUnit
 
         this.weaponType = weaponType;
         weaponHold = Instantiate(WeaponManager.Ins.WeaponDataMap[this.weaponType].weaponHoldPrefab, weaponHoldParent);
+
+        if(GameManager.Ins.IsState(GameState.Gameplay))
+        {
+            characterInfo.SetActiveCharacterInfo(true);
+        }
     }
 
     public virtual void ResetCharacter()
@@ -97,13 +103,16 @@ public class Character : GameUnit
         isAttacking = false;
         isMoving = false;
         targetInRange.Clear();
+        characterInfo.SetActiveCharacterInfo(false);
     }
 
     public void LevelUp(int level)
     {
         this.level += level;
+        characterInfo.UpdateTextLevel(this.level);
         tf.localScale = new Vector3(LevelScale, LevelScale, LevelScale);
     }
+
 
     public void ChangeAnim(string animName)
     {
