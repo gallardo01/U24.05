@@ -22,7 +22,6 @@ public abstract class Character : MonoBehaviour
     [HideInInspector] public Transform target;
     protected Collider[] targetsList = new Collider[10];
 
-
     [Header("Setting")]
     [SerializeField] protected float moveSpeed;
     [SerializeField] public float detectRadius;
@@ -30,6 +29,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected int characterDamage;
     public float detectDelay;
     public float attackDelay;
+
+    public int Score { get; private set; }  public void SetScore(int score) { this.Score += score; }
 
     public virtual void OnInit()
     {

@@ -14,8 +14,6 @@ public class UIManager : MonoBehaviour, IGameStateListener
   
     List<GameObject> panels = new List<GameObject>();
 
-    [SerializeField] Button settingButton;
-
     private void Awake()
     {
         panels.AddRange( new GameObject[] { menuPanel ,gamePanel, settingPanel, gameOverPanel, shopPanel, weaponSelecPanel,   } );
