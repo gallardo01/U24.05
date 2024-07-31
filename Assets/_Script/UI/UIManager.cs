@@ -10,7 +10,9 @@ public class UIManager : MonoBehaviour
     public GameObject InGamePanel;
     public GameObject JoyStick;
     public GameObject EndGame;
+    public GameObject WinGame;
     public GameObject settingInGame;
+    public int goldNumber;
 
 
 
@@ -45,6 +47,7 @@ public class UIManager : MonoBehaviour
         InitGameState(2);
         Time.timeScale = 1f;
         GameController.instance.StartGame();
+        Camera.instance.ChangeState(2);
     }
 
     public void EndGameUI()
@@ -71,6 +74,8 @@ public class UIManager : MonoBehaviour
         GameController.instance.PlayAgain();
         settingInGame.SetActive(false);
         EndGame.SetActive(false);
+        WinGame.SetActive(false);
+        Camera.instance.ChangeState(1);
     }
 
     public void TryANewGame()
@@ -78,5 +83,19 @@ public class UIManager : MonoBehaviour
         GameController.instance.PlayAgain();
         StartGame();
         settingInGame.SetActive(false);
+    }
+
+    public void WinAGame()
+    {
+        WinGame.SetActive(true);
+        PauseGame();
+        goldNumber = GameController.instance.countPlayers[0].GetComponent<Player>().level;
+    }
+
+    public void WinAndMoveToMainMenu()
+    {
+        MoveToMainMenu();
+        GameController.instance.goldNumber += goldNumber;
+        GameController.instance.goldCoin.text = GameController.instance.goldNumber.ToString();
     }
 }

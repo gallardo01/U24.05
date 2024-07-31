@@ -31,8 +31,9 @@ public class Character : AbstractCharacter
     public float detectionRadius = 15f;
     public int level = 1;
 
-    public void Start()
+    void Start()
     {
+        ChangeAnim("idle");
     }
     public void ChangeAnim(string animName)
     {
@@ -64,12 +65,15 @@ public class Character : AbstractCharacter
         namePlayer.color = Random.ColorHSV();
         image.color = namePlayer.color;
         isDead = false;
+        LevelUpData();
     }
     public void SetNewPlayer()
     {
         isDead = true;
         health = maxHP;
         namePlayer.enabled = false;
+        level = 0;
+        LevelUpData();
         this.HPbar.GetComponent<TargetIndicator>().SetHP();
     }
     public void FireWeapon()
@@ -90,10 +94,13 @@ public class Character : AbstractCharacter
     {         
         detectionRadius = 15f + (level * 2f);
     }
-        
-    public void LevelUp()
+
+    public void LevelUpPlayer()
     {
         level++;
+    }
+    public void LevelUpData()
+    {
         SetBodyScale(level);
         SetDetectionRadius(level);
         levelPlayer.text = level.ToString();

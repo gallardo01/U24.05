@@ -12,11 +12,13 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject botPrefs;
     [SerializeField] TMP_Text numberAlive;
     [SerializeField] List<GameObject> weaponList;
+    [SerializeField] public TMP_Text goldCoin;
     //[SerializeField] GameObject startButton;
     //[SerializeField] public GameObject tryANewGame;
 
     private int botNumber = 10;
     public int countWeaponSummon = 0;
+    public int goldNumber;
     public List<string> weaponTag;
     public static GameController instance;
     public List<GameObject> countPlayers;
@@ -33,11 +35,23 @@ public class GameController : MonoBehaviour
         {
             weaponTag.Add(weaponList[i].tag);
         }
+        goldCoin.text = "0";
     }
 
     private void Update()
     {
-        CountPlayer(countPlayers.Count);
+        if (countPlayers.Count > 1)
+        {
+            CountPlayer(countPlayers.Count);
+        }
+        else
+        {
+            if (countPlayers[0].GetComponent<Player>())
+            {
+                UIManager.instance.WinAGame();
+                
+            }
+        }
     }
     private void CreatPlayerAndBot()
     {

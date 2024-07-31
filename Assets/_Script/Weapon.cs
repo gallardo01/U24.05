@@ -35,7 +35,8 @@ public class Weapon : MonoBehaviour
                 character.health = character.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-40);
                 if (character.health < 0)
                 {
-                    self.LevelUp();
+                    self.LevelUpPlayer();
+                    self.LevelUpData();
                     if (other.CompareTag("player"))
                     {
                         player.OnDeath();

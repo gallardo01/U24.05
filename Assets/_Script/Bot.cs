@@ -15,10 +15,6 @@ public class Bot : Character
     float cooldownMove = 1.5f;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        ChangeAnim("idle");
-    }
 
     // Update is called once per frame
     void Update()

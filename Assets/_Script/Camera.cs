@@ -8,26 +8,43 @@ public class Camera : MonoBehaviour
     [SerializeField] public Transform TF;
     [SerializeField] Transform TFPlayer;
 
-    public Vector3 offset;
+    [SerializeField] public Vector3 offset;
+    [SerializeField] public Vector3 offsetMainMenu;
+
+    [SerializeField] public Quaternion rotation;
+    [SerializeField] public Quaternion rotationMainMenu;
     public static Camera instance;
-    public int levelPlayer;
+
+    private Vector3 currentOffset;
+    private Quaternion currentRotation;
 
     private void Awake()
     {
         instance = this;
-        levelPlayer = TFPlayer.GetComponent<Character>().level;
-
+    }
+    private void Start()
+    {
+        ChangeState(1);
     }
     // Update is called once per frame
     void Update()
     {
-        TF.position = TFPlayer.position + offset;
+        TF.position = TFPlayer.position + currentOffset;
+        TF.rotation = Quaternion.Lerp(transform.rotation, currentRotation, Time.deltaTime*4f);
     }
 
-    private Vector3 UpdateOffset(int level)
+    public void ChangeState(int state)
     {
-        offset += new Vector3(0, 3, 2)*level;
-        return offset;
+        if (state == 1)
+        {
+            currentOffset = offsetMainMenu;
+            currentRotation = rotationMainMenu;
+        }
+        else
+        {
+            currentOffset = offset;
+            currentRotation = rotation;
+        }
     }
 }
 

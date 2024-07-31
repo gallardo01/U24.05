@@ -11,6 +11,7 @@ public class Player : Character
     //private CounterTime counter = new CounterTime();
     private void Start()
     {
+        time = 0f;
     }
     void Update()
     {
@@ -21,7 +22,7 @@ public class Player : Character
         {
             if (direction != Vector3.zero)
             {
-                Quaternion newRotation = Quaternion.LookRotation(direction);
+                Quaternion newRotation = Quaternion.LookRotation(-direction);
                 body.rotation = newRotation;
                 body.Translate(body.forward * Time.deltaTime * speed, Space.World);
                 ChangeAnim("run");
@@ -31,7 +32,7 @@ public class Player : Character
             {
                 ChangeAnim("idle");
                 isRunning = false;
-                //FindTarget();
+                FindTarget();
             }
         }
 
