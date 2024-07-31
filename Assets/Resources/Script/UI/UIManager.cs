@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : 
+    Singleton<UIManager>
 {
     public GameObject UIPanel;
     public GameObject InGamePanel;
     public GameObject JoyStickPanel;
     public GameObject SettingPanel;
+    public GameObject indicatorPanel;
     public GameObject MainMenuObj;
 
     public Button playGame;
     public Button mainMenu;
     public Button quitMainMenu;
     public Button settingButton;
+    public GameObject awardHandler;
     
     // Start is called before the first frame update
     void Start()
@@ -34,7 +37,7 @@ public class UIManager : MonoBehaviour
         );
     }
 
-    private void MainMenuClick()
+    public void MainMenuClick()
     {
         SettingPanel.SetActive(false);
         InitGameState(1);
@@ -49,7 +52,14 @@ public class UIManager : MonoBehaviour
         JoyStickPanel.SetActive(state == 2);
         if (state == 2)
         {
+            indicatorPanel.SetActive(true);
             GameController.Ins.StartGame();
         }
+
+        else if (state == 1)
+        {
+            indicatorPanel.SetActive(false);
+        }
+        CameraFollower.Ins.ChangeState(state);
     }
 }

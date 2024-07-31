@@ -74,7 +74,18 @@ public class Player : Character
     
     public override void OnInit()
     {
+        isDead = false;
         base.OnInit();
+        ChangeAnim("idle");
+        gameObject.tag = "Bot";
+        indicator.InitTarget(Color.black, 1, "Player");
+        this.enabled = true;
+
+    }
+    
+    public void OnDespawn()
+    {
+        counter.Cancel();
     }
 
    

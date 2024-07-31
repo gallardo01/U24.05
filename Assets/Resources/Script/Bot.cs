@@ -72,9 +72,21 @@ public class Bot : Character
     {
         ChangeState(null);
         agent.enabled = false;
+        base.OnDeath();
         RemoveTarget();
         // Bot chet
-        base.OnDeath();
+        StartCoroutine(DestroyBot());
+    }
+    
+    IEnumerator DestroyBot()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameController.Ins.bots.Remove(this);
+        Destroy(gameObject);
+        if (indicator != null)
+        {
+            Destroy(indicator.gameObject);
+        }
     }
     
     public override void OnAttack()

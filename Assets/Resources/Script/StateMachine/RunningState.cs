@@ -7,7 +7,11 @@ public class RunningState : IState<Bot>
 {
     public void OnEnter(Bot bot)
     {
-        SetNewRandomDestination(bot);
+        if (bot.agent.isActiveAndEnabled && bot.agent.isOnNavMesh)
+        {
+            SetNewRandomDestination(bot);
+        }
+        
     }
 
     // public void OnExecute(Bot bot)
@@ -29,23 +33,25 @@ public class RunningState : IState<Bot>
         {
             bot.ChangeState(new AttackState());
         }
-        else
-        if (!bot.agent.pathPending &&
-                 (bot.agent.remainingDistance <= bot.agent.stoppingDistance || bot.agent.velocity.magnitude < 0.1f))
+        else if (bot.agent.isActiveAndEnabled && bot.agent.isOnNavMesh)
         {
-            SetNewRandomDestination(bot);
-        }
-        else if (IsPathBlocked(bot))
-        {
-            Vector3 newDirection;
-            if (TryFindNewDirection(bot, out newDirection))
+            if (!bot.agent.pathPending &&
+                (bot.agent.remainingDistance <= bot.agent.stoppingDistance || bot.agent.velocity.magnitude < 0.1f))
             {
-                Vector3 newDestination = bot.transform.position + newDirection * 10; // Move 10 units in the new direction
-                bot.agent.SetDestination(newDestination);
+                SetNewRandomDestination(bot);
             }
-            else
+            else if (IsPathBlocked(bot))
             {
-                SetNewRandomDestination(bot); // Fallback to random destination if no clear direction is found
+                Vector3 newDirection;
+                if (TryFindNewDirection(bot, out newDirection))
+                {
+                    Vector3 newDestination = bot.transform.position + newDirection * 10; // Move 10 units in the new direction
+                    bot.agent.SetDestination(newDestination);
+                }
+                else
+                {
+                    SetNewRandomDestination(bot); // Fallback to random destination if no clear direction is found
+                }
             }
         }
     }
@@ -57,9 +63,12 @@ public class RunningState : IState<Bot>
 
     private void SetNewRandomDestination(Bot bot)
     {       
-        Vector3 randomPoint = GetRandomPoint(bot.transform.position, 10, bot.agent.areaMask);
-        bot.agent.SetDestination(randomPoint);
-        bot.ChangeAnim("run");
+        if (bot.agent.isActiveAndEnabled && bot.agent.isOnNavMesh)
+        {
+            Vector3 randomPoint = GetRandomPoint(bot.transform.position, 10, bot.agent.areaMask);
+            bot.agent.SetDestination(randomPoint);
+            bot.ChangeAnim("run");
+        }
     }
 
     private Vector3 GetRandomPoint(Vector3 center, float range, int areaMask)

@@ -15,6 +15,7 @@ public class GameController : Singleton<GameController>
     private int aliveCount;
     public List<Bot> bots;
     public GameObject aliveUI;
+    public int gold;
     
 
     public List<Transform> listSpawn = new List<Transform>();
@@ -22,7 +23,6 @@ public class GameController : Singleton<GameController>
     void Start()
     {
         botNumber = Random.Range(1, 20);
-        CreateBotNewGame();
         if (botNumber > listSpawn.Count-1)
         {
             botNumber = listSpawn.Count - 1;
@@ -31,8 +31,31 @@ public class GameController : Singleton<GameController>
         aliveCount = botNumber + 1;
         UpdateAliveCountUI();
         JoystickControl.instance.gameObject.SetActive(false);
-        
+        TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
+        player.indicator = playerIndicator;
+        playerIndicator.character = player;
+        CreateBotNewGame();
+
     }
+
+    public void InitGold()
+    {
+        if(!PlayerPrefs.HasKey("Gold"))
+        {
+            gold = 0;
+            PlayerPrefs.SetInt("Gold", 0);
+        } else
+        {
+            gold = PlayerPrefs.GetInt("Gold");
+        }
+    }
+    
+    public void GainGold(int number)
+    {
+        gold += number;
+        PlayerPrefs.SetInt("Gold", gold);
+    }
+   
     
     public void StartGame()
     {
@@ -46,11 +69,6 @@ public class GameController : Singleton<GameController>
     
     public void PlayAgain()
     {
-        // Reset player
-        player.OnInit();
-        player.transform.position = listSpawn[listSpawn.Count - 1].position;
-        Destroy(player.indicator.gameObject);
-
         // Destroy all bots and their indicators
         foreach (Bot bot in bots)
         {
@@ -60,9 +78,12 @@ public class GameController : Singleton<GameController>
 
         // Clear the bots list
         bots.Clear();
-
-        // Create new bots
+        player.OnDespawn();
         CreateBotNewGame();
+        
+        TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
+        player.indicator = playerIndicator;
+        playerIndicator.character = player;
 
         // Reset UI
         aliveUI.SetActive(true);
@@ -91,11 +112,7 @@ public class GameController : Singleton<GameController>
     public void CreateBotNewGame()
     {
         player.transform.position = listSpawn[listSpawn.Count - 1].position;
-        TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
-        player.indicator = playerIndicator;
-        playerIndicator.character = player;
-        playerIndicator.InitTarget(Color.black, 1, "Player");
-
+        player.OnInit();
         List<Transform> spawnPoints = new List<Transform>(listSpawn); // Copy the list of spawn points
         spawnPoints.RemoveAt(spawnPoints.Count - 1); // Remove the player's spawn point
 
@@ -117,5 +134,4 @@ public class GameController : Singleton<GameController>
             bot.targetCircle.SetActive(false);
         }
     }
-    
 }
