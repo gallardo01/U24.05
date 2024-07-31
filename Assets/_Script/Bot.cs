@@ -18,7 +18,6 @@ public class Bot : Character
     void Start()
     {
         ChangeAnim("idle");
-        base.Start();
     }
 
     // Update is called once per frame
@@ -37,6 +36,7 @@ public class Bot : Character
         time = cooldownMove;
         inAreaAtack.SetActive(false);
         currentState = new IdleState();
+        gameObject.tag = "bot";
     }
     public override void OnDeath()
     {

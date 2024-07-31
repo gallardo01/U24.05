@@ -6,12 +6,11 @@ using UnityEngine;
 public class Player : Character
 {
 
-    public float speed = 25f;
+    public float speed = 17f;
     float time;
     //private CounterTime counter = new CounterTime();
     private void Start()
     {
-        base.Start();
     }
     void Update()
     {
@@ -75,20 +74,18 @@ public class Player : Character
     public override void OnDeath()
     {
         base.OnDeath();
-        Invoke("DeActive", 3f);
-        this.tag = "Untagged";
-        GameController.instance.EndGame();
+        Invoke("DeActive", 2f);
     }
 
     private void DeActive()
     {
         gameObject.SetActive(false);
-        Time.timeScale = 0f;
+        UIManager.instance.EndGameUI();
     }
 
-    public void OnInit()
+    public override void OnInit()
     {
         base.OnInit();
-        this.tag = "player";
+        gameObject.tag = "player";
     }
 }

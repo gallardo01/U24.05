@@ -22,6 +22,7 @@ public class TargetIndicator : MonoBehaviour
     {
         maxHP = player.GetComponent<Character>().maxHP;
         health = player.GetComponent<Character>().health;
+        ChangeHealth(0);
     }
 
     public float ChangeHealth(float hp)

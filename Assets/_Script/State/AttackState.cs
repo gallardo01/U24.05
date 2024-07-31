@@ -22,7 +22,7 @@ public class AttackState : IState<Bot>
         }
         else
         {
-            bot.ChangeState(new MoveState());
+            bot.ChangeState(new IdleState());
         }
     }
     public void OnExecute(Bot bot)

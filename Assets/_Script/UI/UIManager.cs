@@ -47,6 +47,12 @@ public class UIManager : MonoBehaviour
         GameController.instance.StartGame();
     }
 
+    public void EndGameUI()
+    {
+        EndGame.SetActive(true);
+        GameController.instance.EndGame();
+        PauseGame();
+    }
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -55,6 +61,22 @@ public class UIManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1f;
+        settingInGame.SetActive(false);
+    }
+
+    public void MoveToMainMenu()
+    {
+        InitGameState(1);
+        Time.timeScale = 1f;
+        GameController.instance.PlayAgain();
+        settingInGame.SetActive(false);
+        EndGame.SetActive(false);
+    }
+
+    public void TryANewGame()
+    {
+        GameController.instance.PlayAgain();
+        StartGame();
         settingInGame.SetActive(false);
     }
 }

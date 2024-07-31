@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static GameController;
 using static UnityEngine.GraphicsBuffer;
+using Image = UnityEngine.UI.Image;
 
 public class Character : AbstractCharacter
 {
@@ -31,8 +33,6 @@ public class Character : AbstractCharacter
 
     public void Start()
     {
-        namePlayer.enabled = false;
-        isDead = true;
     }
     public void ChangeAnim(string animName)
     {
@@ -46,13 +46,7 @@ public class Character : AbstractCharacter
 
     public override void OnInit()
     {
-        health = maxHP;
-        this.HPbar.GetComponent<TargetIndicator>().SetHP();
-        weaponPrefabs = GameController.instance.UseWeapon("boomerang");
-        namePlayer.enabled = true;
-        namePlayer.text = RandomNameGenerator.GenerateRandomName();
-        namePlayer.color = Random.ColorHSV();
-        image.color = namePlayer.color;
+        CreatDataPlayer();
     }
     public override void OnAttack()
     {
@@ -62,7 +56,22 @@ public class Character : AbstractCharacter
     {
         CharacterDeath();
     }
-
+    private void CreatDataPlayer()
+    {
+        weaponPrefabs = GameController.instance.UseWeapon("boomerang");
+        namePlayer.enabled = true;
+        namePlayer.text = RandomNameGenerator.GenerateRandomName();
+        namePlayer.color = Random.ColorHSV();
+        image.color = namePlayer.color;
+        isDead = false;
+    }
+    public void SetNewPlayer()
+    {
+        isDead = true;
+        health = maxHP;
+        namePlayer.enabled = false;
+        this.HPbar.GetComponent<TargetIndicator>().SetHP();
+    }
     public void FireWeapon()
     {
         Vector3 directionToTarget = (target.GetComponent<Character>().transform.position - transform.position).normalized;
@@ -94,6 +103,7 @@ public class Character : AbstractCharacter
         isDead = true;
         ChangeAnim("dead");
         GameController.instance.countPlayers.Remove(gameObject);
+        this.tag = "Untagged";
     }
     private void OnTriggerEnter(Collider other)
     {

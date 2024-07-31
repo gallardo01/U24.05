@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
                 {
                     randomPos.Add(randomIndex);
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
+                    bot.SetNewPlayer();
                     countPlayers.Add(bot.gameObject);
                     break;
                 }
@@ -64,6 +65,7 @@ public class GameController : MonoBehaviour
             {
                 randomPos.Add(randomIndex);
                 playerPrebs.GetComponent<Player>().body.position = summonPoint[randomIndex].position;
+                playerPrebs.GetComponent<Player>().SetNewPlayer();
                 countPlayers.Add(playerPrebs);
                 break;
             }
@@ -73,10 +75,9 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < countPlayers.Count; i++)
         {
-            countPlayers[i].GetComponent<Character>().isDead = false;
             if (countPlayers[i].GetComponent<Player>())
             {
-                countPlayers[i].GetComponent<Character>().OnInit();
+                countPlayers[i].GetComponent<Player>().OnInit();
             }
             else
             {
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
             }
         }
     }
-    public void TryANewGame()
+    public void PlayAgain()
     {
         for (int i = 0; i < countPlayers.Count; i++)
         {
@@ -96,7 +97,6 @@ public class GameController : MonoBehaviour
         countPlayers.Clear();
         playerPrebs.SetActive(true);
         CreatPlayerAndBot();
-        StartCoroutine(SummonWeapon());
     }
     public void EndGame()
     {
