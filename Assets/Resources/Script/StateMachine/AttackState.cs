@@ -18,12 +18,12 @@ public class AttackState : IState<Bot>
         timer += Time.deltaTime;
         if (timer > 0.5f)
         {
-           bot.characterRange.RemoveNullTarget();
-           if(bot.characterRange.botInRange.Count > 0)
-           {
-               bot.OnAttack();
-           }
-           bot.ChangeState(new IdleState());
+            bot.characterRange.RemoveNullTarget();
+            if(bot.characterRange.botInRange.Count > 0)
+            {
+                bot.OnAttack();
+            }
+            bot.ChangeState(new IdleState());
         }
     }
 
@@ -32,4 +32,3 @@ public class AttackState : IState<Bot>
         bot.ChangeAnim("idle");
     }
 }
-

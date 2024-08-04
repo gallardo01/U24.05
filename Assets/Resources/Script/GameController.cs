@@ -11,10 +11,9 @@ public class GameController : Singleton<GameController>
     public int botNumber = 10;
     public Player player;
     public TargetIndicator indicator;
-    public TextMeshProUGUI aliveCountText;
-    private int aliveCount;
+    public TextMeshProUGUI aliveText;
+    private int totalCharacter;
     public List<Bot> bots;
-    public GameObject aliveUI;
     public int gold;
     
 
@@ -22,14 +21,12 @@ public class GameController : Singleton<GameController>
     // Start is called before the first frame update
     void Start()
     {
-        botNumber = Random.Range(1, 20);
+        totalCharacter = botNumber + 1;
         if (botNumber > listSpawn.Count-1)
         {
             botNumber = listSpawn.Count - 1;
         }
-        
-        aliveCount = botNumber + 1;
-        UpdateAliveCountUI();
+        InitTextAlive();
         JoystickControl.instance.gameObject.SetActive(false);
         TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
         player.indicator = playerIndicator;
@@ -70,12 +67,21 @@ public class GameController : Singleton<GameController>
     
     public void PlayAgain()
     {
+        botNumber = Random.Range(1, 20);
+
+        // Update totalCharacter and aliveText
+        totalCharacter = botNumber + 1;
+        aliveText.text = "Alive: " + totalCharacter;
+        
         // Destroy all bots and their indicators
         foreach (Bot bot in bots)
         {
             Destroy(bot.indicator.gameObject);
             Destroy(bot.gameObject);
         }
+        
+        Destroy(player.indicator.gameObject);
+
 
         // Clear the bots list
         bots.Clear();
@@ -85,30 +91,33 @@ public class GameController : Singleton<GameController>
         TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
         player.indicator = playerIndicator;
         playerIndicator.character = player;
-
-        // Reset UI
-        aliveUI.SetActive(true);
-        JoystickControl.instance.gameObject.SetActive(true);
-        UpdateAliveCountUI();
+        player.indicator.InitTarget(Color.black, 1, "Player"); // Add this line
+        
+        // Reset the UI
+        
+        UIManager.Ins.ResetUI();
+            
     }
+
+    
     
     public void EndGame()
     {
         JoystickControl.direct = Vector3.zero;
         JoystickControl.instance.gameObject.SetActive(false);
-        aliveUI.SetActive(false);
     }
     
-    public void UpdateAliveCountUI()
+    public void InitTextAlive()
     {
-        aliveCountText.text = "Alive: " + aliveCount;
+        aliveText.text = "Alive: " + totalCharacter;
     }
     
-    public void DecreaseAliveCount()
+    public void CharacterDead()
     {
-        aliveCount--;
-        UpdateAliveCountUI();
+        totalCharacter--;
+        aliveText.text = "Alive: " + totalCharacter;
     }
+
     
     public void CreateBotNewGame()
     {
@@ -131,7 +140,6 @@ public class GameController : Singleton<GameController>
             string botName = Constant.PlayerName[Random.Range(0, Constant.PlayerName.Length)];
             botIndicator.InitTarget(color, 1, botName);
             bots.Add(bot);
-            bot.ChangeAnim("idle");
             bot.targetCircle.SetActive(false);
         }
     }

@@ -54,7 +54,6 @@ public class Player : Character
     
     public override void OnDeath()
     {        
-        base.OnDeath();
         counter.Cancel();
         GameController.Ins.EndGame();
         this.enabled = false;
@@ -63,7 +62,7 @@ public class Player : Character
         {
             bot.Stop();
         }
-        
+        base.OnDeath();
 
     }
     

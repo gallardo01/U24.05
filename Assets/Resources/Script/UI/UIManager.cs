@@ -28,8 +28,8 @@ public class UIManager :
         {
             SettingPanel.SetActive(false);
             InitGameState(2);
-        });
-        // InitGold();
+        }); 
+        InitGold();
         settingButton.onClick.AddListener(() =>
            SettingPanel.SetActive(true)
         );
@@ -58,6 +58,18 @@ public class UIManager :
         goldText.text = GameController.Ins.gold.ToString();
     }
 
+    public void ResetUI()
+    {
+        UIPanel.SetActive(true);
+        InGamePanel.SetActive(false);
+        JoyStickPanel.SetActive(false);
+        SettingPanel.SetActive(false);
+        indicatorPanel.SetActive(false);
+        AwardPanel.SetActive(false);
+        goldText.text = GameController.Ins.gold.ToString();
+    }
+    
+    
     // Update is called once per frame
     private void InitGameState(int state)
     {

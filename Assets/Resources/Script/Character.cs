@@ -36,8 +36,7 @@ public class Character : AbstractCharacter
     public override void OnDeath()
     {
         isDead = true;
-        Destroy(indicator.gameObject);
-        GameController.Ins.DecreaseAliveCount();
+        GameController.Ins.CharacterDead();
         ChangeAnim("death");
         gameObject.tag = "Untagged";
     }
