@@ -35,6 +35,7 @@ public class GameController : Singleton<GameController>
         player.indicator = playerIndicator;
         playerIndicator.character = player;
         CreateBotNewGame();
+        InitGold();
 
     }
 

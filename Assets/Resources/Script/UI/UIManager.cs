@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,13 +12,13 @@ public class UIManager :
     public GameObject JoyStickPanel;
     public GameObject SettingPanel;
     public GameObject indicatorPanel;
-    public GameObject MainMenuObj;
+    public GameObject AwardPanel;
 
     public Button playGame;
     public Button mainMenu;
     public Button quitMainMenu;
     public Button settingButton;
-    public GameObject awardHandler;
+    public TextMeshProUGUI goldText;
     
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class UIManager :
             SettingPanel.SetActive(false);
             InitGameState(2);
         });
+        // InitGold();
         settingButton.onClick.AddListener(() =>
            SettingPanel.SetActive(true)
         );
@@ -37,11 +39,23 @@ public class UIManager :
         );
     }
 
+    public void ShowAwardPanel(int gold)
+    {
+        AwardPanel.SetActive(true);
+        AwardPanel.GetComponent<AwardUI>().InitAwardUI(gold, GameController.Ins.bots.Count + 1);
+    }
     public void MainMenuClick()
     {
+        AwardPanel.SetActive(false);
         SettingPanel.SetActive(false);
         InitGameState(1);
         GameController.Ins.PlayAgain();
+        InitGold();
+    }
+
+    public void InitGold()
+    {
+        goldText.text = GameController.Ins.gold.ToString();
     }
 
     // Update is called once per frame
