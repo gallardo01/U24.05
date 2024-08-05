@@ -91,7 +91,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void OnDeath(Character sender)
     {
-        EventManager.OnCharacterDeath?.Invoke(sender);
+        EventManager.OnCharacterDeath?.Invoke(sender,this);
         ChangAnim("dead");
         collider.enabled = false;
         indicator.gameObject.SetActive(false);

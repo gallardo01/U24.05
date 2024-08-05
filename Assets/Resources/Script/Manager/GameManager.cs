@@ -11,8 +11,6 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Button replayButton;
     [SerializeField] Button settingButton;
     
-
-
     private void OnEnable()
     {
         playButton.onClick.AddListener(() => SetGameState(GameState.GAME));
@@ -45,6 +43,8 @@ public class GameManager : Singleton<GameManager>
             listener.OnGameStateChange(gameState);
         }
     }
+
+
 }
 
 public interface IGameStateListener

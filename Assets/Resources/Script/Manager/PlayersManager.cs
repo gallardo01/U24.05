@@ -2,6 +2,7 @@ using DG.Tweening;
 using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -19,6 +20,8 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
     private List<Vector3> spawnPosList = new List<Vector3>();
     private List<Character> characterList = new List<Character>();
 
+    [SerializeField] TextMeshProUGUI aliveText; 
+
     private void OnEnable()
     {
         EventManager.OnCharacterDeath += OnCharacterDeath;
@@ -29,15 +32,18 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         EventManager.OnCharacterDeath -= OnCharacterDeath;
     }
 
-    public virtual void OnCharacterDeath(Character character)
+    public virtual void OnCharacterDeath(Character sender, Character victim)
     {
-        character.transform.DOScale(transform.localScale.x + 0.2f, 1f);
-        character.UpdateLevel();
-        if (character.gameObject.layer == 7)
+        sender.transform.DOScale(transform.localScale.x + 0.2f, 1f);
+        sender.UpdateLevel();
+        if (sender.gameObject.layer == 7)
         {
             Camera.main.fieldOfView += 1;
             CurrencyManager.Instance.AddCurrency(20);
         }
+
+        characterList.Remove(victim);
+        DisplayAlive();
     }
 
     public void OnInit()
@@ -89,6 +95,12 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
             characterList[i].enabled = active;
             characterList[i].Indicator.gameObject.SetActive(active);
         }
+        DisplayAlive();
+    }
+
+    private void DisplayAlive()
+    {
+        aliveText.text = characterList.Count.ToString();
     }
 
     public void OnGameStateChange(GameState gameState)
