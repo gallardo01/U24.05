@@ -6,12 +6,13 @@ public class Player : Character
 {
     Vector3 nextPoints;
     public LayerMask groundLayer;
+
     private CounterTime counter = new CounterTime();
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        OnInit();
     }
 
     // Update is called once per frame
@@ -24,22 +25,44 @@ public class Player : Character
             transform.position = nextPoints;
             transform.forward = JoystickControl.direct;
             ChangeAnim("run");
-        } 
-        else if(!isAttack)
+        }
+        else if (!isAttack)
         {
             counter.Execute();
             ChangeAnim("idle");
             range.RemoveNullTarget();
-            if(range.botInRange.Count > 0 && isAttack == false)
+            if (range.botInRange.Count > 0)
             {
                 AttackTarget();
-            }    
-        }
-        else
+            }
+        } else
         {
             counter.Execute();
-        } 
-            
+        }
+    }
+
+    public override void OnInit()
+    {
+        this.enabled = true;
+        isDeath = false;
+        gameObject.tag = "Bot";
+        ChangeAnim("idle");
+        indicator.InitTarget(Color.black, 1, "Player");
+        base.OnInit();
+    }
+
+    
+    public void AttackTarget()
+    {
+        isAttack = true;
+        Invoke(nameof(ChangeIsAttack), 1.5f);
+        ChangeAnim("attack");
+        counter.Start(OnAttack, 0.5f);
+    }
+
+    private void ChangeIsAttack()
+    {
+        isAttack = false;
     }
 
     private bool CheckGround(Vector3 points)
@@ -48,15 +71,18 @@ public class Player : Character
         return Physics.Raycast(points + Vector3.up * 2, Vector3.down, out hit, 3f, groundLayer);
     }
 
-    public void AttackTarget()
+    public override void OnDeath()
     {
-        isAttack = true;
-        Invoke(nameof(ChangeIsAttack), 1.5f);
-        ChangeAnim("attack");
-        counter.Start(Throw, 0.5f);
+        // Player chet?
+        counter.Cancel();
+        GameController.Instance.EndGame();
+        this.enabled = false;
+        UIManager.Instance.OpenAwardUI(level);
+        base.OnDeath();
     }
-    private void ChangeIsAttack()
+
+    public void OnDespawn()
     {
-        isAttack = false;
+        counter.Cancel();
     }
 }

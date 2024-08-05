@@ -5,20 +5,20 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Character self;
-
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 1f + 0.05f * self.level);
     }
 
     
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Character") && other.GetComponent<Character>() != self )
+        if (other.gameObject.CompareTag("Bot") && other.GetComponent<Character>() != self)
         {
             other.GetComponent<Character>().OnDeath();
+            self.GainLevel();
             Destroy(gameObject);
         }
     }

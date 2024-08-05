@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Bot
   - Bullet
-  - Character
   layers:
   - Default
   - TransparentFX
@@ -42,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2075767645
     locked: 0

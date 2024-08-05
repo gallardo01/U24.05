@@ -19,10 +19,10 @@ public class IdleState : IState<Bot>
         }
 
         bot.range.RemoveNullTarget();
-        if(bot.range.botInRange.Count > 0 && !bot.isAttack)
+        if (bot.range.botInRange.Count > 0 && !bot.isAttack)
         {
             bot.ChangeState(new AttackState());
-        }    
+        }
     }
 
     public void OnExit(Bot bot)

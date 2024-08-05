@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class AttackState : IState<Bot>
 {
@@ -15,13 +17,13 @@ public class AttackState : IState<Bot>
         timer += Time.deltaTime;
         if(timer > 0.5f)
         {
-            bot.ChangeIsAttackBot();
-            if(bot.range.botInRange.Count > 0)
+            bot.range.RemoveNullTarget();
+            if (bot.range.botInRange.Count > 0)
             {
-                bot.Throw();
+                bot.OnAttack();
             }
             bot.ChangeState(new IdleState());
-        }    
+        }
     }
 
     public void OnExit(Bot bot)

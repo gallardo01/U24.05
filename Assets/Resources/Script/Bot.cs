@@ -14,13 +14,28 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
+        //OnInit();
+        ChangeAnim("idle");
+    }
+
+    public override void OnInit()
+    {
         ChangeState(new IdleState());
+        base.OnInit();
+    }
+
+    public override void OnAttack()
+    {
+        base.OnAttack();
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentState.OnExecute(this);
+        if (currentState != null && !isDeath)
+        {
+            currentState.OnExecute(this);
+        }
     }
 
     public void ChangeState(IState<Bot> newState)
@@ -29,11 +44,21 @@ public class Bot : Character
         {
             currentState.OnExit(this);
         }
-        if (currentState != newState)
+        currentState = newState;
+        if (currentState != null)
         {
-            currentState = newState;
             currentState.OnEnter(this);
         }
+    }
+
+    public void ChangeIsAttackBot()
+    {
+        Invoke(nameof(ResetAttack), 1f);
+    }
+
+    private void ResetAttack()
+    {
+        isAttack = false;
     }
     public void SetDestination(Vector3 des)
     {
@@ -43,13 +68,19 @@ public class Bot : Character
         destination.y = 0f;
     }
 
-    public void ChangeIsAttackBot()
+    public override void OnDeath()
     {
-        Invoke(nameof(ResetAttack), 1f);
-    }   
-    
-    private void ResetAttack()
+        ChangeState(null);
+        agent.enabled = false;
+        base.OnDeath();
+        StartCoroutine(DestroyBot());
+    }
+
+    IEnumerator DestroyBot()
     {
-        isAttack = false;
-    }    
+        yield return new WaitForSeconds(2f);
+        GameController.Instance.bots.Remove(this);
+        Destroy(indicator.gameObject);
+        Destroy(gameObject);
+    }
 }

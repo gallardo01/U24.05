@@ -2,18 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : AbstractCharacter
 {
     private string currentAnim;
     public Animator animator;
     public CharacterRange range;
     public Bullet bulletPrefabs;
     public bool isAttack = false;
+    public TargetIndicator indicator;
+    public int level = 1;
+    public bool isDeath = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnInit()
     {
-        
+        level = 1;
+        SetBodyScale();
+        indicator.InitTarget(level);
+    }
+
+    public override void OnAttack()
+    {
+        Throw();
+    }
+
+    public override void OnDeath()
+    {
+        GameController.Instance.CharacterDead();
+        isDeath = true;
+        ChangeAnim("dead");
+        gameObject.tag = "Untagged";
+    }
+
+    public void SetBodyScale()
+    {
+        transform.localScale = (1 + (level - 1) * 0.15f) * Vector3.one;
+    }
+
+    public void GainLevel() 
+    {
+        if (!isDeath)
+        {
+            level++;
+            SetBodyScale();
+            indicator.InitTarget(level);
+        }
     }
 
     public void Throw()
@@ -29,7 +61,7 @@ public class Character : MonoBehaviour
             bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
             transform.forward = direction;
         }
-    }    
+    }
 
     public void ChangeAnim(string animName)
     {
@@ -40,9 +72,4 @@ public class Character : MonoBehaviour
             animator.SetTrigger(currentAnim);
         }
     }
-
-    public void OnDeath()
-    {
-        Destroy(gameObject);
-    }  
 }

@@ -15,7 +15,7 @@ public class CharacterRange : MonoBehaviour
     {
         for (int i = 0; i < botInRange.Count; i++)
         {
-            if (botInRange[i] == null)
+            if (botInRange[i] == null || !botInRange[i].CompareTag("Bot"))
             {
                 botInRange.Remove(botInRange[i]);
             }
@@ -24,7 +24,6 @@ public class CharacterRange : MonoBehaviour
 
     public Transform GetNearestTarget()
     {
-        botInRange.Remove(null);
         float distanceMin = float.MaxValue;
         int index = 0;
         for (int i = 0; i < botInRange.Count; i++)
@@ -41,14 +40,14 @@ public class CharacterRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Character")) {
+        if (other.gameObject.CompareTag("Bot")) {
             botInRange.Add(other.GetComponent<Character>());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Character"))
+        if (other.gameObject.CompareTag("Bot"))
         {
             botInRange.Remove(other.GetComponent<Character>());
         }
