@@ -21,21 +21,22 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
 
     private void OnEnable()
     {
-        EventManager.OnCharacterDeath += CharacterLevelUp;
+        EventManager.OnCharacterDeath += OnCharacterDeath;
     }
 
     private void OnDisable()
     {
-        EventManager.OnCharacterDeath -= CharacterLevelUp;
+        EventManager.OnCharacterDeath -= OnCharacterDeath;
     }
 
-    public virtual void CharacterLevelUp(Character character)
+    public virtual void OnCharacterDeath(Character character)
     {
         character.transform.DOScale(transform.localScale.x + 0.2f, 1f);
         character.UpdateLevel();
         if (character.gameObject.layer == 7)
         {
             Camera.main.fieldOfView += 1;
+            CurrencyManager.Instance.AddCurrency(20);
         }
     }
 
