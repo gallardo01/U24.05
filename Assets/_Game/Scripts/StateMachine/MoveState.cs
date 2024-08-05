@@ -10,7 +10,6 @@ public class MoveState : IState<Bot>
     public void OnEnter(Bot bot)
     {
         bot.isMoving = true;
-        bot.isAttacking = false;
         bot.ChangeAnim(Constants.ANIM_RUN);
         timer = 0;
         randomTime = Random.Range(1f, 4f);

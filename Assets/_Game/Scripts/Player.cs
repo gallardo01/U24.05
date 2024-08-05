@@ -8,39 +8,24 @@ public class Player : Character
     [SerializeField] FloatingJoystick joystick;
     [SerializeField] Rigidbody rb;
 
+    public int rank;
+    public string killedBy;
+
     public int Level => level;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        this.RegisterListener(EventID.OnGameStateChanged, (param) =>
-        {
-            bool isActive = (GameState)param == GameState.Gameplay ? true : false;
-
-            sphereCollider.gameObject.SetActive(isActive);
-        });
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            level++;
-            tf.localScale = new Vector3(LevelScale, LevelScale, LevelScale);
-        }
-    }
 
     public void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         rb.velocity = new Vector3(joystick.Horizontal * MoveSpeed, rb.velocity.y, joystick.Vertical * MoveSpeed);
         Vector3 direction = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
 
         if (direction != Vector3.zero)
         {
             isMoving = true;
-            isAttacking = false;
             tf.rotation = Quaternion.LookRotation(direction);
             ChangeAnim(Constants.ANIM_RUN);
         }
@@ -72,9 +57,14 @@ public class Player : Character
         }
     }
 
-    public override void OnDead()
+    protected override IEnumerator IEDead()
     {
-        base.OnDead();
-        Debug.Log("player dead");
+        yield return StartCoroutine(base.IEDead());
+        LevelManager.Ins.Finish();
+    }
+
+    public void Revive()
+    {
+        isDead = false;
     }
 }

@@ -41,6 +41,7 @@ public class Bot : Character
     public override void InitCharacter(WeaponType weaponType, int level)
     {
         base.InitCharacter(weaponType, level);
+        characterInfo.UpdateTextName("Bot_" + Random.Range(0, 9999).ToString());
         agent.speed = MoveSpeed;
         ChangeState(new WaitState());
     }
@@ -51,16 +52,19 @@ public class Bot : Character
         agent.SetDestination(destination);
     }
 
-    public override void ResetCharacter()
+    public override void StopMove()
     {
-        base.ResetCharacter();
-        currentState = null;
+        base.StopMove();
+        ChangeState(null);
         SetDestination(tf.position);
-        targetedImage.SetActive(false);
     }
-    public override void OnDead()
+
+    protected override IEnumerator IEDead()
     {
-        base.OnDead();      
+        StopMove();
+
+        yield return StartCoroutine(base.IEDead());
+
         ResetCharacter();
         SimplePool.Despawn(this);
     }

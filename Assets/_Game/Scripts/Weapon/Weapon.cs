@@ -10,11 +10,17 @@ public class Weapon : GameUnit
     [SerializeField] protected int propLayer;
     [SerializeField] protected Character owner;
     [SerializeField] protected List<Vector3> listPaths = new List<Vector3>();
+    [SerializeField] protected float rotateSpeed;
 
     protected float attackSpeed;
     protected float duration => Mathf.Max(1 - attackSpeed / 200, 0.25f);
 
     protected Sequence sequence;
+
+    protected void Update()
+    {
+        tf.Rotate(rotateSpeed * Time.deltaTime * Vector3.up);
+    }
 
     public void InitWeapon(Character owner, float attackSpeed, Vector3 startPoint, Vector3 direction, float attackRange)
     {
@@ -53,11 +59,17 @@ public class Weapon : GameUnit
         if (other.gameObject.layer == characterLayer)
         {
             Character character = Cache.Ins.GetCachedComponent<Character>(other);
-            if (character != owner)
+
+            if (character != owner && !character.isDead)
             {
                 character.OnDead();
                 owner.LevelUp(1);
                 OnDespawn();
+            }
+
+            if(character is Player player)
+            {
+                player.killedBy = owner.characterInfo.GetTextName();
             }
         }
 

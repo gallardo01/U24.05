@@ -9,15 +9,19 @@ public class AttackZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == characterLayer)
+        if (!owner.isDead && other.gameObject.layer == characterLayer)
         {
-            owner.AddTarget(Cache.Ins.GetCachedComponent<Character>(other));
+            Character character = Cache.Ins.GetCachedComponent<Character>(other);
+            if (!character.isDead)
+            {
+                owner.AddTarget(character);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == characterLayer)
+        if (!owner.isDead && other.gameObject.layer == characterLayer)
         {
             owner.RemoveTarget(Cache.Ins.GetCachedComponent<Character>(other));
         }

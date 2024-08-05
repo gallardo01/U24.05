@@ -7,20 +7,21 @@ public class Level : MonoBehaviour
     [SerializeField] List<Transform> listNodeStart = new List<Transform>();
     [SerializeField] List<Transform> listNodeMove = new List<Transform>();
 
-    [SerializeField] List<Character> listBot = new List<Character>(); 
+    [SerializeField] List<Bot> listBot = new List<Bot>(); 
 
     WaitForSeconds countDownTime = new WaitForSeconds(0.5f);
 
     int botAtSameTime = 6;
     int botTotal = 49;
     public int alive;
+    public int reviveCount;
 
     private void Awake()
     {
         this.RegisterListener(EventID.OnCharacterDead, (param) =>
         {
             Character character = (Character)param;
-            if (character is Bot)
+            if (character is Bot bot)
             {
                 if (alive - botAtSameTime > 1)
                 {
@@ -28,25 +29,25 @@ public class Level : MonoBehaviour
                 }
 
                 alive--;
-                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(alive);
-                listBot.Remove(character);
+                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(alive);            
+                listBot.Remove(bot);
             }
-        });
-
-        this.RegisterListener(EventID.OnGameStateChanged, (param) =>
-        {
-            bool isActive = (GameState)param == GameState.Gameplay ? true : false;
-
-            LevelManager.Ins.player.characterInfo.SetActiveCharacterInfo(isActive);
-            for (int i = 0; i < listBot.Count; i++)
+            else if (character is Player player)
             {
-                listBot[i].characterInfo.SetActiveCharacterInfo(isActive);
+                player.rank = alive;
+            }
+
+            if (alive == 1)
+            {
+                LevelManager.Ins.Finish();
             }
         });
     }
 
     public void InitLevel()
     {
+        reviveCount = 1;
+
         alive = botTotal + 1;
 
         for (int i = 0; i < botAtSameTime; i++)
@@ -91,7 +92,9 @@ public class Level : MonoBehaviour
     {
         for (int i = 0; i < listBot.Count; i++)
         {
+            listBot[i].StopMove();
             listBot[i].ResetCharacter();
+            listBot[i].RemoveAllTarget();
             SimplePool.Despawn(listBot[i]);
         }
         listBot.Clear();

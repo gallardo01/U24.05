@@ -8,9 +8,8 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        ChangeGameState(GameState.Mainmenu);
-        LevelManager.Ins.OnLoadLevel(0);
         UIManager.Ins.OpenUI<UIMainmenu>();
+        LevelManager.Ins.OnLoadLevel(0);
     }
 
     public void ChangeGameState(GameState gameState)

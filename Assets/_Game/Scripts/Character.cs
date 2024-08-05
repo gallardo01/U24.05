@@ -9,7 +9,7 @@ public class Character : GameUnit
     [SerializeField] protected Animator anim;
     [SerializeField] protected Transform weaponHoldParent;
     [SerializeField] protected Transform weaponStartPoint;
-    [SerializeField] protected SphereCollider sphereCollider;
+    [SerializeField] protected SphereCollider attackZoneCollider;
     public CharacterInfo characterInfo;
 
     protected GameObject weaponHold;
@@ -23,8 +23,9 @@ public class Character : GameUnit
     public float bonusAttackRange = 0;
     public float bonusAttackSpeed = 0;
 
-    public bool isMoving = false;
     public bool isAttacking = false;
+    public bool isMoving = false;
+    public bool isDead = false;
     protected bool targetInRangeChanged = false;
     protected bool isWeaponHoldActive = true;
 
@@ -49,10 +50,26 @@ public class Character : GameUnit
         {
             RemoveTarget((Character)param);
         });
+
+        this.RegisterListener(EventID.OnGameStateChanged, (param) =>
+        {
+            bool isActive = (GameState)param == GameState.Gameplay ? true : false;
+
+            characterInfo.SetActiveCharacterInfo(isActive);
+            if (this is Player)
+            {
+                attackZoneCollider.gameObject.SetActive(isActive);
+            }            
+        });
     }
 
     protected virtual void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (targetInRangeChanged)
         {
             SetTarget();
@@ -60,11 +77,7 @@ public class Character : GameUnit
 
         if (isMoving)
         {
-            if (attackCoroutine != null)
-            {
-                StopCoroutine(attackCoroutine);
-                attackCoroutine = null;
-            }
+            CancelAttack();
 
             if (!isWeaponHoldActive)
             {
@@ -81,8 +94,8 @@ public class Character : GameUnit
     public virtual void InitCharacter(WeaponType weaponType, int level)
     {
         float range = AttackRange + weaponStartPoint.localPosition.z;
-        float scale = range / sphereCollider.radius;
-        sphereCollider.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+        float scale = range / attackZoneCollider.radius;
+        attackZoneCollider.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
         LevelUp(level);
 
@@ -95,24 +108,12 @@ public class Character : GameUnit
         }
     }
 
-    public virtual void ResetCharacter()
-    {
-        level = 0;
-        currentAnimName = null;
-        Destroy(weaponHold);
-        isAttacking = false;
-        isMoving = false;
-        targetInRange.Clear();
-        characterInfo.SetActiveCharacterInfo(false);
-    }
-
     public void LevelUp(int level)
     {
         this.level += level;
         characterInfo.UpdateTextLevel(this.level);
         tf.localScale = new Vector3(LevelScale, LevelScale, LevelScale);
     }
-
 
     public void ChangeAnim(string animName)
     {
@@ -142,6 +143,16 @@ public class Character : GameUnit
         targetInRangeChanged = true;
     }
 
+    public void RemoveAllTarget()
+    {
+        while (targetInRange.Count > 0)
+        {
+            RemoveTarget(targetInRange[0]);
+        }
+        targetedCharacter = null;
+        targetInRangeChanged = false;
+    }
+
     protected IEnumerator Attack()
     {       
         isAttacking = true;
@@ -156,6 +167,7 @@ public class Character : GameUnit
         isWeaponHoldActive = false;
 
         WeaponManager.Ins.InitWeapon(weaponType, LevelScale, this, AttackSpeed, weaponStartPoint.position, direction, AttackRange);
+
         yield return new WaitForSeconds(1f);
         weaponHoldParent.gameObject.SetActive(true);
         isWeaponHoldActive = true;
@@ -164,9 +176,47 @@ public class Character : GameUnit
         ChangeAnim(Constants.ANIM_IDLE);
     }
 
-    public virtual void OnDead()
+    protected void CancelAttack()
     {
+        if (attackCoroutine != null)
+        {
+            isAttacking = false;
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+    }
+
+    public virtual void StopMove()
+    {
+        isMoving = false;
+    }
+
+    public void ResetCharacter()
+    {
+        level = 0;
+        isDead = false;
+        Destroy(weaponHold);
+    }
+
+    public void OnDead()
+    {
+        isDead = true;
+        CancelAttack();
+        StopMove();
+
+        RemoveAllTarget();
+
+        characterInfo.SetActiveCharacterInfo(false);
+
+        StartCoroutine(IEDead());
+    }
+
+    protected virtual IEnumerator IEDead()
+    {        
+        ChangeAnim(Constants.ANIM_DEAD); 
         this.PostEvent(EventID.OnCharacterDead, this);
+
+        yield return new WaitForSeconds(2f);
     }
 }
 

@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIMainmenu : UICanvas
 {
     [SerializeField] Button btnPlay, btnWeapon, btnSkin;
-
+    [SerializeField] TMP_InputField inputName;
     private void Awake()
     {
         btnPlay.onClick.AddListener(() =>
         {
-            GameManager.Ins.ChangeGameState(GameState.Gameplay);
             CloseDirectly();
             UIManager.Ins.OpenUI<UIGameplay>();
+            LevelManager.Ins.player.characterInfo.UpdateTextName(inputName.text);
         });
 
         btnWeapon.onClick.AddListener(() =>
@@ -27,5 +28,11 @@ public class UIMainmenu : UICanvas
             CloseDirectly();
             //UIManager.Ins.OpenUI<UIShop>();
         });
+    }
+
+    public override void Open()
+    {
+        base.Open();
+        GameManager.Ins.ChangeGameState(GameState.Mainmenu);
     }
 }

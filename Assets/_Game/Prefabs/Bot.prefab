@@ -88,13 +88,14 @@ MonoBehaviour:
   anim: {fileID: 8685964479529933393}
   weaponHoldParent: {fileID: 2918377490448083682}
   weaponStartPoint: {fileID: 4813261906935833081}
-  sphereCollider: {fileID: 3045882536218785533}
+  attackZoneCollider: {fileID: 3045882536218785533}
   characterInfo: {fileID: 8856547931942393261}
   bonusMoveSpeed: 0
   bonusAttackRange: 0
   bonusAttackSpeed: 0
-  isMoving: 0
   isAttacking: 0
+  isMoving: 0
+  isDead: 0
   targetInRange: []
   targetedCharacter: {fileID: 0}
   targetedImage: {fileID: 8637891093123851525}
@@ -222,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1733506978332575782
 RectTransform:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1764762347129178544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -572,7 +573,7 @@ GameObject:
   - component: {fileID: 8880326797850859976}
   - component: {fileID: 3045882536218785533}
   m_Layer: 0
-  m_Name: AttackRange
+  m_Name: AttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1970428252220012597
 RectTransform:
   m_ObjectHideFlags: 0

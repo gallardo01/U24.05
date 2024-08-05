@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -29,16 +30,50 @@ public class LevelManager : Singleton<LevelManager>
 
     public void InitPlayer()
     {
-        player.gameObject.SetActive(true);
         player.InitCharacter(WeaponType.Axe, 0);
         player.tf.position = currentLevel.GetRandomNodeStart().position;
+        player.tf.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     public void PlayAgain()
     {
-        currentLevel.ResetLevel();
         player.ResetCharacter();
+        currentLevel.ResetLevel();
         InitPlayer();
+    }
+
+    public void Finish()
+    {
+        UIManager.Ins.CloseUI<UIGameplay>();
+
+        if (player.isDead)
+        {
+            if (currentLevel.reviveCount > 0)
+            {
+                currentLevel.reviveCount--;
+                UIManager.Ins.OpenUI<UIRevive>();
+            }
+            else
+            {
+                UIManager.Ins.OpenUI<UIDefeat>();
+            }
+        }
+        else
+        {
+            UIManager.Ins.OpenUI<UIVictory>();
+        }      
+    }
+
+    public void Victory()
+    {
+        UIManager.Ins.CloseUI<UIGameplay>();
+        UIManager.Ins.OpenUI<UIVictory>();
+    }
+
+    public void RevivePlayer()
+    {
+        player.Revive();
+        player.tf.position = currentLevel.GetRandomNodeStart().position;
     }
 }
 

@@ -11,7 +11,7 @@ public class CharacterInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI textName;
     [SerializeField] TextMeshProUGUI textLevel;
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
         tf.position = screenPos + offset;
@@ -22,8 +22,19 @@ public class CharacterInfo : MonoBehaviour
         textLevel.text = level.ToString();
     }
 
+    public void UpdateTextName(string name)
+    {
+        textName.text = name;
+    }
+
+    public string GetTextName()
+    {
+        return textName.text;
+    }
+
     public void SetActiveCharacterInfo(bool isActive)
     {
-        gameObject.SetActive(isActive);
+        textName.gameObject.SetActive(isActive);
+        textLevel.gameObject.SetActive(isActive);
     }
 }
