@@ -13,8 +13,7 @@ public class GameController : MonoBehaviour
     [SerializeField] TMP_Text numberAlive;
     [SerializeField] List<GameObject> weaponList;
     [SerializeField] public TMP_Text goldCoin;
-    //[SerializeField] GameObject startButton;
-    //[SerializeField] public GameObject tryANewGame;
+
 
     private int botNumber = 10;
     public int countWeaponSummon = 0;
@@ -52,6 +51,19 @@ public class GameController : MonoBehaviour
                 
             }
         }
+    }
+
+    private void SetPlayerGold()
+    {
+        if (!PlayerPrefs.HasKey("HighScore"))
+        {
+            PlayerPrefs.SetInt("Gold",0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Gold",goldNumber);
+        }
+
     }
     private void CreatPlayerAndBot()
     {

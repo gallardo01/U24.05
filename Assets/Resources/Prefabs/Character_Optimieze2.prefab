@@ -95,6 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2058256390219728092}
   - component: {fileID: 8221996810691750310}
+  - component: {fileID: 917127898209339346}
   m_Layer: 0
   m_Name: Character_Optimieze2
   m_TagString: Untagged
@@ -144,6 +145,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &917127898209339346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3083624962463856335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a01dfa974cbb4429529dec669d6072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 767285390794507199}
+  head: {fileID: 8113054565042070059}
+  shield: {fileID: 7864009305047273572}
+  pant: {fileID: 2399620587940002895}
 --- !u!1 &3144963485254102915
 GameObject:
   m_ObjectHideFlags: 0
