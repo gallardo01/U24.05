@@ -61,8 +61,6 @@ public class Bot : Character
 
     protected override IEnumerator IEDead()
     {
-        StopMove();
-
         yield return StartCoroutine(base.IEDead());
 
         ResetCharacter();

@@ -203,20 +203,19 @@ public class Character : GameUnit
     public void OnDead()
     {
         isDead = true;
-        CancelAttack();
         StopMove();
-
+        CancelAttack();
         RemoveAllTarget();
 
         characterInfo.SetActiveCharacterInfo(false);
 
+        this.PostEvent(EventID.OnCharacterDead, this);
         StartCoroutine(IEDead());
     }
 
     protected virtual IEnumerator IEDead()
     {        
         ChangeAnim(Constants.ANIM_DEAD); 
-        this.PostEvent(EventID.OnCharacterDead, this);
 
         yield return new WaitForSeconds(2f);
     }
