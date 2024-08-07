@@ -20,13 +20,13 @@ public class UIMainmenu : UICanvas
         btnWeapon.onClick.AddListener(() =>
         {
             CloseDirectly();
-            //UIManager.Ins.OpenUI<UIShop>();
+            UIManager.Ins.OpenUI<UIWeapon>();
         });
 
         btnSkin.onClick.AddListener(() =>
         {
             CloseDirectly();
-            //UIManager.Ins.OpenUI<UIShop>();
+            UIManager.Ins.OpenUI<UISkin>();
         });
     }
 

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: df86c405ebdf845459d97aafdb04df80, type: 2}
+--- !u!137 &58530625 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 436558070130317777, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+  m_PrefabInstance: {fileID: 9126840348626471294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &84682552
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +417,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &338952183 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6748011307817831638, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+  m_PrefabInstance: {fileID: 9126840348626471294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &450296335
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,8 +556,11 @@ MonoBehaviour:
   poolType: 0
   tf: {fileID: 574163232}
   anim: {fileID: 3166231813599937862}
-  weaponHoldParent: {fileID: 1561884499}
   weaponStartPoint: {fileID: 1065416187}
+  weaponHoldParent: {fileID: 1561884499}
+  hairParent: {fileID: 1121738465}
+  shieldParent: {fileID: 338952183}
+  pants: {fileID: 58530625}
   attackZoneCollider: {fileID: 1437212075}
   characterInfo: {fileID: 1354373212}
   bonusMoveSpeed: 0
@@ -629,6 +642,7 @@ GameObject:
   - component: {fileID: 618448697}
   - component: {fileID: 618448696}
   - component: {fileID: 618448695}
+  - component: {fileID: 618448701}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -674,7 +688,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 660a6d0ec879e77498ed8c80b94285be, type: 2}
-  skinData: {fileID: 0}
+  pantsData: {fileID: 11400000, guid: b102f48fac3b3df478566944d1b3eee0, type: 2}
+  hairData: {fileID: 11400000, guid: 004321e18a872734cb49b3fd6f01bae4, type: 2}
+  shieldData: {fileID: 11400000, guid: 9e0fd32094902a845badf1d662c79cbd, type: 2}
 --- !u!114 &618448698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,6 +735,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &618448701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618448694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b09c2ce46a47b42afa2cd1b2e50dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &900482020
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +841,11 @@ Transform:
   m_Father: {fileID: 574163232}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1121738465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8378961338649417443, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+  m_PrefabInstance: {fileID: 9126840348626471294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1180599774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,6 +1832,10 @@ PrefabInstance:
     - target: {fileID: 975277700409021265, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
       propertyPath: m_Name
       value: Character_Optimieze2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701551033138554934, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4310991846188491074, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
       propertyPath: m_RootOrder

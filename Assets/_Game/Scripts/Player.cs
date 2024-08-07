@@ -21,7 +21,7 @@ public class Player : Character
         }
 
         rb.velocity = new Vector3(joystick.Horizontal * MoveSpeed, rb.velocity.y, joystick.Vertical * MoveSpeed);
-        Vector3 direction = new Vector3(joystick.Horizontal, 0, joystick.Vertical);
+        Vector3 direction = new(joystick.Horizontal, 0, joystick.Vertical);
 
         if (direction != Vector3.zero)
         {
@@ -61,6 +61,12 @@ public class Player : Character
     {
         yield return StartCoroutine(base.IEDead());
         LevelManager.Ins.Finish();
+    }
+
+    protected override void SetActiveCharacterInfo(bool isActive)
+    {
+        base.SetActiveCharacterInfo(isActive);
+        attackZoneCollider.gameObject.SetActive(isActive);
     }
 
     public void Revive()

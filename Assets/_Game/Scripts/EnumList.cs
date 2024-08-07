@@ -22,6 +22,20 @@ public enum WeaponType
     Lollipop
 }
 
+public enum PantsType
+{
+    None,
+    Pants_1,
+    Pants_2,
+    Pants_3,
+    Pants_4,
+    Pants_5,
+    Pants_6,
+    Pants_7,
+    Pants_8,
+    Pants_9,
+}
+
 public enum HairType
 {
     None,

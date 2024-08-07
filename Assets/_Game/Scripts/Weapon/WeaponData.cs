@@ -6,7 +6,11 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     [SerializeField] List<WeaponDataDetail> weaponDataList;
-    public List<WeaponDataDetail> WeaponDataList => weaponDataList;
+
+    public List<WeaponDataDetail> GetWeaponDataList()
+    {
+        return new List<WeaponDataDetail>(weaponDataList);
+    }
 }
 
 [System.Serializable]

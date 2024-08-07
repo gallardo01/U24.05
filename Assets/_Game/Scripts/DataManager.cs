@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
-    [SerializeField] WeaponData weaponData;
-    [SerializeField] SkinData skinData;
-
-    public List<WeaponDataDetail> GetWeaponDataList()
-    {
-        return weaponData.WeaponDataList;
-    }
+    public WeaponData weaponData;
+    public PantsData pantsData;
+    public HairData hairData;
+    public ShieldData shieldData;
 }

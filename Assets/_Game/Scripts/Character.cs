@@ -7,12 +7,19 @@ using UnityEngine.TextCore.Text;
 public class Character : GameUnit
 {
     [SerializeField] protected Animator anim;
-    [SerializeField] protected Transform weaponHoldParent;
     [SerializeField] protected Transform weaponStartPoint;
+    [SerializeField] protected Transform weaponHoldParent;
+    [SerializeField] protected Transform hairParent;
+    [SerializeField] protected Transform shieldParent;
+    [SerializeField] protected SkinnedMeshRenderer pants;
     [SerializeField] protected SphereCollider attackZoneCollider;
+
     public CharacterInfo characterInfo;
 
-    protected GameObject weaponHold;
+    protected GameObject currentWeaponHold;
+    protected GameObject currentHair;
+    protected GameObject currentShield;
+
     protected string currentAnimName;
 
     protected int level = 0;
@@ -26,16 +33,16 @@ public class Character : GameUnit
     public bool isAttacking = false;
     public bool isMoving = false;
     public bool isDead = false;
-    protected bool targetInRangeChanged = false;
+    protected bool isListTargetChanged = false;
     protected bool isWeaponHoldActive = true;
 
     protected Coroutine attackCoroutine;
 
-    public List<Character> targetInRange = new List<Character>();
-    public Character targetedCharacter;
+    protected List<Character> listTarget = new();
+    protected Character targetedCharacter; 
+    public Character TargetedCharacter => targetedCharacter;
     public GameObject targetedImage;
 
-    public Character TargetedCharacter => targetedCharacter;
 
     protected WeaponType weaponType;
 
@@ -53,13 +60,8 @@ public class Character : GameUnit
 
         this.RegisterListener(EventID.OnGameStateChanged, (param) =>
         {
-            bool isActive = (GameState)param == GameState.Gameplay ? true : false;
-
-            characterInfo.SetActiveCharacterInfo(isActive);
-            if (this is Player)
-            {
-                attackZoneCollider.gameObject.SetActive(isActive);
-            }            
+            bool isActive = (GameState)param == GameState.Gameplay;
+            SetActiveCharacterInfo(isActive);            
         });
     }
 
@@ -70,7 +72,7 @@ public class Character : GameUnit
             return;
         }
 
-        if (targetInRangeChanged)
+        if (isListTargetChanged)
         {
             SetTarget();
         }
@@ -100,7 +102,7 @@ public class Character : GameUnit
         LevelUp(level);
 
         this.weaponType = weaponType;
-        weaponHold = Instantiate(WeaponManager.Ins.WeaponDataMap[this.weaponType].weaponHoldPrefab, weaponHoldParent);
+        currentWeaponHold = WeaponManager.Ins.InitWeaponHold(this.weaponType, weaponHoldParent);
 
         if(GameManager.Ins.IsState(GameState.Gameplay))
         {
@@ -127,30 +129,30 @@ public class Character : GameUnit
 
     public virtual void SetTarget()
     {
-        targetedCharacter = targetInRange.Count > 0 ? targetInRange[0] : null;
-        targetInRangeChanged = false;
+        targetedCharacter = listTarget.Count > 0 ? listTarget[0] : null;
+        isListTargetChanged = false;
     }
 
     public void AddTarget(Character character)
     {
-        targetInRange.Add(character);
-        targetInRangeChanged = true;
+        listTarget.Add(character);
+        isListTargetChanged = true;
     }
 
     public virtual void RemoveTarget(Character character)
     {
-        targetInRange.Remove(character);
-        targetInRangeChanged = true;
+        listTarget.Remove(character);
+        isListTargetChanged = true;
     }
 
     public void RemoveAllTarget()
     {
-        while (targetInRange.Count > 0)
+        while (listTarget.Count > 0)
         {
-            RemoveTarget(targetInRange[0]);
+            RemoveTarget(listTarget[0]);
         }
         targetedCharacter = null;
-        targetInRangeChanged = false;
+        isListTargetChanged = false;
     }
 
     protected IEnumerator Attack()
@@ -195,7 +197,7 @@ public class Character : GameUnit
     {
         level = 0;
         isDead = false;
-        Destroy(weaponHold);
+        Destroy(currentWeaponHold);
     }
 
     public void OnDead()
@@ -217,6 +219,48 @@ public class Character : GameUnit
         this.PostEvent(EventID.OnCharacterDead, this);
 
         yield return new WaitForSeconds(2f);
+    }
+
+    protected virtual void SetActiveCharacterInfo(bool isActive)
+    {       
+        characterInfo.SetActiveCharacterInfo(isActive);
+    }
+
+    public void EquipHair(HairType hairType)
+    {
+        if (currentHair != null)
+        {
+            Destroy(currentHair);
+        }
+
+        HairDataDetail hairData = SkinManager.Ins.GetHairData(hairType);
+        currentHair = Instantiate(hairData.HairPrefab, hairParent);
+    }
+
+    public void EquipShield(ShieldType shieldType)
+    {
+        if (currentShield != null)
+        {
+            Destroy(currentShield);
+        }
+
+        ShieldDataDetail shieldData = SkinManager.Ins.GetShieldData(shieldType);
+        currentShield = Instantiate(shieldData.ShieldPrefab, shieldParent);
+    }
+
+    public void EquipPants(PantsType pantsType)
+    {
+        if (pantsType == PantsType.None)
+        {
+            pants.gameObject.SetActive(false);
+        }
+        else
+        {
+            pants.gameObject.SetActive(true);
+            PantsDataDetail pantsData = SkinManager.Ins.GetPantsData(pantsType);
+            pants.material = pantsData.pantsMaterial;
+        }
+
     }
 }
 

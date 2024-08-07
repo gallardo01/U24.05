@@ -9,11 +9,11 @@ public class Weapon : GameUnit
     [SerializeField] protected int characterLayer;
     [SerializeField] protected int propLayer;
     [SerializeField] protected Character owner;
-    [SerializeField] protected List<Vector3> listPaths = new List<Vector3>();
+    [SerializeField] protected List<Vector3> listPaths = new();
     [SerializeField] protected float rotateSpeed;
 
     protected float attackSpeed;
-    protected float duration => Mathf.Max(1 - attackSpeed / 200, 0.25f);
+    protected float Duration => Mathf.Max(1 - attackSpeed / 200, 0.25f);
 
     protected Sequence sequence;
 
@@ -43,7 +43,7 @@ public class Weapon : GameUnit
 
         for (int i = 0; i < listPaths.Count; i++)
         {
-            sequence.Append(transform.DOMove(listPaths[i], duration).SetEase(Ease.Linear));
+            sequence.Append(transform.DOMove(listPaths[i], Duration).SetEase(Ease.Linear));
         }
 
         sequence.OnComplete(() =>

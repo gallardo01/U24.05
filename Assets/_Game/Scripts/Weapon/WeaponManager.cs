@@ -4,29 +4,50 @@ using UnityEngine;
 
 public class WeaponManager : Singleton<WeaponManager>
 {
-    private Dictionary<WeaponType, WeaponDataDetail> weaponDataMap = new Dictionary<WeaponType, WeaponDataDetail>();
-    public Dictionary<WeaponType, WeaponDataDetail> WeaponDataMap => weaponDataMap;
+    private Dictionary<WeaponType, WeaponDataDetail> dictWeaponData = new();
+    private List<WeaponType> listWeaponType = new();
 
     private void Awake()
     {
-        InitWeaponDataMap();
+        InitWeaponData();
     }
 
-    private void InitWeaponDataMap()
+    private void InitWeaponData()
     {
-        List<WeaponDataDetail> weaponDataList = DataManager.Ins.GetWeaponDataList();
-
+        List<WeaponDataDetail> weaponDataList = DataManager.Ins.weaponData.GetWeaponDataList();
         for (int i = 0; i < weaponDataList.Count; i++)
         {
-            weaponDataMap.Add(weaponDataList[i].weaponType, weaponDataList[i]);
+            dictWeaponData.Add(weaponDataList[i].weaponType, weaponDataList[i]);
+            listWeaponType.Add(weaponDataList[i].weaponType);
         }
     }
 
     public void InitWeapon(WeaponType weaponType, float levelScale, Character owner, float attackSpeed, Vector3 startPoint, Vector3 direction, float attackRange)
     {
-        Weapon weapon = (Weapon)SimplePool.Spawn(weaponDataMap[weaponType].poolType, startPoint, Quaternion.identity);
+        if(!dictWeaponData.TryGetValue(weaponType, out WeaponDataDetail weaponData))
+        {
+            return;
+        }
+        Weapon weapon = (Weapon)SimplePool.Spawn(weaponData.poolType, startPoint, Quaternion.identity);
         weapon.transform.localScale = new Vector3(levelScale, levelScale, levelScale);
         weapon.transform.rotation = Quaternion.LookRotation(direction);
         weapon.InitWeapon(owner, attackSpeed, startPoint, direction, attackRange);
+    }
+
+    public GameObject InitWeaponHold(WeaponType weaponType, Transform weaponHoldParent)
+    {
+        if (dictWeaponData.TryGetValue(weaponType, out WeaponDataDetail weaponData))
+        {
+            return Instantiate(weaponData.weaponHoldPrefab, weaponHoldParent); ;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public WeaponType GetRandomWeapon()
+    {
+        return listWeaponType[Random.Range(0, listWeaponType.Count)];
     }
 }

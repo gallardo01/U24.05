@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] List<Transform> listNodeStart = new List<Transform>();
-    [SerializeField] List<Transform> listNodeMove = new List<Transform>();
+    [SerializeField] List<Transform> listNodeStart = new();
+    [SerializeField] List<Transform> listNodeMove = new();
 
-    [SerializeField] List<Bot> listBot = new List<Bot>(); 
+    [SerializeField] List<Bot> listBot = new();
 
-    WaitForSeconds countDownTime = new WaitForSeconds(0.5f);
+    WaitForSeconds countDownTime = new(0.5f);
 
     int botAtSameTime = 6;
     int botTotal = 49;
@@ -83,7 +83,14 @@ public class Level : MonoBehaviour
         Bot bot = (Bot)SimplePool.Spawn(PoolType.Bot, NodeStart.position, Quaternion.identity);
         int playerLevel = LevelManager.Ins.player.Level;
         int botLevel = playerLevel + Random.Range(0, 2);
-        bot.InitCharacter((WeaponType)Random.Range(0, DataManager.Ins.GetWeaponDataList().Count), botLevel);
+        bot.InitCharacter(WeaponManager.Ins.GetRandomWeapon(), botLevel);
+
+        HairType hairType = SkinManager.Ins.GetRandomHair();
+        ShieldType shieldType = SkinManager.Ins.GetRandomShield();
+        PantsType pantsType = SkinManager.Ins.GetRandomPants();
+        bot.EquipHair(hairType);
+        bot.EquipShield(shieldType);
+        bot.EquipPants(pantsType);
 
         listBot.Add(bot);
     }

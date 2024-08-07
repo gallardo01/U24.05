@@ -86,8 +86,11 @@ MonoBehaviour:
   poolType: 8
   tf: {fileID: 3727988128001685491}
   anim: {fileID: 8685964479529933393}
-  weaponHoldParent: {fileID: 2918377490448083682}
   weaponStartPoint: {fileID: 4813261906935833081}
+  weaponHoldParent: {fileID: 2918377490448083682}
+  hairParent: {fileID: 6456765085868867722}
+  shieldParent: {fileID: 8103882125288725183}
+  pants: {fileID: 3160948677041147832}
   attackZoneCollider: {fileID: 3045882536218785533}
   characterInfo: {fileID: 8856547931942393261}
   bonusMoveSpeed: 0
@@ -883,6 +886,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Optimieze2
       objectReference: {fileID: 0}
+    - target: {fileID: 2701551033138554934, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4310991846188491074, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -937,6 +944,21 @@ Transform:
 --- !u!4 &2918377490448083682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 383700485377539211, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+  m_PrefabInstance: {fileID: 3301988807942198889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3160948677041147832 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 436558070130317777, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+  m_PrefabInstance: {fileID: 3301988807942198889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6456765085868867722 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8378961338649417443, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
+  m_PrefabInstance: {fileID: 3301988807942198889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8103882125288725183 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6748011307817831638, guid: 3b42d1d4930b76e41b1924bd2c4a84fd, type: 3}
   m_PrefabInstance: {fileID: 3301988807942198889}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &8685964479529933393 stripped
