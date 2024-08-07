@@ -281,6 +281,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abd4355183276244b0309271ab53e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightHandRoot: {fileID: 5691470394490735493}
+  leftHandRoot: {fileID: 2989063145644300382}
+  hatRoot: {fileID: 3805128201350621713}
+  pantSkin: {fileID: 7283712451084956789}
+  data: {fileID: 11400000, guid: 3c749a1af4e0c594586600c31595ef05, type: 2}
 --- !u!1 &8069602210252040121
 GameObject:
   m_ObjectHideFlags: 0

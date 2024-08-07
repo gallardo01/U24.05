@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338a20e1bd93f2a4f9dc66953e6fe801, type: 3}
+  m_Name: Pant SO 4
+  m_EditorClassIdentifier: 
+  itemName: Pant 4
+  itemType: 3
+  itemPrefab: {fileID: 0}
+  itemMat: {fileID: 2100000, guid: 6a5264873feff6c4999bbd785c98d366, type: 2}
+  itemIcon: {fileID: 21300000, guid: 8e5b7ebcb3bb9844eb6678f88172c11f, type: 3}

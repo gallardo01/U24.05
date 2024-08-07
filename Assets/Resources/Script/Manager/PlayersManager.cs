@@ -88,14 +88,15 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         }
     }
 
-    private void SetPlayersActive(bool active)
+    private void ActiveSetting(bool active)
     {
-        for(int i = 0; i < characterList.Count; i++)
+        for (int i = 0; i < characterList.Count; i++)
         {
             characterList[i].enabled = active;
             characterList[i].Indicator.gameObject.SetActive(active);
         }
         DisplayAlive();
+
     }
 
     private void DisplayAlive()
@@ -108,11 +109,11 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         switch (gameState)
         {
             case GameState.MENU:
-                SetPlayersActive(false);
+                ActiveSetting(false);
                 break;
 
             case GameState.GAME:
-                SetPlayersActive(true);
+                ActiveSetting(true);
 
                 break;
 
@@ -121,11 +122,11 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
                 break;
 
             case GameState.SETTING:
-                SetPlayersActive(false);
+                ActiveSetting(false);
                 break;
 
             case GameState.GAMEOVER:
-                SetPlayersActive(false);
+                ActiveSetting(false);
 
                 break;
 

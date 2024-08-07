@@ -2,8 +2,11 @@ using DG.Tweening;
 using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Xml.Linq;
 using Unity.VisualScripting;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +18,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected Animator animator;
     [SerializeField] protected Collider collider;
     [SerializeField] protected Health health;
+    [field: SerializeField] public CharacterEquipment CharacterEquipment {  get; private set; }
     protected string currentAnimName = "idle";
     protected Indicator indicator; public Indicator Indicator => indicator;
     public void SetIndicator(Indicator indicator) {  this.indicator = indicator; } 
@@ -37,6 +41,7 @@ public abstract class Character : MonoBehaviour
         this.enabled = true;
         collider.enabled = true;
         indicator.gameObject.SetActive(true);
+        CharacterEquipment = GetComponentInChildren<CharacterEquipment>();
     }
 
     protected void Start()
@@ -109,7 +114,7 @@ public abstract class Character : MonoBehaviour
             animator.SetTrigger(currentAnimName);
         }
     }
-
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

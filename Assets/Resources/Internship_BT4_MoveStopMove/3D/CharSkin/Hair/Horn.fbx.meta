@@ -1,14 +1,14 @@
 fileFormatVersion: 2
 guid: 2ee369d216e98bf45893a44990eae264
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Horn1SG
-    second: {fileID: 2100000, guid: d66728c3c66a20045bce1d9f88bf67c8, type: 2}
+    second: {fileID: 2100000, guid: 7f847a3272f8aff48abf950475669eac, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -93,7 +93,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.015
+    globalScale: 1.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -104,6 +104,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

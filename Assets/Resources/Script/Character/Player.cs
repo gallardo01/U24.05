@@ -13,7 +13,7 @@ public class Player : Character
         Move,
     }
 
-    private State state;
+    public State state {  get; private set; }
     private float timer = 0f;
     private bool isOnAttack;
     private Vector3 moveDirection;

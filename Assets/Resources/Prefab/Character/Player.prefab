@@ -197,9 +197,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotingPoint: {fileID: 6636003092916949501}
   projectilePrefab: {fileID: 4803704379194891170, guid: fbf7240c2a0d6bb458cb8545706df73f, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 5988356199710011375}
   collider: {fileID: 9115629006098067329}
   health: {fileID: 2659144792891299173}
+  <CharacterEquipment>k__BackingField: {fileID: 3310856279257037926}
   target: {fileID: 0}
   moveSpeed: 5
   detectRadius: 8
@@ -280,8 +281,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76e05228d62389d49ac1313fcf30df54, type: 3}
+--- !u!114 &3310856279257037926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5236509198774841877, guid: 76e05228d62389d49ac1313fcf30df54, type: 3}
+  m_PrefabInstance: {fileID: 7302964348294958707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abd4355183276244b0309271ab53e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4436302909120807573 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6397854323104746726, guid: 76e05228d62389d49ac1313fcf30df54, type: 3}
+  m_PrefabInstance: {fileID: 7302964348294958707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5988356199710011375 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3910177111357235612, guid: 76e05228d62389d49ac1313fcf30df54, type: 3}
   m_PrefabInstance: {fileID: 7302964348294958707}
   m_PrefabAsset: {fileID: 0}
