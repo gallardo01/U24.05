@@ -22,7 +22,7 @@ public class JoystickControl : MonoBehaviour
 
     private bool active;
 
-    // Start is called before the first frame update
+    // OnStart is called before the first frame update
     void Awake()
     {
         screen.x = Screen.width;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeadState : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // OnStart is called before the first frame update
     void Start()
     {
         

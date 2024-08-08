@@ -8,7 +8,7 @@ public class InitSkin : MonoBehaviour
     [SerializeField] Transform head;
     [SerializeField] Transform shield;
     [SerializeField] SkinnedMeshRenderer pant;
-    // Start is called before the first frame update
+    // OnStart is called before the first frame update
     void Start()
     {
         InitWeapon(Random.Range(0, ItemDatabase.instance.weapons.Count));

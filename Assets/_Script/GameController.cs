@@ -12,8 +12,6 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject botPrefs;
     [SerializeField] TMP_Text numberAlive;
     [SerializeField] List<GameObject> weaponList;
-    [SerializeField] public TMP_Text goldCoin;
-
 
     private int botNumber = 10;
     public int countWeaponSummon = 0;
@@ -29,12 +27,10 @@ public class GameController : MonoBehaviour
     void Start()
     {
         CreatPlayerAndBot();
-        StartCoroutine(SummonWeapon());
         for (int i = 0; i < weaponList.Count; i++)
         {
             weaponTag.Add(weaponList[i].tag);
         }
-        goldCoin.text = "0";
     }
 
     private void Update()
@@ -53,17 +49,22 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void SetPlayerGold()
+    public int InitPlayerGold()
     {
-        if (!PlayerPrefs.HasKey("HighScore"))
+        if (!PlayerPrefs.HasKey("Gold"))
         {
-            PlayerPrefs.SetInt("Gold",0);
+            PlayerPrefs.SetInt("Gold", 0);
+            return goldNumber = 0;
         }
         else
         {
-            PlayerPrefs.SetInt("Gold",goldNumber);
+            return goldNumber = PlayerPrefs.GetInt("Gold");
         }
-
+    }
+    public void GainGold(int num)
+    {
+        goldNumber += num;
+        PlayerPrefs.SetInt("Gold", goldNumber);
     }
     private void CreatPlayerAndBot()
     {
@@ -147,17 +148,7 @@ public class GameController : MonoBehaviour
                 return null;
         }
     }
-    public IEnumerator SummonWeapon()
-    {
-        while (countWeaponSummon < 6)
-        {
-            yield return new WaitForSeconds(5f);
-            Vector3 summonPos = RandomNavSphere(Vector3.zero, 50f, 1) + new Vector3(0,3,0);
-            Weapon weaponSummon = Instantiate(weaponList[Random.Range(0, weaponList.Count)], summonPos, Quaternion.identity).GetComponent<Weapon>();
-            weaponSummon.GetComponent<Weapon>().enabled = false;
-            countWeaponSummon++;
-        }
-    }
+
     public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;

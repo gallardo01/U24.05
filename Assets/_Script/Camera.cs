@@ -10,6 +10,7 @@ public class Camera : MonoBehaviour
 
     [SerializeField] public Vector3 offset;
     [SerializeField] public Vector3 offsetMainMenu;
+    [SerializeField] public Vector3 offsetShop;
 
     [SerializeField] public Quaternion rotation;
     [SerializeField] public Quaternion rotationMainMenu;
@@ -38,6 +39,11 @@ public class Camera : MonoBehaviour
         if (state == 1)
         {
             currentOffset = offsetMainMenu;
+            currentRotation = rotationMainMenu;
+        }
+        else if (state == 2)
+        {
+            currentOffset = offsetShop;
             currentRotation = rotationMainMenu;
         }
         else

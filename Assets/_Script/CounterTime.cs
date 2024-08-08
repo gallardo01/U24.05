@@ -7,8 +7,7 @@ public class CounterTime : MonoBehaviour
 {
     UnityAction playerAction;
     private float time;
-    // Start is called before the first frame update
-    public void Start(UnityAction playerAction, float time)
+    public void OnStart(UnityAction playerAction, float time)
     {
         this.playerAction = playerAction;
         this.time = time;
