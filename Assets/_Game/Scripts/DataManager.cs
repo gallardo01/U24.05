@@ -11,28 +11,28 @@ public class DataManager : Singleton<DataManager>
     public ShieldData shieldData;
 
 
-    public void UnlockItem<T>(T t) where T : Enum
+    public void UnlockItem<ItemType>(ItemType itemType) where ItemType : Enum
     {
-        string itemTypeName = typeof(T).Name;
-        PlayerPrefs.SetInt(Constants.PP_IS_UNLOCK_ITEM + itemTypeName + t.ToString(), 1);
+        string itemTypeName = typeof(ItemType).Name;
+        PlayerPrefs.SetInt(Constants.PP_IS_UNLOCK_ITEM + itemTypeName + itemType.ToString(), 1);
     }
 
-    public bool IsItemUnlocked<T>(T t) where T : Enum
+    public bool IsItemUnlocked<ItemType>(ItemType itemType) where ItemType : Enum
     {
-        string itemTypeName = typeof(T).Name;
-        return PlayerPrefs.GetInt(Constants.PP_IS_UNLOCK_ITEM + itemTypeName + t.ToString(), 0) == 1;
+        string itemTypeName = typeof(ItemType).Name;
+        return PlayerPrefs.GetInt(Constants.PP_IS_UNLOCK_ITEM + itemTypeName + itemType.ToString(), 0) == 1;
     }
 
-    public void SaveCurrentItem<T>(T t) where T : Enum
+    public void SaveCurrentItem<ItemType>(ItemType itemType) where ItemType : Enum
     {
-        string itemTypeName = typeof(T).Name;
-        PlayerPrefs.SetInt(Constants.PP_CURRENT_ITEM + itemTypeName, Convert.ToInt32(t));
+        string itemTypeName = typeof(ItemType).Name;
+        PlayerPrefs.SetInt(Constants.PP_CURRENT_ITEM + itemTypeName, Convert.ToInt32(itemType));
     }
 
-    public T GetCurrentItem<T>() where T : Enum
+    public ItemType GetCurrentItem<ItemType>() where ItemType : Enum
     {
-        string itemTypeName = typeof(T).Name;
-        return (T)(object)PlayerPrefs.GetInt(Constants.PP_CURRENT_ITEM + itemTypeName, 0);
+        string itemTypeName = typeof(ItemType).Name;
+        return (ItemType)(object)PlayerPrefs.GetInt(Constants.PP_CURRENT_ITEM + itemTypeName, 0);
     }
 
     public void SavePlayerName(string name)

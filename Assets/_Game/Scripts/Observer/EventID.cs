@@ -9,4 +9,5 @@ public enum EventID
     OnGameStateChanged,
     OnShopItemSelected,
     OnItemEquipped,
+    OnTabSelected,
 }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
+public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
 {
-    [SerializeField] protected T t;
+    [SerializeField] protected ItemType itemType;
     [SerializeField] protected GameObject imageSelected, Lock, Equipped;
     [SerializeField] protected Button btnShopItem;
     [SerializeField] protected Image imageItem;
@@ -22,13 +22,12 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
     {
         btnShopItem.onClick.AddListener(() =>
         {
-            ChangeSelectState(true);
-            this.PostEvent(EventID.OnShopItemSelected, this);
+            SelectItem();
         });
 
         this.RegisterListener(EventID.OnShopItemSelected, (param) =>
         {
-            ShopItem<T> selectedItem = param as ShopItem<T>;
+            ShopItem<ItemType> selectedItem = param as ShopItem<ItemType>;
             if (selectedItem != null && selectedItem != this)
             {
                 ChangeSelectState(false);
@@ -37,7 +36,7 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
 
         this.RegisterListener(EventID.OnItemEquipped, (param) =>
         {
-            ShopItem<T> equippedItem = param as ShopItem<T>;
+            ShopItem<ItemType> equippedItem = param as ShopItem<ItemType>;
             if (equippedItem != null && equippedItem != this)
             {
                 ChangeEquipState(false);
@@ -45,9 +44,9 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
         });
     }
 
-    public virtual void InitShopItem(T t)
+    public virtual void InitShopItem(ItemType itemType)
     {
-        this.t = t;
+        this.itemType = itemType;
 
         //------bring this to override---------------------
         //DataDetail<T> dataDetail = SkinManager.Ins.GetData<T>(t);
@@ -58,10 +57,10 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
         //}
         //--------------------------------------------------
 
-        isItemUnlocked = DataManager.Ins.IsItemUnlocked<T>(t);
+        isItemUnlocked = DataManager.Ins.IsItemUnlocked<ItemType>(itemType);
         Lock.SetActive(!isItemUnlocked);
 
-        bool equipState = DataManager.Ins.GetCurrentItem<T>().Equals(t);
+        bool equipState = DataManager.Ins.GetCurrentItem<ItemType>().Equals(itemType);
         ChangeEquipState(equipState);
     }
 
@@ -70,9 +69,16 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
         imageSelected.SetActive(state);
     }
 
+    public void SelectItem()
+    {
+        ChangeSelectState(true);
+
+        this.PostEvent(EventID.OnShopItemSelected, this);
+    }
+
     public void EquipItem()
     {
-        DataManager.Ins.SaveCurrentItem<T>(t);
+        DataManager.Ins.SaveCurrentItem<ItemType>(itemType);
         ChangeEquipState(true);
 
         this.PostEvent(EventID.OnItemEquipped, this);
@@ -80,7 +86,7 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
 
     public void UnequipItem()
     {
-        DataManager.Ins.SaveCurrentItem<T>((T)(object)0);
+        DataManager.Ins.SaveCurrentItem<ItemType>((ItemType)(object)0);
         ChangeEquipState(false);
     }
 
@@ -92,7 +98,7 @@ public class ShopItem<T> : MonoBehaviour, IShopItem where T : Enum
 
     public void UnlockItem()
     {
-        DataManager.Ins.UnlockItem<T>(t);
+        DataManager.Ins.UnlockItem<ItemType>(itemType);
 
         isItemUnlocked = true;
         Lock.SetActive(false);

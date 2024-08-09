@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIShopSkin : UICanvas
 {
     [SerializeField] Button btnQuit, btnBuy, btnEquip, btnUnequip;
+    [SerializeField] List<TabButton> listTabButton;
     [SerializeField] TextMeshProUGUI textGold, textPrice;
 
     IShopItem currentShopItem;
@@ -79,5 +80,6 @@ public class UIShopSkin : UICanvas
         base.Open();
         GameManager.Ins.ChangeGameState(GameState.ShopSkin);
         UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        listTabButton[0].SelectTab();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IShopItem
 {
+    void SelectItem();
     void EquipItem();
     void UnequipItem();
     void UnlockItem();
