@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class EquipmentContainer : MonoBehaviour
 {
     [field: SerializeField] public Button Button { get; private set; }
-
     [SerializeField] TextMeshProUGUI ItemName;
     [SerializeField] Image Icon;
 

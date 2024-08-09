@@ -41,7 +41,6 @@ public abstract class Character : MonoBehaviour
         this.enabled = true;
         collider.enabled = true;
         indicator.gameObject.SetActive(true);
-        CharacterEquipment = GetComponentInChildren<CharacterEquipment>();
     }
 
     protected void Start()

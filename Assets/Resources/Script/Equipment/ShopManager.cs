@@ -23,30 +23,28 @@ public class ShopManager : Singleton<ShopManager>, IGameStateListener
 
     public void CreatContainers()
     {
-        for(int i = 0; i < datas.Length; i++)
+        for (int i = 0; i < datas.Length; i++)
         {
-            if(datas[i].itemType == ItemType.Weapon)
+            switch (datas[i].itemType)
             {
-                CreatContainer(datas[i], weaponTab);
-            }
-            else if (datas[i].itemType == ItemType.Shield)
-            {
-                CreatContainer(datas[i], shieldTab);
-            }
-            else if(datas[i].itemType == ItemType.Hat)
-            {
-                CreatContainer(datas[i], hatTab);
-            }
-            else if(datas[i].itemType == ItemType.Pant)
-            {
-                CreatContainer(datas[i], pantTab);
+                case ItemType.Weapon:
+                    CreatContainer(datas[i], weaponTab);
+                    break;
+                case ItemType.Shield:
+                    CreatContainer(datas[i], shieldTab);
+                    break;
+                case ItemType.Hat:
+                    CreatContainer(datas[i], hatTab);
+                    break;
+                case ItemType.Pant:
+                    CreatContainer(datas[i], pantTab);
+                    break;
             }
         }
     }
 
     public void CreatContainer(EquipmentData data, Transform parentTab)
     {
-        Debug.Log("Creat Button");
         EquipmentContainer newContainer = Instantiate(containerPrefab, parentTab);
         newContainer.OnInit(data.itemName, data.itemType, data.itemPrefab, data.itemMat, data.itemIcon);
         newContainer.Button.onClick.AddListener(() => AddItem(newContainer));
@@ -60,16 +58,16 @@ public class ShopManager : Singleton<ShopManager>, IGameStateListener
         switch (container.ItemType)
         {
             case ItemType.Weapon:
-                PlayersManager.Instance.player.GetComponentInChildren<CharacterEquipment>().GetWeapon(newItem);
+                PlayersManager.Instance.player.CharacterEquipment.GetWeapon(newItem);
                 break;                         
             case ItemType.Shield:              
-                PlayersManager.Instance.player.GetComponentInChildren<CharacterEquipment>().GetShield(newItem);
+                PlayersManager.Instance.player.CharacterEquipment.GetShield(newItem);
                 break;                         
             case ItemType.Hat:                 
-                PlayersManager.Instance.player.GetComponentInChildren<CharacterEquipment>().GetHat(newItem);
+                PlayersManager.Instance.player.CharacterEquipment.GetHat(newItem);
                 break;                         
             case ItemType.Pant:
-                PlayersManager.Instance.player.GetComponentInChildren<CharacterEquipment>().GetPant(newMaterial);
+                PlayersManager.Instance.player.CharacterEquipment.GetPant(newMaterial);
                 break;
         }
     }
@@ -79,7 +77,10 @@ public class ShopManager : Singleton<ShopManager>, IGameStateListener
         switch (gameState)
         {
             case GameState.SHOP:
-                CreatContainers();
+                if(weaponTab.childCount == 0)
+                {
+                    CreatContainers();
+                }
                 break;
         }
     }
