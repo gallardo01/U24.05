@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : Character
 {
@@ -12,6 +13,16 @@ public class Player : Character
     public string killedBy;
 
     public int Level => level;
+
+    private void Start()
+    {
+        HairType hairType = DataManager.Ins.GetCurrentItem<HairType>();
+        ShieldType shieldType = DataManager.Ins.GetCurrentItem<ShieldType>();
+        PantsType pantsType = DataManager.Ins.GetCurrentItem<PantsType>();
+        EquipHair(hairType);
+        EquipShield(shieldType);
+        EquipPants(pantsType);
+    }
 
     public void FixedUpdate()
     {

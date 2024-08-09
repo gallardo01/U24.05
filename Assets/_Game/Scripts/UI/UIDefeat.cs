@@ -19,12 +19,12 @@ public class UIDefeat : UICanvas
         });
     }
 
-    public void UpdateTextRank(int rank)
+    private void UpdateTextRank(int rank)
     {
         textRank.text = "#" + rank.ToString();
     }
 
-    public void UpdateTextKilledBy(string name)
+    private void UpdateTextKilledBy(string name)
     {
         textKilledBy.text = name;
     }

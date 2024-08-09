@@ -19,7 +19,7 @@ public class PantsDataDetail
 {
     public PantsType pantsType;
     public int price;
-    public Sprite pantImageSprite;
-    public Material pantsMaterial;
+    public Sprite imageSprite;
+    public Material material;
     public BuffType buffType;
 }

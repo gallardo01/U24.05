@@ -39,7 +39,7 @@ public class Character : GameUnit
     protected Coroutine attackCoroutine;
 
     protected List<Character> listTarget = new();
-    protected Character targetedCharacter; 
+    protected Character targetedCharacter;
     public Character TargetedCharacter => targetedCharacter;
     public GameObject targetedImage;
 
@@ -51,7 +51,7 @@ public class Character : GameUnit
     protected float MoveSpeed => (baseMoveSpeed + bonusMoveSpeed) * LevelScale;
     protected float AttackSpeed => baseAttackSpeed + bonusAttackSpeed;
 
-    protected virtual void Awake()
+    protected void Awake()
     {
         this.RegisterListener(EventID.OnCharacterDead, (param) =>
         {
@@ -61,7 +61,7 @@ public class Character : GameUnit
         this.RegisterListener(EventID.OnGameStateChanged, (param) =>
         {
             bool isActive = (GameState)param == GameState.Gameplay;
-            SetActiveCharacterInfo(isActive);            
+            SetActiveCharacterInfo(isActive);
         });
     }
 
@@ -100,11 +100,9 @@ public class Character : GameUnit
         attackZoneCollider.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
         LevelUp(level);
+        EquipWeapon(weaponType);
 
-        this.weaponType = weaponType;
-        currentWeaponHold = WeaponManager.Ins.InitWeaponHold(this.weaponType, weaponHoldParent);
-
-        if(GameManager.Ins.IsState(GameState.Gameplay))
+        if (GameManager.Ins.IsState(GameState.Gameplay))
         {
             characterInfo.SetActiveCharacterInfo(true);
         }
@@ -156,7 +154,7 @@ public class Character : GameUnit
     }
 
     protected IEnumerator Attack()
-    {       
+    {
         isAttacking = true;
         ChangeAnim(Constants.ANIM_ATTACK);
 
@@ -197,7 +195,6 @@ public class Character : GameUnit
     {
         level = 0;
         isDead = false;
-        Destroy(currentWeaponHold);
     }
 
     public void OnDead()
@@ -214,37 +211,31 @@ public class Character : GameUnit
     }
 
     protected virtual IEnumerator IEDead()
-    {        
-        ChangeAnim(Constants.ANIM_DEAD); 
+    {
+        ChangeAnim(Constants.ANIM_DEAD);
 
         yield return new WaitForSeconds(2f);
     }
 
     protected virtual void SetActiveCharacterInfo(bool isActive)
-    {       
+    {
         characterInfo.SetActiveCharacterInfo(isActive);
     }
 
     public void EquipHair(HairType hairType)
     {
-        if (currentHair != null)
-        {
-            Destroy(currentHair);
-        }
+        Destroy(currentHair);
 
         HairDataDetail hairData = SkinManager.Ins.GetHairData(hairType);
-        currentHair = Instantiate(hairData.HairPrefab, hairParent);
+        currentHair = Instantiate(hairData.prefab, hairParent);
     }
 
     public void EquipShield(ShieldType shieldType)
     {
-        if (currentShield != null)
-        {
-            Destroy(currentShield);
-        }
+        Destroy(currentShield);
 
         ShieldDataDetail shieldData = SkinManager.Ins.GetShieldData(shieldType);
-        currentShield = Instantiate(shieldData.ShieldPrefab, shieldParent);
+        currentShield = Instantiate(shieldData.prefab, shieldParent);
     }
 
     public void EquipPants(PantsType pantsType)
@@ -257,9 +248,16 @@ public class Character : GameUnit
         {
             pants.gameObject.SetActive(true);
             PantsDataDetail pantsData = SkinManager.Ins.GetPantsData(pantsType);
-            pants.material = pantsData.pantsMaterial;
+            pants.material = pantsData.material;
         }
+    }
 
+    public void EquipWeapon(WeaponType weaponType)
+    {
+        Destroy(currentWeaponHold);
+
+        this.weaponType = weaponType;
+        currentWeaponHold = WeaponManager.Ins.InitWeaponHold(this.weaponType, weaponHoldParent);
     }
 }
 

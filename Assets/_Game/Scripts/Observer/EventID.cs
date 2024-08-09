@@ -7,5 +7,6 @@ public enum EventID
     None = 0,
     OnCharacterDead,
     OnGameStateChanged,
-
+    OnShopItemSelected,
+    OnItemEquipped,
 }

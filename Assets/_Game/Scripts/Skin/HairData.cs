@@ -19,7 +19,7 @@ public class HairDataDetail
 {
     public HairType hairType;
     public int price;
-    public Sprite hairImageSprite;
-    public GameObject HairPrefab;
+    public Sprite imageSprite;
+    public GameObject prefab;
     public BuffType buffType;
 }

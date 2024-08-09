@@ -44,6 +44,11 @@ public class LevelManager : Singleton<LevelManager>
 
     public void Finish()
     {
+        if (GameManager.Ins.IsState(GameState.Finish))
+        {
+            return;
+        }
+
         UIManager.Ins.CloseUI<UIGameplay>();
 
         if (player.isDead)
@@ -73,6 +78,7 @@ public class LevelManager : Singleton<LevelManager>
     public void RevivePlayer()
     {
         player.Revive();
+        currentLevel.alive++;
         player.tf.position = currentLevel.GetRandomNodeStart().position;
     }
 }

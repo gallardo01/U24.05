@@ -28,14 +28,15 @@ public class Level : MonoBehaviour
                     GenerateBot();
                 }
 
-                alive--;
-                UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(alive);            
                 listBot.Remove(bot);
             }
             else if (character is Player player)
             {
                 player.rank = alive;
             }
+
+            alive--;
+            UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(alive);            
 
             if (alive == 1)
             {

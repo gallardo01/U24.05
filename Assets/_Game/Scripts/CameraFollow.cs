@@ -10,6 +10,7 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] Transform offsetGameplay;
     [SerializeField] Transform offsetMainmenu;
+    [SerializeField] Transform offsetShopSkin;
 
     private Vector3 OffsetGameplay => offsetGameplay.localPosition * LevelManager.Ins.player.LevelScale;
 
@@ -31,6 +32,10 @@ public class CameraFollow : MonoBehaviour
             {
                 SetTargetRotate(offsetGameplay.localRotation);
             }
+            else if (gameState == GameState.ShopSkin)
+            {
+                SetTargetRotate(offsetShopSkin.localRotation);
+            }
 
             
         });
@@ -45,6 +50,10 @@ public class CameraFollow : MonoBehaviour
         else if (GameManager.Ins.IsState(GameState.Gameplay))
         {
             targetPosition = targetTF.position + OffsetGameplay;
+        }
+        else if (GameManager.Ins.IsState(GameState.ShopSkin))
+        {
+            targetPosition = targetTF.position + offsetShopSkin.localPosition;
         }
 
         TF.position = Vector3.Lerp(TF.position, targetPosition, Time.deltaTime * 5f);

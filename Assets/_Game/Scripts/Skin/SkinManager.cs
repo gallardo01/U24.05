@@ -7,9 +7,12 @@ public class SkinManager : Singleton<SkinManager>
     private Dictionary<PantsType, PantsDataDetail> dictPantsData = new();
     private Dictionary<HairType, HairDataDetail> dictHairData = new();
     private Dictionary<ShieldType, ShieldDataDetail> dictShieldData = new();
-    private List<PantsType> listPantsType = new();
-    private List<HairType> listHairType = new();
-    private List<ShieldType> listShieldType = new();
+    //private Dictionary<PantsType, DataDetail<PantsType>> dictPantsData1 = new();
+    //private Dictionary<HairType, DataDetail<HairType>> dictHairData1 = new();
+    //private Dictionary<ShieldType, DataDetail<ShieldType>> dictShieldData1 = new();
+    public List<PantsType> listPantsType = new();
+    public List<HairType> listHairType = new();
+    public List<ShieldType> listShieldType = new();
 
     private void Awake()
     {
@@ -39,6 +42,33 @@ public class SkinManager : Singleton<SkinManager>
             listShieldType.Add(shieldDataList[i].shieldType);
         }
     }
+
+    //public DataDetail<T> GetData<T>(T t) where T : Enum
+    //{
+    //    if (t is HairType hairType)
+    //    {
+    //        if (dictHairData1.TryGetValue(hairType, out DataDetail<HairType> hairData))
+    //        {
+    //            return hairData as DataDetail<T>;
+    //        }
+    //    }
+    //    else if (t is ShieldType shieldType)
+    //    {
+    //        if (dictShieldData1.TryGetValue(shieldType, out DataDetail<ShieldType> shieldData))
+    //        {
+    //            return shieldData as DataDetail<T>;
+    //        }
+    //    }
+    //    else if (t is PantsType pantsType)
+    //    {
+    //        if (dictPantsData1.TryGetValue(pantsType, out DataDetail<PantsType> pantsData))
+    //        {
+    //            return pantsData as DataDetail<T>;
+    //        }
+    //    }
+
+    //    return null;
+    //}
 
     public HairDataDetail GetHairData(HairType hairType)
     {

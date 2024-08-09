@@ -19,7 +19,7 @@ public class ShieldDataDetail
 {
     public ShieldType shieldType;
     public int price;
-    public Sprite shieldImageSprite;
-    public GameObject ShieldPrefab;
+    public Sprite imageSprite;
+    public GameObject prefab;
     public BuffType buffType;
 }

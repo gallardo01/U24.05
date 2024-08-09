@@ -11,7 +11,7 @@ public class WaitState : IState<Bot>
 
     public void OnExecute(Bot bot)
     {
-        if (!GameManager.Ins.IsState(GameState.Mainmenu))
+        if (GameManager.Ins.IsState(GameState.Gameplay) || GameManager.Ins.IsState(GameState.Revive) || GameManager.Ins.IsState(GameState.Finish))
         {
             bot.ChangeState(new MoveState());
         }

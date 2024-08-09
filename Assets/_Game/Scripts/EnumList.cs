@@ -70,6 +70,6 @@ public enum GameState
     Finish,
     Revive,
     Setting,
-    Shop
-
+    ShopSkin,
+    ShopWeapon
 }
