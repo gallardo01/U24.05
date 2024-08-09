@@ -13,11 +13,13 @@ public class UIManager :
     public GameObject SettingPanel;
     public GameObject indicatorPanel;
     public GameObject AwardPanel;
+    public GameObject shopPanel;
 
     public Button playGame;
     public Button mainMenu;
     public Button quitMainMenu;
     public Button settingButton;
+    public Button shopButton;
     public TextMeshProUGUI goldText;
     
     // Start is called before the first frame update
@@ -37,12 +39,20 @@ public class UIManager :
         quitMainMenu.onClick.AddListener(() =>
            SettingPanel.SetActive(false)
         );
+        shopButton.onClick.AddListener(ShowShopPanel);
     }
 
     public void ShowAwardPanel(int gold)
     {
         AwardPanel.SetActive(true);
         AwardPanel.GetComponent<AwardUI>().InitAwardUI(gold, GameController.Ins.bots.Count + 1);
+    }
+    
+    public void ShowShopPanel()
+    {
+        shopPanel.SetActive(true);
+        UIPanel.SetActive(false);
+        CameraFollower.Ins.ChangeState(3);
     }
     public void MainMenuClick()
     {
