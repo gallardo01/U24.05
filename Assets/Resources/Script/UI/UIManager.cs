@@ -11,11 +11,14 @@ public class UIManager : Singleton<UIManager>
     public GameObject SettingsPanel;
     public GameObject indicatorPanel;
     public GameObject awardPanel;
+    public GameObject shopPanel;
 
     public Button playGame;
     public Button mainMenu;
     public Button quitSetting;
     public Button settingButton;
+    public Button shopButton;
+    public Button backButton;
 
     public JoystickControl joystick;
     public TextMeshProUGUI goldText;
@@ -29,12 +32,28 @@ public class UIManager : Singleton<UIManager>
         settingButton.onClick.AddListener(() => { SettingsPanel.SetActive(true); });
         mainMenu.onClick.AddListener(() => MainMenuClick());
         quitSetting.onClick.AddListener(() => { SettingsPanel.SetActive(false); });
+        shopButton.onClick.AddListener(() => OpenShop());
+        backButton.onClick.AddListener(() => BackHome());
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void BackHome()
+    {
+        InitGameState(1);
+        shopPanel.SetActive(false); 
+    }
+
+    public void OpenShop()
+    {
+        UIPanel.SetActive(false);
+        shopPanel.SetActive(true);
+        //shopPanel.SetActive(state == 3);
+        CameraFollow.Instance.ChangeState(3);
     }
 
     public void OpenAwardUI(int gold)
@@ -71,6 +90,10 @@ public class UIManager : Singleton<UIManager>
         {
             indicatorPanel.SetActive(false);    
         }
+        //else if(state == 3)
+        //{
+        //    shopPanel.SetActive(true);
+        //}
         CameraFollow.Instance.ChangeState(state);   
     }
 }

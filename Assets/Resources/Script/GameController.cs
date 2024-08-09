@@ -92,11 +92,6 @@ public class GameController : Singleton<GameController>
 
     private void SetUpCharacterInGame()
     {
-        //TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
-        //player.indicator = playerIndicator;
-        //playerIndicator.character = player;
-        //playerIndicator.InitTarget(Color.black, 1, "Player");
-
         player.OnInit();    
 
         for(int i = 0; i < botNumber; i++)
