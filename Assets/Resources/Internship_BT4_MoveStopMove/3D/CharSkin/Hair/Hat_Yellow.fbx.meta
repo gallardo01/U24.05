@@ -1,19 +1,19 @@
 fileFormatVersion: 2
 guid: 48a7273928aaa034aae9a26c3080a167
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: D0702011A1_lufei_maozi_polySurface129_polySurface131SG
-    second: {fileID: 2100000, guid: d66728c3c66a20045bce1d9f88bf67c8, type: 2}
+    second: {fileID: 2100000, guid: 31807eda9ae097d40b2efd6a7b0bb590, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: D0702011A1_lufei_maozi_polySurface129_polySurface131SG1
-    second: {fileID: 2100000, guid: d66728c3c66a20045bce1d9f88bf67c8, type: 2}
+    second: {fileID: 2100000, guid: 31807eda9ae097d40b2efd6a7b0bb590, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -98,7 +98,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.03
+    globalScale: 3
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -109,6 +109,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

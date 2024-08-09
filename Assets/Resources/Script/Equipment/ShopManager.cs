@@ -13,7 +13,11 @@ public enum ItemType
 
 public class ShopManager : Singleton<ShopManager>, IGameStateListener
 {
-    [SerializeField] EquipmentData[] datas;
+    [SerializeField] EquipmentData[] weaponsData;
+    [SerializeField] EquipmentData[] shieldsData;
+    [SerializeField] EquipmentData[] hatsData;
+    [SerializeField] EquipmentData[] pantsData;
+
     [SerializeField] EquipmentContainer containerPrefab;
 
     [SerializeField] Transform weaponTab;
@@ -23,23 +27,21 @@ public class ShopManager : Singleton<ShopManager>, IGameStateListener
 
     public void CreatContainers()
     {
-        for (int i = 0; i < datas.Length; i++)
+        for(int i = 0; i < weaponsData.Length; i++)
         {
-            switch (datas[i].itemType)
-            {
-                case ItemType.Weapon:
-                    CreatContainer(datas[i], weaponTab);
-                    break;
-                case ItemType.Shield:
-                    CreatContainer(datas[i], shieldTab);
-                    break;
-                case ItemType.Hat:
-                    CreatContainer(datas[i], hatTab);
-                    break;
-                case ItemType.Pant:
-                    CreatContainer(datas[i], pantTab);
-                    break;
-            }
+            CreatContainer(weaponsData[i], weaponTab);
+        }
+        for (int i = 0; i < shieldsData.Length; i++)
+        {
+            CreatContainer(shieldsData[i], shieldTab);
+        }
+        for (int i = 0; i < hatsData.Length; i++)
+        {
+            CreatContainer(hatsData[i], hatTab);
+        }
+        for (int i = 0; i < pantsData.Length; i++)
+        {
+            CreatContainer(pantsData[i], pantTab);
         }
     }
 

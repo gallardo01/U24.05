@@ -5148,11 +5148,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684405fbabeca38458f6afe05cfd6ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  datas:
+  weaponsData:
+  - {fileID: 11400000, guid: 6ecc09da8eb8b2d47bea14227f426f88, type: 2}
+  - {fileID: 11400000, guid: 84bbeacbf188d8949ae85f8271c0fe67, type: 2}
+  - {fileID: 11400000, guid: a3906275bec559649984415ae0594dd0, type: 2}
+  - {fileID: 11400000, guid: 208957196620ff946b223073c1475ee6, type: 2}
+  - {fileID: 11400000, guid: 34da69c6c006e6544bf988e9f6c8eb6a, type: 2}
+  - {fileID: 11400000, guid: 97ea4e1de7ebddd499599c4db621f3b8, type: 2}
+  - {fileID: 11400000, guid: 0692439c3e964f849bcd2a97c0ec9c9d, type: 2}
+  - {fileID: 11400000, guid: c47faca298f20984cae6efe1c91a64fa, type: 2}
+  - {fileID: 11400000, guid: 2d435401269c5804fa6027144d9d90fb, type: 2}
+  - {fileID: 11400000, guid: fbc813b808eec144fa4fbc94c99e8cd9, type: 2}
+  - {fileID: 11400000, guid: fda10acd0eaae0c4c8162f3780b40f3e, type: 2}
+  - {fileID: 11400000, guid: 693e57f6ca4e074478bd462d2bdce368, type: 2}
+  shieldsData:
+  - {fileID: 11400000, guid: e1f53383f6a833e48b8d3787de89a80b, type: 2}
+  - {fileID: 11400000, guid: a8a18f11f5b05d8459341cd42b074420, type: 2}
+  hatsData:
   - {fileID: 11400000, guid: 17d734fa96af6924eb1e3df9a88ccef5, type: 2}
   - {fileID: 11400000, guid: 507616ec027985044a0321f52d33e7d7, type: 2}
   - {fileID: 11400000, guid: 2e24d277df9ed7343be3d1264c156900, type: 2}
   - {fileID: 11400000, guid: 3c749a1af4e0c594586600c31595ef05, type: 2}
+  - {fileID: 11400000, guid: 6c750fbfc6a04e045a8d58e4022876bb, type: 2}
+  - {fileID: 11400000, guid: 4d28d837042bba343808aa756c09c162, type: 2}
+  - {fileID: 11400000, guid: 746b222c011495d4dbe9027d654a155a, type: 2}
+  - {fileID: 11400000, guid: f197f63693b7c034097683fe6b92d19d, type: 2}
+  - {fileID: 11400000, guid: dff2fa441758200438952a1fe843cb5d, type: 2}
+  - {fileID: 11400000, guid: 63a858dca430fa84ab913672791d8c5f, type: 2}
+  pantsData:
   - {fileID: 11400000, guid: 09a399c39e64b544ab92971d49b24a2c, type: 2}
   - {fileID: 11400000, guid: 30b0e34bc04cb374da2090b2c8c9f044, type: 2}
   - {fileID: 11400000, guid: b7cc37d1572dbe748bf1e1c6c108a70a, type: 2}
@@ -5162,12 +5185,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 970761b043c125a40bc7862def2010cc, type: 2}
   - {fileID: 11400000, guid: 0680de35d4f6bf143b58cec326fd9bf1, type: 2}
   - {fileID: 11400000, guid: 9552d282af921274982253b903b3192a, type: 2}
-  - {fileID: 11400000, guid: e1f53383f6a833e48b8d3787de89a80b, type: 2}
-  - {fileID: 11400000, guid: a8a18f11f5b05d8459341cd42b074420, type: 2}
-  - {fileID: 11400000, guid: 6ecc09da8eb8b2d47bea14227f426f88, type: 2}
-  - {fileID: 11400000, guid: 84bbeacbf188d8949ae85f8271c0fe67, type: 2}
-  - {fileID: 11400000, guid: a3906275bec559649984415ae0594dd0, type: 2}
-  - {fileID: 11400000, guid: 208957196620ff946b223073c1475ee6, type: 2}
   containerPrefab: {fileID: 5694112994859091599, guid: f8fc98ec47d49d1408f56c1c962334b9, type: 3}
   weaponTab: {fileID: 1167548951}
   shieldTab: {fileID: 1911566295}
