@@ -2,18 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
+using System;
 
-public class ItemJsonDatabase : MonoBehaviour
+public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
 {
 
     private JsonData itemData;
-    private List<Item> listItem = new List<Item>();
+    private JsonData inGameItemData;
+    public List<Item> listItem = new List<Item>();
+    public List<GameItem> listItemInGame = new List<GameItem>();
+    private string filePath = "MyItem.txt";
 
     // Start is called before the first frame update
     void Start()
     {
         LoadResourcesFromTxt();
         ConstructDatabase();
+
+        LoadDataFromLocalDb();
+    }
+
+    private void LoadDataFromLocalDb()
+    {
+        string filePathFull = Application.persistentDataPath + "/" + filePath;
+        Debug.Log(filePathFull);
+        if (!File.Exists(filePathFull))
+        {
+            // Chua ton tai
+            AddNewItemFirstTime();
+            Save();
+        } else
+        {
+            // Da ton tai
+            byte[] jsonByte = null;
+            try
+            {
+                jsonByte = File.ReadAllBytes(filePathFull);
+            }
+            catch
+            {
+            }
+            string jsonData = Encoding.ASCII.GetString(jsonByte);
+            inGameItemData = JsonMapper.ToObject(jsonData);
+            ConstructMyItemDb();
+        }
     }
 
     private void LoadResourcesFromTxt()
@@ -21,6 +56,40 @@ public class ItemJsonDatabase : MonoBehaviour
         string filePath = "StreamingAssets/Item";
         TextAsset targetFile = Resources.Load<TextAsset>(filePath);
         itemData = JsonMapper.ToObject(targetFile.text);
+    }
+
+    private void AddNewItemFirstTime()
+    {
+        for (int i = 0; i < listItem.Count; i++)
+        {
+            GameItem newGameItem = new GameItem();
+            newGameItem.item = listItem[i];
+            newGameItem.Purchased = false;
+            newGameItem.IsEquip = false;
+            listItemInGame.Add(newGameItem);
+        }
+    }
+
+    private void Save()
+    {
+        string jsonData = JsonConvert.SerializeObject(listItemInGame.ToArray(), Formatting.Indented);
+        string filePathFull = Application.persistentDataPath + "/" + filePath;
+        byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
+        if (!Directory.Exists(Path.GetDirectoryName(filePathFull)))
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(filePathFull));
+        }
+        if (!File.Exists(filePathFull))
+        {
+            File.Create(filePathFull).Close();
+        }
+        try
+        {
+            File.WriteAllBytes(filePathFull, jsonByte);
+        } catch (Exception e)
+        {
+            Debug.LogWarning("Cannot save" + e.Message);
+        }
     }
 
     private void ConstructDatabase()
@@ -37,6 +106,30 @@ public class ItemJsonDatabase : MonoBehaviour
             listItem.Add(item);
         }
     }
+    private void ConstructMyItemDb()
+    {
+        for (int i = 0; i < inGameItemData.Count; i++)
+        {
+            GameItem gameItem = new GameItem();
+            gameItem.item = new Item();
+            gameItem.item.Id = (int)inGameItemData[i]["item"]["Id"];
+            gameItem.item.Type = (string)inGameItemData[i]["item"]["Type"];
+            gameItem.item.Price = (int)inGameItemData[i]["item"]["Price"];
+            gameItem.item.Atk = (int)inGameItemData[i]["item"]["Atk"];
+            gameItem.item.Def = (int)inGameItemData[i]["item"]["Def"];
+            gameItem.item.Spd = (int)inGameItemData[i]["item"]["Spd"];
+            gameItem.IsEquip = (bool)inGameItemData[i]["IsEquip"];
+            gameItem.Purchased = (bool)inGameItemData[i]["Purchased"];
+            listItemInGame.Add(gameItem);
+        }
+    }
+}
+
+public class GameItem
+{
+    public bool Purchased { get; set; }
+    public bool IsEquip { get; set; }
+    public Item item { get; set; } 
 }
 
 public class Item

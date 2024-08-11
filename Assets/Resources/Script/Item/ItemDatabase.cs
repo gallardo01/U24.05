@@ -7,6 +7,7 @@ public class ItemDatabase : Singleton<ItemDatabase>
     public List<GameObject> weapons;
     public List<Material> pantsMaterial;
     public List<GameObject> hats;
+
     // Start is called before the first frame update
     void Start()
     {
