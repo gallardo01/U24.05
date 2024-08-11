@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static UnityEditor.Progress;
+using static ItemJSONDatabase;
 public class InitItem : MonoBehaviour
 {
     public Image itemImage;
@@ -20,23 +21,18 @@ public class InitItem : MonoBehaviour
         PURCHASE
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    public void InitItemUI(GameItem item, PurchaseState state)
+    public void InitItemUI(GameItem item)
     {
-        itemImage.sprite = Resources.Load<Sprite>("UI/Hat" + item.item.name);
-        if (item.Purchase)
+        itemImage.sprite = Resources.Load<Sprite>("UI/Hat" + "/" + item.item.name);
+        if (!item.Purchase)
         {
             BuyStateUI(PurchaseState.PURCHASE);
             priceText.text = item.item.price.ToString();
         }
         else
         {
-            if (item.Equip)
+            if (!item.Equip)
             {
                BuyStateUI(PurchaseState.EQUIPED);
                equipButton.GetComponent<Button>().enabled = false;

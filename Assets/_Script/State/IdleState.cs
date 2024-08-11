@@ -6,7 +6,6 @@ public class IdleState : IState<Bot>
 {
     public void OnEnter(Bot bot)
     {
-        Debug.Log("Enter");
         bot.ChangeAnim("idle");
     }
     public void OnExecute(Bot bot)

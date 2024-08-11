@@ -6,22 +6,65 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using System.Text;
+using UnityEditorInternal;
 
 public class ItemJSONDatabase : MonoBehaviour
 {
+    public static ItemJSONDatabase instance;
     private JsonData itemData;
     private JsonData inGameItemData;
     private List<Item> listItem = new List<Item>();
-    private List<GameItem> listInGameItem = new List<GameItem>();
+    public List<GameItem> listInGameItem = new List<GameItem>();
     private string filePath = "MyItem.txt";
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    public class GameItem
+    {
+        public bool Purchase { get; set; }
+        public bool Equip { get; set; }
+        public Item item { get; set; }
+    }
+    public class Item
+    {
+        public int id { get; set; }
+        public string type { get; set; }
+        public string name { get; set; }
+        public int price { get; set; }
+        public int atk { get; set; }
+        public int def { get; set; }
+        public int speed { get; set; }
+    }
     void Start()
     {
         LoadResourceFromTxt();
         ConstructDatabase();
         LoadDataFromLocalDb();
     }
-
+    private void LoadResourceFromTxt()
+    {
+        string filepath = "StreamingAsset/Item";
+        TextAsset targetFile = Resources.Load<TextAsset>(filepath);
+        itemData = JsonMapper.ToObject(targetFile.text);
+    }
+    private void ConstructDatabase()
+    {
+        for (int i = 0; i < itemData.Count; i++)
+        {
+            listItem.Add(new Item()
+            {
+                id = (int)itemData[i]["id"],
+                type = (string)itemData[i]["type"],
+                name = (string)itemData[i]["name"],
+                price = (int)itemData[i]["price"],
+                atk = (int)itemData[i]["atk"],
+                def = (int)itemData[i]["def"],
+                speed = (int)itemData[i]["speed"]
+            });
+        }
+    }
     private void LoadDataFromLocalDb()
     {
         string filePathFull = Application.persistentDataPath + "/" + filePath;
@@ -38,8 +81,6 @@ public class ItemJSONDatabase : MonoBehaviour
             string jsonData = Encoding.ASCII.GetString(jsonByte);
             inGameItemData = JsonMapper.ToObject(jsonData);
             ConstructMyItemDatabase();
-            //TextAsset targetFile = Resources.Load<TextAsset>(filePath);
-            //itemData = JsonMapper.ToObject(targetFile.text);
         }
         else
         {
@@ -47,7 +88,6 @@ public class ItemJSONDatabase : MonoBehaviour
             SaveDataToLocalDb();
         }
     }
-
     private void AddNewItemFirstTime()
     {
         for (int i = 0; i < listItem.Count; i++)
@@ -59,11 +99,12 @@ public class ItemJSONDatabase : MonoBehaviour
             listInGameItem.Add(gameItem);
         }
     }
-
+    //Chuyen du lieu tu game obj thanh Json
     private void SaveDataToLocalDb()
     {
         string JsonData = JsonConvert.SerializeObject(listInGameItem.ToArray(),Formatting.Indented);
         string filePathFull = Application.persistentDataPath + "/" + filePath;
+        Debug.Log(filePathFull);
         byte[] jsonByte = Encoding.ASCII.GetBytes(JsonData);
         if (!Directory.Exists(Path.GetDirectoryName(filePathFull)))
         {
@@ -81,13 +122,6 @@ public class ItemJSONDatabase : MonoBehaviour
         {
             Debug.Log(e.Message);
         }
-    }
-    private void LoadResourceFromTxt()
-    {
-        string filepath = "StreamingAsset/Item";
-        TextAsset targetFile = Resources.Load<TextAsset>(filepath);
-        itemData = JsonMapper.ToObject(targetFile.text);
-
     }
     private void ConstructMyItemDatabase()
     {
@@ -111,37 +145,6 @@ public class ItemJSONDatabase : MonoBehaviour
 
         }
     }
-    private void ConstructDatabase()
-    {
-        for (int i = 0; i < itemData.Count; i++)
-        {
-            listItem.Add(new Item()
-            {
-                id = (int)itemData[i]["id"],
-                type = (string)itemData[i]["type"],
-                name = (string)itemData[i]["name"],
-                price = (int)itemData[i]["price"],
-                atk = (int)itemData[i]["atk"],
-                def = (int)itemData[i]["def"],
-                speed = (int)itemData[i]["speed"]
-            });
-        }
-    }
 }
 
-public class GameItem
-{
-    public bool Purchase { get; set; }
-    public bool Equip { get; set; }
-    public Item item { get; set; }
-}
-public class Item
-{
-    public int id { get; set; }
-    public string type { get; set; }
-    public string name { get; set; }
-    public int price { get; set; }
-    public int atk { get; set; }
-    public int def { get; set; }
-    public int speed { get; set; }
-}
+
