@@ -1,74 +1,47 @@
 [
  {
-   "Id": 1,
-   "Type": "Hat",
-   "Price": 10,
-   "Atk": 1,
-   "Def": 5,
-   "Spd": 4
+   "id": 1,
+   "type": "Head",
+   "name": "Arrow",
+   "price": 10,
+   "atk": 1,
+   "def": 5,
+   "speed": 4
  },
  {
-   "Id": 2,
-   "Type": "Hat",
-   "Price": 20,
-   "Atk": 3,
-   "Def": 5,
-   "Spd": 4
+   "id": 2,
+   "type": "Head",
+   "name": "Cowboy",
+   "price": 20,
+   "atk": 3,
+   "def": 5,
+   "speed": 4
  },
  {
-   "Id": 3,
-   "Type": "Hat",
-   "Price": 30,
-   "Atk": 5,
-   "Def": 5,
-   "Spd": 4
+   "id": 3,
+   "type": "Head",
+   "name": "Crown",
+   "price": 30,
+   "atk": 5,
+   "def": 5,
+   "speed": 4
  },
  {
-   "Id": 4,
-   "Type": "Hat",
-   "Price": 40,
-   "Atk": 7,
-   "Def": 5,
-   "Spd": 4
+   "id": 4,
+   "type": "Head",
+   "name": "Ear",
+   "price": 40,
+   "atk": 7,
+   "def": 5,
+   "speed": 4
  },
  {
-   "Id": 5,
-   "Type": "Hat",
-   "Price": 50,
-   "Atk": 9,
-   "Def": 5,
-   "Spd": 4
- },
- {
-   "Id": 6,
-   "Type": "Hat",
-   "Price": 60,
-   "Atk": 11,
-   "Def": 5,
-   "Spd": 4
- },
- {
-   "Id": 7,
-   "Type": "Hat",
-   "Price": 70,
-   "Atk": 13,
-   "Def": 5,
-   "Spd": 4
- },
- {
-   "Id": 8,
-   "Type": "Hat",
-   "Price": 80,
-   "Atk": 15,
-   "Def": 5,
-   "Spd": 4
- },
- {
-   "Id": 9,
-   "Type": "Hat",
-   "Price": 100,
-   "Atk": 17,
-   "Def": 5,
-   "Spd": 4
+   "id": 5,
+   "type": "Head",
+   "name": "headphone",
+   "price": 50,
+   "atk": 9,
+   "def": 5,
+   "speed": 4
  }
 ]
