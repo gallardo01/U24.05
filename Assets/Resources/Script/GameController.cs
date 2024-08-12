@@ -33,6 +33,7 @@ public class GameController : Singleton<GameController>
         playerIndicator.character = player;
         CreateBotNewGame();
         InitGold();
+        GainGold(1000);
 
     }
 
@@ -52,8 +53,15 @@ public class GameController : Singleton<GameController>
     {
         gold += number;
         PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Ins.InitGold();
     }
-   
+    
+    public void ReduceGold(int number)
+    {
+        gold -= number;
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Ins.InitGold();
+    }
     
     public void StartGame()
     {

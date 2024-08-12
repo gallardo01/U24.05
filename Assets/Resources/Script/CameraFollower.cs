@@ -63,7 +63,7 @@ public class CameraFollower : Singleton<CameraFollower>
         } else if (state == 3)
         {
             currentOffset = offsetShop;
-            SetCameraSize(2);
+            SetCameraSize(2.42f);
         }
     }
 }

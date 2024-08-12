@@ -71,6 +71,19 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
         }
     }
 
+    public List<GameItem> GetAllItemOfType(string type)
+    {
+        List<GameItem> listItem = new List<GameItem>();
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (listItemInGame[i].item.Type == type)
+            {
+                listItem.Add(listItemInGame[i]);
+            }
+        }
+        return listItem;
+    }
+
     private void Save()
     {
         string jsonData = JsonConvert.SerializeObject(listItemInGame.ToArray(), Formatting.Indented);
@@ -92,6 +105,49 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
             Debug.LogWarning("Cannot save" + e.Message);
         }
     }
+    
+    public void PurchaseItem(GameItem item)
+    {
+        for(int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (listItemInGame[i].item.Id == item.item.Id && item.item.Type == listItemInGame[i].item.Type)
+            {
+                listItemInGame[i].Purchased = true;
+                break;
+            }
+        }
+        Save();
+    }
+
+    public void EquipItem(GameItem item)
+    {
+        UnEquipItem(item);
+        for(int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (listItemInGame[i].item.Id == item.item.Id && item.item.Type == listItemInGame[i].item.Type)
+            {
+                listItemInGame[i].IsEquip = true;
+                break;
+            }
+        }
+
+        Save();
+    }
+    
+    public void UnEquipItem(GameItem item)
+    {
+        for(int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type)
+            {
+                listItemInGame[i].IsEquip = false;
+                break;
+            }
+        }
+        Save();
+    }
+    
+    
 
     private void ConstructDatabase()
     {
