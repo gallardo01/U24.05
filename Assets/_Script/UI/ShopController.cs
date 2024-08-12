@@ -1,23 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static ItemJSONDatabase;
 
 public class ShopController : MonoBehaviour
 {
-    public InitItem initItemPrefabs;
     [SerializeField] Transform contentUI;
-    // Start is called before the first frame update
-    void Start()
-    {
-        CreatHatItemInShop();
-    }
+    public static ShopController instance;
+    public InitItem initItemPrefabs;
+    public Button[] listButton;
+    private static string[] listType = { "Head", "Pant", "Weapon", "Shield" };
 
-    private void CreatHatItemInShop()
+    // Start is called before the first frame update
+    private void Awake()
     {
-        for (int i = 0; i < ItemJSONDatabase.instance.listInGameItem.Count; i++)
+        instance = this;
+    }
+    private void Start()
+    {
+        OnClickButton(0);
+        listButton[0].onClick.AddListener(() => OnClickButton(0));
+        listButton[1].onClick.AddListener(() => OnClickButton(1));
+        listButton[2].onClick.AddListener(() => OnClickButton(2));
+        listButton[3].onClick.AddListener(() => OnClickButton(3));
+    }
+    private void CreatItemInShop(string type)
+    {
+        for (int i = 0; i < contentUI.childCount; i++)
+        {
+            Destroy(contentUI.GetChild(i).gameObject);
+        }
+        List<GameItem> gameItem = ItemJSONDatabase.instance.SplitTypeItem(type);
+        for (int i = 0; i < gameItem.Count; i++)
         {
             InitItem gameObject = Instantiate(initItemPrefabs.gameObject, contentUI).GetComponent<InitItem>();
-            gameObject.InitItemUI(ItemJSONDatabase.instance.listInGameItem[i]);
+            gameObject.InitItemUI(gameItem[i]);
+        }
+    }
+
+    public void OnClickButton(int type)
+    {
+        CreatItemInShop(listType[type]);
+        for (int i = 0; i < listButton.Length; i++)
+        {
+            if (i == type)
+            {
+                listButton[i].image.color = Color.yellow;
+            } else
+            {
+                listButton[i].image.color = Color.white;
+            }
         }
     }
 }

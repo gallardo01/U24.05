@@ -43,5 +43,131 @@
    "atk": 9,
    "def": 5,
    "speed": 4
+ },
+ {
+   "id": 6,
+   "type": "Weapon",
+   "name": "axe_0",
+   "price": 100,
+   "atk": 10,
+   "def": 0,
+   "speed": 0
+ },
+ {
+   "id": 7,
+   "type": "Weapon",
+   "name": "axe_1",
+   "price": 120,
+   "atk": 12,
+   "def": 0,
+   "speed": 0
+ },
+ {
+   "id": 8,
+   "type": "Weapon",
+   "name": "gun",
+   "price": 140,
+   "atk": 14,
+   "def": 0,
+   "speed": 0
+ },
+ {
+   "id": 9,
+   "type": "Weapon",
+   "name": "candy",
+   "price": 150,
+   "atk": 15,
+   "def": 0,
+   "speed": 0
+ },
+ {
+   "id": 10,
+   "type": "Weapon",
+   "name": "boomerang",
+   "price": 200,
+   "atk": 18,
+   "def": 0,
+   "speed": 0
+ },
+ {
+   "id": 11,
+   "type": "Pant",
+   "name": "Pant_1",
+   "price": 40,
+   "atk": 1,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 12,
+   "type": "Pant",
+   "name": "Pant_2",
+   "price": 45,
+   "atk": 2,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 13,
+   "type": "Pant",
+   "name": "Pant_3",
+   "price": 50,
+   "atk": 3,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 14,
+   "type": "Pant",
+   "name": "Pant_4",
+   "price": 55,
+   "atk": 4,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 15,
+   "type": "Pant",
+   "name": "Pant_5",
+   "price": 60,
+   "atk": 5,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 16,
+   "type": "Pant",
+   "name": "Pant_6",
+   "price": 65,
+   "atk": 6,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 17,
+   "type": "Pant",
+   "name": "Pant_7",
+   "price": 70,
+   "atk": 7,
+   "def": 2,
+   "speed": 4
+ },
+ {
+   "id": 18,
+   "type": "Shield",
+   "name": "CaptainShield",
+   "price": 180,
+   "atk": 0,
+   "def": 12,
+   "speed": 1
+ },
+ {
+   "id": 19,
+   "type": "Shield",
+   "name": "Shield",
+   "price": 250,
+   "atk": 0,
+   "def": 18,
+   "speed": 1
  }
 ]

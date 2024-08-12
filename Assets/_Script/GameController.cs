@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
         {
             weaponTag.Add(weaponList[i].tag);
         }
+        ChangeGold(200);
     }
 
     private void Update()
@@ -61,7 +62,7 @@ public class GameController : MonoBehaviour
             return goldNumber = PlayerPrefs.GetInt("Gold");
         }
     }
-    public void GainGold(int num)
+    public void ChangeGold(int num)
     {
         goldNumber += num;
         PlayerPrefs.SetInt("Gold", goldNumber);

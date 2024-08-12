@@ -23,11 +23,11 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
     }
-    void Start()
+
+    private void Start()
     {
-
+        goldCoin.text = GameController.instance.InitPlayerGold().ToString();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
     public void WinAndMoveToMainMenu()
     {
         MoveToMainMenu();
-        GameController.instance.GainGold(goldGain);
+        GameController.instance.ChangeGold(goldGain);
     }
 
     public void OpenShop()

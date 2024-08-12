@@ -13,6 +13,7 @@ public class InitItem : MonoBehaviour
     public GameObject equipButton;
     public TMPro.TextMeshProUGUI priceText;
     public TMPro.TextMeshProUGUI equipItem;
+    GameItem thisItem;
 
     public enum PurchaseState
     {
@@ -21,10 +22,29 @@ public class InitItem : MonoBehaviour
         PURCHASE
     }
 
+    public void OnClickBuy(int state)
+    {
+        if (state ==1)
+        {
+            int price = thisItem.item.price;
+            int currentGold = GameController.instance.goldNumber;
+            if (currentGold >= price)
+            {
+                GameController.instance.ChangeGold(-price);
+                ItemJSONDatabase.instance.UpdatePurchaseItem(thisItem);
+                BuyStateUI(PurchaseState.EQUIP);
+            }
+        }
+        if (state == 2)
+        {
+            BuyStateUI(PurchaseState.EQUIPED);
+        }
+    }
 
     public void InitItemUI(GameItem item)
     {
-        itemImage.sprite = Resources.Load<Sprite>("UI/Hat" + "/" + item.item.name);
+        thisItem = item;
+        itemImage.sprite = Resources.Load<Sprite>("UI/" + item.item.type + "/" + item.item.name);
         if (!item.Purchase)
         {
             BuyStateUI(PurchaseState.PURCHASE);
