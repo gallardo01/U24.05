@@ -51,6 +51,45 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
         }
     }
 
+    public void EquipItem(GameItem item)
+    {
+        UnequipItem(item);
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type && item.item.Id == listItemInGame[i].item.Id)
+            {
+                listItemInGame[i].IsEquip = true;
+                break;
+            }
+        }
+        Save();
+    }
+
+    public void UnequipItem(GameItem item)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type)
+            {
+                listItemInGame[i].IsEquip = false;
+            }
+        }
+        Save();
+    }
+
+    public void PurchaseItem(GameItem item)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type && item.item.Id == listItemInGame[i].item.Id)
+            {
+                listItemInGame[i].Purchased = true;
+                break;
+            }
+        }
+        Save();
+    }
+
     private void LoadResourcesFromTxt()
     {
         string filePath = "StreamingAssets/Item";
@@ -68,6 +107,19 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
             newGameItem.IsEquip = false;
             listItemInGame.Add(newGameItem);
         }
+    }
+
+    public List<GameItem> GetAllItemOfType(string type)
+    {
+        List<GameItem> listItem = new List<GameItem>();
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (type == listItemInGame[i].item.Type)
+            {
+                listItem.Add(listItemInGame[i]);
+            }
+        }
+        return listItem;
     }
 
     private void Save()
