@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     private Dictionary<WeaponType, WeaponDataDetail> dictWeaponData = new();
-    private List<WeaponType> listWeaponType = new();
+    public List<WeaponType> listWeaponType = new();
 
     private void Awake()
     {
@@ -34,11 +34,11 @@ public class WeaponManager : Singleton<WeaponManager>
         weapon.InitWeapon(owner, attackSpeed, startPoint, direction, attackRange);
     }
 
-    public GameObject InitWeaponHold(WeaponType weaponType, Transform weaponHoldParent)
+    public WeaponDataDetail GetWeaponData(WeaponType weaponType)
     {
         if (dictWeaponData.TryGetValue(weaponType, out WeaponDataDetail weaponData))
         {
-            return Instantiate(weaponData.weaponHoldPrefab, weaponHoldParent); ;
+            return weaponData;
         }
         else
         {

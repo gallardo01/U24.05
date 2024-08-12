@@ -18,6 +18,7 @@ public class WeaponDataDetail
 {
     public WeaponType weaponType;
     public PoolType poolType;
+    public string name;
     public int price;
     public GameObject weaponHoldPrefab;
     public List<WeaponSkinDetail> weaponSkinList;

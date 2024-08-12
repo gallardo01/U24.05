@@ -30,7 +30,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void InitPlayer()
     {
-        player.InitCharacter(WeaponType.Axe, 0);
+        player.InitCharacter(0);
         player.tf.position = currentLevel.GetRandomNodeStart().position;
         player.tf.rotation = Quaternion.Euler(0, 180, 0);
     }

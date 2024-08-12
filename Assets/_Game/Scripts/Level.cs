@@ -82,11 +82,14 @@ public class Level : MonoBehaviour
         Bot bot = (Bot)SimplePool.Spawn(PoolType.Bot, NodeStart.position, Quaternion.identity);
         int playerLevel = LevelManager.Ins.player.Level;
         int botLevel = playerLevel + Random.Range(0, 2);
-        bot.InitCharacter(WeaponManager.Ins.GetRandomWeapon(), botLevel);
+        bot.InitCharacter(botLevel);
 
+        WeaponType weaponType = WeaponManager.Ins.GetRandomWeapon();
         HairType hairType = SkinManager.Ins.GetRandomHair();
         ShieldType shieldType = SkinManager.Ins.GetRandomShield();
         PantsType pantsType = SkinManager.Ins.GetRandomPants();
+
+        bot.EquipWeapon(weaponType);
         bot.EquipHair(hairType);
         bot.EquipShield(shieldType);
         bot.EquipPants(pantsType);

@@ -12,6 +12,7 @@ public class DataManager : Singleton<DataManager>
 
     public HashSet<Type> ItemType = new()
     {
+        typeof(WeaponType),
         typeof(HairType),
         typeof(PantsType),
         typeof(ShieldType),
@@ -21,7 +22,6 @@ public class DataManager : Singleton<DataManager>
     {
         if (!ItemType.Contains(type))
         {
-            Debug.Log("ItemType is not valid!");
             return;
         }
     }

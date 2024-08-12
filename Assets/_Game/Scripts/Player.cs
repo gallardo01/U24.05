@@ -16,9 +16,14 @@ public class Player : Character
 
     private void Start()
     {
+        DataManager.Ins.SaveCurrentItem<WeaponType>(WeaponManager.Ins.GetRandomWeapon());
+
+        WeaponType weaponType = DataManager.Ins.GetCurrentItem<WeaponType>();
         HairType hairType = DataManager.Ins.GetCurrentItem<HairType>();
         ShieldType shieldType = DataManager.Ins.GetCurrentItem<ShieldType>();
         PantsType pantsType = DataManager.Ins.GetCurrentItem<PantsType>();
+
+        EquipWeapon(weaponType);
         EquipHair(hairType);
         EquipShield(shieldType);
         EquipPants(pantsType);
@@ -100,6 +105,10 @@ public class Player : Character
         else if (itemType is ShieldType shieldType)
         {
             EquipShield(shieldType);
+        }
+        else if (itemType is WeaponType weaponType)
+        {
+            EquipWeapon(weaponType);
         }
     }
 }

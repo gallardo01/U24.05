@@ -37,7 +37,7 @@ public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
         this.RegisterListener(EventID.OnItemEquipped, (param) =>
         {
             ShopItem<ItemType> equippedItem = param as ShopItem<ItemType>;
-            if (equippedItem != this)
+            if (equippedItem != this && isItemEquipped)
             {
                 IsIteamEquipped(false);
             }

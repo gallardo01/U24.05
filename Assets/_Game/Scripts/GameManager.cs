@@ -6,6 +6,11 @@ public class GameManager : Singleton<GameManager>
 {
     private GameState gameState;
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     void Start()
     {
         UIManager.Ins.OpenUI<UIMainmenu>();

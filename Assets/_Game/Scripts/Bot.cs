@@ -15,12 +15,12 @@ public class Bot : Character
 
     protected override void Update()
     {
-        base.Update();
-
         if (currentState != null)
         {
             currentState.OnExecute(this);
         }
+
+        base.Update();
     }
 
     public void ChangeState(IState<Bot> newState)
@@ -38,9 +38,9 @@ public class Bot : Character
         }
     }
 
-    public override void InitCharacter(WeaponType weaponType, int level)
+    public override void InitCharacter(int level)
     {
-        base.InitCharacter(weaponType, level);
+        base.InitCharacter(level);
         characterInfo.UpdateTextName("Bot_" + Random.Range(0, 9999).ToString());
         agent.speed = MoveSpeed;
         ChangeState(new WaitState());

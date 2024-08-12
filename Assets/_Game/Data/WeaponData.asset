@@ -15,36 +15,43 @@ MonoBehaviour:
   weaponDataList:
   - weaponType: 0
     poolType: 1
+    name: Arrow
     price: 0
     weaponHoldPrefab: {fileID: 2987378335271128039, guid: a8cc68b0e9cf8ad4c9b98761a757eb0c, type: 3}
     weaponSkinList: []
   - weaponType: 1
     poolType: 2
-    price: 0
+    name: Axe
+    price: 100
     weaponHoldPrefab: {fileID: 3619340395373133824, guid: 712a3826093f4da4e81de2c2e857dfb1, type: 3}
     weaponSkinList: []
   - weaponType: 2
     poolType: 3
-    price: 0
+    name: Boomerang
+    price: 200
     weaponHoldPrefab: {fileID: 3263279069447551785, guid: a788281dfc31225468700bd13050d8ba, type: 3}
     weaponSkinList: []
   - weaponType: 3
     poolType: 4
-    price: 0
+    name: Candy
+    price: 300
     weaponHoldPrefab: {fileID: 8570151828667302143, guid: 83c627d3f0224614d836f58fb9c7c92b, type: 3}
     weaponSkinList: []
   - weaponType: 4
     poolType: 5
-    price: 0
+    name: Hammer
+    price: 400
     weaponHoldPrefab: {fileID: 4523256219210136327, guid: 238298f774f98474d9c230c2cf1ac999, type: 3}
     weaponSkinList: []
   - weaponType: 5
     poolType: 6
-    price: 0
+    name: Knife
+    price: 500
     weaponHoldPrefab: {fileID: 1260173524068862871, guid: 4ed5c15db22443c47956418ab64417e5, type: 3}
     weaponSkinList: []
   - weaponType: 6
     poolType: 7
-    price: 0
+    name: Lollipop
+    price: 600
     weaponHoldPrefab: {fileID: 2108311020702200442, guid: b90b66f99cf8eae4c801d67ac3ed6d1f, type: 3}
     weaponSkinList: []

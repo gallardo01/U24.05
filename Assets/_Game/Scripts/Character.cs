@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -93,14 +94,13 @@ public class Character : GameUnit
         }
     }
 
-    public virtual void InitCharacter(WeaponType weaponType, int level)
+    public virtual void InitCharacter(int level)
     {
         float range = AttackRange + weaponStartPoint.localPosition.z;
         float scale = range / attackZoneCollider.radius;
         attackZoneCollider.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
         LevelUp(level);
-        EquipWeapon(weaponType);
 
         if (GameManager.Ins.IsState(GameState.Gameplay))
         {
@@ -257,7 +257,9 @@ public class Character : GameUnit
         Destroy(currentWeaponHold);
 
         this.weaponType = weaponType;
-        currentWeaponHold = WeaponManager.Ins.InitWeaponHold(this.weaponType, weaponHoldParent);
+
+        WeaponDataDetail weaponDataDetail = WeaponManager.Ins.GetWeaponData(this.weaponType);
+        currentWeaponHold = Instantiate(weaponDataDetail.weaponHoldPrefab, weaponHoldParent);
     }
 }
 

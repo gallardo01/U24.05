@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CharacterInfo : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class CharacterInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI textName;
     [SerializeField] TextMeshProUGUI textLevel;
 
+    //Vector3 viewPoint;
+    //Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
+    //private float offsetY = 3f;
+
     void LateUpdate()
     {
+        //viewPoint = Camera.main.WorldToViewportPoint(target.position + Vector3.up * offsetY);
+        //tf.position = Camera.main.ViewportToScreenPoint(viewPoint);
+
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
         tf.position = screenPos + offset;
     }
