@@ -32,7 +32,7 @@ public class GameController : Singleton<GameController>
 
         CreateBotNewGame();
         InitGold();
-        GainGold(100);
+        //GainGold(100);
     }
 
     public void InitGold()
