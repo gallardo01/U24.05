@@ -5084,6 +5084,7 @@ MonoBehaviour:
   mainCanvas: {fileID: 1617956646}
   numberChar: 10
   player: {fileID: 9115629006098067359, guid: 072fed320e692164bb43a6bcc213a57d, type: 3}
+  characterList: []
   aliveText: {fileID: 1335164277}
 --- !u!114 &1031398730
 MonoBehaviour:
@@ -5148,7 +5149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684405fbabeca38458f6afe05cfd6ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponsData:
+  weaponsDatas:
   - {fileID: 11400000, guid: f434912b4a8a2ab4b98739e8a14c9b25, type: 2}
   - {fileID: 11400000, guid: 6ecc09da8eb8b2d47bea14227f426f88, type: 2}
   - {fileID: 11400000, guid: 84bbeacbf188d8949ae85f8271c0fe67, type: 2}
@@ -5162,11 +5163,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fbc813b808eec144fa4fbc94c99e8cd9, type: 2}
   - {fileID: 11400000, guid: fda10acd0eaae0c4c8162f3780b40f3e, type: 2}
   - {fileID: 11400000, guid: 693e57f6ca4e074478bd462d2bdce368, type: 2}
-  shieldsData:
+  shieldsDatas:
   - {fileID: 11400000, guid: df60ede9536c18d478ce46f43290ad82, type: 2}
   - {fileID: 11400000, guid: e1f53383f6a833e48b8d3787de89a80b, type: 2}
   - {fileID: 11400000, guid: a8a18f11f5b05d8459341cd42b074420, type: 2}
-  hatsData:
+  hatsDatas:
   - {fileID: 11400000, guid: 7536f45d437684345bffde83a95196f2, type: 2}
   - {fileID: 11400000, guid: 17d734fa96af6924eb1e3df9a88ccef5, type: 2}
   - {fileID: 11400000, guid: 507616ec027985044a0321f52d33e7d7, type: 2}
@@ -5178,7 +5179,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f197f63693b7c034097683fe6b92d19d, type: 2}
   - {fileID: 11400000, guid: dff2fa441758200438952a1fe843cb5d, type: 2}
   - {fileID: 11400000, guid: 63a858dca430fa84ab913672791d8c5f, type: 2}
-  pantsData:
+  pantsDatas:
   - {fileID: 11400000, guid: 4ed6ddd1d49d54e41bcce50fc6d02974, type: 2}
   - {fileID: 11400000, guid: 09a399c39e64b544ab92971d49b24a2c, type: 2}
   - {fileID: 11400000, guid: 30b0e34bc04cb374da2090b2c8c9f044, type: 2}
@@ -7313,7 +7314,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 604580928}
-  - {fileID: 1600341211}
   m_Father: {fileID: 725862009}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8393,63 +8393,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4768373528014018, guid: b4f843017807dfb45a67046282e14faf, type: 3}
   m_PrefabInstance: {fileID: 1582769854}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1600341210
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1600341211}
-  - component: {fileID: 1600341212}
-  m_Layer: 0
-  m_Name: Bots_Pool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1600341211
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600341210}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1361333791}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1600341212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600341210}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eea08375da243a441b88d1e6b0713006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 4702043210106954703, guid: c864338593d2ef84cacdd2f1df823006, type: 3}
-  notification: 3
-  strategy: 0
-  preload: 0
-  capacity: 0
-  recycle: 0
-  persist: 0
-  stamp: 0
-  warnings: 1
-  spawnedClonesList: []
-  despawnedClones: []
-  delays: []
-  deactivatedChild: {fileID: 0}
 --- !u!1 &1616859385
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,13 +12,12 @@ public class EquipmentContainer : MonoBehaviour
 
     public ItemType ItemType { get; private set; }
     public GameObject Prefab { get; private set; }
+    public GameObject Projectile { get; private set; }
     public Material Material { get; private set; }
     public int Price { get; private set; }
 
     public bool IsPurchase { get; private set; }
     public bool IsEquip { get; private set; } 
-
-    public void Equip(bool b) { IsEquip = b; }
 
     public void OnInit(EquipmentDataSO data)
     {
@@ -26,6 +25,7 @@ public class EquipmentContainer : MonoBehaviour
         this.Icon.sprite = data.itemIcon;
         this.ItemType = data.itemType;
         this.Prefab = data.itemPrefab;
+        this.Projectile = data.projectTilePrefab;
         this.Material = data.itemMat;
         this.Price = data.price;
 
@@ -38,4 +38,16 @@ public class EquipmentContainer : MonoBehaviour
 
         IsPurchase = ES3.Load<bool>("IsPurchase_" + ItemName.text, false);
     }
+
+    public void Purchase()
+    {
+        ES3.Save<bool>("IsPurchase_" + ItemName.text, true);
+        IsPurchase = true;
+    }
+
+    public void Equipped(bool check) 
+    { 
+        IsEquip = check; 
+    }
+
 }

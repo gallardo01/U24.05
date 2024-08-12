@@ -14,23 +14,6 @@ public class ShopStateButton : MonoBehaviour
         Equipted,
     }
 
-    private void Start()
-    {
-        string[] keys = ES3.GetKeys();
-        if (keys.Length == 0)
-        {
-            Debug.Log("No keys found in the save file.");
-        }
-        else
-        {
-            Debug.Log("Keys found in the save file:");
-            foreach (string key in keys)
-            {
-                Debug.Log(key);
-            }
-        }
-    }
-
     [SerializeField] private Button button;
     [SerializeField] private TextMeshProUGUI buttonText;
 
@@ -95,7 +78,7 @@ public class ShopStateButton : MonoBehaviour
 
     public void BuyCallBack()
     {
-        ES3.Save<bool>("IsPurchase_" + currentContainer.ItemName.text, true);
+        currentContainer.Purchase();
         CurrencyManager.Instance.SpendCurrency(currentContainer.Price);
         currentState = ButtonState.NeedEquip;
         Configue();
@@ -115,9 +98,9 @@ public class ShopStateButton : MonoBehaviour
         }
         for(int i = 0;i < others.Count;i++)
         {
-            others[i].Equip(false);
+            others[i].Equipped(false);
         }
-        currentContainer.Equip(true);
+        currentContainer.Equipped(true);
 
         EquipmentManager.Instance.SaveItemData(currentContainer);
         currentState = ButtonState.Equipted;

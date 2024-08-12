@@ -18,7 +18,7 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
     [HideInInspector] public Player player;
     
     private List<Vector3> spawnPosList = new List<Vector3>();
-    private List<Character> characterList = new List<Character>();
+    public List<Character> characterList = new List<Character>();
 
     [SerializeField] TextMeshProUGUI aliveText; 
 

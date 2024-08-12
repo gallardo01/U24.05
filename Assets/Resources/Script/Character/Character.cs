@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Lean.Pool;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +15,12 @@ public abstract class Character : MonoBehaviour
 {
     [Header("Element")]
     [SerializeField] protected Transform shotingPoint;
-    [SerializeField] protected Projectile projectilePrefab;
+    protected Projectile projectilePrefab;
     [SerializeField] protected Animator animator;
     [SerializeField] protected Collider collider;
     [SerializeField] protected Health health;
-    [field: SerializeField] public CharacterEquipment CharacterEquipment {  get; private set; }
+    [SerializeField] protected CharacterEquipment equipment;
+
     protected string currentAnimName = "idle";
     protected Indicator indicator; public Indicator Indicator => indicator;
     public void SetIndicator(Indicator indicator) {  this.indicator = indicator; } 
@@ -79,11 +81,11 @@ public abstract class Character : MonoBehaviour
         ChangAnim("attack");
     }
 
-    public void Throw(Transform target)
+    public void Throw(Vector3 targetPos)
     {
         Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
         LeanPool.Despawn(projectTile.gameObject, 3);
-        Vector3 direction = (target.position + Vector3.up - shotingPoint.transform.position).normalized;
+        Vector3 direction = (targetPos + Vector3.up - shotingPoint.transform.position).normalized;
         projectTile.transform.forward = direction;
         projectTile.Shoot(direction, characterDamage,this);
     }
@@ -104,6 +106,12 @@ public abstract class Character : MonoBehaviour
 
     public void UpdateLevel() => indicator.UpdateLevel();
 
+    public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material, GameObject projectile)
+    {
+        equipment.SetEquipMent(weaponItem, shieldItem, HatItem, material, projectile);
+        projectilePrefab = projectile.GetComponent<Projectile>();
+    }
+
     public void ChangAnim(string animName)
     {
         if (currentAnimName != animName)
@@ -119,4 +127,5 @@ public abstract class Character : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
+
 }

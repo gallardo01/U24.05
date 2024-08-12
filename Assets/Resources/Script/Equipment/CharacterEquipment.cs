@@ -8,8 +8,9 @@ public class CharacterEquipment : MonoBehaviour
     [SerializeField] Transform leftHandRoot;
     [SerializeField] Transform hatRoot;
     [SerializeField] SkinnedMeshRenderer pantSkin;
+    [SerializeField] Character character;
 
-    public void GetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material)
+    public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material, GameObject projectile)
     {
         GetWeapon(weaponItem);
         GetShield(shieldItem);

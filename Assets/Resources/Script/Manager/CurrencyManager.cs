@@ -42,7 +42,6 @@ public class CurrencyManager : Singleton<CurrencyManager>
     private void LoadCurrency()
     {
         CurrentCurrency = ES3.Load<int>(CurrencyKey, 0); // Default to 0 if not found
-        Debug.Log(CurrentCurrency);
         DisplayCurrency();
     }
 

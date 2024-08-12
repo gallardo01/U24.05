@@ -17,6 +17,7 @@ public class Player : Character
     private float timer = 0f;
     private bool isOnAttack;
     private Vector3 moveDirection;
+    private Vector3 targetPos;
 
     public override void OnInit()
     {
@@ -72,6 +73,7 @@ public class Player : Character
         if(!isOnAttack)
         {
             Attack(target.transform);
+            targetPos = target.transform.position;
             Invoke(nameof(OnThrow), 0.3f);
             isOnAttack = true;
         }
@@ -84,7 +86,7 @@ public class Player : Character
 
     private void OnThrow()
     {
-        Throw(target.transform);
+        Throw(targetPos);
     }
     
     private void ExitAttack()
