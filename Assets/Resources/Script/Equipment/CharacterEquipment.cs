@@ -9,7 +9,15 @@ public class CharacterEquipment : MonoBehaviour
     [SerializeField] Transform hatRoot;
     [SerializeField] SkinnedMeshRenderer pantSkin;
 
-    public void GetWeapon(GameObject item)
+    public void GetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material)
+    {
+        GetWeapon(weaponItem);
+        GetShield(shieldItem);
+        GetHat(HatItem);
+        GetPant(material);
+    }
+
+    private void GetWeapon(GameObject item)
     {
         if(rightHandRoot.childCount != 0)
         {
@@ -18,7 +26,7 @@ public class CharacterEquipment : MonoBehaviour
         Instantiate(item, rightHandRoot);
     }
 
-    public void GetShield(GameObject item)
+    private void GetShield(GameObject item)
     {
         if (leftHandRoot.childCount != 0)
         {
@@ -27,7 +35,7 @@ public class CharacterEquipment : MonoBehaviour
         Instantiate(item, leftHandRoot);
     }
 
-    public void GetHat(GameObject item)
+    private void GetHat(GameObject item)
     {
         if (hatRoot.childCount != 0)
         {
@@ -36,7 +44,7 @@ public class CharacterEquipment : MonoBehaviour
         Instantiate(item, hatRoot);
     }
 
-    public void GetPant(Material material)
+    private void GetPant(Material material)
     {
         if (pantSkin.transform.childCount != 0)
         {

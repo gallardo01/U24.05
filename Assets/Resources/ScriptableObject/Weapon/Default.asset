@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 338a20e1bd93f2a4f9dc66953e6fe801, type: 3}
-  m_Name: Weapon SO 11
+  m_Name: Default
   m_EditorClassIdentifier: 
-  itemName: Weapon 11
+  itemName: Default
   itemType: 0
-  itemPrefab: {fileID: 3807409296882073121, guid: a11c8a67bf3de4349b68f0ef86d4c006, type: 3}
+  itemPrefab: {fileID: 8976584763497608703, guid: 6184be91eac98cd4b968a663b9bea785, type: 3}
   projectTilePrefab: {fileID: 0}
   itemMat: {fileID: 0}
-  itemIcon: {fileID: 21300000, guid: c0e85ffc93ead054f8c67b9085091a5d, type: 3}
-  price: 60
+  itemIcon: {fileID: 21300000, guid: 5a372bbeec787a54d92c4a484eda34b4, type: 3}
+  price: 0

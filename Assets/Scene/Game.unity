@@ -581,7 +581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &57496329
@@ -631,12 +631,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 87.7
+  m_fontSize: 70
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 87.7
+  m_fontSizeMax: 70
   m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5149,6 +5149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsData:
+  - {fileID: 11400000, guid: f434912b4a8a2ab4b98739e8a14c9b25, type: 2}
   - {fileID: 11400000, guid: 6ecc09da8eb8b2d47bea14227f426f88, type: 2}
   - {fileID: 11400000, guid: 84bbeacbf188d8949ae85f8271c0fe67, type: 2}
   - {fileID: 11400000, guid: a3906275bec559649984415ae0594dd0, type: 2}
@@ -5162,9 +5163,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fda10acd0eaae0c4c8162f3780b40f3e, type: 2}
   - {fileID: 11400000, guid: 693e57f6ca4e074478bd462d2bdce368, type: 2}
   shieldsData:
+  - {fileID: 11400000, guid: df60ede9536c18d478ce46f43290ad82, type: 2}
   - {fileID: 11400000, guid: e1f53383f6a833e48b8d3787de89a80b, type: 2}
   - {fileID: 11400000, guid: a8a18f11f5b05d8459341cd42b074420, type: 2}
   hatsData:
+  - {fileID: 11400000, guid: 7536f45d437684345bffde83a95196f2, type: 2}
   - {fileID: 11400000, guid: 17d734fa96af6924eb1e3df9a88ccef5, type: 2}
   - {fileID: 11400000, guid: 507616ec027985044a0321f52d33e7d7, type: 2}
   - {fileID: 11400000, guid: 2e24d277df9ed7343be3d1264c156900, type: 2}
@@ -5176,6 +5179,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dff2fa441758200438952a1fe843cb5d, type: 2}
   - {fileID: 11400000, guid: 63a858dca430fa84ab913672791d8c5f, type: 2}
   pantsData:
+  - {fileID: 11400000, guid: 4ed6ddd1d49d54e41bcce50fc6d02974, type: 2}
   - {fileID: 11400000, guid: 09a399c39e64b544ab92971d49b24a2c, type: 2}
   - {fileID: 11400000, guid: 30b0e34bc04cb374da2090b2c8c9f044, type: 2}
   - {fileID: 11400000, guid: b7cc37d1572dbe748bf1e1c6c108a70a, type: 2}
@@ -5186,10 +5190,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0680de35d4f6bf143b58cec326fd9bf1, type: 2}
   - {fileID: 11400000, guid: 9552d282af921274982253b903b3192a, type: 2}
   containerPrefab: {fileID: 5694112994859091599, guid: f8fc98ec47d49d1408f56c1c962334b9, type: 3}
+  containerList: []
   weaponTab: {fileID: 1167548951}
   shieldTab: {fileID: 1911566295}
   hatTab: {fileID: 1042391399}
   pantTab: {fileID: 1386045125}
+  stateButton: {fileID: 1035166980}
 --- !u!1 &1035166975
 GameObject:
   m_ObjectHideFlags: 0
@@ -5325,6 +5331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d09e644a452d1b48bb320836ed3b847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 1035166977}
+  buttonText: {fileID: 57496329}
 --- !u!1 &1042391398
 GameObject:
   m_ObjectHideFlags: 0

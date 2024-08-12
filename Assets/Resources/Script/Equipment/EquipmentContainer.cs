@@ -7,15 +7,18 @@ using UnityEngine.UI;
 public class EquipmentContainer : MonoBehaviour
 {
     [field: SerializeField] public Button Button { get; private set; }
-    [SerializeField] TextMeshProUGUI ItemName;
+    [field :SerializeField] public TextMeshProUGUI ItemName { get; private set; }
     [SerializeField] Image Icon;
 
     public ItemType ItemType { get; private set; }
     public GameObject Prefab { get; private set; }
     public Material Material { get; private set; }
+    public int Price { get; private set; }
 
-    public bool IsBought { get; private set; }
-    public bool IsEquip { get; private set; }
+    public bool IsPurchase { get; private set; }
+    public bool IsEquip { get; private set; } 
+
+    public void Equip(bool b) { IsEquip = b; }
 
     public void OnInit(EquipmentDataSO data)
     {
@@ -24,7 +27,15 @@ public class EquipmentContainer : MonoBehaviour
         this.ItemType = data.itemType;
         this.Prefab = data.itemPrefab;
         this.Material = data.itemMat;
+        this.Price = data.price;
 
-        IsBought = ES3.Load<bool>(data.itemName, false);
+        if(data.itemName == "Default")
+        {
+            IsPurchase = true;
+            IsEquip = true;
+            return;
+        }
+
+        IsPurchase = ES3.Load<bool>("IsPurchase_" + ItemName.text, false);
     }
 }

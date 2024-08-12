@@ -96,7 +96,6 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
             characterList[i].Indicator.gameObject.SetActive(active);
         }
         DisplayAlive();
-
     }
 
     private void DisplayAlive()
@@ -114,7 +113,6 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
 
             case GameState.GAME:
                 ActiveSetting(true);
-
                 break;
 
             case GameState.WEAPONSECTION:
@@ -127,12 +125,12 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
 
             case GameState.GAMEOVER:
                 ActiveSetting(false);
-
                 break;
 
             case GameState.SHOP:
-
+                ActiveSetting(false);
                 break;
+
         }
     }
 

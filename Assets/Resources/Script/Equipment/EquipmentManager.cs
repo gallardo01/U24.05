@@ -20,6 +20,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     [SerializeField] EquipmentDataSO[] pantsData;
 
     [SerializeField] EquipmentContainer containerPrefab;
+    [HideInInspector] public List<EquipmentContainer> containerList = new List<EquipmentContainer>();
 
     [SerializeField] Transform weaponTab;
     [SerializeField] Transform shieldTab;
@@ -29,10 +30,18 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
 
     [SerializeField] ShopStateButton stateButton;
 
-    private GameObject equiptedWeapon;
-    private GameObject equiptedShield;
-    private GameObject equiptedHat;
-    private Material equiptedPant;
+    private GameObject equiptWeapon;
+    private GameObject equiptShield;
+    private GameObject equiptHat;
+    private Material equiptPant;
+
+    private void Start()
+    {
+        equiptWeapon = weaponsData[0].itemPrefab;
+        equiptShield = shieldsData[0].itemPrefab;
+        equiptHat = hatsData[0].itemPrefab;
+        equiptPant = pantsData[0].itemMat;
+    }
 
     public void CreatContainers()
     {
@@ -58,7 +67,8 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     {
         EquipmentContainer newContainer = Instantiate(containerPrefab, parentTab);
         newContainer.OnInit(data);
-        newContainer.Button.onClick.AddListener(() => SaveItemData(newContainer));
+        newContainer.Button.onClick.AddListener(() => stateButton.ChangeButtonState(newContainer));
+        containerList.Add(newContainer);
     }
 
     public void SaveItemData(EquipmentContainer container)
@@ -66,26 +76,24 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         switch (container.ItemType)
         {
             case ItemType.Weapon:
-                equiptedWeapon = container.Prefab;
+                equiptWeapon = container.Prefab;
                 break;
             case ItemType.Shield:
-                equiptedShield = container.Prefab;
+                equiptShield = container.Prefab;
                 break;
             case ItemType.Hat:
-                equiptedHat = container.Prefab;
+                equiptHat = container.Prefab;
                 break;
             case ItemType.Pant:
-                equiptedPant = container.Material;
+                equiptPant = container.Material;
                 break;
         }
     }
 
     public void AddItem()
     {
-        PlayersManager.Instance.player.CharacterEquipment.GetWeapon(equiptedWeapon);
-        PlayersManager.Instance.player.CharacterEquipment.GetShield(equiptedShield);
-        PlayersManager.Instance.player.CharacterEquipment.GetHat(equiptedHat);
-        PlayersManager.Instance.player.CharacterEquipment.GetPant(equiptedPant);
+        CharacterEquipment playerEquipment = PlayersManager.Instance.player.CharacterEquipment;
+        playerEquipment.GetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant);
     }
 
     public void OnGameStateChange(GameState gameState)

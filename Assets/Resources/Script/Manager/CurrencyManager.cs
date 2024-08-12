@@ -36,12 +36,13 @@ public class CurrencyManager : Singleton<CurrencyManager>
 
     private void SaveCurrency()
     {
-        PlayerPrefs.SetInt(CurrencyKey, CurrentCurrency);
+        ES3.Save<int>(CurrencyKey, CurrentCurrency);      
     }
 
     private void LoadCurrency()
     {
-        CurrentCurrency = PlayerPrefs.GetInt(CurrencyKey, 0); // Default to 0 if not found
+        CurrentCurrency = ES3.Load<int>(CurrencyKey, 0); // Default to 0 if not found
+        Debug.Log(CurrentCurrency);
         DisplayCurrency();
     }
 
