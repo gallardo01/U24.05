@@ -28,18 +28,18 @@ public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
         this.RegisterListener(EventID.OnShopItemSelected, (param) =>
         {
             ShopItem<ItemType> selectedItem = param as ShopItem<ItemType>;
-            if (selectedItem != null && selectedItem != this)
+            if (selectedItem != this)
             {
-                ChangeSelectState(false);
+                IsShopItemSelected(false);
             }
         });
 
         this.RegisterListener(EventID.OnItemEquipped, (param) =>
         {
             ShopItem<ItemType> equippedItem = param as ShopItem<ItemType>;
-            if (equippedItem != null && equippedItem != this)
+            if (equippedItem != this)
             {
-                ChangeEquipState(false);
+                IsIteamEquipped(false);
             }
         });
     }
@@ -60,18 +60,19 @@ public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
         isItemUnlocked = DataManager.Ins.IsItemUnlocked<ItemType>(itemType);
         Lock.SetActive(!isItemUnlocked);
 
-        bool equipState = DataManager.Ins.GetCurrentItem<ItemType>().Equals(itemType);
-        ChangeEquipState(equipState);
+        bool state = DataManager.Ins.GetCurrentItem<ItemType>().Equals(itemType);
+        IsIteamEquipped(state);
     }
 
-    public void ChangeSelectState(bool state)
+    public void IsShopItemSelected(bool state)
     {
         imageSelected.SetActive(state);
     }
 
     public void SelectItem()
     {
-        ChangeSelectState(true);
+        IsShopItemSelected(true);
+        PreviewItem();
 
         this.PostEvent(EventID.OnShopItemSelected, this);
     }
@@ -79,7 +80,8 @@ public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
     public void EquipItem()
     {
         DataManager.Ins.SaveCurrentItem<ItemType>(itemType);
-        ChangeEquipState(true);
+        IsIteamEquipped(true);
+        LevelManager.Ins.player.RefreshItem<ItemType>();
 
         this.PostEvent(EventID.OnItemEquipped, this);
     }
@@ -87,10 +89,11 @@ public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
     public void UnequipItem()
     {
         DataManager.Ins.SaveCurrentItem<ItemType>((ItemType)(object)0);
-        ChangeEquipState(false);
+        IsIteamEquipped(false);
+        LevelManager.Ins.player.RefreshItem<ItemType>();
     }
 
-    protected void ChangeEquipState(bool state)
+    protected void IsIteamEquipped(bool state)
     {
         isItemEquipped = state;
         Equipped.SetActive(isItemEquipped);
@@ -98,9 +101,18 @@ public class ShopItem<ItemType> : MonoBehaviour, IShopItem where ItemType : Enum
 
     public void UnlockItem()
     {
-        DataManager.Ins.UnlockItem<ItemType>(itemType);
+        if (DataManager.Ins.GetCurrentGold() >= price)
+        {
+            DataManager.Ins.AdjustGold(-price);
+            DataManager.Ins.UnlockItem<ItemType>(itemType);
 
-        isItemUnlocked = true;
-        Lock.SetActive(false);
+            isItemUnlocked = true;
+            Lock.SetActive(false);
+        }
+    }
+
+    public virtual void PreviewItem()
+    {
+
     }
 }

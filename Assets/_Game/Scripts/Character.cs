@@ -162,13 +162,13 @@ public class Character : GameUnit
         direction.y = 0;
         tf.rotation = Quaternion.LookRotation(direction);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return Constants.WFS_0_S_5;
         weaponHoldParent.gameObject.SetActive(false);
         isWeaponHoldActive = false;
 
         WeaponManager.Ins.InitWeapon(weaponType, LevelScale, this, AttackSpeed, weaponStartPoint.position, direction, AttackRange);
 
-        yield return new WaitForSeconds(1f);
+        yield return Constants.WFS_1_S;
         weaponHoldParent.gameObject.SetActive(true);
         isWeaponHoldActive = true;
 
@@ -200,8 +200,8 @@ public class Character : GameUnit
     public void OnDead()
     {
         isDead = true;
-        StopMove();
         CancelAttack();
+        StopMove();
         RemoveAllTarget();
 
         characterInfo.SetActiveCharacterInfo(false);
@@ -214,7 +214,7 @@ public class Character : GameUnit
     {
         ChangeAnim(Constants.ANIM_DEAD);
 
-        yield return new WaitForSeconds(2f);
+        yield return Constants.WFS_2_S;
     }
 
     protected virtual void SetActiveCharacterInfo(bool isActive)

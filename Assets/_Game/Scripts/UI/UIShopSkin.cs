@@ -17,6 +17,9 @@ public class UIShopSkin : UICanvas
         btnQuit.onClick.AddListener(() =>
         {
             CloseDirectly();
+            LevelManager.Ins.player.RefreshItem<HairType>();
+            LevelManager.Ins.player.RefreshItem<PantsType>();
+            LevelManager.Ins.player.RefreshItem<ShieldType>();
             UIManager.Ins.OpenUI<UIMainmenu>();
         });
 
@@ -44,6 +47,13 @@ public class UIShopSkin : UICanvas
             UpdateTextPrice(currentShopItem.GetPrice());
             RefreshButton();
         });
+
+        this.RegisterListener(EventID.OnGoldChanged, (param) =>
+        {
+            UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        });
+
+        UpdateTextGold(DataManager.Ins.GetCurrentGold());
     }
 
     private void UpdateTextGold(int gold)
@@ -79,7 +89,7 @@ public class UIShopSkin : UICanvas
     {
         base.Open();
         GameManager.Ins.ChangeGameState(GameState.ShopSkin);
-        UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        
         listTabButton[0].SelectTab();
     }
 }

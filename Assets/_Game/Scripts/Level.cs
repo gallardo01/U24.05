@@ -9,8 +9,6 @@ public class Level : MonoBehaviour
 
     [SerializeField] List<Bot> listBot = new();
 
-    WaitForSeconds countDownTime = new(0.5f);
-
     int botAtSameTime = 6;
     int botTotal = 49;
     public int alive;
@@ -74,7 +72,7 @@ public class Level : MonoBehaviour
 
     IEnumerator CountdownNodeReady(List<Transform> listNode, Transform node)
     {
-        yield return countDownTime;
+        yield return Constants.WFS_0_S_5;
         listNode.Add(node);
     }
 

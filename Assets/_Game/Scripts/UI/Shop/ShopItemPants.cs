@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class ShopItemPants : ShopItem<PantsType>
 {
-    public override void InitShopItem(PantsType t)
+    public override void InitShopItem(PantsType itemType)
     {
-        base.InitShopItem(t);
-        PantsDataDetail pantsDataDetail = SkinManager.Ins.GetPantsData(t);
+        base.InitShopItem(itemType);
+        PantsDataDetail pantsDataDetail = SkinManager.Ins.GetPantsData(itemType);
         if (pantsDataDetail != null)
         {
             imageItem.sprite = pantsDataDetail.imageSprite;
             price = pantsDataDetail.price;
         }
+    }
+
+    public override void PreviewItem()
+    {
+        base.PreviewItem();
+        LevelManager.Ins.player.EquipPants(itemType);
     }
 }

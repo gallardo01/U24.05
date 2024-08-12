@@ -31,6 +31,14 @@ public class UIMainmenu : UICanvas
             CloseDirectly();
             UIManager.Ins.OpenUI<UIShopSkin>();
         });
+
+        this.RegisterListener(EventID.OnGoldChanged, (param) =>
+        {
+            UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        });
+
+        UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        UpdateInputName(DataManager.Ins.GetPlayerName());
     }
 
     private void UpdateInputName(string name)
@@ -46,8 +54,6 @@ public class UIMainmenu : UICanvas
     public override void Open()
     {
         base.Open();
-        GameManager.Ins.ChangeGameState(GameState.Mainmenu);
-        UpdateTextGold(DataManager.Ins.GetCurrentGold());
-        UpdateInputName(DataManager.Ins.GetPlayerName());
+        GameManager.Ins.ChangeGameState(GameState.Mainmenu);      
     }
 }

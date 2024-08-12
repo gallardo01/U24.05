@@ -10,4 +10,6 @@ public enum EventID
     OnShopItemSelected,
     OnItemEquipped,
     OnTabSelected,
+    OnGoldChanged,
+
 }

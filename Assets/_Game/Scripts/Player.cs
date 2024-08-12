@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class Player : Character
 {
-    
     [SerializeField] FloatingJoystick joystick;
     [SerializeField] Rigidbody rb;
 
@@ -83,5 +83,23 @@ public class Player : Character
     public void Revive()
     {
         isDead = false;
+    }
+
+    public void RefreshItem<ItemType>() where ItemType : Enum
+    {
+        ItemType itemType = DataManager.Ins.GetCurrentItem<ItemType>();
+
+        if (itemType is HairType hairType)
+        {
+            EquipHair(hairType);
+        }
+        else if (itemType is PantsType pantsType)
+        {
+            EquipPants(pantsType);
+        }
+        else if (itemType is ShieldType shieldType)
+        {
+            EquipShield(shieldType);
+        }
     }
 }

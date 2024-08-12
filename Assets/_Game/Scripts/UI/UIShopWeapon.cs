@@ -16,6 +16,13 @@ public class UIShopWeapon : UICanvas
             CloseDirectly();
             UIManager.Ins.OpenUI<UIMainmenu>();
         });
+
+        this.RegisterListener(EventID.OnGoldChanged, (param) =>
+        {
+            UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        });
+
+        UpdateTextGold(DataManager.Ins.GetCurrentGold());
     }
 
     private void UpdateTextGold(int gold)
@@ -26,7 +33,6 @@ public class UIShopWeapon : UICanvas
     public override void Open()
     {
         base.Open();
-        GameManager.Ins.ChangeGameState(GameState.ShopWeapon);
-        UpdateTextGold(DataManager.Ins.GetCurrentGold());
+        GameManager.Ins.ChangeGameState(GameState.ShopWeapon);      
     }
 }

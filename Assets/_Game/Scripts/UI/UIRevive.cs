@@ -44,7 +44,7 @@ public class UIRevive : UICanvas
 
     IEnumerator IECountdown()
     {
-        yield return new WaitForSeconds(1f);
+        yield return Constants.WFS_1_S;
         Countdown();
     }
 

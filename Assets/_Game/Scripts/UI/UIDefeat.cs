@@ -7,13 +7,16 @@ using UnityEngine.UI;
 public class UIDefeat : UICanvas
 {
     [SerializeField] Button btnContinue;
-    [SerializeField] TextMeshProUGUI textRank, textKilledBy;
+    [SerializeField] TextMeshProUGUI textRank, textKilledBy, textGold;
+
+    int gold;
 
     private void Awake()
     {
         btnContinue.onClick.AddListener(() =>
         {
             CloseDirectly();
+            DataManager.Ins.AdjustGold(gold);
             UIManager.Ins.OpenUI<UIMainmenu>();
             LevelManager.Ins.PlayAgain();
         });
@@ -29,10 +32,17 @@ public class UIDefeat : UICanvas
         textKilledBy.text = name;
     }
 
+    private void UpdateTextGold(int gold)
+    {
+        textGold.text = gold.ToString();
+    }
+
     public override void Open()
     {
         base.Open();
         GameManager.Ins.ChangeGameState(GameState.Finish);
+        gold = LevelManager.Ins.player.Level;
+        UpdateTextGold(gold);
         UpdateTextRank(LevelManager.Ins.player.rank);
         UpdateTextKilledBy(LevelManager.Ins.player.killedBy);
     }

@@ -15,16 +15,14 @@ public class TabContent<ItemType> : MonoBehaviour, ITabContent where ItemType : 
 
     protected void Awake()
     {
+        InitTabContent();
+
         this.RegisterListener(EventID.OnTabSelected, (param) =>
         {
-            bool isSelected = (TabButton)param == tabButton;
-            tabButton.SelectTab(isSelected);
-            SelectTab(isSelected);
+            bool state = (TabButton)param == tabButton;
+            tabButton.IsTabSelected(state);
+            IsTabSelected(state);
         });
-    }
-    protected void Start()
-    {
-        InitTabContent();
     }
 
     protected void InitTabContent()
@@ -43,12 +41,26 @@ public class TabContent<ItemType> : MonoBehaviour, ITabContent where ItemType : 
 
     }
 
-    public void SelectTab(bool isSelected)
+    public void IsTabSelected(bool state)
     {
-        gameObject.SetActive(isSelected);
-        if (isSelected)
+        gameObject.SetActive(state);
+        if (state)
         {
-            listShopItem[0].SelectItem();
+            bool haveCurrentItem = false;
+            for (int i = 1; i < listItemType.Count; i++)
+            {
+                if (DataManager.Ins.GetCurrentItem<ItemType>().Equals(listItemType[i]))
+                {
+                    listShopItem[i - 1].SelectItem();
+                    haveCurrentItem = true;
+                    break;
+                }  
+            }
+            
+            if (!haveCurrentItem) 
+            { 
+                listShopItem[0].SelectItem();
+            }
         }
     }
 }

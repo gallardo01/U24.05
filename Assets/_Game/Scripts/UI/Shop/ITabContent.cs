@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ITabContent
 {
-    void SelectTab(bool isSelected);
+    void IsTabSelected(bool isSelected);
 }

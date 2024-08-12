@@ -7,6 +7,7 @@ public class TabButton : MonoBehaviour
 {
     [SerializeField] Button btnTab;
     [SerializeField] Image imageIcon;
+    [SerializeField] Image imageBG;
 
     private void Awake()
     {
@@ -21,8 +22,23 @@ public class TabButton : MonoBehaviour
         this.PostEvent(EventID.OnTabSelected, this);
     }
 
-    public void SelectTab(bool isSelected)
+    public void IsTabSelected(bool state)
     {
+        Color imageIconColor = imageIcon.color;
+        Color imageBGColor = imageBG.color;
 
+        if (state)
+        {
+            imageIconColor.a = 255f / 255f;
+            imageBGColor.a = 0f / 255f;
+        }
+        else
+        {
+            imageIconColor.a = 100f / 255f;
+            imageBGColor.a = 150f / 255f;
+        }
+
+        imageIcon.color = imageIconColor;
+        imageBG.color = imageBGColor;
     }
 }
