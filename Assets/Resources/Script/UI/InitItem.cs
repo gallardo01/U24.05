@@ -7,31 +7,30 @@ using TMPro;
 public class InitItem : MonoBehaviour
 {
     public Image itemImage;
-
     public GameObject price;
-    public TextMeshProUGUI textPrice;
+    public TextMeshProUGUI priceText;
     public Button actionButton;
     public TextMeshProUGUI textButton;
-
-    public int state = 0;
-    // state = 1 : chua mua , state = 2 : da mua , chua mac , state = 3 : da mua va mac
+    private int state = 0;
+    // State = 1: Chua mua, State = 2 mua roi, chua mac, State = 3 mua roi - da mac
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
-    public void InitItemsUI(GameItem item)
+    public virtual void InitItemUI(GameItem item)
     {
-        itemImage.sprite = Resources.Load<Sprite>("UI/Hat/" + item.item.iD);
-        if (item.Purchase == false)
+        itemImage.sprite = Resources.Load <Sprite> ("UI/Hat/" + item.item.Id);
+        if (item.Purchased == false)
         {
             state = 1;
             price.SetActive(true);
-            textPrice.text = item.item.price.ToString();
+            priceText.text = item.item.Price.ToString();
         } else
         {
             price.SetActive(false);
-            if (item.Equip)
+            if (item.IsEquip)
             {
                 state = 3;
             } else
@@ -42,17 +41,45 @@ public class InitItem : MonoBehaviour
         InitButtonState();
     }
     
-    public void InitButtonState()
+    public class InitWeapon : InitItem
+    {
+        public override void InitItemUI(GameItem item)
+        {
+            itemImage.sprite = Resources.Load<Sprite>("UI/Weapon/" + item.item.Id);
+            base.InitItemUI(item);
+        }
+    }
+
+    public class InitPant : InitItem
+    {
+        public override void InitItemUI(GameItem item)
+        {
+            itemImage.sprite = Resources.Load<Sprite>("UI/Pant/" + item.item.Id);
+            base.InitItemUI(item);
+        }
+    }
+
+    public class InitLeftHand : InitItem
+    {
+        public override void InitItemUI(GameItem item)
+        {
+            itemImage.sprite = Resources.Load<Sprite>("UI/LeftHand/" + item.item.Id);
+            base.InitItemUI(item);
+        }
+    }
+
+    private void InitButtonState()
     {
         if (state == 1)
         {
             textButton.text = "Buy";
-        } else if (state == 2)
+        } else if(state == 2)
         {
             textButton.text = "Equip";
-        } else
+        } else if(state == 3)
         {
             textButton.text = "Used";
         }
     }
+
 }

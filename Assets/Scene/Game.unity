@@ -1478,103 +1478,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287033831}
   m_CullTransparentMesh: 1
---- !u!1001 &297663310
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1059169803}
-    m_Modifications:
-    - target: {fileID: 491862820067511603, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_Name
-      value: item
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
 --- !u!1001 &400950476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4092,13 +3995,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1037411799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39dfa1532a4438b499c57df3f74f75ba, type: 3}
+  m_Script: {fileID: 11500000, guid: ed3d5a5f4e0a23e4a8172533f32d4057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons: []
-  shields: []
-  heads: []
-  pants: []
 --- !u!1 &1050232751
 GameObject:
   m_ObjectHideFlags: 0
@@ -4266,8 +4165,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1992390137}
+  m_Children: []
   m_Father: {fileID: 410610418}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4298,7 +4196,7 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 250}
   m_Spacing: {x: 50, y: 100}
-  m_Constraint: 0
+  m_Constraint: 2
   m_ConstraintCount: 2
 --- !u!114 &1059169805
 MonoBehaviour:
@@ -6121,13 +6019,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551535987}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89eaf97c23b07274c99ea2eb923ed3d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 491862820067511603, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-  parents: {fileID: 1059169802}
+  itemPrefabs: {fileID: 491862820067511603, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
+  parent: {fileID: 1059169802}
+  weaponButton: {fileID: 2118120564}
+  hatButton: {fileID: 1655100084}
+  pantsButton: {fileID: 646888432}
+  leftHandButton: {fileID: 1179230160}
 --- !u!1 &1553406874
 GameObject:
   m_ObjectHideFlags: 0
@@ -7894,11 +7796,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981936589}
   m_CullTransparentMesh: 1
---- !u!224 &1992390137 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4488674338911395596, guid: 89fdb105d0490a345abdf44866ac5910, type: 3}
-  m_PrefabInstance: {fileID: 297663310}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2063643074
 GameObject:
   m_ObjectHideFlags: 0
