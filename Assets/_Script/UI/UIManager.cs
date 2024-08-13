@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         InitGameState(2);
-        goldCoin.text = GameController.instance.InitPlayerGold().ToString();
+        //goldCoin.text = GameController.instance.InitPlayerGold().ToString();
         Time.timeScale = 1f;
         GameController.instance.StartGame();
         Camera.instance.ChangeState(3);

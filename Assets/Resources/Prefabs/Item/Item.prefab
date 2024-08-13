@@ -620,7 +620,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 690068472503047455}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4562511925858263353}
+        m_TargetAssemblyTypeName: InitItem, Assembly-CSharp
+        m_MethodName: OnClickBuy
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8731909241015141544
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,8 +727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemImage: {fileID: 6597113908311249481}
   lockItem: {fileID: 5847405193680769863}
-  buyButton: {fileID: 6419642108536989622}
-  equipButton: {fileID: 7212348176084921009}
+  buyButton: {fileID: 2892802836272464193}
+  equipButton: {fileID: 765664743286612676}
   priceText: {fileID: 4431368226313583389}
   equipItem: {fileID: 8927190307770183813}
 --- !u!1 &8804109374471256574

@@ -9,8 +9,8 @@ public class InitItem : MonoBehaviour
 {
     public Image itemImage;
     public GameObject lockItem;
-    public GameObject buyButton;
-    public GameObject equipButton;
+    public Button buyButton;
+    public Button equipButton;
     public TMPro.TextMeshProUGUI priceText;
     public TMPro.TextMeshProUGUI equipItem;
     GameItem thisItem;
@@ -22,9 +22,9 @@ public class InitItem : MonoBehaviour
         PURCHASE
     }
 
-    public void OnClickBuy(int state)
+    public void OnClickBuy(int state) //1 la purchase; 2 la equip
     {
-        if (state ==1)
+        if (state == 1)
         {
             int price = thisItem.item.price;
             int currentGold = GameController.instance.goldNumber;
@@ -37,7 +37,10 @@ public class InitItem : MonoBehaviour
         }
         if (state == 2)
         {
-            BuyStateUI(PurchaseState.EQUIPED);
+            Debug.Log("click");
+            ItemJSONDatabase.instance.UpdateEquipItem(thisItem);
+            CheckEquipItemState(thisItem.item.type);
+            InitItemUI(thisItem);
         }
     }
 
@@ -54,37 +57,53 @@ public class InitItem : MonoBehaviour
         {
             if (!item.Equip)
             {
-               BuyStateUI(PurchaseState.EQUIPED);
-               equipButton.GetComponent<Button>().enabled = false;
+               BuyStateUI(PurchaseState.EQUIP);
+               equipButton.GetComponent<Button>().enabled = true;
             }
             else
             {
-                BuyStateUI(PurchaseState.EQUIP);
-                equipButton.GetComponent<Button>().enabled = true;
+                BuyStateUI(PurchaseState.EQUIPED);
+                equipButton.GetComponent<Button>().enabled = false;
             }
         }
     }
-
+    private void CheckEquipItemState(string type)
+    {
+        List<GameItem> items = ItemJSONDatabase.instance.SplitTypeItem(type);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != thisItem)
+            {
+                BuyStateUI(PurchaseState.EQUIP);
+            }
+            else
+            {
+                BuyStateUI(PurchaseState.EQUIPED);
+            }
+        }
+    }
     public void BuyStateUI(PurchaseState state)
     {
         switch (state)
         {
             case PurchaseState.EQUIPED:
                 lockItem.SetActive(false);
-                buyButton.SetActive(false);
+                buyButton.gameObject.SetActive(false);
                 equipItem.text = "Equiped";
-                equipButton.SetActive(true);
+                equipButton.image.color = Color.gray;
+                equipButton.gameObject.SetActive(true);
                 break;
             case PurchaseState.EQUIP:
                 lockItem.SetActive(false);
-                buyButton.SetActive(false);
+                buyButton.gameObject.SetActive(false);
                 equipItem.text = "Equip";
-                equipButton.SetActive(true);
+                equipButton.image.color = Color.white;
+                equipButton.gameObject.SetActive(true);
                 break;
             case PurchaseState.PURCHASE:
                 lockItem.SetActive(true);
-                buyButton.SetActive(true);
-                equipButton.SetActive(false);
+                buyButton.gameObject.SetActive(true);
+                equipButton.gameObject.SetActive(false);
                 break;
         }
     }

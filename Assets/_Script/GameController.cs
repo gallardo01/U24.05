@@ -31,7 +31,6 @@ public class GameController : MonoBehaviour
         {
             weaponTag.Add(weaponList[i].tag);
         }
-        ChangeGold(200);
     }
 
     private void Update()
@@ -54,8 +53,8 @@ public class GameController : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("Gold"))
         {
-            PlayerPrefs.SetInt("Gold", 0);
-            return goldNumber = 0;
+            PlayerPrefs.SetInt("Gold", 200);
+            return goldNumber = 200;
         }
         else
         {
@@ -66,6 +65,7 @@ public class GameController : MonoBehaviour
     {
         goldNumber += num;
         PlayerPrefs.SetInt("Gold", goldNumber);
+        UIManager.instance.goldCoin.text = InitPlayerGold().ToString();
     }
     private void CreatPlayerAndBot()
     {
