@@ -106,11 +106,37 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
         }
     }
     
+    public void EquipItem(GameItem item)
+    {
+        UnequipItem(item);
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type && item.item.Id == listItemInGame[i].item.Id)
+            {
+                listItemInGame[i].IsEquip = true;
+                break;
+            }
+        }
+        Save();
+    }
+
+    public void UnequipItem(GameItem item)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type)
+            {
+                listItemInGame[i].IsEquip = false;
+            }
+        }
+        Save();
+    }
+
     public void PurchaseItem(GameItem item)
     {
-        for(int i = 0; i < listItemInGame.Count; i++)
+        for (int i = 0; i < listItemInGame.Count; i++)
         {
-            if (listItemInGame[i].item.Id == item.item.Id && item.item.Type == listItemInGame[i].item.Type)
+            if (item.item.Type == listItemInGame[i].item.Type && item.item.Id == listItemInGame[i].item.Id)
             {
                 listItemInGame[i].Purchased = true;
                 break;
@@ -119,33 +145,7 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
         Save();
     }
 
-    public void EquipItem(GameItem item)
-    {
-        UnEquipItem(item);
-        for(int i = 0; i < listItemInGame.Count; i++)
-        {
-            if (listItemInGame[i].item.Id == item.item.Id && item.item.Type == listItemInGame[i].item.Type)
-            {
-                listItemInGame[i].IsEquip = true;
-                break;
-            }
-        }
-
-        Save();
-    }
     
-    public void UnEquipItem(GameItem item)
-    {
-        for(int i = 0; i < listItemInGame.Count; i++)
-        {
-            if (item.item.Type == listItemInGame[i].item.Type)
-            {
-                listItemInGame[i].IsEquip = false;
-                break;
-            }
-        }
-        Save();
-    }
     
     
 

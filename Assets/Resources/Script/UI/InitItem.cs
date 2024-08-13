@@ -39,7 +39,7 @@ public class InitItem : MonoBehaviour
             ShopController.Ins.CreateItem(thisItem.item.Type);
         } else if(state == 3)
         {
-            ItemJsonDatabase.Ins.UnEquipItem(thisItem);
+            ItemJsonDatabase.Ins.UnequipItem(thisItem);
             ShopController.Ins.CreateItem(thisItem.item.Type);
         }
     }
