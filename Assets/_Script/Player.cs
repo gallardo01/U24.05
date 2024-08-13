@@ -59,7 +59,7 @@ public class Player : Character
         {
             if (collider.CompareTag("bot") && time > cooldownTimeAttack)
             {
-                if (isRunning == false )
+                if (isRunning == false)
                 {
                     ChangeAnim("attack");
                     isAttack = true;

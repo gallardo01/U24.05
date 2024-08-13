@@ -27,7 +27,7 @@ public class ShopController : MonoBehaviour
         listButton[2].onClick.AddListener(() => OnClickButton(2));
         listButton[3].onClick.AddListener(() => OnClickButton(3));
     }
-    private void CreatItemInShop(string type)
+    public void CreatItemInShop(string type)
     {
         for (int i = 0; i < contentUI.childCount; i++)
         {

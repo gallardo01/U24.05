@@ -150,6 +150,25 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public GameObject UseHead(string headName)
+    {
+        switch (headName)
+        {
+            case "axe1":
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[0];
+            case "axe2":
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[1];
+            case "gun":
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[2];
+            case "boomerang":
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[3];
+            case "candy":
+                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[4];
+            default:
+                return null;
+        }
+    }
+
     public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;

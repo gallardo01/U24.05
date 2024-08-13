@@ -40,7 +40,7 @@ public class InitItem : MonoBehaviour
             Debug.Log("click");
             ItemJSONDatabase.instance.UpdateEquipItem(thisItem);
             CheckEquipItemState(thisItem.item.type);
-            InitItemUI(thisItem);
+            ShopController.instance.CreatItemInShop(thisItem.item.type);
         }
     }
 
