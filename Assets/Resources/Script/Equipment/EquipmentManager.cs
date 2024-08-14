@@ -70,7 +70,27 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         EquipmentContainer newContainer = Instantiate(containerPrefab, parentTab);
         newContainer.OnInit(data);
         newContainer.Button.onClick.AddListener(() => stateButton.ChangeButtonState(newContainer));
+        newContainer.Button.onClick.AddListener(() => OnContainerSelect(newContainer));
         containerList.Add(newContainer);
+    }
+
+    private void OnContainerSelect(EquipmentContainer container)
+    {
+        List<EquipmentContainer> sameTypes = new List<EquipmentContainer>();
+        List<EquipmentContainer> containers = EquipmentManager.Instance.containerList;
+
+        for (int i = 0; i < containers.Count; i++)
+        {
+            if (containers[i].ItemType == container.ItemType)
+            {
+                sameTypes.Add(containers[i]);
+            }
+        }
+        for (int i = 0; i < sameTypes.Count; i++)
+        {
+            if (sameTypes[i] == container) sameTypes[i].Select();
+            else sameTypes[i].UnSelect();
+        }
     }
 
     public void SaveItemData(EquipmentContainer container)
@@ -93,12 +113,6 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         }
     }
 
-    public void AddItemToPlayer()
-    {
-        Player player = PlayersManager.Instance.player;
-        player.SetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant, projectile);
-    }
-
     public void OnGameStateChange(GameState gameState)
     {
         switch (gameState)
@@ -118,6 +132,12 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
                 }
                 break;
         }
+    }
+
+    public void AddItemToPlayer()
+    {
+        Player player = PlayersManager.Instance.player;
+        player.SetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant, projectile);
     }
 
     private void AddItemForBots()

@@ -62,6 +62,13 @@ public class GameManager : Singleton<GameManager>
                 ES3.DeleteFile();
             }
         }
+        if (Input.GetKey(KeyCode.Z))
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                CurrencyManager.Instance.ResetCurrency();
+            }
+        }
     }
 
     public void LoadScene()

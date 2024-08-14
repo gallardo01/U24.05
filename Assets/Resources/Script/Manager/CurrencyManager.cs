@@ -48,6 +48,7 @@ public class CurrencyManager : Singleton<CurrencyManager>
     public void ResetCurrency()
     {
         CurrentCurrency = 0;
+        ES3.Save<int>(CurrencyKey, CurrentCurrency);
         SaveCurrency();
         DisplayCurrency();
     }

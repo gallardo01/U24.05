@@ -49,20 +49,23 @@ public class ShopStateButton : MonoBehaviour
 
     public void NeedBuy()
     {
-        button.interactable = true;
         buttonText.text = currentContainer.Price.ToString();
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => BuyCallBack());
 
-        if(CurrencyManager.Instance.CurrentCurrency < currentContainer.Price)
+        if (CurrencyManager.Instance.CurrentCurrency < currentContainer.Price)
         {
-            this.gameObject.SetActive(false);
+            button.interactable = false;
+            buttonText.text = "Not Enough";
         }
-        else this.gameObject.SetActive(true);
+        else
+        {
+            button.interactable = true;
+            buttonText.text = currentContainer.Price.ToString();
+        }
     }
     public void NeedEquip()
     {
-        this.gameObject.SetActive(true);
         button.interactable = true;
         buttonText.text = "EQUIP";
         button.onClick.RemoveAllListeners();
@@ -71,14 +74,13 @@ public class ShopStateButton : MonoBehaviour
     }
     public void Equipped()
     {
-        this.gameObject.SetActive(true);
         button.interactable = false;
         buttonText.text = "EQUIPPED !";
     }
 
     public void BuyCallBack()
     {
-        currentContainer.Purchase();
+        currentContainer.SavePurchase();
         CurrencyManager.Instance.SpendCurrency(currentContainer.Price);
         currentState = ButtonState.NeedEquip;
         Configue();
@@ -98,9 +100,9 @@ public class ShopStateButton : MonoBehaviour
         }
         for(int i = 0;i < others.Count;i++)
         {
-            others[i].Equipped(false);
+            others[i].SaveEquipped(false);
         }
-        currentContainer.Equipped(true);
+        currentContainer.SaveEquipped(true);
 
         EquipmentManager.Instance.SaveItemData(currentContainer);
         currentState = ButtonState.Equipted;
