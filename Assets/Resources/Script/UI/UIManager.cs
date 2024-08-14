@@ -61,11 +61,12 @@ public class UIManager : Singleton<UIManager>
     {
         goldText.text = GameController.Instance.gold.ToString();
     }
-    private void InitGameState(int state)
+    public void InitGameState(int state)
     {
         UIPanel.SetActive(state == 1);
         InGamePanel.SetActive(state == 2);
         joystick.gameObject.SetActive(state == 2);
+        shopPanel.SetActive(false);
         if (state == 2)
         {
             indicatorPanel.SetActive(true);

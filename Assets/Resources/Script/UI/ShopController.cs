@@ -7,6 +7,7 @@ public class ShopController : Singleton<ShopController>
 {
     public GameObject itemPrefabs;
     public GameObject parent;
+    public Button backButton;
 
     public Button[] listButton;
     private static string[] listType = { "Weapons", "Hat", "Pants", "Shield" };
@@ -19,6 +20,14 @@ public class ShopController : Singleton<ShopController>
         listButton[1].onClick.AddListener(() => ClickButtonType(1));
         listButton[2].onClick.AddListener(() => ClickButtonType(2));
         listButton[3].onClick.AddListener(() => ClickButtonType(3));
+
+        backButton.onClick.AddListener(() => CloseShop());
+    }
+    
+    private void CloseShop()
+    {
+        Debug.Log("press");
+        UIManager.Instance.InitGameState(1);
     }
 
     private void ClickButtonType(int type)
