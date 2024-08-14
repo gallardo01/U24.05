@@ -99,8 +99,6 @@ MonoBehaviour:
   isAttacking: 0
   isMoving: 0
   isDead: 0
-  targetInRange: []
-  targetedCharacter: {fileID: 0}
   targetedImage: {fileID: 8637891093123851525}
   agent: {fileID: 1075180348529251017}
 --- !u!195 &1075180348529251017
@@ -463,6 +461,7 @@ MonoBehaviour:
   tf: {fileID: 1764762347129178544}
   textName: {fileID: 7649432907414439379}
   textLevel: {fileID: 1915596770073069520}
+  _camera: {fileID: 0}
 --- !u!1 &8120157687588025632
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterLayer: 9
+  nodeStartLayer: 11
   owner: {fileID: 7130603375081991964}
 --- !u!135 &3045882536218785533
 SphereCollider:

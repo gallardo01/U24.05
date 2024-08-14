@@ -674,6 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b53a4a6fdc795499175c5985d05b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listWeaponType: 
 --- !u!114 &618448697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b09c2ce46a47b42afa2cd1b2e50dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listPantsType: 
+  listHairType: 
+  listShieldType: 
 --- !u!1 &900482020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1256,7 @@ MonoBehaviour:
   tf: {fileID: 1354373211}
   textName: {fileID: 1231825694}
   textLevel: {fileID: 1588967181}
+  _camera: {fileID: 0}
 --- !u!1 &1437212071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,6 +1304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterLayer: 9
+  nodeStartLayer: 11
   owner: {fileID: 574163231}
 --- !u!135 &1437212075
 SphereCollider:

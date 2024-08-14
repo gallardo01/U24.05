@@ -15,13 +15,6 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.Ins.OpenUI<UIMainmenu>();
         LevelManager.Ins.OnLoadLevel(0);
-
-        //------------------------------------------------ Test gold
-        if (!PlayerPrefs.HasKey(Constants.PP_CURRENT_GOLD))
-        {
-            DataManager.Ins.AdjustGold(5000);
-        }
-        //------------------------------------------------
     }
 
     public void ChangeGameState(GameState gameState)

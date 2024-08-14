@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class UIShopWeapon : UICanvas
 {
-    [SerializeField] Button btnQuit, btnBuy, btnEquip;
+    [SerializeField] Button btnQuit, btnBuy, btnEquip, btnPrevious, btnNext;
     [SerializeField] GameObject Equipped;
     [SerializeField] TextMeshProUGUI textGold, textName, textPrice;
 
-    [SerializeField] Image imageItem;
+    [SerializeField] Image imageWeapon;
     [SerializeField] Transform contentParent;
     [SerializeField] List<WeaponType> listWeaponType = new();
 
     string weaponName;
     int price;
-    int currentItemIndex;
+    int currentWeaponIndex;
 
     private void Awake()
     {
@@ -24,6 +24,26 @@ public class UIShopWeapon : UICanvas
         {
             CloseDirectly();
             UIManager.Ins.OpenUI<UIMainmenu>();
+        });
+
+        btnBuy.onClick.AddListener(() =>
+        {
+            UnlockItem();
+        });
+
+        btnEquip.onClick.AddListener(() =>
+        {
+            EquipItem();
+        });
+
+        btnPrevious.onClick.AddListener(() =>
+        {
+            PreviousItem();
+        });
+
+        btnNext.onClick.AddListener(() =>
+        {
+            NextItem();
         });
 
         this.RegisterListener(EventID.OnGoldChanged, (param) =>
@@ -42,8 +62,8 @@ public class UIShopWeapon : UICanvas
         {
             if (DataManager.Ins.GetCurrentItem<WeaponType>() == listWeaponType[i])
             {
-                currentItemIndex = i;
-                InitItem(currentItemIndex);
+                currentWeaponIndex = i;
+                InitItem(currentWeaponIndex);
                 break;
             }
         }
@@ -59,24 +79,46 @@ public class UIShopWeapon : UICanvas
             textName.text = weaponName;
             textPrice.text = price.ToString();
         }
+        RefreshButton();
     }
 
     private void NextItem()
     {
-        int tempIndex = currentItemIndex + 1;
-        if (tempIndex < listWeaponType.Count && tempIndex > 0)
+        int tempIndex = currentWeaponIndex + 1;
+        if (tempIndex < listWeaponType.Count)
         {
-            currentItemIndex = tempIndex;
+            currentWeaponIndex = tempIndex;
+            InitItem(currentWeaponIndex);
         }
     }
 
     private void PreviousItem()
     {
-        int tempIndex = currentItemIndex - 1;
-        if (tempIndex < listWeaponType.Count && tempIndex > 0)
+        int tempIndex = currentWeaponIndex - 1;
+        if (tempIndex >= 0)
         {
-
+            currentWeaponIndex = tempIndex;
+            InitItem(currentWeaponIndex);
         }
+    }
+
+    public void UnlockItem()
+    {
+        if (DataManager.Ins.GetCurrentGold() >= price)
+        {
+            DataManager.Ins.AdjustGold(-price);
+            DataManager.Ins.UnlockItem<WeaponType>(listWeaponType[currentWeaponIndex]);
+
+            RefreshButton();
+        }
+    }
+
+    public void EquipItem()
+    {
+        DataManager.Ins.SaveCurrentItem<WeaponType>(listWeaponType[currentWeaponIndex]);
+        LevelManager.Ins.player.RefreshItem<WeaponType>();
+
+        RefreshButton();
     }
 
     private void RefreshButton()
@@ -85,12 +127,12 @@ public class UIShopWeapon : UICanvas
         btnEquip.gameObject.SetActive(false);
         Equipped.SetActive(false);
 
-        if (DataManager.Ins.GetCurrentItem<WeaponType>() == listWeaponType[currentItemIndex])
+        if (DataManager.Ins.GetCurrentItem<WeaponType>() == listWeaponType[currentWeaponIndex])
         {
             Equipped.SetActive(true);
             return;
         }
-        if (DataManager.Ins.IsItemUnlocked<WeaponType>(listWeaponType[currentItemIndex]))
+        if (DataManager.Ins.IsItemUnlocked<WeaponType>(listWeaponType[currentWeaponIndex]))
         {
             btnEquip.gameObject.SetActive(true);
             return;

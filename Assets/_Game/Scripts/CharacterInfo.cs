@@ -11,7 +11,12 @@ public class CharacterInfo : MonoBehaviour
     [SerializeField] Transform tf;
     [SerializeField] TextMeshProUGUI textName;
     [SerializeField] TextMeshProUGUI textLevel;
+    [SerializeField] Camera _camera;
 
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
     //Vector3 viewPoint;
     //Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
     //private float offsetY = 3f;
@@ -21,8 +26,10 @@ public class CharacterInfo : MonoBehaviour
         //viewPoint = Camera.main.WorldToViewportPoint(target.position + Vector3.up * offsetY);
         //tf.position = Camera.main.ViewportToScreenPoint(viewPoint);
 
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
+        Vector3 screenPos = _camera.WorldToScreenPoint(target.position);
         tf.position = screenPos + offset;
+
+        //tf.rotation = Quaternion.LookRotation(tf.position - _camera.transform.position);
     }
 
     public void UpdateTextLevel(int level)

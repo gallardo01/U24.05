@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -8,6 +9,8 @@ public class Level : MonoBehaviour
     [SerializeField] List<Transform> listNodeMove = new();
 
     [SerializeField] List<Bot> listBot = new();
+
+    private HashSet<Transform> setNodeStartReady = new();
 
     int botAtSameTime = 6;
     int botTotal = 49;
@@ -23,7 +26,7 @@ public class Level : MonoBehaviour
             {
                 if (alive - botAtSameTime > 1)
                 {
-                    GenerateBot();
+                    StartCoroutine(IEGenerateBot(Constants.WFS_2_S_5));
                 }
 
                 listBot.Remove(bot);
@@ -41,6 +44,18 @@ public class Level : MonoBehaviour
                 LevelManager.Ins.Finish();
             }
         });
+
+        this.RegisterListener(EventID.OnNodeStartReady, (param) =>
+        {
+            setNodeStartReady.Add((Transform)param);
+        });
+
+        this.RegisterListener(EventID.OnNodeStartBusy, (param) =>
+        {
+            setNodeStartReady.Remove((Transform)param);
+        });
+
+        InitSetNodeStart();
     }
 
     public void InitLevel()
@@ -51,7 +66,15 @@ public class Level : MonoBehaviour
 
         for (int i = 0; i < botAtSameTime; i++)
         {
-            GenerateBot();
+            StartCoroutine(IEGenerateBot(Constants.WFS_0_S));
+        }
+    }
+
+    private void InitSetNodeStart()
+    {
+        for (int i = 0; i < listNodeStart.Count; i++)
+        {
+            setNodeStartReady.Add(listNodeStart[i]);
         }
     }
 
@@ -63,21 +86,16 @@ public class Level : MonoBehaviour
 
     public Transform GetRandomNodeStart()
     {
-        int index = Random.Range(0, listNodeStart.Count);
-        Transform node = listNodeStart[index];
-        listNodeStart.RemoveAt(index);
-        StartCoroutine(CountdownNodeReady(listNodeStart, node));
+        int index = Random.Range(0, setNodeStartReady.Count);
+        Transform node = setNodeStartReady.ElementAt(index);
+        setNodeStartReady.Remove(node);
         return node;
     }
 
-    IEnumerator CountdownNodeReady(List<Transform> listNode, Transform node)
+    IEnumerator IEGenerateBot(WaitForSeconds delay)
     {
-        yield return Constants.WFS_0_S_5;
-        listNode.Add(node);
-    }
+        yield return delay;
 
-    private void GenerateBot()
-    {
         Transform NodeStart = GetRandomNodeStart();
         Bot bot = (Bot)SimplePool.Spawn(PoolType.Bot, NodeStart.position, Quaternion.identity);
         int playerLevel = LevelManager.Ins.player.Level;

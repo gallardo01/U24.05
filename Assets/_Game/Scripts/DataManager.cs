@@ -18,11 +18,29 @@ public class DataManager : Singleton<DataManager>
         typeof(ShieldType),
     };
 
+    private void Awake()
+    {
+        FirstAttempt();
+    }
+
     public void CheckValidItemType(Type type)
     {
         if (!ItemType.Contains(type))
         {
             return;
+        }
+    }
+
+    public void FirstAttempt()
+    {
+        if (!PlayerPrefs.HasKey(Constants.PP_NOT_FIRST_ATTEMPT))
+        {
+            PlayerPrefs.SetInt(Constants.PP_NOT_FIRST_ATTEMPT, 1);
+
+            AdjustGold(5000);
+
+            UnlockItem<WeaponType>(WeaponType.Arrow);
+            SaveCurrentItem<WeaponType>(WeaponType.Arrow);
         }
     }
 

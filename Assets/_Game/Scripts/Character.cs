@@ -81,12 +81,6 @@ public class Character : GameUnit
         if (isMoving)
         {
             CancelAttack();
-
-            if (!isWeaponHoldActive)
-            {
-                weaponHoldParent.gameObject.SetActive(true);
-                isWeaponHoldActive = true;
-            }
         }
         else if (!isAttacking && targetedCharacter != null)
         {
@@ -183,6 +177,12 @@ public class Character : GameUnit
             isAttacking = false;
             StopCoroutine(attackCoroutine);
             attackCoroutine = null;
+        }
+
+        if (!isWeaponHoldActive)
+        {
+            weaponHoldParent.gameObject.SetActive(true);
+            isWeaponHoldActive = true;
         }
     }
 

@@ -16,8 +16,6 @@ public class Player : Character
 
     private void Start()
     {
-        DataManager.Ins.SaveCurrentItem<WeaponType>(WeaponManager.Ins.GetRandomWeapon());
-
         WeaponType weaponType = DataManager.Ins.GetCurrentItem<WeaponType>();
         HairType hairType = DataManager.Ins.GetCurrentItem<HairType>();
         ShieldType shieldType = DataManager.Ins.GetCurrentItem<ShieldType>();
@@ -71,6 +69,12 @@ public class Player : Character
         {
             character.targetedImage.SetActive(false);
         }
+    }
+
+    public override void StopMove()
+    {
+        base.StopMove();
+        rb.velocity = Vector3.zero;
     }
 
     protected override IEnumerator IEDead()
