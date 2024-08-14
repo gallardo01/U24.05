@@ -11,10 +11,12 @@ public class UIManager : Singleton<UIManager>
     public GameObject SettingsPanel;
     public GameObject indicatorPanel;
     public GameObject awardPanel;
+    public GameObject shopPanel;
 
     public Button playGame;
     public Button mainMenu;
     public Button quitSettings;
+    public Button shopButton;
 
     public Button settingButton;
     public JoystickControl joystick;
@@ -30,6 +32,14 @@ public class UIManager : Singleton<UIManager>
         settingButton.onClick.AddListener(() => { SettingsPanel.SetActive(true); });
         mainMenu.onClick.AddListener(() => MainMenuClick());
         quitSettings.onClick.AddListener(() => { SettingsPanel.SetActive(false); });
+        shopButton.onClick.AddListener(() => OpenShop());
+    }
+
+    public void OpenShop()
+    {
+        UIPanel.SetActive(false);
+        shopPanel.SetActive(true);
+        CameraFollower.Instance.ChangeState(3);
     }
 
     public void OpenAwardUI(int gold)

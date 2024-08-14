@@ -14,8 +14,8 @@ public class InitSkin : MonoBehaviour
     void Start()
     {
         InitWeapons(Random.Range(0, ItemDatabase.Instance.weapons.Count - 1));
-        InitPants(Random.Range(0, ItemDatabase.Instance.pants.Count - 1));
-        InitHead(Random.Range(0, ItemDatabase.Instance.heads.Count - 1));
+        InitPants(Random.Range(0, ItemDatabase.Instance.pantsMaterial.Count - 1));
+        InitHead(Random.Range(0, ItemDatabase.Instance.hats.Count - 1));
         InitShield(Random.Range(0, ItemDatabase.Instance.shields.Count - 1));
     }
 
@@ -27,19 +27,19 @@ public class InitSkin : MonoBehaviour
 
     public void InitWeapons(int id)
     {
-        GameObject weapon = ItemDatabase.Instance.GetWeaponById(id);
+        GameObject weapon = ItemDatabase.Instance.GetWeaponsById(id);
         Instantiate(weapon, weaponTF);
     }
 
     public void InitPants(int id)
     {
-        Material material = ItemDatabase.Instance.GetPantsMaterialById(id);
+        Material material = ItemDatabase.Instance.GetPantsMaterialsById(id);
         pants.material = material;
     }
 
     public void InitHead(int id)
     {
-        GameObject head = ItemDatabase.Instance.GetHeadById(id);
+        GameObject head = ItemDatabase.Instance.GetHatsById(id);
         Instantiate(head, headTF);
     }    
 

@@ -19,7 +19,11 @@ public class GameController : Singleton<GameController>
     // Start is called before the first frame update
     void Start()
     {
-        InitTotalCharacter();
+        totalCharacter = botNumber + 1;
+        if (botNumber > listSpawn.Count-1)
+        {
+            botNumber = listSpawn.Count - 1;
+        }
         InitTextAlive();
 
         TargetIndicator playerIndicator = Instantiate(indicator, indicatorCanvas.transform);
@@ -28,6 +32,7 @@ public class GameController : Singleton<GameController>
 
         CreateBotNewGame();
         InitGold();
+        //GainGold(1000);
     }
 
     public void InitGold()
@@ -47,6 +52,14 @@ public class GameController : Singleton<GameController>
     {
         gold += num;
         PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.InitGold();
+    }
+
+    public void ReduceGold(int num)
+    {
+        gold -= num;
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.InitGold();
     }
 
     public void InitTextAlive()
@@ -71,9 +84,6 @@ public class GameController : Singleton<GameController>
     {
         for (int i = 0; i < bots.Count; i++)
             bots[i].OnInit();
-
-        InitTotalCharacter();
-        InitTextAlive();
     }
 
     public void ReplayGame()
@@ -107,12 +117,4 @@ public class GameController : Singleton<GameController>
         }
     }
     
-    public void InitTotalCharacter()
-    {
-        totalCharacter = botNumber + 1;
-        if (botNumber > listSpawn.Count - 1)
-        {
-            botNumber = listSpawn.Count - 1;
-        }
-    }    
 }

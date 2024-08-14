@@ -9,6 +9,7 @@ public class CameraFollower : Singleton<CameraFollower>
     public Camera gameCamera;
     [SerializeField] Vector3 offset;
     [SerializeField] Vector3 offsetMainMenu;
+    [SerializeField] Vector3 offsetShop;
 
     [SerializeField] Quaternion rotation;
     [SerializeField] Quaternion rotationMainMenu;
@@ -36,6 +37,11 @@ public class CameraFollower : Singleton<CameraFollower>
         {
             currentOffset = offset;
             currentRotation = rotation;
+        } else if (state == 3)
+        {
+            currentOffset = offsetShop;
+            currentRotation = rotationMainMenu;
+
         }
     }
 }
