@@ -12,6 +12,7 @@ public class Character : AbstractCharacter
     public TargetIndicator indicator;
     public int level = 1;
     public bool isDeath = false;
+    public InitSkin skin;
 
     public override void OnInit()
     {

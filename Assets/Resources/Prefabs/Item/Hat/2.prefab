@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3986344598939609472}
   m_Layer: 0
-  m_Name: Hat
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,11 +102,11 @@ PrefabInstance:
     - target: {fileID: -1504981713932161579, guid: f41c08491d7377d4485a120303447111, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2db22dbff7d140f4c92eaa16abf7f2dc, type: 2}
+      objectReference: {fileID: 2100000, guid: fb039caeff5c7234ca4bcf10d07cf870, type: 2}
     - target: {fileID: -1504981713932161579, guid: f41c08491d7377d4485a120303447111, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 4fcba024884e6a648965fc44f05f05bd, type: 2}
+      objectReference: {fileID: 2100000, guid: 7f847a3272f8aff48abf950475669eac, type: 2}
     - target: {fileID: -927199367670048503, guid: f41c08491d7377d4485a120303447111, type: 3}
       propertyPath: m_Name
       value: Hat

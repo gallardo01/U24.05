@@ -35,6 +35,11 @@ public class GameController : Singleton<GameController>
         //GainGold(100);
     }
 
+    public void InitPlayerItems()
+    {
+        player.skin.PlayerEquipItems();
+    }
+
     public void InitGold()
     {
         if (!PlayerPrefs.HasKey("Gold"))

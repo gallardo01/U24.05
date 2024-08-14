@@ -16,6 +16,7 @@ public class Bot : Character
     {
         //OnInit();
         ChangeAnim("idle");
+        skin.RandomEquipItems();
     }
 
     public override void OnInit()

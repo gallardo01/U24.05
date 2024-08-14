@@ -38,11 +38,13 @@ public class InitItem : MonoBehaviour
         {
             ItemJsonDatabase.Instance.EquipItem(thisItem);
             ShopController.Instance.CreateItem(thisItem.item.Type);
+            GameController.Instance.InitPlayerItems();
         }
         else if (state == 3) // Da mua, da mac
         {
             ItemJsonDatabase.Instance.UnequipItem(thisItem);
             ShopController.Instance.CreateItem(thisItem.item.Type);
+            GameController.Instance.InitPlayerItems();
         }
     }
 
