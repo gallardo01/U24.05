@@ -53,6 +53,7 @@ MonoBehaviour:
   propLayer: 8
   owner: {fileID: 0}
   listPaths: []
+  rotateSpeed: 0
 --- !u!65 &4399579925712843831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,6 +150,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: ceffb78c74021304889ac584f173d156, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: aebc520a1e97166429daa69987756ed2, type: 2}
+    - target: {fileID: -1504981713932161579, guid: ceffb78c74021304889ac584f173d156, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8623dfa7e80481648b2c9b534ed489e2, type: 2}
+    - target: {fileID: -1504981713932161579, guid: ceffb78c74021304889ac584f173d156, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50c8e60d9720d754696a2f0a30cbc954, type: 2}
     - target: {fileID: -927199367670048503, guid: ceffb78c74021304889ac584f173d156, type: 3}
       propertyPath: m_Name
       value: Arrow

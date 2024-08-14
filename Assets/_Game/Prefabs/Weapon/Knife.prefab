@@ -53,6 +53,7 @@ MonoBehaviour:
   propLayer: 8
   owner: {fileID: 0}
   listPaths: []
+  rotateSpeed: 0
 --- !u!65 &9000870613403829017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -153,6 +154,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02517f2f8b4eb16409d8ff9dfb282dbd, type: 2}
+    - target: {fileID: 2300000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 02517f2f8b4eb16409d8ff9dfb282dbd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
 --- !u!4 &96187686940196422 stripped

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4762233169038028578
+--- !u!1 &3263279069447551785
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,91 +8,59 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5522546555080981861}
-  - component: {fileID: 8323800157361423433}
-  - component: {fileID: -5849352869993645568}
-  - component: {fileID: -3294109090893318580}
-  m_Layer: 0
-  m_Name: Boomerang
+  - component: {fileID: 2592841961674369390}
+  - component: {fileID: 6363320510278780966}
+  m_Layer: 12
+  m_Name: Boomerang_Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5522546555080981861
+--- !u!4 &2592841961674369390
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762233169038028578}
+  m_GameObject: {fileID: 3263279069447551785}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5039101957238417361}
+  - {fileID: 3076480108996899802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8323800157361423433
+--- !u!114 &6363320510278780966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762233169038028578}
+  m_GameObject: {fileID: 3263279069447551785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0713870f6d7704f9b707c37153e358, type: 3}
+  m_Script: {fileID: 11500000, guid: 23982373c9a31b34e82dd43f224378da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 3
-  tf: {fileID: 5522546555080981861}
-  characterLayer: 9
-  propLayer: 8
-  owner: {fileID: 0}
-  listPaths: []
-  rotateSpeed: -720
---- !u!65 &-5849352869993645568
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762233169038028578}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.1, z: 1}
-  m_Center: {x: 0.25, y: 0, z: 0}
---- !u!54 &-3294109090893318580
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4762233169038028578}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!1001 &5039101957238553937
+  rotateSpeed: 60
+  tf: {fileID: 2592841961674369390}
+--- !u!1001 &3076480108997290330
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 5522546555080981861}
+    m_TransformParent: {fileID: 2592841961674369390}
     m_Modifications:
     - target: {fileID: 100000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_Name
       value: boomerang
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_RootOrder
@@ -124,11 +92,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_LocalRotation.y
@@ -140,7 +108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -160,8 +128,8 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: b5b57c969e28f1147b3cafa5dc069f56, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
---- !u!4 &5039101957238417361 stripped
+--- !u!4 &3076480108996899802 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: cb6e597070ed41f4eb5cb9583c725959, type: 3}
-  m_PrefabInstance: {fileID: 5039101957238553937}
+  m_PrefabInstance: {fileID: 3076480108997290330}
   m_PrefabAsset: {fileID: 0}

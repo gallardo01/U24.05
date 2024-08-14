@@ -21,6 +21,7 @@ public class WeaponDataDetail
     public string name;
     public int price;
     public GameObject weaponHoldPrefab;
+    public GameObject weaponShopPrefab;
     public List<WeaponSkinDetail> weaponSkinList;
 }
 

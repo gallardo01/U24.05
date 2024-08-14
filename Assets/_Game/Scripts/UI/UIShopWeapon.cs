@@ -9,11 +9,10 @@ public class UIShopWeapon : UICanvas
     [SerializeField] Button btnQuit, btnBuy, btnEquip, btnPrevious, btnNext;
     [SerializeField] GameObject Equipped;
     [SerializeField] TextMeshProUGUI textGold, textName, textPrice;
-
-    [SerializeField] Image imageWeapon;
-    [SerializeField] Transform contentParent;
+    [SerializeField] Transform weaponParent;
     [SerializeField] List<WeaponType> listWeaponType = new();
 
+    GameObject currentWeapon;
     string weaponName;
     int price;
     int currentWeaponIndex;
@@ -74,6 +73,8 @@ public class UIShopWeapon : UICanvas
         WeaponDataDetail weaponDataDetail = WeaponManager.Ins.GetWeaponData(listWeaponType[index]);
         if (weaponDataDetail != null)
         {
+            Destroy(currentWeapon);
+            currentWeapon = Instantiate(weaponDataDetail.weaponShopPrefab, weaponParent);
             weaponName = weaponDataDetail.name;
             price = weaponDataDetail.price;
             textName.text = weaponName;
