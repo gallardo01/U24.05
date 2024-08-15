@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [SerializeField] public List<Transform> summonPoint;
-    [SerializeField] GameObject playerPrebs;
+    [SerializeField] public GameObject playerPrebs;
     [SerializeField] GameObject botPrefs;
     [SerializeField] TMP_Text numberAlive;
     [SerializeField] List<GameObject> weaponList;
@@ -48,7 +48,15 @@ public class GameController : MonoBehaviour
             }
         }
     }
-
+    public void EquipNewItem()
+    {
+        Debug.Log("ok");
+        playerPrebs.GetComponent<Player>().initSkin.PlayerEquipItem();
+    }
+    public void DeleteOldItem(string type)
+    {
+        playerPrebs.GetComponent<Player>().initSkin.DeleteOldItem(type);
+    }
     public int InitPlayerGold()
     {
         if (!PlayerPrefs.HasKey("Gold"))
@@ -80,6 +88,7 @@ public class GameController : MonoBehaviour
                     randomPos.Add(randomIndex);
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
                     bot.SetNewPlayer();
+                    bot.initSkin.GetComponent<InitSkin>().BotEquipItem();
                     countPlayers.Add(bot.gameObject);
                     break;
                 }
@@ -91,10 +100,12 @@ public class GameController : MonoBehaviour
 
             if (!randomPos.Contains(randomIndex))
             {
+                Player player = playerPrebs.GetComponent<Player>();
                 randomPos.Add(randomIndex);
-                playerPrebs.GetComponent<Player>().body.position = summonPoint[randomIndex].position;
-                playerPrebs.GetComponent<Player>().SetNewPlayer();
-                countPlayers.Add(playerPrebs);
+                player.body.position = summonPoint[randomIndex].position;
+                player.SetNewPlayer();
+                EquipNewItem();
+                countPlayers.Add(player.gameObject);
                 break;
             }
         }

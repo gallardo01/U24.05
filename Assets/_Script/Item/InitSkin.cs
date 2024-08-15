@@ -14,23 +14,83 @@ public class InitSkin : MonoBehaviour
     // OnStart is called before the first frame update
     void Start()
     {
+        
+    }
+    public void DeleteOldItem(string type)
+    {
+        switch (type)
+        {
+            case "Weapon":
+                foreach (Transform transformChild in weapon)
+                {
+                    Destroy(transformChild.gameObject);
+                }
+                break;
+            case "Head":
+                foreach (Transform transformChild in head)
+                {
+                    Destroy(transformChild.gameObject);
+                }
+                break;
+            case "Shield":
+                foreach (Transform transformChild in shield)
+                {
+                    Destroy(transformChild.gameObject);
+                }
+                break;
+        }
+    }
+    public void PlayerEquipItem()
+    {
+        string weaponName = ItemJSONDatabase.instance.CheckEquipItem("Weapon");
+        if (weaponName != "Null")
+        {
+            GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/" + weaponName);
+            GameObject weapon = Instantiate(weaponEquip, this.weapon);
+        }
+
+        string headName = ItemJSONDatabase.instance.CheckEquipItem("Head");
+        if (headName != "Null")
+        {
+            GameObject headEquip = Resources.Load<GameObject>("Prefabs/Item/Head/" + headName);
+            GameObject head = Instantiate(headEquip, this.head);
+        }
+
+        string shieldName = ItemJSONDatabase.instance.CheckEquipItem("Shield");
+        if (shieldName != "Null")
+        {
+            GameObject shieldEquip = Resources.Load<GameObject>("Prefabs/Item/Shield/" + shieldName);
+            GameObject shield = Instantiate(shieldEquip, this.shield);
+        }
+
+        string pantName = ItemJSONDatabase.instance.CheckEquipItem("Pant");
+        if (pantName != "Null")
+        {
+            this.pant.material = Resources.Load<Material>("Prefabs/Item/Pant/" + pantName);
+        }
+    }
+
+    public void BotEquipItem()
+    {
         InitWeapon(Random.Range(0, ItemDatabase.instance.weapons.Count));
         InitHead(Random.Range(0, ItemDatabase.instance.heads.Count));
         InitShield(Random.Range(0, ItemDatabase.instance.shields.Count));
         InitPant(Random.Range(0, ItemDatabase.instance.pants.Count));
     }
-
     private void InitWeapon(int number)
     {
-        GameObject weapon = Instantiate(ItemDatabase.instance.weapons[number], this.weapon);
+        GameObject weaponChoose = ItemDatabase.instance.weapons[number];
+        GameObject weapon = Instantiate(weaponChoose, this.weapon);
     }
     private void InitHead(int number)
     {
-        GameObject weapon = Instantiate(ItemDatabase.instance.heads[number], this.head);
+        GameObject headChoose = ItemDatabase.instance.heads[number];
+        GameObject head = Instantiate(ItemDatabase.instance.heads[number], this.head);
     }
     private void InitShield(int number)
     {
-        GameObject weapon = Instantiate(ItemDatabase.instance.shields[number], this.shield);
+        GameObject shieldChoose = ItemDatabase.instance.shields[number];
+        GameObject shield = Instantiate(ItemDatabase.instance.shields[number], this.shield);
     }
     private void InitPant(int number)
     {

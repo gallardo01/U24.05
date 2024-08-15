@@ -17,13 +17,6 @@ public class ItemJSONDatabase : MonoBehaviour
     public List<GameItem> listInGameItem = new List<GameItem>();
     private string filePath = "MyItem.txt";
 
-    enum TypeItem
-    {
-        WEAPON,
-        HEAD,
-        SHIELD,
-        PANT
-    }
     private void Awake()
     {
         instance = this;
@@ -152,6 +145,19 @@ public class ItemJSONDatabase : MonoBehaviour
         }
     }
 
+    public string CheckEquipItem(string type)
+    {
+        List<GameItem> list = SplitTypeItem(type);
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Equip == true)
+            {
+                Debug.Log(list[i].item.name);
+                return list[i].item.name;
+            }
+        }
+        return "Null";
+    }
     public List<GameItem> SplitTypeItem(string type)
     {
         List<GameItem> list = new List<GameItem>();

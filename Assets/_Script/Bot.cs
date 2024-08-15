@@ -14,9 +14,6 @@ public class Bot : Character
     public float randomRadius = 30f;
     float cooldownMove = 1.5f;
 
-    // OnStart is called before the first frame update
-
-    // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;

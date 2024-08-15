@@ -37,9 +37,10 @@ public class InitItem : MonoBehaviour
         }
         if (state == 2)
         {
-            Debug.Log("click");
             ItemJSONDatabase.instance.UpdateEquipItem(thisItem);
-            CheckEquipItemState(thisItem.item.type);
+            SetEquipItemState(thisItem.item.type);
+            GameController.instance.DeleteOldItem(thisItem.item.type);
+            GameController.instance.EquipNewItem();
             ShopController.instance.CreatItemInShop(thisItem.item.type);
         }
     }
@@ -67,18 +68,21 @@ public class InitItem : MonoBehaviour
             }
         }
     }
-    private void CheckEquipItemState(string type)
+    private void SetEquipItemState(string type)
     {
         List<GameItem> items = ItemJSONDatabase.instance.SplitTypeItem(type);
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i] != thisItem)
+            if (items[i].item.type == thisItem.item.type)
             {
-                BuyStateUI(PurchaseState.EQUIP);
-            }
-            else
-            {
-                BuyStateUI(PurchaseState.EQUIPED);
+                if (items[i] != thisItem)
+                {
+                    BuyStateUI(PurchaseState.EQUIP);
+                }
+                else
+                {
+                    BuyStateUI(PurchaseState.EQUIPED);
+                }
             }
         }
     }

@@ -16,4 +16,8 @@ public class ItemDatabase : MonoBehaviour
         instance = this;
     }
 
+    public GameObject EquipWeapon (int id)
+    {
+        return weapons[id];
+    }
 }

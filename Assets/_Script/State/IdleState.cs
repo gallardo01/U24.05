@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IdleState : IState<Bot>
 {
+
     public void OnEnter(Bot bot)
     {
         bot.ChangeAnim("idle");

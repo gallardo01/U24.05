@@ -18,6 +18,7 @@ public class Character : AbstractCharacter
     [SerializeField] Image image;
     [SerializeField] TMP_Text levelPlayer;
 
+    public InitSkin initSkin;
     public GameObject weaponPrefabs;
     public GameObject target;
     public GameObject weaponEquipPos;
