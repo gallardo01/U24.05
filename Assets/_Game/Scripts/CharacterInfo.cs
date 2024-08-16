@@ -36,25 +36,12 @@ public class CharacterInfo : MonoBehaviour
         viewportPoint = _camera.WorldToViewportPoint(target.position);
 
         if (viewportPoint.x < 0 || viewportPoint.x > 1 || viewportPoint.y < 0 || viewportPoint.y > 1)
-        {
-            if (isNameLevelActive == true || isIndicatorActive == false)
-            {
-                SetActiveNameLevel(false);
-                SetActiveIndicator(true);
-            }
-
+        {           
             ShowIndicator();
-
         }
         else
         {
-            if (isNameLevelActive == false || isIndicatorActive == true)
-            {
-                SetActiveNameLevel(true);
-                SetActiveIndicator(false);
-            }
-
-            tfNameLevel.position = _camera.ViewportToScreenPoint(viewportPoint) + offset;
+            ShowNameLevel();
         }
     }
 
@@ -97,8 +84,25 @@ public class CharacterInfo : MonoBehaviour
         isIndicatorActive = state;
     }
 
-    public void ShowIndicator()
+    private void ShowNameLevel()
     {
+        if (isNameLevelActive == false || isIndicatorActive == true)
+        {
+            SetActiveNameLevel(true);
+            SetActiveIndicator(false);
+        }
+
+        tfNameLevel.position = _camera.ViewportToScreenPoint(viewportPoint) + offset;
+    }
+
+    private void ShowIndicator()
+    {
+        if (isNameLevelActive == true || isIndicatorActive == false)
+        {
+            SetActiveNameLevel(false);
+            SetActiveIndicator(true);
+        }
+
         float clampedX = Mathf.Clamp(viewportPoint.x, 0.05f, 0.95f);
         float clampedY = Mathf.Clamp(viewportPoint.y, 0.05f, 0.95f);
         Vector3 indicatorViewportPoint = new Vector3(clampedX, clampedY, viewportPoint.z);

@@ -73,3 +73,8 @@ public enum GameState
     ShopSkin,
     ShopWeapon
 }
+
+public enum SFXType
+{
+
+}

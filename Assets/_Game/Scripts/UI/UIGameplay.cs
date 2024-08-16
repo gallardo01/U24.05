@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class UIGameplay : UICanvas
 {
-    [SerializeField] TextMeshProUGUI textBotAlive;
+    [SerializeField] TextMeshProUGUI textAlive;
 
-    public void UpdateTextBotAlive(int botAlive)
+    public void UpdateTextAlive(int alive)
     {
-        textBotAlive.text = botAlive.ToString();
+        textAlive.text = alive.ToString();
     }
 
     public override void Open()
     {
         base.Open();
         GameManager.Ins.ChangeGameState(GameState.Gameplay);
-        UpdateTextBotAlive(LevelManager.Ins.currentLevel.alive);
+        UpdateTextAlive(LevelManager.Ins.currentLevel.alive);
     }
 }

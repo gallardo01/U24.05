@@ -12,8 +12,8 @@ public class Level : MonoBehaviour
 
     private HashSet<Transform> setNodeStartReady = new();
 
-    int botAtSameTime = 6;
-    int botTotal = 49;
+    [SerializeField] int botAtSameTime = 6;
+    [SerializeField] int botTotal = 49;
     public int alive;
     public int reviveCount;
 
@@ -37,7 +37,7 @@ public class Level : MonoBehaviour
             }
 
             alive--;
-            UIManager.Ins.GetUI<UIGameplay>().UpdateTextBotAlive(alive);            
+            UIManager.Ins.GetUI<UIGameplay>().UpdateTextAlive(alive);            
 
             if (alive == 1)
             {

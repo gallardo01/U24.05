@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7991974467950588737}
   - component: {fileID: 2048786127900661835}
   m_Layer: 5
-  m_Name: BotAlive
+  m_Name: alive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 4958167134146816207}
   - component: {fileID: 7921151054451436313}
   m_Layer: 5
-  m_Name: TextBotAlive
+  m_Name: TextAlive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   IsDestroyOnClose: 0
-  textBotAlive: {fileID: 7921151054451436313}
+  textAlive: {fileID: 7921151054451436313}
 --- !u!1 &7098175848007960915
 GameObject:
   m_ObjectHideFlags: 0

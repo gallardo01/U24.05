@@ -80,6 +80,14 @@ public class LevelManager : Singleton<LevelManager>
         player.Revive();
         currentLevel.alive++;
         player.tf.position = currentLevel.GetRandomNodeStart().position;
+        if (currentLevel.alive == 1)
+        {
+            UIManager.Ins.OpenUI<UIVictory>();
+        }
+        else
+        {
+            UIManager.Ins.OpenUI<UIGameplay>();
+        }    
     }
 }
 

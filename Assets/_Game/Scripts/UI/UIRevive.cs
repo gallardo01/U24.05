@@ -18,8 +18,7 @@ public class UIRevive : UICanvas
         btnRevive.onClick.AddListener(() =>
         {
             CloseDirectly();
-            LevelManager.Ins.RevivePlayer();
-            UIManager.Ins.OpenUI<UIGameplay>();
+            LevelManager.Ins.RevivePlayer();           
         });
 
         btnQuit.onClick.AddListener(() =>
