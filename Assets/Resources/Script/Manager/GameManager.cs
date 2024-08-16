@@ -12,7 +12,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Button settingButton;
     [SerializeField] Button shopButton;
     [SerializeField] Button shopBackButton;
-    
+
+    public static int RoundPoint { get; private set; }
+
     private void OnEnable()
     {
         playButton.onClick.AddListener(() => SetGameState(GameState.GAME));
@@ -50,12 +52,12 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            if(Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 CurrencyManager.Instance.AddCurrency(500);
             }
         }
-        if(Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -69,11 +71,23 @@ public class GameManager : Singleton<GameManager>
                 CurrencyManager.Instance.ResetCurrency();
             }
         }
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2f);
+
+    }
+
+    public static void AddPoint(int point)
+    {
+        RoundPoint += point;
     }
 
     public void LoadScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void GameOver()
+    {
+        SetGameState(GameState.GAMEOVER);
     }
 
     public void SetGameState(GameState gameState)
@@ -86,8 +100,6 @@ public class GameManager : Singleton<GameManager>
             listener.OnGameStateChange(gameState);
         }
     }
-
-
 }
 
 public interface IGameStateListener

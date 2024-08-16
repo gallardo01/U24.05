@@ -22,8 +22,8 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        GetComponent<Rigidbody>().isKinematic = false;
         state = State.Move;
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private void Update()
@@ -100,6 +100,5 @@ public class Player : Character
     {
         base.OnDeath(killerCharacter);
         GetComponent<Rigidbody>().isKinematic = true;
-        GameManager.Instance.SetGameState(GameState.GAMEOVER);
     }
 }

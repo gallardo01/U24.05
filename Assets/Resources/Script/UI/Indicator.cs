@@ -44,8 +44,8 @@ public class Indicator : MonoBehaviour
         // Determine if the character is outside the viewport
         if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
         {
-            viewPos.x = Mathf.Clamp(viewPos.x, 0.01f, 0.95f);
-            viewPos.y = Mathf.Clamp(viewPos.y, 0.01f, 0.95f);
+            viewPos.x = Mathf.Clamp(viewPos.x, 0.01f, 0.99f);
+            viewPos.y = Mathf.Clamp(viewPos.y, 0.01f, 0.99f);
 
             Vector2 screenPos = Camera.main.ViewportToScreenPoint(viewPos);
 

@@ -2,17 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Sound Settings")]
+    public AudioSource soundSource; // AudioSource for playing sound effects
+    public AudioClip[] audioClips;  // Array of AudioClips for different sounds
+
+    private Dictionary<string, AudioClip> soundDictionary = new Dictionary<string, AudioClip>();
+
+
+    private void Awake()
     {
-        
+        InitSound();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitSound()
     {
-        
+        foreach (AudioClip clip in audioClips)
+        {
+            soundDictionary[clip.name] = clip;
+        }
+    }
+
+    public void PlaySound(string soundName)
+    {
+        if (soundDictionary.TryGetValue(soundName, out AudioClip clip))
+        {
+            soundSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning($"Sound '{soundName}' not found!");
+        }
     }
 }

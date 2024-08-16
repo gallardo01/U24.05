@@ -39,10 +39,9 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         if (sender.gameObject.layer == 7)
         {
             Camera.main.fieldOfView += 1;
-            CurrencyManager.Instance.AddCurrency(20);
+            GameManager.AddPoint(20);
         }
-
-        characterList.Remove(victim);
+        RemoveCharacter(victim);
         DisplayAlive();
     }
 
@@ -98,9 +97,18 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         DisplayAlive();
     }
 
+    private void RemoveCharacter(Character character)
+    {
+        characterList.Remove(character);
+        if (characterList.Count < 1 || character.GetType() == typeof(Player)) 
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
     private void DisplayAlive()
     {
-        aliveText.text = characterList.Count.ToString();
+        aliveText.text = "Alive " + characterList.Count.ToString();
     }
 
     public void OnGameStateChange(GameState gameState)
@@ -133,50 +141,4 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
 
         }
     }
-
-    //public void Reborn()
-    //{
-    //    StartCoroutine(OnReborn());
-    //}
-
-    //IEnumerator OnReborn()
-    //{
-    //    yield return new WaitForSeconds(1f);
-
-    //    Vector3 random = Vector3.zero;
-    //    for (int i = 0; i < 20; i++)
-    //    {
-    //        Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * 50;
-    //        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
-    //        {
-    //            random = hit.position;
-    //            break;
-    //        }
-    //    }
-    //    player.transform.position = random;
-    //    player.OnInit();
-    //}
-
-    //public void Recycle(Character bot)
-    //{
-    //    StartCoroutine(OnRecycle(bot));
-    //}
-
-    //IEnumerator OnRecycle(Character bot)
-    //{
-    //    yield return new WaitForSeconds(1.5f);
-
-    //    Vector3 random = Vector3.zero;
-    //    for (int i = 0; i < 20; i++)
-    //    {
-    //        Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * 50;
-    //        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
-    //        {
-    //            random = hit.position;
-    //            break;
-    //        }
-    //    }
-    //    LeanPool.Spawn(bot, random, Quaternion.identity);
-    //    bot.OnInit();
-    //}
 }

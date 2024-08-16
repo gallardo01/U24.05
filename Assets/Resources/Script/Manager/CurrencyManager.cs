@@ -1,19 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CurrencyManager : Singleton<CurrencyManager>
+public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
 {
     [SerializeField] TextMeshProUGUI[] currencyText;
+    [SerializeField] TextMeshProUGUI currencyClamb;
 
     private const string CurrencyKey = "Currency";
     public int CurrentCurrency { get; private set; }
-
-    private void Start()
-    {
-        LoadCurrency();
-    }
+    [SerializeField] private Button clambButton;
 
     public void AddCurrency(int amount)
     {
@@ -58,6 +58,37 @@ public class CurrencyManager : Singleton<CurrencyManager>
         for(int i = 0; i < currencyText.Length; i++)
         {
             currencyText[i].text = CurrentCurrency.ToString();
+        }
+    }
+
+    private void Clamp(int point)
+    {
+        clambButton.interactable = false;
+        ClambAnim();
+        AddCurrency(point);
+    }
+
+    private void ClambAnim()
+    {
+
+    }
+
+    private void ClambCurrencyDisplay(int point)
+    {
+        currencyClamb.text = point.ToString();
+    }
+
+    public void OnGameStateChange(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.MENU:
+                LoadCurrency();
+                clambButton.onClick.AddListener(() => Clamp(GameManager.RoundPoint));
+                break;
+            case GameState.GAMEOVER:
+                ClambCurrencyDisplay(GameManager.RoundPoint);
+                break;
         }
     }
 }
