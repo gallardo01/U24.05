@@ -8,10 +8,12 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
     private Vector3 offset;
     private Vector3 camRotation;
     private float fieldOfView;
+    private Camera cam;
 
     private void Start()
     {
         FindPlayer();
+        cam = GetComponent<Camera>();
     }
 
     private void LateUpdate()
@@ -21,7 +23,6 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
             transform.position = Vector3.Lerp(transform.position, playerTF.position + offset, Time.deltaTime * 5f);
             transform.rotation = Quaternion.Euler(camRotation);
         }
-        else FindPlayer();
     }
     private void FindPlayer()
     {
@@ -35,15 +36,19 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
             case GameState.MENU:
                 offset = new Vector3(0f, 1f, 3f);
                 camRotation = new Vector3(0f, 180f, 0f);
-                this.GetComponent<Camera>().fieldOfView = 80;
+                cam.fieldOfView = 80;
                 break;
 
             case GameState.GAME:
                 offset = new Vector3(0f, 10f, -7.5f);
                 camRotation = new Vector3(50f, 0f, 0f);
-                this.GetComponent<Camera>().fieldOfView = 60;
+                cam.fieldOfView = 60;
                 break;
-
+            case GameState.SHOP:
+                offset = new Vector3(0f, 0.1f, 3.5f);
+                camRotation = new Vector3(1.5f, 180f, 0f);
+                cam.fieldOfView = 80;
+                break;
         }
     }
 }

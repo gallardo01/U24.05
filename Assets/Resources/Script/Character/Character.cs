@@ -22,8 +22,10 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected CharacterEquipment equipment;
 
     protected string currentAnimName = "idle";
-    protected Indicator indicator; public Indicator Indicator => indicator;
-    public void SetIndicator(Indicator indicator) {  this.indicator = indicator; } 
+    public Indicator Indicator { get; private set; }
+    public void SetIndicator(Indicator indicator) {  this.Indicator = indicator; }
+    [field: SerializeField] public Transform IndicatorPoint;
+
 
     [HideInInspector] public Transform target;
     protected Collider[] targetsList = new Collider[10];
@@ -42,7 +44,7 @@ public abstract class Character : MonoBehaviour
     {
         this.enabled = true;
         collider.enabled = true;
-        indicator.gameObject.SetActive(true);
+        Indicator.gameObject.SetActive(true);
     }
 
     protected void Start()
@@ -100,11 +102,11 @@ public abstract class Character : MonoBehaviour
         EventManager.OnCharacterDeath?.Invoke(sender,this);
         ChangAnim("dead");
         collider.enabled = false;
-        indicator.gameObject.SetActive(false);
+        Indicator.gameObject.SetActive(false);
         this.enabled = false;
     }
 
-    public void UpdateLevel() => indicator.UpdateLevel();
+    public void UpdateLevel() => Indicator.UpdateLevel();
 
     public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material, GameObject projectile)
     {

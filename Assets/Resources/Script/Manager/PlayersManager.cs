@@ -72,9 +72,9 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
     {
         player = Instantiate(playerPrefab, spawnPosList[0], Quaternion.identity);
         Indicator playerIndicator = Instantiate(indicatorPrefab, mainCanvas.transform);
+        playerIndicator.OnInit(player);
         player.SetIndicator(playerIndicator);
         player.OnInit();
-        playerIndicator.OnInit(player);
         characterList.Add(player);
 
         for (int i = 1; i < spawnPosList.Count; i++)
