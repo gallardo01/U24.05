@@ -112,11 +112,14 @@ public class Level : MonoBehaviour
         bot.EquipShield(shieldType);
         bot.EquipPants(pantsType);
 
+        bot.ChangeColor(SkinManager.Ins.GetRandomColor());
+
         listBot.Add(bot);
     }
 
     public void ResetLevel()
     {
+        StopAllCoroutines();
         for (int i = 0; i < listBot.Count; i++)
         {
             listBot[i].StopMove();

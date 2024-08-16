@@ -2,34 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class CharacterInfo : MonoBehaviour
 {
     [SerializeField] Vector3 offset;
     [SerializeField] Transform target;
-    [SerializeField] Transform tf;
+    [SerializeField] Transform tfNameLevel;
+    [SerializeField] Transform tfIndicator;
+    [SerializeField] Image imageIndicator;
     [SerializeField] TextMeshProUGUI textName;
     [SerializeField] TextMeshProUGUI textLevel;
     [SerializeField] Camera _camera;
+
+    bool isActive, isNameLevelActive = false, isIndicatorActive = false;
+
+    Material currentMaterialColor;
+    private Vector3 viewportPoint;
+    //private Vector3 screenCenterViewportPoint = new(0.5f, 0.5f, 0);
 
     private void Start()
     {
         _camera = Camera.main;
     }
-    //Vector3 viewPoint;
-    //Vector3 screenHalf = new Vector2(Screen.width, Screen.height) / 2;
-    //private float offsetY = 3f;
 
     void LateUpdate()
     {
-        //viewPoint = Camera.main.WorldToViewportPoint(target.position + Vector3.up * offsetY);
-        //tf.position = Camera.main.ViewportToScreenPoint(viewPoint);
+        if (!isActive)
+        {
+            return;
+        }
 
-        Vector3 screenPos = _camera.WorldToScreenPoint(target.position);
-        tf.position = screenPos + offset;
+        viewportPoint = _camera.WorldToViewportPoint(target.position);
 
-        //tf.rotation = Quaternion.LookRotation(tf.position - _camera.transform.position);
+        if (viewportPoint.x < 0 || viewportPoint.x > 1 || viewportPoint.y < 0 || viewportPoint.y > 1)
+        {
+            if (isNameLevelActive == true || isIndicatorActive == false)
+            {
+                SetActiveNameLevel(false);
+                SetActiveIndicator(true);
+            }
+
+            ShowIndicator();
+
+        }
+        else
+        {
+            if (isNameLevelActive == false || isIndicatorActive == true)
+            {
+                SetActiveNameLevel(true);
+                SetActiveIndicator(false);
+            }
+
+            tfNameLevel.position = _camera.ViewportToScreenPoint(viewportPoint) + offset;
+        }
     }
 
     public void UpdateTextLevel(int level)
@@ -47,9 +73,49 @@ public class CharacterInfo : MonoBehaviour
         return textName.text;
     }
 
-    public void SetActiveCharacterInfo(bool isActive)
+    public Material GetMaterialColor()
     {
-        textName.gameObject.SetActive(isActive);
-        textLevel.gameObject.SetActive(isActive);
+        return currentMaterialColor;
+    }
+
+    public void SetActive(bool state)
+    {
+        isActive = state;
+        SetActiveNameLevel(state);
+        SetActiveIndicator(state);
+    }
+
+    public void SetActiveNameLevel(bool state)
+    {
+        tfNameLevel.gameObject.SetActive(state);
+        isNameLevelActive = state;
+    }
+
+    public void SetActiveIndicator(bool state)
+    {
+        tfIndicator.gameObject.SetActive(state);
+        isIndicatorActive = state;
+    }
+
+    public void ShowIndicator()
+    {
+        float clampedX = Mathf.Clamp(viewportPoint.x, 0.05f, 0.95f);
+        float clampedY = Mathf.Clamp(viewportPoint.y, 0.05f, 0.95f);
+        Vector3 indicatorViewportPoint = new Vector3(clampedX, clampedY, viewportPoint.z);
+
+        //Vector3 direction = indicatorViewportPoint - screenCenterViewportPoint;
+        Vector3 direction = indicatorViewportPoint - LevelManager.Ins.player.characterInfo.viewportPoint;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        tfIndicator.position = _camera.ViewportToScreenPoint(indicatorViewportPoint);
+        tfIndicator.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+
+    public void ChangeColor(Material material)
+    {
+        currentMaterialColor = material;
+        textName.color = currentMaterialColor.color;
+        textLevel.color = currentMaterialColor.color;
+        imageIndicator.color = currentMaterialColor.color;
     }
 }

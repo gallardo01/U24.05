@@ -31,6 +31,8 @@ public class UIVictory : UICanvas
     {
         base.Open();
         GameManager.Ins.ChangeGameState(GameState.Finish);
+        LevelManager.Ins.player.StopMove();
+        LevelManager.Ins.player.ChangeAnim(Constants.ANIM_VICTORY);
         gold = LevelManager.Ins.player.Level * 5;
         UpdateTextGold(gold);
     }

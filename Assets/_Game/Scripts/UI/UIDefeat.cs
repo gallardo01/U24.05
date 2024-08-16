@@ -27,11 +27,6 @@ public class UIDefeat : UICanvas
         textRank.text = "#" + rank.ToString();
     }
 
-    private void UpdateTextKilledBy(string name)
-    {
-        textKilledBy.text = name;
-    }
-
     private void UpdateTextGold(int gold)
     {
         textGold.text = gold.ToString();
@@ -44,6 +39,7 @@ public class UIDefeat : UICanvas
         gold = LevelManager.Ins.player.Level;
         UpdateTextGold(gold);
         UpdateTextRank(LevelManager.Ins.player.rank);
-        UpdateTextKilledBy(LevelManager.Ins.player.killedBy);
+        textKilledBy.text = LevelManager.Ins.player.killedBy;
+        textKilledBy.color = LevelManager.Ins.player.killedByMaterialColor.color;
     }
 }

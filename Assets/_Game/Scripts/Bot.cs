@@ -5,13 +5,27 @@ using UnityEngine.AI;
 
 public class Bot : Character
 {
-    private IState<Bot> currentState;   
+    private IState<Bot> currentState;
 
     [SerializeField] NavMeshAgent agent;
 
     private Vector3 destination;
     public bool IsDestionation => Vector3.Distance(tf.position, destination + (tf.position.y - destination.y) * Vector3.up) < 0.1f;
 
+    private string[] arrayFirstName = {
+        "John", "Jane", "Michael", "Emily", "Chris",
+        "Jessica", "Matthew", "Ashley", "Daniel", "Sarah",
+        "David", "Amanda", "James", "Laura", "Robert",
+        "Sophia", "William", "Olivia", "Alexander", "Mia"
+    };
+    private string[] arrayLastName = {
+        "Smith", "Johnson", "Williams", "Brown", "Jones",
+        "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+        "Hernandez", "Lopez", "Wilson", "Anderson", "Thomas",
+        "Taylor", "Moore", "Jackson", "Martin", "Lee"
+    };
+
+    private string RandomName() => arrayFirstName[Random.Range(0, arrayFirstName.Length)] + " " + arrayLastName[Random.Range(0, arrayLastName.Length)];
 
     protected override void Update()
     {
@@ -41,7 +55,7 @@ public class Bot : Character
     public override void InitCharacter(int level)
     {
         base.InitCharacter(level);
-        characterInfo.UpdateTextName("Bot_" + Random.Range(0, 9999).ToString());
+        characterInfo.UpdateTextName(RandomName());
         agent.speed = MoveSpeed;
         ChangeState(new WaitState());
     }

@@ -13,6 +13,7 @@ public class Character : GameUnit
     [SerializeField] protected Transform hairParent;
     [SerializeField] protected Transform shieldParent;
     [SerializeField] protected SkinnedMeshRenderer pants;
+    [SerializeField] protected SkinnedMeshRenderer body;
     [SerializeField] protected SphereCollider attackZoneCollider;
 
     public CharacterInfo characterInfo;
@@ -20,6 +21,8 @@ public class Character : GameUnit
     protected GameObject currentWeaponHold;
     protected GameObject currentHair;
     protected GameObject currentShield;
+
+    protected Material currentMaterialColor;
 
     protected string currentAnimName;
 
@@ -61,8 +64,7 @@ public class Character : GameUnit
 
         this.RegisterListener(EventID.OnGameStateChanged, (param) =>
         {
-            bool isActive = (GameState)param == GameState.Gameplay;
-            SetActiveCharacterInfo(isActive);
+            HandleGameStateChanged((GameState)param);
         });
     }
 
@@ -98,8 +100,14 @@ public class Character : GameUnit
 
         if (GameManager.Ins.IsState(GameState.Gameplay))
         {
-            characterInfo.SetActiveCharacterInfo(true);
+            characterInfo.SetActive(true);
         }
+    }
+
+    protected virtual void HandleGameStateChanged(GameState gameState)
+    {
+        bool isActive = gameState == GameState.Gameplay;
+        SetActiveCharacterInfo(isActive);
     }
 
     public void LevelUp(int level)
@@ -204,7 +212,7 @@ public class Character : GameUnit
         StopMove();
         RemoveAllTarget();
 
-        characterInfo.SetActiveCharacterInfo(false);
+        characterInfo.SetActive(false);
 
         this.PostEvent(EventID.OnCharacterDead, this);
         StartCoroutine(IEDead());
@@ -219,7 +227,7 @@ public class Character : GameUnit
 
     protected virtual void SetActiveCharacterInfo(bool isActive)
     {
-        characterInfo.SetActiveCharacterInfo(isActive);
+        characterInfo.SetActive(isActive);
     }
 
     public void EquipHair(HairType hairType)
@@ -260,6 +268,13 @@ public class Character : GameUnit
 
         WeaponDataDetail weaponDataDetail = WeaponManager.Ins.GetWeaponData(this.weaponType);
         currentWeaponHold = Instantiate(weaponDataDetail.weaponHoldPrefab, weaponHoldParent);
+    }
+
+    public void ChangeColor(Material material)
+    {
+        currentMaterialColor = material;
+        body.material = currentMaterialColor;
+        characterInfo.ChangeColor(material);
     }
 }
 

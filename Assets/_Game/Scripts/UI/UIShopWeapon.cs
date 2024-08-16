@@ -23,6 +23,8 @@ public class UIShopWeapon : UICanvas
         {
             CloseDirectly();
             UIManager.Ins.OpenUI<UIMainmenu>();
+
+            LevelManager.Ins.player.gameObject.SetActive(true);
         });
 
         btnBuy.onClick.AddListener(() =>
@@ -149,6 +151,8 @@ public class UIShopWeapon : UICanvas
     public override void Open()
     {
         base.Open();
-        GameManager.Ins.ChangeGameState(GameState.ShopWeapon);      
+        GameManager.Ins.ChangeGameState(GameState.ShopWeapon);
+
+        LevelManager.Ins.player.gameObject.SetActive(false);
     }
 }

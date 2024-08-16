@@ -11,8 +11,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Transform offsetGameplay;
     [SerializeField] Transform offsetMainmenu;
     [SerializeField] Transform offsetShopSkin;
-
-    private Vector3 OffsetGameplay => offsetGameplay.localPosition * LevelManager.Ins.player.LevelScale;
+    [SerializeField] Transform offsetVictory;
 
     private bool isRotateFinish = true;
     private Quaternion targetRotation;
@@ -36,6 +35,10 @@ public class CameraFollow : MonoBehaviour
             {
                 SetTargetRotate(offsetShopSkin.localRotation);
             }
+            else if (gameState == GameState.Finish && !LevelManager.Ins.player.isDead)
+            {
+                SetTargetRotate(offsetVictory.localRotation);
+            }
 
             
         });
@@ -49,11 +52,15 @@ public class CameraFollow : MonoBehaviour
         }
         else if (GameManager.Ins.IsState(GameState.Gameplay))
         {
-            targetPosition = targetTF.position + OffsetGameplay;
+            targetPosition = targetTF.position + offsetGameplay.localPosition * LevelManager.Ins.player.LevelScale;
         }
         else if (GameManager.Ins.IsState(GameState.ShopSkin))
         {
             targetPosition = targetTF.position + offsetShopSkin.localPosition;
+        }
+        else if (GameManager.Ins.IsState(GameState.Finish) && !LevelManager.Ins.player.isDead)
+        {
+            targetPosition = targetTF.position + offsetVictory.localPosition * LevelManager.Ins.player.LevelScale;
         }
 
         TF.position = Vector3.Lerp(TF.position, targetPosition, Time.deltaTime * 5f);

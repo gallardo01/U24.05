@@ -11,6 +11,7 @@ public class Player : Character
 
     public int rank;
     public string killedBy;
+    public Material killedByMaterialColor;
 
     public int Level => level;
 
@@ -29,7 +30,7 @@ public class Player : Character
 
     public void FixedUpdate()
     {
-        if (isDead)
+        if (isDead || !GameManager.Ins.IsState(GameState.Gameplay))
         {
             return;
         }
@@ -50,6 +51,19 @@ public class Player : Character
             {
                 ChangeAnim(Constants.ANIM_IDLE);
             }
+        }
+    }
+
+    protected override void HandleGameStateChanged(GameState gameState)
+    {
+        base.HandleGameStateChanged(gameState);
+        if (gameState == GameState.Mainmenu)
+        {
+            ChangeAnim(Constants.ANIM_IDLE);
+        }
+        else if (gameState == GameState.ShopSkin)
+        {
+            ChangeAnim(Constants.ANIM_DANCE);
         }
     }
 

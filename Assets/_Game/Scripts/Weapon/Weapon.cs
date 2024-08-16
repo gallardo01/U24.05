@@ -70,6 +70,7 @@ public class Weapon : GameUnit
             if(character is Player player)
             {
                 player.killedBy = owner.characterInfo.GetTextName();
+                player.killedByMaterialColor = owner.characterInfo.GetMaterialColor();
             }
         }
 
