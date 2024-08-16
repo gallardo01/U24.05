@@ -38,25 +38,23 @@ public class InitItem : MonoBehaviour
         if (state == 2)
         {
             ItemJSONDatabase.instance.UpdateEquipItem(thisItem);
-            SetEquipItemState(thisItem.item.type);
             GameController.instance.DeleteOldItem(thisItem.item.type);
             GameController.instance.EquipNewItem();
             ShopController.instance.CreatItemInShop(thisItem.item.type);
         }
     }
-
     public void InitItemUI(GameItem item)
     {
         thisItem = item;
-        itemImage.sprite = Resources.Load<Sprite>("UI/" + item.item.type + "/" + item.item.name);
-        if (!item.Purchase)
+        itemImage.sprite = Resources.Load<Sprite>("UI/" + thisItem.item.type + "/" + thisItem.item.name);
+        if (!thisItem.Purchase)
         {
             BuyStateUI(PurchaseState.PURCHASE);
-            priceText.text = item.item.price.ToString();
+            priceText.text = thisItem.item.price.ToString();
         }
         else
         {
-            if (!item.Equip)
+            if (!thisItem.Equip)
             {
                BuyStateUI(PurchaseState.EQUIP);
                equipButton.GetComponent<Button>().enabled = true;
@@ -65,24 +63,6 @@ public class InitItem : MonoBehaviour
             {
                 BuyStateUI(PurchaseState.EQUIPED);
                 equipButton.GetComponent<Button>().enabled = false;
-            }
-        }
-    }
-    private void SetEquipItemState(string type)
-    {
-        List<GameItem> items = ItemJSONDatabase.instance.SplitTypeItem(type);
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i].item.type == thisItem.item.type)
-            {
-                if (items[i] != thisItem)
-                {
-                    BuyStateUI(PurchaseState.EQUIP);
-                }
-                else
-                {
-                    BuyStateUI(PurchaseState.EQUIPED);
-                }
             }
         }
     }

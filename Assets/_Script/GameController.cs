@@ -104,7 +104,6 @@ public class GameController : MonoBehaviour
                 randomPos.Add(randomIndex);
                 player.body.position = summonPoint[randomIndex].position;
                 player.SetNewPlayer();
-                EquipNewItem();
                 countPlayers.Add(player.gameObject);
                 break;
             }

@@ -187,13 +187,16 @@ public class ItemJSONDatabase : MonoBehaviour
     {
         for (int i = 0; i < listInGameItem.Count; i++)
         {
-            if (item.item.type == listInGameItem[i].item.type && item.item.name == listInGameItem[i].item.name)
+            if (item.item.type == listInGameItem[i].item.type)
             {
-                listInGameItem[i].Equip = true;
-            }
-            else
-            {
-                listInGameItem[i].Equip = false;
+                if(item.item.name == listInGameItem[i].item.name)
+                {
+                    listInGameItem[i].Equip = true;
+                }
+                else
+                {
+                    listInGameItem[i].Equip = false;
+                }
             }
         }
         SaveDataToLocalDb();

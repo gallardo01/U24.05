@@ -54,6 +54,9 @@ public class InitSkin : MonoBehaviour
         {
             GameObject headEquip = Resources.Load<GameObject>("Prefabs/Item/Head/" + headName);
             GameObject head = Instantiate(headEquip, this.head);
+        } else
+        {
+            Debug.Log("ok");
         }
 
         string shieldName = ItemJSONDatabase.instance.CheckEquipItem("Shield");

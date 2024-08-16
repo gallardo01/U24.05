@@ -12,6 +12,7 @@ public class Player : Character
     private void Start()
     {
         time = 0f;
+        initSkin.GetComponent<InitSkin>().PlayerEquipItem();
     }
     void Update()
     {
