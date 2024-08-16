@@ -31,6 +31,8 @@ public class Character : AbstractCharacter
     public string currentAnimName;
     public float detectionRadius = 15f;
     public int level = 1;
+    public int attack = 20;
+    public int defend = 2;
 
     void Start()
     {
@@ -67,7 +69,6 @@ public class Character : AbstractCharacter
         {
             if (weaponName == weapon.name)
             {
-                Debug.Log(weapon.name);
                 return weapon;
             }
         }

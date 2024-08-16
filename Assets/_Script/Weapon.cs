@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +32,9 @@ public class Weapon : MonoBehaviour
             if (other.CompareTag("bot") || other.CompareTag("player"))
             {
                 Destroy(gameObject);
-                character.health = character.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-40);
+                int damage = self.attack - character.defend;
+                character.health = character.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-damage);
+                Debug.Log(damage);
                 if (character.health < 0)
                 {
                     self.LevelUpPlayer();

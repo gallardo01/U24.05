@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static ItemJSONDatabase;
 
 public class InitSkin : MonoBehaviour
@@ -9,32 +11,31 @@ public class InitSkin : MonoBehaviour
     [SerializeField] Transform head;
     [SerializeField] Transform shield;
     [SerializeField] SkinnedMeshRenderer pant;
-
     public GameObject weaponEquiped;
+
+    public Character self;
+    private int pantDef;
+    private int pantAtk;
    
-    public void DeleteOldItem(string type)
+    public void DeleteOldItem()
     {
-        switch (type)
+        foreach (Transform transformChild in weapon)
         {
-            case "Weapon":
-                foreach (Transform transformChild in weapon)
-                {
-                    Destroy(transformChild.gameObject);
-                }
-                break;
-            case "Head":
-                foreach (Transform transformChild in head)
-                {
-                    Destroy(transformChild.gameObject);
-                }
-                break;
-            case "Shield":
-                foreach (Transform transformChild in shield)
-                {
-                    Destroy(transformChild.gameObject);
-                }
-                break;
+            DeleteStatToCharacter(transformChild.name);
+            Destroy(transformChild.gameObject);
         }
+        foreach (Transform transformChild in head)
+        {
+            DeleteStatToCharacter(transformChild.name);
+            Destroy(transformChild.gameObject);
+        }
+        foreach (Transform transformChild in shield)
+        {
+            DeleteStatToCharacter(transformChild.name);
+            Destroy(transformChild.gameObject);
+        }
+        self.attack -= pantAtk;
+        self.defend -= pantDef;
     }
     public void PlayerEquipItem()
     {
@@ -44,6 +45,13 @@ public class InitSkin : MonoBehaviour
             GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/" + weaponName);
             GameObject weapon = Instantiate(weaponEquip, this.weapon);
             weaponEquiped = weaponEquip;
+            AddStatToCharacter(weaponName);
+        }
+        else
+        {
+            GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/axe_0");
+            GameObject weapon = Instantiate(weaponEquip, this.weapon);
+            AddStatToCharacter("axe_0");
         }
 
         string headName = ItemJSONDatabase.instance.CheckEquipItem("Head");
@@ -51,9 +59,13 @@ public class InitSkin : MonoBehaviour
         {
             GameObject headEquip = Resources.Load<GameObject>("Prefabs/Item/Head/" + headName);
             GameObject head = Instantiate(headEquip, this.head);
-        } else
+            AddStatToCharacter(headName);
+        }
+        else
         {
-            Debug.Log("ok");
+            GameObject headEquip = Resources.Load<GameObject>("Prefabs/Item/Head/Arrow");
+            GameObject head = Instantiate(headEquip, this.head);
+            AddStatToCharacter("Arrow");
         }
 
         string shieldName = ItemJSONDatabase.instance.CheckEquipItem("Shield");
@@ -61,12 +73,18 @@ public class InitSkin : MonoBehaviour
         {
             GameObject shieldEquip = Resources.Load<GameObject>("Prefabs/Item/Shield/" + shieldName);
             GameObject shield = Instantiate(shieldEquip, this.shield);
+            AddStatToCharacter(shieldName);
         }
 
         string pantName = ItemJSONDatabase.instance.CheckEquipItem("Pant");
         if (pantName != "Null")
         {
             this.pant.material = Resources.Load<Material>("Prefabs/Item/Pant/" + pantName);
+            AddStatToCharacter(pantName);
+        } else
+        {
+            this.pant.material = Resources.Load<Material>("Prefabs/Item/Pant/Pant_1");
+            AddStatToCharacter("Pant_1");
         }
     }
 
@@ -82,19 +100,41 @@ public class InitSkin : MonoBehaviour
         GameObject weaponChoose = ItemDatabase.instance.weapons[number];
         GameObject weapon = Instantiate(weaponChoose, this.weapon);
         weaponEquiped = weaponChoose;
+        AddStatToCharacter(weaponEquiped.name);
     }
     private void InitHead(int number)
     {
         GameObject headChoose = ItemDatabase.instance.heads[number];
         GameObject head = Instantiate(ItemDatabase.instance.heads[number], this.head);
+        AddStatToCharacter(headChoose.name);
     }
     private void InitShield(int number)
     {
         GameObject shieldChoose = ItemDatabase.instance.shields[number];
         GameObject shield = Instantiate(ItemDatabase.instance.shields[number], this.shield);
+        AddStatToCharacter(shieldChoose.name);
     }
     private void InitPant(int number)
     {
         this.pant.material = ItemDatabase.instance.pants[number];
+        AddStatToCharacter(ItemDatabase.instance.pants[number].name);
+    }
+    private void AddStatToCharacter(string name)
+    {
+        GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
+        if (name == "Pant")
+        {
+            pantAtk = itemEquiped.item.atk;
+            pantDef = itemEquiped.item.def;
+        }
+        self.attack += itemEquiped.item.atk;
+        self.defend += itemEquiped.item.def;
+    }
+
+    private void DeleteStatToCharacter(string name)
+    {
+        GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
+        self.attack -= itemEquiped.item.atk;
+        self.defend -= itemEquiped.item.def;
     }
 }

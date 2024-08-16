@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static ItemJSONDatabase;
 
 public class GameController : MonoBehaviour
@@ -45,18 +46,17 @@ public class GameController : MonoBehaviour
             if (countPlayers[0].GetComponent<Player>())
             {
                 UIManager.instance.WinAGame();
-                
+
             }
         }
     }
     public void EquipNewItem()
     {
-        Debug.Log("ok");
         playerPrebs.GetComponent<Player>().initSkin.PlayerEquipItem();
     }
-    public void DeleteOldItem(string type)
+    public void DeleteOldItem()
     {
-        playerPrebs.GetComponent<Player>().initSkin.DeleteOldItem(type);
+        playerPrebs.GetComponent<Player>().initSkin.DeleteOldItem();
     }
     public int InitPlayerGold()
     {
@@ -89,7 +89,9 @@ public class GameController : MonoBehaviour
                     randomPos.Add(randomIndex);
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
                     bot.SetNewPlayer();
+                    bot.initSkin.GetComponent<InitSkin>().self = bot;
                     bot.initSkin.GetComponent<InitSkin>().BotEquipItem();
+                    Debug.Log(countPlayers);
                     countPlayers.Add(bot.gameObject);
                     break;
                 }
@@ -108,7 +110,7 @@ public class GameController : MonoBehaviour
                 countPlayers.Add(player.gameObject);
                 break;
             }
-        }
+        }     
     }
     public void StartGame()
     {

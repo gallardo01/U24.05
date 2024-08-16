@@ -38,7 +38,7 @@ public class InitItem : MonoBehaviour
         if (state == 2)
         {
             ItemJSONDatabase.instance.UpdateEquipItem(thisItem);
-            GameController.instance.DeleteOldItem(thisItem.item.type);
+            GameController.instance.DeleteOldItem();
             GameController.instance.EquipNewItem();
             ShopController.instance.CreatItemInShop(thisItem.item.type);
         }

@@ -14,6 +14,10 @@ public class Bot : Character
     public float randomRadius = 30f;
     float cooldownMove = 1.5f;
 
+    void Start()
+    {
+        weaponPrefabs = initSkin.weaponEquiped;
+    }
     void Update()
     {
         time += Time.deltaTime;

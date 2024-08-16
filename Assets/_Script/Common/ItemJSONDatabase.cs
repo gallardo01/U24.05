@@ -165,11 +165,25 @@ public class ItemJSONDatabase : MonoBehaviour
             if (type == listInGameItem[i].item.type)
             {
                 list.Add(listInGameItem[i]);
+                if (listInGameItem[i] == list[0] && listInGameItem[i].item.type != "Shield")
+                {
+                    listInGameItem[i].Purchase = true;
+                }
             }
         }
         return list;
     }
-
+    public GameItem GetStatOfItem(string name)
+    {
+        for (int i = 0; i < listInGameItem.Count; i++)
+        {
+            if (name == listInGameItem[i].item.name)
+            {
+                return listInGameItem[i];
+            }
+        }
+        return null;
+    }
     public void UpdatePurchaseItem(GameItem item)
     {
         for (int i = 0; i < listInGameItem.Count; i++)
@@ -199,6 +213,19 @@ public class ItemJSONDatabase : MonoBehaviour
             }
         }
         SaveDataToLocalDb();
+    }
+
+    public bool CheckEquipItemForTheFirstTime(string type)
+    {
+        List<GameItem> list = SplitTypeItem(type);
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Equip == true)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

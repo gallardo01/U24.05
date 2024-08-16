@@ -21,7 +21,7 @@ public class ShopController : MonoBehaviour
     }
     private void Start()
     {
-        OnClickButton(0);
+        CreatItemInShop(listType[0]);
         listButton[0].onClick.AddListener(() => OnClickButton(0));
         listButton[1].onClick.AddListener(() => OnClickButton(1));
         listButton[2].onClick.AddListener(() => OnClickButton(2));
@@ -34,10 +34,19 @@ public class ShopController : MonoBehaviour
             Destroy(contentUI.GetChild(i).gameObject);
         }
         List<GameItem> gameItem = ItemJSONDatabase.instance.SplitTypeItem(type);
+        bool check = ItemJSONDatabase.instance.CheckEquipItemForTheFirstTime(type);
         for (int i = 0; i < gameItem.Count; i++)
         {
-            InitItem gameObject = Instantiate(initItemPrefabs.gameObject, contentUI).GetComponent<InitItem>();
-            gameObject.InitItemUI(gameItem[i]);
+            if (!check)
+            {
+                gameItem[0].Equip = true;
+                InitItem gameObject = Instantiate(initItemPrefabs.gameObject, contentUI).GetComponent<InitItem>();
+                gameObject.InitItemUI(gameItem[i]);
+            } else
+            {
+                InitItem gameObject = Instantiate(initItemPrefabs.gameObject, contentUI).GetComponent<InitItem>();
+                gameObject.InitItemUI(gameItem[i]);
+            }
         }
     }
 

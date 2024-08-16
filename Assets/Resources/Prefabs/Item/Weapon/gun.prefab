@@ -99,6 +99,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 7bf2d0115aa96964bb72869fce1a4aee, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2db22dbff7d140f4c92eaa16abf7f2dc, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 7bf2d0115aa96964bb72869fce1a4aee, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: d313e779cffc3154b859df1b9e40e7dc, type: 2}
     - target: {fileID: -927199367670048503, guid: 7bf2d0115aa96964bb72869fce1a4aee, type: 3}
       propertyPath: m_Name
       value: uzi

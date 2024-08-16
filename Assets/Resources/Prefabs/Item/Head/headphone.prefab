@@ -102,11 +102,11 @@ PrefabInstance:
     - target: {fileID: -1504981713932161579, guid: c23b28c39e3ec4342a526e17123736bb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d313e779cffc3154b859df1b9e40e7dc, type: 2}
+      objectReference: {fileID: 2100000, guid: 2db22dbff7d140f4c92eaa16abf7f2dc, type: 2}
     - target: {fileID: -1504981713932161579, guid: c23b28c39e3ec4342a526e17123736bb, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 2d6eacf3ea662ec4a86de133cb9769a1, type: 2}
+      objectReference: {fileID: 2100000, guid: 7f847a3272f8aff48abf950475669eac, type: 2}
     - target: {fileID: -927199367670048503, guid: c23b28c39e3ec4342a526e17123736bb, type: 3}
       propertyPath: m_Name
       value: headphone
