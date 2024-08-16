@@ -8,6 +8,8 @@ public class InitSkin : MonoBehaviour
     [SerializeField] Transform head;
     [SerializeField] Transform shield;
     [SerializeField] SkinnedMeshRenderer pants;
+    public int weaponsId = 0;
+    public GameObject weaponItem;
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +62,9 @@ public class InitSkin : MonoBehaviour
     }
     public void InitWeapons(int id)
     {
+        weaponsId = id;
         GameObject weapon = ItemDatabase.Instance.GetWeaponsById(id);
-        Instantiate(weapon, weapons);
+        weaponItem = Instantiate(weapon, weapons);
     }
 
     public void InitHats(int id)

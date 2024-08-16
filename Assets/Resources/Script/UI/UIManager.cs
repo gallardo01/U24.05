@@ -46,6 +46,7 @@ public class UIManager : Singleton<UIManager>
     {
         awardPanel.SetActive(true);
         awardPanel.GetComponent<AwardUI>().InitAwardUI(gold, GameController.Instance.bots.Count + 1);
+        GameController.Instance.DeleteAllBots();
     }
 
     public void MainMenuClick()

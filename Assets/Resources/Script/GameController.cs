@@ -19,6 +19,7 @@ public class GameController : Singleton<GameController>
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.1f;
         totalCharacter = botNumber + 1;
         if (botNumber > listSpawn.Count-1)
         {
@@ -76,6 +77,10 @@ public class GameController : Singleton<GameController>
     {
         totalCharacter--;
         aliveText.text = "Alive: " + totalCharacter;
+        if(totalCharacter == 1)
+        {
+            UIManager.Instance.OpenAwardUI(player.level) ;
+        }
     }
 
     public void EndGame()
@@ -87,11 +92,20 @@ public class GameController : Singleton<GameController>
     
     public void StartGame()
     {
+        totalCharacter = botNumber + 1;
+        InitTextAlive();
         for (int i = 0; i < bots.Count; i++)
             bots[i].OnInit();
     }
 
     public void ReplayGame()
+    {
+        DeleteAllBots();
+        player.OnDespawn();
+        CreateBotNewGame();
+    }
+
+    public void DeleteAllBots()
     {
         for (int i = 0; i < bots.Count; i++)
         {
@@ -99,10 +113,8 @@ public class GameController : Singleton<GameController>
             Destroy(bots[i].gameObject);
         }
         bots.Clear();
-        player.OnDespawn();
-        CreateBotNewGame();
     }
-    
+
     public void CreateBotNewGame()
     {
         player.transform.position = listSpawn[listSpawn.Count - 1].position;

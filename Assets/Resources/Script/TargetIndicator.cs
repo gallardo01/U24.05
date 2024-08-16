@@ -21,7 +21,11 @@ public class TargetIndicator : MonoBehaviour
 
     private void LateUpdate()
     {
-        viewPoint = Camera.WorldToViewportPoint(character.transform.position + Vector3.forward * indicatorY);
+        viewPoint = Camera.WorldToViewportPoint(character.indicatorPoint.transform.position);
+        //viewPoint = Camera.WorldToViewportPoint(character.transform.position);
+
+        viewPoint.x = Mathf.Clamp(viewPoint.x, 0.075f, 0.925f);
+        viewPoint.y = Mathf.Clamp(viewPoint.y, 0.075f, 0.875f);
         GetComponent<RectTransform>().anchoredPosition = Camera.ViewportToScreenPoint(viewPoint) - screenHalf;
     }
 
