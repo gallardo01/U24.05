@@ -58,9 +58,24 @@ public class Character : AbstractCharacter
     {
         CharacterDeath();
     }
+
+    public GameObject UseWeapon()
+    {
+        string weaponName = initSkin.weaponEquiped.name;
+
+        foreach (GameObject weapon in GameController.instance.weaponList)
+        {
+            if (weaponName == weapon.name)
+            {
+                Debug.Log(weapon.name);
+                return weapon;
+            }
+        }
+        return null;
+    }
     private void CreatDataPlayer()
     {
-        weaponPrefabs = GameController.instance.UseWeapon("boomerang");
+        weaponPrefabs = UseWeapon();
         namePlayer.enabled = true;
         namePlayer.text = RandomNameGenerator.GenerateRandomName();
         namePlayer.color = Random.ColorHSV();

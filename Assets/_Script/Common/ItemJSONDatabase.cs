@@ -152,7 +152,6 @@ public class ItemJSONDatabase : MonoBehaviour
         {
             if (list[i].Equip == true)
             {
-                Debug.Log(list[i].item.name);
                 return list[i].item.name;
             }
         }

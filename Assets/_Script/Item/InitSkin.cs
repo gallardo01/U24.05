@@ -10,12 +10,8 @@ public class InitSkin : MonoBehaviour
     [SerializeField] Transform shield;
     [SerializeField] SkinnedMeshRenderer pant;
 
-    
-    // OnStart is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject weaponEquiped;
+   
     public void DeleteOldItem(string type)
     {
         switch (type)
@@ -47,6 +43,7 @@ public class InitSkin : MonoBehaviour
         {
             GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/" + weaponName);
             GameObject weapon = Instantiate(weaponEquip, this.weapon);
+            weaponEquiped = weaponEquip;
         }
 
         string headName = ItemJSONDatabase.instance.CheckEquipItem("Head");
@@ -84,6 +81,7 @@ public class InitSkin : MonoBehaviour
     {
         GameObject weaponChoose = ItemDatabase.instance.weapons[number];
         GameObject weapon = Instantiate(weaponChoose, this.weapon);
+        weaponEquiped = weaponChoose;
     }
     private void InitHead(int number)
     {

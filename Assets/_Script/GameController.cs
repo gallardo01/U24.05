@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using static ItemJSONDatabase;
 
 public class GameController : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public GameObject playerPrebs;
     [SerializeField] GameObject botPrefs;
     [SerializeField] TMP_Text numberAlive;
-    [SerializeField] List<GameObject> weaponList;
+    [SerializeField] public List<GameObject> weaponList;
 
     private int botNumber = 10;
     public int countWeaponSummon = 0;
@@ -140,43 +141,6 @@ public class GameController : MonoBehaviour
     {
         JoystickControl.instance.gameObject.SetActive(false);
         JoystickControl.direct = Vector3.zero;
-    }
-    public GameObject UseWeapon(string weaponName)
-    {
-        switch (weaponName)
-        {
-            case "axe1":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[0];
-            case "axe2":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[1];
-            case "gun":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[2];
-            case "boomerang":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[3];
-            case "candy":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[4];
-            default:
-                return null;
-        }
-    }
-
-    public GameObject UseHead(string headName)
-    {
-        switch (headName)
-        {
-            case "axe1":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[0];
-            case "axe2":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[1];
-            case "gun":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[2];
-            case "boomerang":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[3];
-            case "candy":
-                return playerPrebs.GetComponent<Character>().weaponPrefabs = weaponList[4];
-            default:
-                return null;
-        }
     }
 
     public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
