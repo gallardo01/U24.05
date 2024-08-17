@@ -15,6 +15,7 @@ public class ShopStateButton : MonoBehaviour
 
     [SerializeField] private Button button;
     [SerializeField] private TextMeshProUGUI buttonText;
+    [SerializeField] private GameObject coinIcon;
 
     private EquipmentContainer currentContainer;
     private ButtonState currentState;
@@ -51,6 +52,7 @@ public class ShopStateButton : MonoBehaviour
         buttonText.text = currentContainer.Price.ToString();
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => BuyCallBack());
+        coinIcon.SetActive(true);
 
         if (CurrencyManager.Instance.CurrentCurrency < currentContainer.Price)
         {
@@ -69,10 +71,11 @@ public class ShopStateButton : MonoBehaviour
         buttonText.text = "EQUIP";
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => EquipCallBack());
-
+        coinIcon.SetActive(false);
     }
     public void Equipped()
     {
+        coinIcon.SetActive(false);
         button.interactable = false;
         buttonText.text = "EQUIPPED !";
     }

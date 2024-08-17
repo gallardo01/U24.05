@@ -93,7 +93,7 @@ public class GameManager : Singleton<GameManager>
     public void SetGameState(GameState gameState)
     {
         IEnumerable<IGameStateListener> listeners =
-            FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IGameStateListener>();
+            FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include,FindObjectsSortMode.None).OfType<IGameStateListener>();
 
         foreach (var listener in listeners)
         {

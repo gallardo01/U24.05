@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PanelControlUI : MonoBehaviour
+public class PanelControlUI : MonoBehaviour, IGameStateListener
 {
     [SerializeField] Button[] buttons;
     [SerializeField] GameObject[] panels;
     [SerializeField] Color choseColor;
 
     private Dictionary<Button, GameObject> TabList = new Dictionary<Button, GameObject>();
-    List<Image> panelsImage = new List<Image>();
+    private List<Image> panelsImage = new List<Image>();
 
-    private void Awake()
+    private void OnInit()
     {
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -20,7 +20,7 @@ public class PanelControlUI : MonoBehaviour
             panelsImage.Add(buttons[i].GetComponent<Image>());
         }
 
-        foreach(KeyValuePair<Button, GameObject> kvp in TabList)
+        foreach (KeyValuePair<Button, GameObject> kvp in TabList)
         {
             Button button = kvp.Key;
             button.onClick.AddListener(() => ShowPanel(kvp.Value));
@@ -42,7 +42,17 @@ public class PanelControlUI : MonoBehaviour
                 panelsImage[i].color = Color.white;
                 panels[i].SetActive(false);
             }
+        }        
+    }
+
+    public void OnGameStateChange(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.SHOP:
+                if (TabList.Count == 0) OnInit();
+                ShowPanel(panels[0]);
+                break;
         }
-        
     }
 }

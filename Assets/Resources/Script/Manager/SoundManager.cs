@@ -1,38 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : Singleton<SoundManager>, IGameStateListener
 {
-    [Header("Sound Settings")]
-    public AudioSource soundSource; // AudioSource for playing sound effects
-    public AudioClip[] audioClips;  // Array of AudioClips for different sounds
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
 
-    private Dictionary<string, AudioClip> soundDictionary = new Dictionary<string, AudioClip>();
+    [SerializeField] private AudioClip[] musicClips;
+    [SerializeField] private AudioClip[] sfxClips;
 
+    private Dictionary<string, AudioClip> musicDict = new Dictionary<string, AudioClip>();
+    private Dictionary<string, AudioClip> sfxDict = new Dictionary<string, AudioClip>();
 
-    private void Awake()
+    private void OnInit()
     {
-        InitSound();
-    }
-
-    private void InitSound()
-    {
-        foreach (AudioClip clip in audioClips)
+        foreach (AudioClip clip in musicClips)
         {
-            soundDictionary[clip.name] = clip;
+            musicDict[clip.name] = clip;
+        }
+
+        foreach (AudioClip clip in sfxClips)
+        {
+            sfxDict[clip.name] = clip;
         }
     }
 
-    public void PlaySound(string soundName)
+    public void PlayMusic(string musicName)
     {
-        if (soundDictionary.TryGetValue(soundName, out AudioClip clip))
+        if (musicDict.TryGetValue(musicName, out AudioClip clip))
         {
-            soundSource.PlayOneShot(clip);
+            musicSource.clip = clip;
+            musicSource.Play();
         }
         else
         {
-            Debug.LogWarning($"Sound '{soundName}' not found!");
+            Debug.LogWarning($"Music clip with name {musicName} not found!");
+        }
+    }
+
+    public void PlaySFX(string sfxName)
+    {
+        if (sfxDict.TryGetValue(sfxName, out AudioClip clip))
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning($"SFX clip with name {sfxName} not found!");
+        }
+    }
+
+    public void StopMusic() => musicSource.Stop();
+
+    public void StopSFX() => sfxSource.Stop();
+
+    public void SetMusicVolume(float volume) => musicSource.volume = volume;
+
+    public void SetSFXVolume(float volume) => sfxSource.volume = volume;
+
+    public void OnGameStateChange(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.MENU:
+                if (musicDict.Count == 0) OnInit();
+                break;
         }
     }
 }

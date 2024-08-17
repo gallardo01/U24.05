@@ -15,8 +15,8 @@ public class Indicator : MonoBehaviour
 
     public void OnInit(Character character)
     {
-        charName.text = Constant.Char_Names_List[Random.Range(0, Constant.Char_Names_List.Count)] + Random.Range(0, 1000);
-        levelText.text = "0";
+        charName.text = Constant.Char_Names_List[Random.Range(0, Constant.Char_Names_List.Count)] + " " + Random.Range(0, 1000);
+        levelText.text = level.ToString();
         levelImage.color = Random.ColorHSV();
         this.character = character;
 
@@ -38,27 +38,22 @@ public class Indicator : MonoBehaviour
 
     private void CaculatePos()
     {
-        float offset = 10f;   // Offset from the screen border
+        float offset = 10f; 
         Vector3 viewPos = Camera.main.WorldToViewportPoint(character.IndicatorPoint.position);
 
-        // Determine if the character is outside the viewport
         if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
         {
             viewPos.x = Mathf.Clamp(viewPos.x, 0.01f, 0.99f);
             viewPos.y = Mathf.Clamp(viewPos.y, 0.01f, 0.99f);
 
             Vector2 screenPos = Camera.main.ViewportToScreenPoint(viewPos);
-
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, screenPos, null, out Vector2 canvasPos);
-
             indicator.anchoredPosition = canvasPos;
         }
         else
         {
             Vector2 screenPos = Camera.main.ViewportToScreenPoint(viewPos);
-
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, screenPos, null, out Vector2 canvasPos);
-
             indicator.anchoredPosition = canvasPos + Vector2.one * offset;
         }
     }

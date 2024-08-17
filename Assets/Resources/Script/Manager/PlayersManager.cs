@@ -38,7 +38,7 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         sender.UpdateLevel();
         if (sender.gameObject.layer == 7)
         {
-            Camera.main.fieldOfView += 1;
+            Camera.main.fieldOfView += 5;
             GameManager.AddPoint(20);
         }
         RemoveCharacter(victim);
@@ -100,7 +100,7 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
     private void RemoveCharacter(Character character)
     {
         characterList.Remove(character);
-        if (characterList.Count < 1 || character.GetType() == typeof(Player)) 
+        if (characterList.Count == 1 || character.GetType() == typeof(Player)) 
         {
             GameManager.Instance.GameOver();
         }
