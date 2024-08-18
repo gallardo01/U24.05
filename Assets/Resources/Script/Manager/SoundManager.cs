@@ -65,6 +65,19 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
         {
             case GameState.MENU:
                 if (musicDict.Count == 0) OnInit();
+                PlayMusic("Menu_Music");
+                break;
+
+            case GameState.GAME:
+                PlayMusic("Game_Music");
+                break;            
+
+            case GameState.GAMEOVER:
+                StopMusic();
+                break;
+
+            case GameState.SHOP:
+                PlayMusic("Shop_Music");
                 break;
         }
     }

@@ -42,7 +42,7 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
             case GameState.GAME:
                 offset = new Vector3(0f, 10f, -7.5f);
                 camRotation = new Vector3(50f, 0f, 0f);
-                cam.fieldOfView = 60;
+                cam.fieldOfView = 80;
                 break;
             case GameState.SHOP:
                 offset = new Vector3(0f, 0.1f, 3.5f);

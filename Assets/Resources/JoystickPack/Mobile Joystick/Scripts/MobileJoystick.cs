@@ -16,13 +16,9 @@ public class MobileJoystick : Singleton<MobileJoystick>
     private bool canControl;
     private float canvasScale;
 
-    private static MobileJoystick instance; public static MobileJoystick Instance { get { return instance; } }
 
     void Awake()
     {
-        if(instance == null) instance = this;
-        else Destroy(this.gameObject);
-
         canvasScale = GetComponentInParent<Canvas>().GetComponent<RectTransform>().localScale.x;
         HideJoystick();
     }

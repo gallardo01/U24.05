@@ -33,7 +33,7 @@ public class Player : Character
         if (MobileJoystick.Instance.GetMoveVector().magnitude > 0)
         {
             CancelInvoke(nameof(OnThrow));
-            ExitAttack();
+            ChangeToMove();
         }
 
         switch (state)
@@ -61,7 +61,7 @@ public class Player : Character
             ChangAnim("idle");
         }
 
-        if(timer > 0 && target != null)
+        if(timer > attackDelay && target != null)
         {
             state = State.Attack;
             timer = 0f;
@@ -80,7 +80,7 @@ public class Player : Character
 
         if(timer > attackDelay)
         {
-            ExitAttack();
+            ChangeToMove();
         }
     }
 
@@ -89,7 +89,7 @@ public class Player : Character
         Throw(targetPos);
     }
     
-    private void ExitAttack()
+    private void ChangeToMove()
     {
         isOnAttack = false;
         timer = 0;
