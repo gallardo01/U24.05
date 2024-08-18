@@ -18,7 +18,7 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
     [HideInInspector] public Player player;
     
     private List<Vector3> spawnPosList = new List<Vector3>();
-    public List<Character> characterList = new List<Character>();
+    public List<Character> CharacterList { get; private set; } = new List<Character>();
 
     [SerializeField] TextMeshProUGUI aliveText; 
 
@@ -74,7 +74,7 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
         playerIndicator.OnInit(player);
         player.SetIndicator(playerIndicator);
         player.OnInit();
-        characterList.Add(player);
+        CharacterList.Add(player);
 
         for (int i = 1; i < spawnPosList.Count; i++)
         {
@@ -83,32 +83,34 @@ public class PlayersManager : Singleton<PlayersManager>, IGameStateListener
             newBot.SetIndicator(botIndicator);
             newBot.OnInit();
             botIndicator.OnInit(newBot);
-            characterList.Add(newBot);
+            CharacterList.Add(newBot);
         }
     }
 
     private void ActiveSetting(bool active)
     {
-        for (int i = 0; i < characterList.Count; i++)
+        for (int i = 0; i < CharacterList.Count; i++)
         {
-            characterList[i].enabled = active;
-            characterList[i].Indicator.gameObject.SetActive(active);
+            CharacterList[i].enabled = active;
+            CharacterList[i].Indicator.gameObject.SetActive(active);
         }
         DisplayAlive();
     }
 
     private void RemoveCharacter(Character character)
     {
-        characterList.Remove(character);
-        if (characterList.Count == 1 || character.GetType() == typeof(Player)) 
+        CharacterList.Remove(character);
+        SoundManager.CharacterDead();
+        if (CharacterList.Count == 1 || character.GetType() == typeof(Player))
         {
             GameManager.Instance.GameOver();
+
         }
     }
 
     private void DisplayAlive()
     {
-        aliveText.text = "Alive " + characterList.Count.ToString();
+        aliveText.text = "Alive " + CharacterList.Count.ToString();
     }
 
     public void OnGameStateChange(GameState gameState)

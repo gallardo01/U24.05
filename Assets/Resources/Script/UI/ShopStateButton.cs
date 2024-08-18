@@ -86,6 +86,7 @@ public class ShopStateButton : MonoBehaviour
         CurrencyManager.Instance.SpendCurrency(currentContainer.Price);
         currentState = ButtonState.NeedEquip;
         Configue();
+        SoundManager.CurrencyClick();
     }
 
     public void EquipCallBack()
@@ -110,5 +111,7 @@ public class ShopStateButton : MonoBehaviour
         EquipmentManager.Instance.AddItemToPlayer();
         currentState = ButtonState.Equipted;
         Configue();
+        SoundManager.CurrencyClick();
+
     }
 }

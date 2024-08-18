@@ -10,13 +10,12 @@ public class UIManager : MonoBehaviour, IGameStateListener
     [SerializeField] GameObject settingPanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject shopPanel;
-    [SerializeField] GameObject weaponSelecPanel;
   
     List<GameObject> panels = new List<GameObject>();
 
     private void Awake()
     {
-        panels.AddRange( new GameObject[] { menuPanel ,gamePanel, settingPanel, gameOverPanel, shopPanel, weaponSelecPanel,   } );
+        panels.AddRange( new GameObject[] { menuPanel ,gamePanel, settingPanel, gameOverPanel, shopPanel,   } );
     }
 
     public void OnGameStateChange(GameState gameState)
@@ -25,27 +24,22 @@ public class UIManager : MonoBehaviour, IGameStateListener
         {
             case GameState.MENU:
                 ShowPanel(menuPanel);
-
                 break;
+
             case GameState.GAME:
                 ShowPanel(gamePanel);
-
                 break;
-            case GameState.WEAPONSECTION:
-                ShowPanel(weaponSelecPanel);
 
-                break;
             case GameState.SETTING:
                 ShowPanel(settingPanel);
-
                 break;
+
             case GameState.GAMEOVER:
                 ShowPanel(gameOverPanel);
-
                 break;
+
             case GameState.SHOP:
                 ShowPanel(shopPanel);
-
                 break;
         }
     }
@@ -56,5 +50,6 @@ public class UIManager : MonoBehaviour, IGameStateListener
         {
             panels[i].SetActive(panels[i] == panel);
         }
+        SoundManager.ButtonClick();
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Unity.VisualScripting;
 
 public class SoundManager : Singleton<SoundManager>, IGameStateListener
 {
@@ -8,13 +9,15 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
     [SerializeField] private AudioSource sfxSource;
 
     [SerializeField] private AudioClip[] musicClips;
-    [SerializeField] private AudioClip[] sfxClips;
+    private AudioClip[] sfxClips;
 
     private Dictionary<string, AudioClip> musicDict = new Dictionary<string, AudioClip>();
     private Dictionary<string, AudioClip> sfxDict = new Dictionary<string, AudioClip>();
 
     private void OnInit()
     {
+        sfxClips = Resources.LoadAll<AudioClip>("SFX/Sound");
+
         foreach (AudioClip clip in musicClips)
         {
             musicDict[clip.name] = clip;
@@ -53,11 +56,19 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
 
     public void StopMusic() => musicSource.Stop();
 
-    public void StopSFX() => sfxSource.Stop();
+    public static void StopSFX() => Instance.sfxSource.Stop();
 
     public void SetMusicVolume(float volume) => musicSource.volume = volume;
 
     public void SetSFXVolume(float volume) => sfxSource.volume = volume;
+
+
+    public static void ButtonClick() => Instance.PlaySFX("Click " + "(" + Random.Range(1, 11) + ")");
+    public static void CurrencyClick() => Instance.PlaySFX("Collect " + "(" + Random.Range(1, 7) + ")");
+    public static void Throw() => Instance.PlaySFX("Throw " + "(" + Random.Range(1, 16) + ")");
+    public static void PLayerTalk() => Instance.PlaySFX("Phase " + "(" + Random.Range(1, 56) + ")");
+    public static void CharacterDead() => Instance.PlaySFX("Dead " + "(" + Random.Range(1, 25) + ")");
+    public static void LevelUp() => Instance.PlaySFX("LevelUp " + "(" + Random.Range(1, 12) + ")");
 
     public void OnGameStateChange(GameState gameState)
     {
@@ -74,6 +85,7 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
 
             case GameState.GAMEOVER:
                 StopMusic();
+                PlaySFX("Win " + "(" + Random.Range(1, 6) + ")"); ;
                 break;
 
             case GameState.SHOP:

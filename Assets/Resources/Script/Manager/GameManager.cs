@@ -33,19 +33,19 @@ public class GameManager : Singleton<GameManager>
     {
         SetGameState(GameState.MENU);
 
-        string[] keys = ES3.GetKeys();
-        if (keys.Length == 0)
-        {
-            Debug.Log("No keys found in the save file.");
-        }
-        else
-        {
-            Debug.Log("Keys found in the save file:");
-            foreach (string key in keys)
-            {
-                Debug.Log(key);
-            }
-        }
+        //string[] keys = ES3.GetKeys();
+        //if (keys.Length == 0)
+        //{
+        //    Debug.Log("No keys found in the save file.");
+        //}
+        //else
+        //{
+        //    Debug.Log("Keys found in the save file:");
+        //    foreach (string key in keys)
+        //    {
+        //        Debug.Log(key);
+        //    }
+        //}
     }
 
     private void Update()
@@ -99,6 +99,7 @@ public class GameManager : Singleton<GameManager>
         {
             listener.OnGameStateChange(gameState);
         }
+        SoundManager.ButtonClick();
     }
 }
 

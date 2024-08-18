@@ -61,7 +61,7 @@ public class Player : Character
             ChangAnim("idle");
         }
 
-        if(timer > attackDelay && target != null)
+        if(timer > 0.25f && target != null)
         {
             state = State.Attack;
             timer = 0f;
@@ -74,21 +74,23 @@ public class Player : Character
         {
             Attack(target.transform);
             targetPos = target.transform.position;
-            Invoke(nameof(OnThrow), 0.3f);
+            Invoke(nameof(OnThrow), 0.25f);
             isOnAttack = true;
+            SoundManager.PLayerTalk();
         }
 
-        if(timer > attackDelay)
+        if (timer > attackDelay)
         {
             ChangeToMove();
-        }
+        }        
     }
 
     private void OnThrow()
     {
         Throw(targetPos);
+        SoundManager.Throw();
     }
-    
+
     private void ChangeToMove()
     {
         isOnAttack = false;

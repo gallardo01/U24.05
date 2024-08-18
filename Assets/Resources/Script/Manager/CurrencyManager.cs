@@ -76,6 +76,7 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
     private void ClambCurrencyDisplay(int point)
     {
         currencyClamb.text = point.ToString();
+        SoundManager.ButtonClick();
     }
 
     public void OnGameStateChange(GameState gameState)

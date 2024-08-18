@@ -29,7 +29,7 @@ public class PanelControlUI : MonoBehaviour, IGameStateListener
 
     public void ShowPanel(GameObject panel)
     {
-        
+
         for (int i = 0; i < panels.Length; i++)
         {
             if(panels[i] == panel)
@@ -42,7 +42,8 @@ public class PanelControlUI : MonoBehaviour, IGameStateListener
                 panelsImage[i].color = Color.white;
                 panels[i].SetActive(false);
             }
-        }        
+        }
+        SoundManager.ButtonClick();
     }
 
     public void OnGameStateChange(GameState gameState)

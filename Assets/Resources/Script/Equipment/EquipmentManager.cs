@@ -91,6 +91,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
             if (sameTypes[i] == container) sameTypes[i].Select();
             else sameTypes[i].UnSelect();
         }
+        SoundManager.ButtonClick();
     }
 
     public void SaveItemData(EquipmentContainer container)
@@ -142,7 +143,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
 
     private void AddItemForBots()
     {
-        List<Character> characters = PlayersManager.Instance.characterList;
+        List<Character> characters = PlayersManager.Instance.CharacterList;
         for (int i = 0; i < characters.Count; i++) 
         {
             if (characters[i].gameObject.layer == 7) continue;
