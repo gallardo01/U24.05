@@ -17,6 +17,7 @@ public class Character : AbstractCharacter
     public int level = 1;
     public bool isDead = false;
     public bool isPlayer = false;
+    public InitSkin skin;
 
     // private FieldOfView fieldOfView;
     

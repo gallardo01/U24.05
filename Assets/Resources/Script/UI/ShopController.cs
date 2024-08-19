@@ -9,6 +9,7 @@ public class ShopController : Singleton<ShopController>
     public GameObject parent;
 
     public Button [] listButton;
+    public Button backButton;
     private static string[] listType = {"Weapons", "Hat", "Pants", "Shield"};
     
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class ShopController : Singleton<ShopController>
       listButton[2].onClick.AddListener( () => CLickButtonType(2));
       listButton[3].onClick.AddListener( () => CLickButtonType(3));
 
+      backButton.onClick.AddListener(CloseShop);
     }
     
     private void CLickButtonType(int type)
@@ -31,6 +33,11 @@ public class ShopController : Singleton<ShopController>
         
         listButton[type].GetComponent<Image>().color = Color.yellow;
        CreateItem(listType[type]);
+    }
+
+    private void CloseShop()
+    {
+        UIManager.Ins.InitGameState(1);
     }
     
 
