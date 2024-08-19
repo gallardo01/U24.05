@@ -16,8 +16,8 @@ public class Character : AbstractCharacter
     public TargetIndicator indicator;
     public int level = 1;
     public bool isDead = false;
-    public bool isPlayer = false;
     public InitSkin skin;
+    public Transform indicatorPoint;
 
     // private FieldOfView fieldOfView;
     
@@ -27,6 +27,7 @@ public class Character : AbstractCharacter
         level = 1;
         SetBodyScale();
         indicator.InitTarget(level);
+        bulletPrefab = ItemDatabase.Ins.bullets[skin.weaponsId];
     }
     
     public override void OnAttack()
@@ -68,6 +69,7 @@ public class Character : AbstractCharacter
                 Transform nearestTarget = characterRange.GetNearestTarget();
                 if (nearestTarget != null)
                 {
+                    skin.weaponItem.SetActive(false);
                     Bullet bullet = Instantiate(bulletPrefab);
                     bullet.transform.position = transform.position;
                     bullet.self = this;
@@ -75,8 +77,14 @@ public class Character : AbstractCharacter
                     bullet.transform.forward = direction;
                     bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
                     transform.forward = direction;
+                    Invoke(nameof(EnableWeapons), 1f);
                 }
             }
+    }
+    
+    private void EnableWeapons()
+    {
+        skin.weaponItem.SetActive(true);
     }
 
     public void ChangeAnim(string animName)

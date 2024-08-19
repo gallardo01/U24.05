@@ -8,6 +8,8 @@ public class InitSkin : MonoBehaviour
     [SerializeField]  Transform shield;
     [SerializeField]  Transform head;
     [SerializeField]  SkinnedMeshRenderer pants;
+    public int weaponsId = 0;
+    public GameObject weaponItem;
 
     
     void Start()
@@ -68,8 +70,9 @@ public class InitSkin : MonoBehaviour
     
     public void InitWeapon(int index)
     {
+        weaponsId = index;
         GameObject weapon = ItemDatabase.Ins.GetWeapon(index);
-        Instantiate(weapon, weapons);
+        weaponItem = Instantiate(weapon, weapons);
     }
     
     public void InitShield(int index)

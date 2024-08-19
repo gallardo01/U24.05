@@ -21,6 +21,7 @@ public class GameController : Singleton<GameController>
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.1f;
         totalCharacter = botNumber + 1;
         if (botNumber > listSpawn.Count-1)
         {
@@ -68,6 +69,8 @@ public class GameController : Singleton<GameController>
     
     public void StartGame()
     {
+        // totalCharacter = botNumber + 1;
+        // InitTextAlive();
         // for (int i = 0; i < bots.Count; i++)
         //     bots[i].OnInit();
         foreach (Bot bot in bots)
@@ -85,17 +88,12 @@ public class GameController : Singleton<GameController>
         aliveText.text = "Alive: " + totalCharacter;
         
         // Destroy all bots and their indicators
-        foreach (Bot bot in bots)
-        {
-            Destroy(bot.indicator.gameObject);
-            Destroy(bot.gameObject);
-        }
         
+        DeleteAllBots();
         Destroy(player.indicator.gameObject);
 
 
         // Clear the bots list
-        bots.Clear();
         player.OnDespawn();
         CreateBotNewGame();
         
@@ -107,7 +105,23 @@ public class GameController : Singleton<GameController>
         // Reset the UI
         
         UIManager.Ins.ResetUI();
-            
+    }
+    
+    public void ReplyGame()
+    {
+        DeleteAllBots();
+        player.OnDespawn();
+        CreateBotNewGame();
+    }
+    
+    public void DeleteAllBots()
+    {
+        foreach (Bot bot in bots)
+        {
+            Destroy(bot.indicator.gameObject);
+            Destroy(bot.gameObject);
+        }
+        bots.Clear();
     }
 
     
@@ -127,6 +141,10 @@ public class GameController : Singleton<GameController>
     {
         totalCharacter--;
         aliveText.text = "Alive: " + totalCharacter;
+        if(totalCharacter == 1)
+        {
+            UIManager.Ins.OpenAwardUI(player.level) ;
+        }
     }
 
     
@@ -153,6 +171,5 @@ public class GameController : Singleton<GameController>
             bots.Add(bot);
             bot.targetCircle.SetActive(false);
         }
-        Debug.Log("Bot number: " + bots.Count);
     }
 }

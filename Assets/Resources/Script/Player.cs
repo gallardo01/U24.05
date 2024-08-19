@@ -57,7 +57,7 @@ public class Player : Character
         counter.Cancel();
         GameController.Ins.EndGame();
         this.enabled = false;
-        UIManager.Ins.ShowAwardPanel(level);
+        UIManager.Ins.OpenAwardUI(level);
         foreach (Bot bot in GameController.Ins.bots)
         {
             bot.Stop();

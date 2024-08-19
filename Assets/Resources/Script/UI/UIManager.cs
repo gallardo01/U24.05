@@ -41,12 +41,6 @@ public class UIManager :
         );
         shopButton.onClick.AddListener(ShowShopPanel);
     }
-
-    public void ShowAwardPanel(int gold)
-    {
-        AwardPanel.SetActive(true);
-        AwardPanel.GetComponent<AwardUI>().InitAwardUI(gold, GameController.Ins.bots.Count + 1);
-    }
     
     public void ShowShopPanel()
     {
@@ -54,11 +48,20 @@ public class UIManager :
         UIPanel.SetActive(false);
         CameraFollower.Ins.ChangeState(3);
     }
+    
+    public void OpenAwardUI(int gold)
+    {
+        AwardPanel.SetActive(true);
+        AwardPanel.GetComponent<AwardUI>().InitAwardUI(gold, GameController.Ins.bots.Count + 1);
+        GameController.Ins.DeleteAllBots();
+    }
+    
     public void MainMenuClick()
     {
         AwardPanel.SetActive(false);
         SettingPanel.SetActive(false);
         InitGameState(1);
+        // GameController.Ins.PlayAgain();
         GameController.Ins.PlayAgain();
         InitGold();
     }
