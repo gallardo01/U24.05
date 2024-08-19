@@ -137,13 +137,13 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
 
     public void AddItemToPlayer()
     {
-        Player player = PlayersManager.Instance.player;
+        Player player = CharactersManager.Instance.player;
         player.SetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant, projectile);
     }
 
     private void AddItemForBots()
     {
-        List<Character> characters = PlayersManager.Instance.CharacterList;
+        List<Character> characters = CharactersManager.Instance.CharacterList;
         for (int i = 0; i < characters.Count; i++) 
         {
             if (characters[i].gameObject.layer == 7) continue;

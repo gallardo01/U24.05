@@ -15,7 +15,6 @@ public class Health : MonoBehaviour
         character = GetComponent<Character>();
     }
 
-
     public void TakeDamage(int damage, Character sender)
     {
         int realDamageTaken = Mathf.Clamp(damage, currentHealth, damage);

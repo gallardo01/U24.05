@@ -8,7 +8,7 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
-    [SerializeField] private AudioClip[] musicClips;
+    private AudioClip[] musicClips;
     private AudioClip[] sfxClips;
 
     private Dictionary<string, AudioClip> musicDict = new Dictionary<string, AudioClip>();
@@ -16,6 +16,7 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
 
     private void OnInit()
     {
+        musicClips = Resources.LoadAll<AudioClip>("SFX/Music");
         sfxClips = Resources.LoadAll<AudioClip>("SFX/Sound");
 
         foreach (AudioClip clip in musicClips)
@@ -62,6 +63,7 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
 
     public void SetSFXVolume(float volume) => sfxSource.volume = volume;
 
+    // Work
 
     public static void ButtonClick() => Instance.PlaySFX("Click " + "(" + Random.Range(1, 11) + ")");
     public static void CurrencyClick() => Instance.PlaySFX("Collect " + "(" + Random.Range(1, 7) + ")");

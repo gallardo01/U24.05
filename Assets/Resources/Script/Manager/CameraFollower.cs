@@ -26,7 +26,7 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
     }
     private void FindPlayer()
     {
-        playerTF = PlayersManager.Instance.player.transform;
+        playerTF = CharactersManager.Instance.player.transform;
     }
 
     public void OnGameStateChange(GameState gameState)

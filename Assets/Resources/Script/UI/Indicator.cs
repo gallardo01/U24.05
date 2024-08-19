@@ -20,7 +20,7 @@ public class Indicator : MonoBehaviour
         levelImage.color = Random.ColorHSV();
         this.character = character;
 
-        canvasRectTransform = FindObjectOfType<Canvas>().GetComponent<RectTransform>();
+        canvasRectTransform = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
         indicator = GetComponent<RectTransform>();
     }
 
@@ -28,7 +28,7 @@ public class Indicator : MonoBehaviour
     {
         level++;
         levelText.text = level.ToString();
-        indicator.anchoredPosition += Vector2.up * 2;
+        indicator.anchoredPosition += Vector2.up * 50;
     }
 
     private void LateUpdate()

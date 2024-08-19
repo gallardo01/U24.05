@@ -86,7 +86,7 @@ public abstract class Character : MonoBehaviour
     public void Throw(Vector3 targetPos)
     {
         Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
-        LeanPool.Despawn(projectTile.gameObject, 3);
+        LeanPool.Despawn(projectTile.gameObject, 1.5f);
         Vector3 direction = (targetPos + Vector3.up - shotingPoint.transform.position).normalized;
         projectTile.transform.forward = direction;
         projectTile.Shoot(direction, characterDamage,this);
@@ -106,7 +106,14 @@ public abstract class Character : MonoBehaviour
         this.enabled = false;
     }
 
-    public void UpdateLevel() => Indicator.UpdateLevel();
+    public void UpdateLevel()
+    {
+        Indicator.UpdateLevel();
+        float mutiple = 1.2f;
+        float scaleUp = transform.localScale.x * mutiple;
+        transform.DOScale(scaleUp, 1f);
+        detectRadius = detectRadius * mutiple;
+    } 
 
     public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material, GameObject projectile)
     {

@@ -9,8 +9,9 @@ public class Player : Character
 {
     public enum State
     {
-        Attack,
+        Idle,
         Move,
+        Attack,
     }
 
     public State state {  get; private set; }

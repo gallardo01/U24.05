@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18090267, g: 0.22644894, b: 0.307234, a: 1}
+  m_IndirectSpecularColor: {r: 0.4473914, g: 0.49732864, b: 0.5752566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,40 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &388419230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3021199384441735918, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+  m_PrefabInstance: {fileID: 3021199383386992908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &388419232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388419230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: 5b62b15a11954f74390fd4f3bc18d460, type: 2}
 --- !u!1 &646207782
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +241,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1430093391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2878484898601166450, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+  m_PrefabInstance: {fileID: 3021199383386992908}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1430093396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430093391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_IgnoreFromBuild: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1467894979
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +409,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3021199384441735919, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634728936106290063, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634728936106290063, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634728936106290063, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634728936106290063, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634728936106290063, guid: 49a222b06343c1b478e144dd7d8890a6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

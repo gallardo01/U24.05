@@ -38,6 +38,9 @@ MonoBehaviour:
     - KinoBloom.Runtime
     - LeanCommon
     - LeanPool
+    - NavMeshComponents
+    - NavMeshComponentsExamples
+    - NavMeshComponentsTestsPlaymode
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

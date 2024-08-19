@@ -12,7 +12,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Button settingButton;
     [SerializeField] Button shopButton;
     [SerializeField] Button shopBackButton;
-
+    [SerializeField] Button settingToMenu;
+    [SerializeField] Button settingToGame;
+    
     public static int RoundPoint { get; private set; }
 
     private void OnEnable()
@@ -22,11 +24,13 @@ public class GameManager : Singleton<GameManager>
         settingButton.onClick.AddListener(() => SetGameState(GameState.SETTING));
         shopButton.onClick.AddListener(() => SetGameState(GameState.SHOP));
         shopBackButton.onClick.AddListener(() => SetGameState(GameState.MENU));
+        settingToMenu.onClick.AddListener(() => SetGameState(GameState.MENU));
+        settingToGame.onClick.AddListener(() => SetGameState(GameState.GAME));
     }
 
     private void Awake()
     {
-        PlayersManager.Instance.OnInit();
+        CharactersManager.Instance.OnInit();
     }
 
     private void Start()

@@ -145,7 +145,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.7, y: 0.88, z: 1.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 438006587445381724}
   - {fileID: 7194476819951377839}
@@ -175,7 +175,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!136 &4702043210106954707
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2.29
   m_Direction: 1
-  m_Center: {x: 0, y: 1.12, z: 0}
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!114 &4593736679349455952
 MonoBehaviour:
   m_ObjectHideFlags: 0
