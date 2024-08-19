@@ -11652,6 +11652,13 @@ MonoBehaviour:
   - {fileID: 986299946822741099, guid: ba0561cb11f2b474aa5b48349f0da7e6, type: 3}
   - {fileID: 8868983068723412216, guid: 2bbb8bc2d29f60e4c8265c68ee4973ad, type: 3}
   - {fileID: 5859458554989719050, guid: c4058330b9ba1e74a9412fb87c00ded5, type: 3}
+  bullets:
+  - {fileID: 1434143470473706617, guid: 68dc084032dbca2468d97f8ed3172ef0, type: 3}
+  - {fileID: -8350413848835295214, guid: 404e169afa0f1f84eb44896a4b60e84a, type: 3}
+  - {fileID: 7174167090075154508, guid: 81eb2c12a96e8a44ba050aad10249960, type: 3}
+  - {fileID: -8495835376322622375, guid: 3da5fea9a97462940931566cf679292c, type: 3}
+  - {fileID: 2483617123819354500, guid: 08bceaf4558e29a45b5d08731bdfd589, type: 3}
+  - {fileID: 8922613727014033851, guid: 04e1090c0c2c96a43909ccf00ad94023, type: 3}
 --- !u!114 &1623186268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14467,7 +14474,6 @@ MonoBehaviour:
   currentAnimName: idle
   mesh: {fileID: 1017596052}
   range: {fileID: 2039752054}
-  bulletPrefabs: {fileID: 5330627182867743774, guid: c208e723ed2719041afa408f241a1dbb, type: 3}
   isAttack: 0
   indicator: {fileID: 0}
   level: 1
