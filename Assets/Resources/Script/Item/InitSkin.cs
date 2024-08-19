@@ -8,9 +8,17 @@ public class InitSkin : MonoBehaviour
     [SerializeField]  Transform shield;
     [SerializeField]  Transform head;
     [SerializeField]  SkinnedMeshRenderer pants;
+    public int weaponsId = 0;
+    public GameObject weaponItem;
 
     
     void Start()
+    {
+      
+    }
+    
+    
+    public void RandomEquipItems()
     {
         InitWeapon(Random.Range(0, ItemDatabase.Ins.weapons.Count));
         InitShield(Random.Range(0, ItemDatabase.Ins.shields.Count));
