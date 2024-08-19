@@ -11,7 +11,7 @@ public class Character : AbstractCharacter
     public Animator animator;
     private string currentAnim = "idle";
     public CharacterRange characterRange;
-    public Bullet bulletPrefab;
+    private Bullet bulletPrefab;
     public bool isAttack = false;
     public TargetIndicator indicator;
     public int level = 1;
@@ -27,6 +27,7 @@ public class Character : AbstractCharacter
         level = 1;
         SetBodyScale();
         indicator.InitTarget(level);
+        // bulletPrefab = ItemDatabase.Ins.bullets[skin.weaponsId];
         bulletPrefab = ItemDatabase.Ins.bullets[skin.weaponsId];
     }
     
@@ -64,22 +65,22 @@ public class Character : AbstractCharacter
     public void Throw()
     {
         characterRange.RemoveNullTarget();
-            if (characterRange.botInRange.Count > 0)
+        if (characterRange.botInRange.Count > 0)
+        {
+            Transform nearestTarget = characterRange.GetNearestTarget();
+            if (nearestTarget != null)
             {
-                Transform nearestTarget = characterRange.GetNearestTarget();
-                if (nearestTarget != null)
-                {
-                    skin.weaponItem.SetActive(false);
-                    Bullet bullet = Instantiate(bulletPrefab);
-                    bullet.transform.position = transform.position;
-                    bullet.self = this;
-                    Vector3 direction = (nearestTarget.position - transform.position).normalized;
-                    bullet.transform.forward = direction;
-                    bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
-                    transform.forward = direction;
-                    Invoke(nameof(EnableWeapons), 1f);
-                }
+                skin.weaponItem.SetActive(false);
+                Bullet bullet = Instantiate(bulletPrefab);
+                bullet.transform.position = transform.position;
+                bullet.self = this;
+                Vector3 direction = (nearestTarget.position - transform.position).normalized;
+                bullet.transform.forward = direction;
+                bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
+                transform.forward = direction;
+                Invoke(nameof(EnableWeapons), 1f);
             }
+        }
     }
     
     private void EnableWeapons()

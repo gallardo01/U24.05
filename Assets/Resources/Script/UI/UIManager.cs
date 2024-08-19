@@ -94,10 +94,12 @@ public class UIManager :
         {
             indicatorPanel.SetActive(true);
             GameController.Ins.StartGame();
+            SoundManager.Ins.PlayBackGroundMusic(SoundManager.SoundType.BackgroundGamePlay);
         }
 
         else if (state == 1)
         {
+            SoundManager.Ins.PlayBackGroundMusic(SoundManager.SoundType.BackgroundMainMenu);
             indicatorPanel.SetActive(false);
         }
         CameraFollower.Ins.ChangeState(state);
