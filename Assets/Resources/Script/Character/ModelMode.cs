@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ModelMode : MonoBehaviour, IGameStateListener
 {
+    [SerializeField] private Animator animator;
+    private string currentAnimName = "";
+
+    private const string Idle = "idle", Run = "run", Attack = "attack", Dance = "dance", Ulti = "ulti" , Win = "win";
+    private string[] AnimNames = new string[] { Idle, Run, Attack, Dance, Ulti, Win}; 
     //public float rotationSpeed = 0.2f;
 
     //private Vector2 startTouchPosition;
@@ -77,6 +83,22 @@ public class ModelMode : MonoBehaviour, IGameStateListener
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
+        }
+    }
+
+    public void PlayRandomAnim()
+    {
+        ChangAnim(AnimNames[Random.Range(0, AnimNames.Length)]);
+        Debug.Log("Play Model Anime");
+    }
+
+    public void ChangAnim(string animName)
+    {
+        if (currentAnimName != animName)
+        {
+            animator.ResetTrigger(animName);
+            currentAnimName = animName;
+            animator.SetTrigger(currentAnimName);
         }
     }
 

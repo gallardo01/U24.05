@@ -112,6 +112,5 @@ public class ShopStateButton : MonoBehaviour
         currentState = ButtonState.Equipted;
         Configue();
         SoundManager.CurrencyClick();
-
     }
 }

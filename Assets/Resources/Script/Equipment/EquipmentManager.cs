@@ -36,6 +36,8 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     private GameObject equiptHat;
     private Material equiptPant;
 
+    private ModelMode modelMode;
+
     private void Start()
     {
         equiptWeapon = weaponsDatas[0].itemPrefab;
@@ -43,6 +45,8 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         equiptShield = shieldsDatas[0].itemPrefab;
         equiptHat = hatsDatas[0].itemPrefab;
         equiptPant = pantsDatas[0].itemMat;
+
+        modelMode = CharactersManager.Instance.player.GetComponent<ModelMode>();
     }
 
     public void CreatContainers()
@@ -139,6 +143,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     {
         Player player = CharactersManager.Instance.player;
         player.SetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant, projectile);
+        modelMode.PlayRandomAnim();
     }
 
     private void AddItemForBots()

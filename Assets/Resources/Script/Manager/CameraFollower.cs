@@ -36,7 +36,7 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
             case GameState.MENU:
                 offset = new Vector3(0f, 1f, 3f);
                 camRotation = new Vector3(0f, 180f, 0f);
-                cam.fieldOfView = 80;
+                cam.fieldOfView = 90;
                 break;
 
             case GameState.GAME:
@@ -45,9 +45,9 @@ public class CameraFollower : MonoBehaviour, IGameStateListener
                 cam.fieldOfView = 80;
                 break;
             case GameState.SHOP:
-                offset = new Vector3(0f, 0.1f, 3.5f);
-                camRotation = new Vector3(1.5f, 180f, 0f);
-                cam.fieldOfView = 80;
+                offset = new Vector3(0f, -0.5f, 3.5f);
+                camRotation = new Vector3(-1, 180f, 0f);
+                cam.fieldOfView = 100;
                 break;
         }
     }
