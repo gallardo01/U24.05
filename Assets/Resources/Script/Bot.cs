@@ -15,6 +15,7 @@ public class Bot : Character
     void Start()
     {
         ChangeAnim("idle");
+        skin.RandomEquipItem();
     }
 
     // Update is called once per frame

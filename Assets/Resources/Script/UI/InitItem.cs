@@ -37,10 +37,13 @@ public class InitItem : MonoBehaviour
         {
             ItemJsonDatabase.Ins.EquipItem(thisItem);
             ShopController.Ins.CreateItem(thisItem.item.Type);
+            GameController.Ins.InitPlayerItems();
         } else if(state == 3)
         {
             ItemJsonDatabase.Ins.UnequipItem(thisItem);
             ShopController.Ins.CreateItem(thisItem.item.Type);
+            GameController.Ins.InitPlayerItems();
+
         }
     }
 

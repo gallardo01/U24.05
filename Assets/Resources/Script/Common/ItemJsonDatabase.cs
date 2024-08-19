@@ -84,6 +84,19 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
         return listItem;
     }
 
+    public int GetIdOfItemsEquiped(string type)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (type == listItemInGame[i].item.Type && listItemInGame[i].IsEquip == true)
+            {
+                return listItemInGame[i].item.Id;
+            }
+        }
+        return 0;
+
+    }
+
     private void Save()
     {
         string jsonData = JsonConvert.SerializeObject(listItemInGame.ToArray(), Formatting.Indented);

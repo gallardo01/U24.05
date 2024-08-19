@@ -81,11 +81,12 @@ public class UIManager :
     
     
     // Update is called once per frame
-    private void InitGameState(int state)
+    public void InitGameState(int state)
     {
         UIPanel.SetActive(state == 1);
         InGamePanel.SetActive(state == 2 );
         JoyStickPanel.SetActive(state == 2);
+        shopPanel.SetActive(false);
         if (state == 2)
         {
             indicatorPanel.SetActive(true);

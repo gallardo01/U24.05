@@ -33,8 +33,6 @@ public class GameController : Singleton<GameController>
         playerIndicator.character = player;
         CreateBotNewGame();
         InitGold();
-        GainGold(1000);
-
     }
 
     public void InitGold()
@@ -61,6 +59,11 @@ public class GameController : Singleton<GameController>
         gold -= number;
         PlayerPrefs.SetInt("Gold", gold);
         UIManager.Ins.InitGold();
+    }
+
+    public void InitPlayerItems()
+    {
+        player.skin.PlayerEquipItem();
     }
     
     public void StartGame()
@@ -150,5 +153,6 @@ public class GameController : Singleton<GameController>
             bots.Add(bot);
             bot.targetCircle.SetActive(false);
         }
+        Debug.Log("Bot number: " + bots.Count);
     }
 }

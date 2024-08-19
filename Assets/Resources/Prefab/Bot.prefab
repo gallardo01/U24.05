@@ -58,6 +58,7 @@ MonoBehaviour:
   level: 1
   isDead: 0
   isPlayer: 0
+  skin: {fileID: 7145321619849182944}
   agent: {fileID: 4742595334650308501}
   targetCircle: {fileID: 6345347241911803058}
 --- !u!54 &9067027015765270128
@@ -308,5 +309,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12bae05031518ea489995649c0402de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7145321619849182944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4948319253628949151, guid: d07f1ce93d7c8994b939e8ef6c33c9de, type: 3}
+  m_PrefabInstance: {fileID: 2847046834793278591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8813d0eb028e3c41ba693048a4ed90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
