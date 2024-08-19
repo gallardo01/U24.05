@@ -159,7 +159,6 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
             EquipmentDataSO pantData = pantsDatas[Random.Range(0, pantsDatas.Length)];
 
             BotEquipment(characters[i], weaponData, shieldData, hatData, pantData);
-
         }
     }
 

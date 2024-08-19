@@ -86,10 +86,9 @@ public class ModelMode : MonoBehaviour, IGameStateListener
         }
     }
 
-    public void PlayRandomAnim()
+    public void PlayRandomAnim() 
     {
         ChangAnim(AnimNames[Random.Range(0, AnimNames.Length)]);
-        Debug.Log("Play Model Anime");
     }
 
     public void ChangAnim(string animName)
