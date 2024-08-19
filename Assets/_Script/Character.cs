@@ -21,7 +21,6 @@ public class Character : AbstractCharacter
     public InitSkin initSkin;
     public GameObject weaponPrefabs;
     public GameObject target;
-    public GameObject weaponEquipPos;
     public bool isAttack = false;
     public bool isRunning = false;
     public bool isDead;
@@ -72,14 +71,15 @@ void Start()
         {
             if (weaponName == weapon.name)
             {
-                return weapon;
+                weaponPrefabs = weapon;
+                Debug.Log("Use weapon: " + weaponPrefabs.name);
+                return weaponPrefabs;
             }
         }
         return null;
     }
     private void CreatDataPlayer()
     {
-        weaponPrefabs = UseWeapon();
         namePlayer.enabled = true;
         namePlayer.text = RandomNameGenerator.GenerateRandomName();
         namePlayer.color = Random.ColorHSV();

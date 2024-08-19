@@ -35,7 +35,7 @@ public class InitItem : MonoBehaviour
                 BuyStateUI(PurchaseState.EQUIP);
             }
         }
-        if (state == 2) //FIX IT: Shield is'nt equid but auto buy
+        if (state == 2)
         {
             ItemJSONDatabase.instance.UpdateEquipItem(thisItem);
             GameController.instance.DeleteOldItem();

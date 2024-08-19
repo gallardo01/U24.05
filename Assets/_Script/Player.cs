@@ -14,6 +14,7 @@ public class Player : Character
         time = 0f;
         initSkin.self = this;
         initSkin.GetComponent<InitSkin>().PlayerEquipItem();
+        UseWeapon();
     }
     void Update()
     {

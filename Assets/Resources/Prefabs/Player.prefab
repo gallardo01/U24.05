@@ -57,9 +57,9 @@ MonoBehaviour:
   namePlayer: {fileID: 4477371080508960858}
   image: {fileID: 7500092755653843548}
   levelPlayer: {fileID: 3637601277466398700}
-  weaponPrefabs: {fileID: 1725852025673744274, guid: e2ecfd8d77ebad44f80b54c2804c1115, type: 3}
+  initSkin: {fileID: 7053855184632961534}
+  weaponPrefabs: {fileID: 0}
   target: {fileID: 0}
-  weaponEquipPos: {fileID: 0}
   isAttack: 0
   isRunning: 0
   isDead: 0
@@ -69,6 +69,8 @@ MonoBehaviour:
   currentAnimName: 
   detectionRadius: 15
   level: 1
+  attack: 0
+  defend: 0
   speed: 13
 --- !u!54 &703003661
 Rigidbody:
@@ -584,6 +586,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2399620587940002895, guid: 480e49d6ca3fb44438ea163b7dc0d08a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5fa3324ff2fbade4aa5ab7dfc032fba3, type: 2}
     - target: {fileID: 3083624962463856335, guid: 480e49d6ca3fb44438ea163b7dc0d08a, type: 3}
       propertyPath: m_Name
       value: Character_Optimieze2 (1)
@@ -599,6 +605,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 8221996810691750310, guid: 480e49d6ca3fb44438ea163b7dc0d08a, type: 3}
   m_PrefabInstance: {fileID: 7880764006989176364}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7053855184632961534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 917127898209339346, guid: 480e49d6ca3fb44438ea163b7dc0d08a, type: 3}
+  m_PrefabInstance: {fileID: 7880764006989176364}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a01dfa974cbb4429529dec669d6072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8200628672126753520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2058256390219728092, guid: 480e49d6ca3fb44438ea163b7dc0d08a, type: 3}

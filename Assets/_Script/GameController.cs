@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public List<GameObject> weaponList;
 
     private int botNumber = 10;
-    public int countWeaponSummon = 0;
+
     public int goldNumber;
     public List<string> weaponTag;
     public static GameController instance;
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
                     bot.SetNewPlayer();
                     bot.initSkin.GetComponent<InitSkin>().self = bot;
                     bot.initSkin.GetComponent<InitSkin>().BotEquipItem();
-                    Debug.Log(countPlayers);
+                    bot.UseWeapon();
                     countPlayers.Add(bot.gameObject);
                     break;
                 }
