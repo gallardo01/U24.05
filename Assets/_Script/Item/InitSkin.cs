@@ -14,28 +14,24 @@ public class InitSkin : MonoBehaviour
     public GameObject weaponEquiped;
 
     public Character self;
-    private int pantDef;
-    private int pantAtk;
+    private int ItemDef;
+    private int ItemAtk;
    
     public void DeleteOldItem()
     {
         foreach (Transform transformChild in weapon)
         {
-            DeleteStatToCharacter(transformChild.name);
             Destroy(transformChild.gameObject);
         }
         foreach (Transform transformChild in head)
         {
-            DeleteStatToCharacter(transformChild.name);
             Destroy(transformChild.gameObject);
         }
         foreach (Transform transformChild in shield)
         {
-            DeleteStatToCharacter(transformChild.name);
             Destroy(transformChild.gameObject);
         }
-        self.attack -= pantAtk;
-        self.defend -= pantDef;
+        self.SetBaseStat();
     }
     public void PlayerEquipItem()
     {
@@ -51,6 +47,7 @@ public class InitSkin : MonoBehaviour
         {
             GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/axe_0");
             GameObject weapon = Instantiate(weaponEquip, this.weapon);
+            weaponEquiped = weaponEquip;
             AddStatToCharacter("axe_0");
         }
 
@@ -71,6 +68,7 @@ public class InitSkin : MonoBehaviour
         string shieldName = ItemJSONDatabase.instance.CheckEquipItem("Shield");
         if (shieldName != "Null")
         {
+            Debug.Log("add stat shield");
             GameObject shieldEquip = Resources.Load<GameObject>("Prefabs/Item/Shield/" + shieldName);
             GameObject shield = Instantiate(shieldEquip, this.shield);
             AddStatToCharacter(shieldName);
@@ -111,7 +109,7 @@ public class InitSkin : MonoBehaviour
     private void InitShield(int number)
     {
         GameObject shieldChoose = ItemDatabase.instance.shields[number];
-        GameObject shield = Instantiate(ItemDatabase.instance.shields[number], this.shield);
+        GameObject shield = Instantiate(shieldChoose, this.shield);
         AddStatToCharacter(shieldChoose.name);
     }
     private void InitPant(int number)
@@ -122,19 +120,8 @@ public class InitSkin : MonoBehaviour
     private void AddStatToCharacter(string name)
     {
         GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
-        if (name == "Pant")
-        {
-            pantAtk = itemEquiped.item.atk;
-            pantDef = itemEquiped.item.def;
-        }
-        self.attack += itemEquiped.item.atk;
-        self.defend += itemEquiped.item.def;
-    }
-
-    private void DeleteStatToCharacter(string name)
-    {
-        GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
-        self.attack -= itemEquiped.item.atk;
-        self.defend -= itemEquiped.item.def;
+        ItemAtk = itemEquiped.item.atk;
+        ItemDef = itemEquiped.item.def;
+        self.ChangeStatOfPlayer(ItemAtk, ItemDef);
     }
 }

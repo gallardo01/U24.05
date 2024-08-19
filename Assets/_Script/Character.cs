@@ -31,10 +31,13 @@ public class Character : AbstractCharacter
     public string currentAnimName;
     public float detectionRadius = 15f;
     public int level = 1;
-    public int attack = 20;
-    public int defend = 2;
+    public int attack;
+    public int defend;
 
-    void Start()
+    public const int BASE_ATTACK = 20;
+    public const int BASE_DEFEND = 2;
+
+void Start()
     {
         ChangeAnim("idle");
     }
@@ -82,6 +85,8 @@ public class Character : AbstractCharacter
         namePlayer.color = Random.ColorHSV();
         image.color = namePlayer.color;
         isDead = false;
+        attack = BASE_ATTACK;
+        defend = BASE_DEFEND;
         LevelUpData();
     }
     public void SetNewPlayer()
@@ -100,6 +105,18 @@ public class Character : AbstractCharacter
         GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
         weapon.GetComponent<Weapon>().self = this;
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 900f);
+    }
+
+    public void ChangeStatOfPlayer(int atk, int def)
+    {
+        attack += atk;
+        defend += def;
+    }
+
+    public void SetBaseStat()
+    {
+        attack = BASE_ATTACK;
+        defend = BASE_DEFEND;
     }
 
     public void SetBodyScale(int level)
