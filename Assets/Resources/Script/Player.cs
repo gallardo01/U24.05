@@ -76,7 +76,6 @@ public class Player : Character
     {
         isDead = false;
         base.OnInit();
-        skin.PlayerEquipItem();
         ChangeAnim("idle");
         gameObject.tag = "Bot";
         indicator.InitTarget(Color.black, 1, "Player");

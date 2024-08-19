@@ -15,7 +15,6 @@ public class Bot : Character
     void Start()
     {
         ChangeAnim("idle");
-        skin.RandomEquipItem();
     }
 
     // Update is called once per frame
@@ -73,7 +72,6 @@ public class Bot : Character
     {
         ChangeState(null);
         agent.enabled = false;
-        GameController.Ins.bots.Remove(this);
         base.OnDeath();
         RemoveTarget();
         // Bot chet
@@ -83,6 +81,7 @@ public class Bot : Character
     IEnumerator DestroyBot()
     {
         yield return new WaitForSeconds(1.5f);
+        GameController.Ins.bots.Remove(this);
         Destroy(gameObject);
         if (indicator != null)
         {
