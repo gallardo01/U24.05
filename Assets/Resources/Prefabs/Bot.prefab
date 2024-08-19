@@ -244,6 +244,7 @@ MonoBehaviour:
   indicator: {fileID: 5516280226165036947, guid: 36c2df32a54d6db4db338e29d5833ab6, type: 3}
   level: 1
   isDeath: 0
+  skin: {fileID: 4705781133525867659}
   agent: {fileID: 4463557075962791899}
   destination: {x: 0, y: 0, z: 0}
 --- !u!1001 &9220301694631632683
@@ -308,6 +309,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8585704947348268630, guid: c2332b2589d4820488b604b6ac75bba8, type: 3}
   m_PrefabInstance: {fileID: 9220301694631632683}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4705781133525867659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4520308390332203936, guid: c2332b2589d4820488b604b6ac75bba8, type: 3}
+  m_PrefabInstance: {fileID: 9220301694631632683}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d19f2dd2833b4047ac4e1ae77f642e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &7375094513354019847 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1850010677030505260, guid: c2332b2589d4820488b604b6ac75bba8, type: 3}

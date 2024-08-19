@@ -16,6 +16,7 @@ public class Bot : Character
     {
         //OnInit();
         ChangeAnim("idle");
+        skin.RandomEquipItems();    
     }
 
     // Update is called once per frame
@@ -72,7 +73,8 @@ public class Bot : Character
     public override void OnDeath()
     {
         ChangeState(null);
-        agent.enabled = false;  
+        agent.enabled = false;
+        GameController.Instance.botInStage.Remove(this);
         base.OnDeath();
         StartCoroutine(DestroyBot());
     }
@@ -80,7 +82,6 @@ public class Bot : Character
     IEnumerator DestroyBot()
     {
         yield return new WaitForSeconds(2f);
-        GameController.Instance.botInStage.Remove(this);
         Destroy(indicator.gameObject);
         Destroy(gameObject);
     }

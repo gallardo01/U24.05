@@ -41,6 +41,5 @@ public class RunningState : IState<Bot>
             }
         }
         return Vector3.zero;
-        //return new Vector3(Random.Range(-4f, 104f), 0f, Random.Range(1f, 99f));
     }
 }

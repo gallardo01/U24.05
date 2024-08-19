@@ -31,7 +31,8 @@ public class GameController : Singleton<GameController>
         playerIndicator.character = player;
         
         SetUpCharacterInGame();
-        InitGold(); 
+        InitGold();
+        //GainGold(100);
     }
 
     // Update is called once per frame
@@ -39,6 +40,12 @@ public class GameController : Singleton<GameController>
     {
         
     }
+
+    public void InitPlayerItems()
+    {
+        player.skin.PlayerEquipItems();
+    }
+
 
     public void InitGold()
     {
@@ -57,11 +64,21 @@ public class GameController : Singleton<GameController>
     {
         gold += num;
         PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.InitGold();
+    }
+
+    public void ReduceGold(int num)
+    {
+        gold -= num;
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.InitGold();
     }
 
     public void StartGame()
     {
-        for(int i = 0; i < botInStage.Count; i++)
+        totalCharacter = botNumber + 1;
+        InitTextAlive();
+        for (int i = 0; i < botInStage.Count; i++)
         {
             botInStage[i].OnInit(); 
         }
@@ -69,14 +86,19 @@ public class GameController : Singleton<GameController>
 
     public void ReplayGame()
     {
+        DeleteAllBots();    
+        player.OnDespawn(); 
+        SetUpCharacterInGame();
+    }
+
+    public void DeleteAllBots()
+    {
         for (int i = 0; i < botInStage.Count; i++)
         {
             Destroy(botInStage[i].indicator.gameObject);
-            Destroy(botInStage[i].gameObject); 
+            Destroy(botInStage[i].gameObject);
         }
         botInStage.Clear();
-        player.OnDespawn(); 
-        SetUpCharacterInGame();
     }
 
     public void InitTextAlive()
@@ -88,6 +110,10 @@ public class GameController : Singleton<GameController>
     {
         totalCharacter--;
         aliveText.text = "Alive: " + totalCharacter;
+        if(totalCharacter == 1)
+        {
+            UIManager.Instance.OpenAwardUI(player.level);
+        }
     }
 
     private void SetUpCharacterInGame()

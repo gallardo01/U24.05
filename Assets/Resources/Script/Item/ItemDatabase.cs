@@ -5,8 +5,10 @@ using UnityEngine;
 public class ItemDatabase : Singleton<ItemDatabase>
 {
     public List<GameObject> weapons = new List<GameObject>();
-    public List<GameObject> hairs= new List<GameObject>();
+    public List<GameObject> hairs = new List<GameObject>();
     public List<Material> pantsMaterial = new List<Material>();
+    public List<GameObject> shields = new List<GameObject>();
+    public List<Bullet> bullets = new List<Bullet>();
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +34,10 @@ public class ItemDatabase : Singleton<ItemDatabase>
     public Material GetPantsMaterialById(int id)
     {
         return pantsMaterial[id];
+    }
+
+    public GameObject GetShieldsById(int id)
+    {
+        return shields[id];
     }
 }

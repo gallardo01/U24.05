@@ -9,11 +9,12 @@ public class Character : AbtractCharacter
     public string currentAnimName = "idle";
     public Transform mesh;
     public CharacterRange range;
-    public Bullet bulletPrefabs;
+    private Bullet bulletPrefabs;
     public bool isAttack = false;
     public TargetIndicator indicator;
     public int level = 1;
-    public bool isDeath = false;   
+    public bool isDeath = false;
+    public InitSkin skin;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,7 @@ public class Character : AbtractCharacter
         level = 1;
         SetBodyScale();
         indicator.InitTarget(level);
+        bulletPrefabs = ItemDatabase.Instance.bullets[skin.weaponId];
     }
     public override void OnAttack()
     {
@@ -58,8 +60,6 @@ public class Character : AbtractCharacter
     {
         GameController.Instance.CharacterDead();    
         isDeath = true;
-        //indicator.gameObject.SetActive(false);
-        //Destroy(indicator); 
         ChangeAnim("dead");
         gameObject.tag = "Untagged";
     }
@@ -85,14 +85,21 @@ public class Character : AbtractCharacter
         range.RemoveNullTarget();
         if (range.botsInCircle.Count > 0)
         {
+            skin.weaponItem.SetActive(false);   
             Bullet bullet = Instantiate(bulletPrefabs);
             bullet.transform.position = transform.position;
             bullet.self = this;
             Vector3 direction = (range.GetNearestTarget().position - transform.position).normalized;
             bullet.transform.forward = direction;
             bullet.GetComponent<Rigidbody>().AddForce(300f * direction);
-            transform.forward = direction;      
+            transform.forward = direction;
+            Invoke(nameof(EnableWeapons), 1f);
         }
+    }
+
+    private void EnableWeapons()
+    {
+        skin.weaponItem.SetActive(true);
     }
 
     public void ChangeAnim(string animName)

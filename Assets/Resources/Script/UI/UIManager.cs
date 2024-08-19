@@ -50,7 +50,7 @@ public class UIManager : Singleton<UIManager>
 
     public void OpenShop()
     {
-        UIPanel.SetActive(false);
+        UIPanel.SetActive(true);
         shopPanel.SetActive(true);
         //shopPanel.SetActive(state == 3);
         CameraFollow.Instance.ChangeState(3);
@@ -60,6 +60,7 @@ public class UIManager : Singleton<UIManager>
     {
         awardPanel.SetActive(true);
         awardPanel.GetComponent<Award>().InitAwardUI(gold, GameController.Instance.botInStage.Count + 1);
+        GameController.Instance.DeleteAllBots();
     }
 
     public void MainMenuClick()

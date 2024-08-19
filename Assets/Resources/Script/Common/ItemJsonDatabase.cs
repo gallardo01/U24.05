@@ -1,17 +1,26 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
-public class ItemJsonDatabase : MonoBehaviour
-{
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
+using System;
+
+public class ItemJsonDatabase : Singleton<ItemJsonDatabase> 
+{ 
     private JsonData itemData;
+    private JsonData inGameItemData;
     private List<Item> listItem = new List<Item>();
+    public List<GameItem> listItemInGame = new List<GameItem>();
+    private string filePath = "MyItem.txt";
+
     // Start is called before the first frame update
     void Start()
     {
         LoadResourceFromTxt();
         ConstructDatabase();
-        Debug.Log(listItem[1].Id);
+        LoadDataFromLocalDB();  
     }
 
     // Update is called once per frame
@@ -20,11 +29,115 @@ public class ItemJsonDatabase : MonoBehaviour
         
     }
 
+    private void LoadDataFromLocalDB()
+    {
+        string filePathFull = Application.persistentDataPath + "/" + filePath;
+        Debug.Log(filePathFull);
+        if (!File.Exists(filePathFull))
+        {
+            //Chưa tồn tại
+            AddNewItemFirstTime();
+            Save();
+        }
+        else
+        {
+            //Đã tồn tại
+            byte[] jsonByte = null;
+            try
+            {
+                jsonByte = File.ReadAllBytes(filePathFull);
+            }
+            catch
+            {
+
+            }
+            string jsonData = Encoding.ASCII.GetString(jsonByte);
+            inGameItemData = JsonMapper.ToObject(jsonData);
+            ConstructMyItemDB();
+        }
+    }
+
+    public void EquipItem(GameItem item)
+    {
+        UnEquipItem(item);  
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type && item.item.Id == listItemInGame[i].item.Id)
+            {
+                listItemInGame[i].IsEquip = true;
+                break;
+            }
+        }
+        Save(); 
+    }
+
+    public void UnEquipItem(GameItem item)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (item.item.Type == listItemInGame[i].item.Type)
+            {
+                listItemInGame[i].IsEquip = false;
+            }
+        }
+        Save();
+    }
+
+    public void PurchasedItem(GameItem item)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if(item.item.Type == listItemInGame[i].item.Type && item.item.Id == listItemInGame[i].item.Id)
+            {
+                listItemInGame[i].Purchased = true;
+                break;
+            }
+        }
+        Save(); 
+    }
+
     private void LoadResourceFromTxt()
     {
         string filePath = "StreamingAsset/Item";
         TextAsset targetFile = Resources.Load<TextAsset>(filePath);
         itemData = JsonMapper.ToObject(targetFile.text);
+    }
+
+    private void AddNewItemFirstTime()
+    {
+        for(int i = 0; i < listItem.Count; i++)
+        {
+            GameItem newGameItem = new GameItem();
+            newGameItem.item = listItem[i];
+            newGameItem.Purchased = false;
+            newGameItem.IsEquip = false;
+            listItemInGame.Add(newGameItem);
+        }
+    }
+
+    public List<GameItem> GetAllItemOfType(string type)
+    {
+        List<GameItem> listItem = new List<GameItem>();
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if(type == listItemInGame[i].item.Type)
+            {
+                listItem.Add(listItemInGame[i]);    
+            }
+        }
+        return listItem;
+    }
+
+    public int GetIdOfItemsEquiped(string type)
+    {
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (type == listItemInGame[i].item.Type && listItemInGame[i].IsEquip == true)
+            {
+                return listItemInGame[i].item.Id;
+            }
+        }
+        return 0;
     }
 
     private void ConstructDatabase()
@@ -38,11 +151,61 @@ public class ItemJsonDatabase : MonoBehaviour
             item.Atk = (int)itemData[i]["Atk"];
             item.Def = (int)itemData[i]["Def"];
             item.Spd = (int)itemData[i]["Spd"];
-            listItem.Add(item); 
+            listItem.Add(item);
+        }
+    }
+
+    private void ConstructMyItemDB()
+    {
+        for (int i = 0; i < inGameItemData.Count; i++)
+        {
+            GameItem gameItem = new GameItem();
+            gameItem.item = new Item();
+            gameItem.item.Id = (int)inGameItemData[i]["item"]["Id"];
+            gameItem.item.Type = (string)inGameItemData[i]["item"]["Type"];
+            gameItem.item.Price = (int)inGameItemData[i]["item"]["Price"];
+            gameItem.item.Atk = (int)inGameItemData[i]["item"]["Atk"];
+            gameItem.item.Def = (int)inGameItemData[i]["item"]["Def"];
+            gameItem.item.Spd = (int)inGameItemData[i]["item"]["Spd"];
+            gameItem.Purchased = (bool)inGameItemData[i]["Purchased"];
+            gameItem.IsEquip = (bool)inGameItemData[i]["IsEquip"];
+            listItemInGame.Add(gameItem);
+        }
+    }
+
+    private void Save()
+    {
+        string jsonData = JsonConvert.SerializeObject(listItemInGame.ToArray(), Formatting.Indented);
+        string filePathFull = Application.persistentDataPath + "/" + filePath;
+
+        byte[] jsonByte = Encoding.ASCII.GetBytes(jsonData);
+
+        if (!Directory.Exists(Path.GetDirectoryName(filePathFull)))
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(filePathFull));
+        }
+        if (!File.Exists(filePathFull))
+        {
+            File.Create(filePathFull).Close();  
+        }
+
+        try 
+        {
+            File.WriteAllBytes(filePathFull, jsonByte);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Cannot save " + e.Message);
         }
     }
 }
 
+public class GameItem
+{
+    public bool Purchased { get; set; }
+    public bool IsEquip { get; set; }
+    public Item item { get; set; }  
+}
 public class Item
 {
     public int Id { get; set; }

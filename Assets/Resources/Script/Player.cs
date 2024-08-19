@@ -43,7 +43,8 @@ public class Player : Character
 
     public override void OnInit()
     {
-        this.enabled = true;    
+        this.enabled = true;
+        skin.PlayerEquipItems();
         isDeath = false;
         gameObject.tag = "Bot";
         ChangeAnim("idle");
