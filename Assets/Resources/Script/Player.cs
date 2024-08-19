@@ -56,6 +56,7 @@ public class Player : Character
     public void AttackTarget()
     {
         isAttack = true;
+        SoundManager.Instance.PlayOneShot(SoundList.Shot);
         Invoke(nameof(ChangeIsAttack), 1.5f);
         ChangeAnim("attack");
         counter.Start(OnAttack, 0.5f);

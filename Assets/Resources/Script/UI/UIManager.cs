@@ -72,8 +72,11 @@ public class UIManager : Singleton<UIManager>
         {
             indicatorPanel.SetActive(true);
             GameController.Instance.StartGame();
-        } else if (state == 1)
+            SoundManager.Instance.PlayBackgroundMusic(SoundList.BackgroundInGame);
+        }
+        else if (state == 1)
         {
+            SoundManager.Instance.PlayBackgroundMusic(SoundList.BackgroundMainMenu);
             indicatorPanel.SetActive(false);
         }
         CameraFollower.Instance.ChangeState(state);
