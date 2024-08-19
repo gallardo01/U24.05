@@ -78,3 +78,8 @@ public enum SFXType
 {
 
 }
+
+public enum BGMType
+{
+
+}

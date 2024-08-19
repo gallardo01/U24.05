@@ -4,52 +4,65 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    private List<AudioSource> listAudioSource = new();
+    [SerializeField] AudioSource BGMAudioSource;
+    [SerializeField] GameObject SFXAudioSourceParent;
 
-    private List<int> listAudioSourceReady = new();
-    private List<int> listAudioSourceBusy = new();
-
-    [SerializeField] GameObject audioSourceParent;
+    private List<AudioSource> listSFXAudioSource = new();
+    private List<int> listSFXAudioSourceReady = new();
+    private List<int> listSFXAudioSourceBusy = new();
 
     [SerializeField] List<SFXAudioClip> listSFXAudioClip = new();
+    [SerializeField] List<BGMAudioClip> listBGMAudioClip = new();
     private Dictionary<SFXType, AudioClip> dictSFXAudioClip = new();
+    private Dictionary<BGMType, AudioClip> dictBGMAudioClip = new();
 
     private void Awake()
     {
-        InitDictSFX();
+        InitDict();
     }
 
-    private void InitDictSFX()
+    private void InitDict()
     {
         for (int i = 0; i < listSFXAudioClip.Count; i++)
         {
             dictSFXAudioClip.Add(listSFXAudioClip[i].type, listSFXAudioClip[i].clip);
         }
+
+        for (int i = 0; i < listBGMAudioClip.Count; i++)
+        {
+            dictBGMAudioClip.Add(listBGMAudioClip[i].type, listBGMAudioClip[i].clip);
+        }
     }
+
+    public void PlayBGM(BGMType type)
+    {
+        BGMAudioSource.clip = GetBGMClip(type);
+        BGMAudioSource.loop = true;
+        BGMAudioSource.Play();
+    }    
 
     public void PlaySFX(SFXType type)
     {
         int audioSourceIndex = GetAudioSourceReady();
 
-        listAudioSource[audioSourceIndex].clip = GetClip(type);
-        //listAudioSource[audioSourceIndex].loop = false;
-        listAudioSource[audioSourceIndex].Play();
+        listSFXAudioSource[audioSourceIndex].clip = GetSFXClip(type);
+        listSFXAudioSource[audioSourceIndex].Play();
 
-        StartCoroutine(ReturnAudioSourceReady(audioSourceIndex, listAudioSource[audioSourceIndex]));
+        StartCoroutine(ReturnAudioSourceReady(audioSourceIndex, listSFXAudioSource[audioSourceIndex]));
     }
 
     private int GetAudioSourceReady()
     {
-        if (listAudioSourceReady.Count == 0)
+        if (listSFXAudioSourceReady.Count == 0)
         {
-            AudioSource newAudioSource = audioSourceParent.AddComponent<AudioSource>();
-            listAudioSourceReady.Add(listAudioSource.Count);
-            listAudioSource.Add(newAudioSource);
+            AudioSource newAudioSource = SFXAudioSourceParent.AddComponent<AudioSource>();
+            listSFXAudioSourceReady.Add(listSFXAudioSource.Count);
+            listSFXAudioSource.Add(newAudioSource);
         }
 
-        int audioSourceIndex = listAudioSourceReady[0];
-        listAudioSourceBusy.Add(audioSourceIndex);
-        listAudioSourceReady.RemoveAt(0);
+        int audioSourceIndex = listSFXAudioSourceReady[0];
+        listSFXAudioSourceBusy.Add(audioSourceIndex);
+        listSFXAudioSourceReady.RemoveAt(0);
 
         return audioSourceIndex;
     }
@@ -61,20 +74,18 @@ public class AudioManager : Singleton<AudioManager>
             yield return null;
         }
 
-        listAudioSourceBusy.Remove(audioSourceIndex);
-        listAudioSourceReady.Add(audioSourceIndex);
+        listSFXAudioSourceBusy.Remove(audioSourceIndex);
+        listSFXAudioSourceReady.Add(audioSourceIndex);
     }
 
-    private AudioClip GetClip(SFXType type)
+    private AudioClip GetSFXClip(SFXType type)
     {
-        if (dictSFXAudioClip.TryGetValue(type, out AudioClip clip))
-        {
-            return clip;
-        }
-        else
-        {
-            return null;
-        }
+        return dictSFXAudioClip.TryGetValue(type, out var clip) ? clip : null;
+    }
+
+    private AudioClip GetBGMClip(BGMType type)
+    {
+        return dictBGMAudioClip.TryGetValue(type, out var clip) ? clip : null;
     }
 }
 
@@ -83,5 +94,12 @@ public class AudioManager : Singleton<AudioManager>
 public class SFXAudioClip
 {
     public SFXType type;
+    public AudioClip clip;
+}
+
+[System.Serializable]
+public class BGMAudioClip
+{
+    public BGMType type;
     public AudioClip clip;
 }

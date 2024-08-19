@@ -15,7 +15,10 @@ public class CharacterInfo : MonoBehaviour
     [SerializeField] TextMeshProUGUI textLevel;
     [SerializeField] Camera _camera;
 
-    bool isActive, isNameLevelActive = false, isIndicatorActive = false;
+    bool isActive;
+    bool isNameLevelActive = false;
+    bool isIndicatorActive = false;
+    public bool IsOnScreen => !(viewportPoint.x < 0 || viewportPoint.x > 1 || viewportPoint.y < 0 || viewportPoint.y > 1);
 
     Material currentMaterialColor;
     private Vector3 viewportPoint;
@@ -36,7 +39,7 @@ public class CharacterInfo : MonoBehaviour
         viewportPoint = _camera.WorldToViewportPoint(target.position);
 
         if (viewportPoint.x < 0 || viewportPoint.x > 1 || viewportPoint.y < 0 || viewportPoint.y > 1)
-        {           
+        {
             ShowIndicator();
         }
         else

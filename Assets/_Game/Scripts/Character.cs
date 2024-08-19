@@ -221,6 +221,10 @@ public class Character : GameUnit
     protected virtual IEnumerator IEDead()
     {
         ChangeAnim(Constants.ANIM_DEAD);
+        //if (characterInfo.isOnScreen)
+        //{
+        //AudioManager.Ins.PlaySFX();   // Play sound dead
+        //}
 
         yield return Constants.WFS_2_S;
     }
