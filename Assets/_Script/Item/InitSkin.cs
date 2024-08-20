@@ -14,8 +14,8 @@ public class InitSkin : MonoBehaviour
     public GameObject weaponEquiped;
 
     public Character self;
-    private int ItemDef;
-    private int ItemAtk;
+    private int itemDef;
+    private int itemAtk;
    
     public void DeleteOldItem()
     {
@@ -31,7 +31,8 @@ public class InitSkin : MonoBehaviour
         {
             Destroy(transformChild.gameObject);
         }
-        self.SetBaseStat();
+        self.SetBaseStatAttack(0);
+        self.SetBaseStatDefend(0);
     }
     public void PlayerEquipItem()
     {
@@ -68,7 +69,6 @@ public class InitSkin : MonoBehaviour
         string shieldName = ItemJSONDatabase.instance.CheckEquipItem("Shield");
         if (shieldName != "Null")
         {
-            Debug.Log("add stat shield");
             GameObject shieldEquip = Resources.Load<GameObject>("Prefabs/Item/Shield/" + shieldName);
             GameObject shield = Instantiate(shieldEquip, this.shield);
             AddStatToCharacter(shieldName);
@@ -120,8 +120,9 @@ public class InitSkin : MonoBehaviour
     private void AddStatToCharacter(string name)
     {
         GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
-        ItemAtk = itemEquiped.item.atk;
-        ItemDef = itemEquiped.item.def;
-        self.ChangeStatOfPlayer(ItemAtk, ItemDef);
+        itemAtk = itemEquiped.item.atk;
+        itemDef = itemEquiped.item.def;
+        self.SetBaseStatAttack(itemAtk);
+        self.SetBaseStatDefend(itemDef);
     }
 }

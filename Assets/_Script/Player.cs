@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : Character
 {
@@ -13,6 +14,7 @@ public class Player : Character
     {
         time = 0f;
         initSkin.self = this;
+        SetNewPlayer();
         initSkin.GetComponent<InitSkin>().PlayerEquipItem();
         UseWeapon();
     }
@@ -74,7 +76,12 @@ public class Player : Character
             }
         }
     }
-
+    public override void SetNewPlayer()
+    {
+        base.SetNewPlayer();
+        SetBaseStatAttack(0);
+        SetBaseStatDefend(0);
+    }
     public override void OnDeath()
     {
         base.OnDeath();

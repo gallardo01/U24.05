@@ -35,11 +35,13 @@ public class Character : AbstractCharacter
 
     public const int BASE_ATTACK = 20;
     public const int BASE_DEFEND = 2;
+    public const int BASE_HEALTH = 100;
 
-void Start()
+    void Start()
     {
         ChangeAnim("idle");
     }
+
     public void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)
@@ -72,7 +74,6 @@ void Start()
             if (weaponName == weapon.name)
             {
                 weaponPrefabs = weapon;
-                Debug.Log("Use weapon: " + weaponPrefabs.name);
                 return weaponPrefabs;
             }
         }
@@ -85,11 +86,9 @@ void Start()
         namePlayer.color = Random.ColorHSV();
         image.color = namePlayer.color;
         isDead = false;
-        attack = BASE_ATTACK;
-        defend = BASE_DEFEND;
         LevelUpData();
     }
-    public void SetNewPlayer()
+    public virtual void SetNewPlayer()
     {
         isDead = true;
         health = maxHP;
@@ -107,18 +106,46 @@ void Start()
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 900f);
     }
 
-    public void ChangeStatOfPlayer(int atk, int def)
+    public void SetBaseStatHealth()
     {
-        attack += atk;
-        defend += def;
+        if (!PlayerPrefs.HasKey("Health"))
+        {
+            PlayerPrefs.SetInt("Health", BASE_HEALTH);
+            health = BASE_HEALTH;
+        }
+        else
+        {
+            defend = PlayerPrefs.GetInt("Health");
+        }
     }
-
-    public void SetBaseStat()
+    public void SetBaseStatAttack(int atk)
     {
-        attack = BASE_ATTACK;
-        defend = BASE_DEFEND;
+        if (!PlayerPrefs.HasKey("Attack"))
+        {
+            PlayerPrefs.SetInt("Attack", BASE_ATTACK);
+            attack = BASE_ATTACK;
+        }
+        else
+        {
+            attack += atk;
+            PlayerPrefs.SetInt("Attack", attack);
+            attack = PlayerPrefs.GetInt("Attack");
+        }
     }
-
+    public void SetBaseStatDefend(int def)
+    {
+        if (!PlayerPrefs.HasKey("Defend"))
+        {
+            PlayerPrefs.SetInt("Defend", BASE_DEFEND);
+            defend = BASE_DEFEND;
+        }
+        else
+        {
+            defend += def;
+            PlayerPrefs.SetInt("Defend", defend);
+            defend = PlayerPrefs.GetInt("Defend");
+        }
+    }
     public void SetBodyScale(int level)
     {
         body.transform.localScale = Vector3.one * (0.1f * (level-1) + 0.5f);

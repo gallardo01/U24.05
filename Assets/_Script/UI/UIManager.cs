@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static SoundManager;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject endGameUI;
     public GameObject winGameUI;
     public GameObject settingInGame;
+    public GameObject upgradeStatUI;
     public TMP_Text goldCoin;
 
     public int goldNumber;
@@ -38,6 +40,17 @@ public class UIManager : MonoBehaviour
         menuIngameUI.SetActive(state == 1);
         inGamePanelUI.SetActive(state == 2);
         JoyStick.SetActive(state == 2);
+        upgradeStatUI.SetActive(state == 3);
+
+        if (state == 1)
+        {           
+            SoundManager.instance.PlayBackgroundMusic(SoundList.BackgroundMainMenu);
+        }
+
+        else if (state == 2)
+        {
+            SoundManager.instance.PlayBackgroundMusic(SoundList.BackgroundIngame);
+        }
     }
 
     public void SettingIngame()
@@ -48,7 +61,6 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         InitGameState(2);
-        //goldCoin.text = GameController.instance.InitPlayerGold().ToString();
         Time.timeScale = 1f;
         GameController.instance.StartGame();
         Camera.instance.ChangeState(3);
@@ -71,11 +83,22 @@ public class UIManager : MonoBehaviour
         settingInGame.SetActive(false);
     }
 
-    public void MoveToMainMenu()
+    public void MoveToMainMenuAndStartNewGame()
     {
         InitGameState(1);
         Time.timeScale = 1f;
         GameController.instance.PlayAgain();
+        settingInGame.SetActive(false);
+        endGameUI.SetActive(false);
+        winGameUI.SetActive(false);
+        shopPanelUI.SetActive(false);
+        Camera.instance.ChangeState(1);
+    }
+
+    public void BackToMainMenu()
+    {
+        InitGameState(1);
+        Time.timeScale = 1f;
         settingInGame.SetActive(false);
         endGameUI.SetActive(false);
         winGameUI.SetActive(false);
@@ -95,11 +118,12 @@ public class UIManager : MonoBehaviour
         winGameUI.SetActive(true);
         PauseGame();
         goldGain = 20 + GameController.instance.countPlayers[0].GetComponent<Player>().level;
+        SoundManager.instance.PlayOneShot(SoundList.Win);
     }
 
     public void WinAndMoveToMainMenu()
     {
-        MoveToMainMenu();
+        MoveToMainMenuAndStartNewGame();
         GameController.instance.ChangeGold(goldGain);
     }
 
@@ -108,5 +132,10 @@ public class UIManager : MonoBehaviour
         Camera.instance.ChangeState(2);
         menuIngameUI.SetActive(false);
         shopPanelUI.SetActive(true);
+    }
+
+    public void OpenUpgradeUI()
+    {
+        InitGameState(3);
     }
 }
