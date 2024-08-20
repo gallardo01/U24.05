@@ -173,17 +173,17 @@ public class ItemJSONDatabase : MonoBehaviour
         }
         return list;
     }
-    public GameItem GetStatOfItem(string name)
-    {
-        for (int i = 0; i < listInGameItem.Count; i++)
-        {
-            if (name == listInGameItem[i].item.name)
-            {
-                return listInGameItem[i];
-            }
-        }
-        return null;
-    }
+    //public GameItem GetStatOfItem(string name)
+    //{
+    //    for (int i = 0; i < listInGameItem.Count; i++)
+    //    {
+    //        if (name == listInGameItem[i].item.name)
+    //        {
+    //            return listInGameItem[i];
+    //        }
+    //    }
+    //    return null;
+    //}
     public void UpdatePurchaseItem(GameItem item)
     {
         for (int i = 0; i < listInGameItem.Count; i++)
@@ -226,6 +226,26 @@ public class ItemJSONDatabase : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public UserStat GetUserStat()
+    {
+        UserStat userStat = new UserStat();
+        for (int i = 0; i < listInGameItem.Count; i++)
+        {
+            if (listInGameItem[i].Equip == true)
+            {
+                userStat.atk += listInGameItem[i].item.atk;
+                userStat.def += listInGameItem[i].item.def;
+            }
+        }
+        return userStat;
+    }
+
+    public class UserStat
+    {
+        public int atk { get; set; }
+        public int def { get; set; }
     }
 }
 

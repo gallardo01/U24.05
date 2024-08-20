@@ -20,7 +20,7 @@ public class TargetIndicator : MonoBehaviour
     }
     public void SetHP()
     {
-        maxHP = player.GetComponent<Character>().maxHP;
+        maxHP = player.GetComponent<Character>().BASE_HEALTH;
         health = player.GetComponent<Character>().health;
         ChangeHealth(0);
     }

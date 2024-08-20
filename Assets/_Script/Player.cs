@@ -15,8 +15,6 @@ public class Player : Character
         time = 0f;
         initSkin.self = this;
         SetNewPlayer();
-        initSkin.GetComponent<InitSkin>().PlayerEquipItem();
-        UseWeapon();
     }
     void Update()
     {
@@ -57,6 +55,16 @@ public class Player : Character
             }
         }
     }
+    public override void OnInit()
+    {
+        base.OnInit();
+        gameObject.tag = "player";
+    }
+    public override void OnDeath()
+    {
+        base.OnDeath();
+        Invoke("DeActive", 2f);
+    }
     public void FindTarget()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
@@ -81,22 +89,52 @@ public class Player : Character
         base.SetNewPlayer();
         SetBaseStatAttack(0);
         SetBaseStatDefend(0);
+        SetBaseStatHealth(0);
+        initSkin.GetComponent<InitSkin>().PlayerEquipItem();
+        UseWeapon();
     }
-    public override void OnDeath()
-    {
-        base.OnDeath();
-        Invoke("DeActive", 2f);
-    }
-
     private void DeActive()
     {
         gameObject.SetActive(false);
         UIManager.instance.EndGameUI();
     }
-
-    public override void OnInit()
+    public override void SetBaseStatHealth(int health)
     {
-        base.OnInit();
-        gameObject.tag = "player";
+        if (!PlayerPrefs.HasKey("Health"))
+        {
+            BASE_HEALTH = 100;
+            PlayerPrefs.SetInt("Health", BASE_HEALTH);
+        }
+        else
+        {
+            BASE_HEALTH += health;
+            PlayerPrefs.SetInt("Health", BASE_HEALTH);
+        }
+    }
+    public override void SetBaseStatAttack(int atk)
+    {
+        if (!PlayerPrefs.HasKey("Attack"))
+        {
+            BASE_ATTACK = 20;
+            PlayerPrefs.SetInt("Attack", BASE_ATTACK);
+        }
+        else
+        {
+            BASE_ATTACK += atk;
+            PlayerPrefs.SetInt("Attack", BASE_ATTACK);
+        }
+    }
+    public override void SetBaseStatDefend(int def)
+    {
+        if (!PlayerPrefs.HasKey("Defend"))
+        {
+            BASE_DEFEND = 5;
+            PlayerPrefs.SetInt("Defend", BASE_DEFEND);
+        }
+        else
+        {
+            BASE_DEFEND += def;
+            PlayerPrefs.SetInt("Defend", BASE_DEFEND);
+        }
     }
 }

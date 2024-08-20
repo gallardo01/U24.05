@@ -13,9 +13,9 @@ public class InitSkin : MonoBehaviour
     [SerializeField] SkinnedMeshRenderer pant;
     public GameObject weaponEquiped;
 
-    public Character self;
-    private int itemDef;
-    private int itemAtk;
+    public Player self;
+    public int itemDef;
+    public int itemAtk;
    
     public void DeleteOldItem()
     {
@@ -36,20 +36,19 @@ public class InitSkin : MonoBehaviour
     }
     public void PlayerEquipItem()
     {
+        UserStat userStat = ItemJSONDatabase.instance.GetUserStat();
         string weaponName = ItemJSONDatabase.instance.CheckEquipItem("Weapon");
         if (weaponName != "Null")
         {
             GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/" + weaponName);
             GameObject weapon = Instantiate(weaponEquip, this.weapon);
             weaponEquiped = weaponEquip;
-            AddStatToCharacter(weaponName);
         }
         else
         {
             GameObject weaponEquip = Resources.Load<GameObject>("Prefabs/Item/Weapon/axe_0");
             GameObject weapon = Instantiate(weaponEquip, this.weapon);
             weaponEquiped = weaponEquip;
-            AddStatToCharacter("axe_0");
         }
 
         string headName = ItemJSONDatabase.instance.CheckEquipItem("Head");
@@ -57,13 +56,11 @@ public class InitSkin : MonoBehaviour
         {
             GameObject headEquip = Resources.Load<GameObject>("Prefabs/Item/Head/" + headName);
             GameObject head = Instantiate(headEquip, this.head);
-            AddStatToCharacter(headName);
         }
         else
         {
             GameObject headEquip = Resources.Load<GameObject>("Prefabs/Item/Head/Arrow");
             GameObject head = Instantiate(headEquip, this.head);
-            AddStatToCharacter("Arrow");
         }
 
         string shieldName = ItemJSONDatabase.instance.CheckEquipItem("Shield");
@@ -71,19 +68,18 @@ public class InitSkin : MonoBehaviour
         {
             GameObject shieldEquip = Resources.Load<GameObject>("Prefabs/Item/Shield/" + shieldName);
             GameObject shield = Instantiate(shieldEquip, this.shield);
-            AddStatToCharacter(shieldName);
         }
 
         string pantName = ItemJSONDatabase.instance.CheckEquipItem("Pant");
         if (pantName != "Null")
         {
             this.pant.material = Resources.Load<Material>("Prefabs/Item/Pant/" + pantName);
-            AddStatToCharacter(pantName);
         } else
         {
             this.pant.material = Resources.Load<Material>("Prefabs/Item/Pant/Pant_1");
-            AddStatToCharacter("Pant_1");
         }
+        itemAtk = userStat.atk;
+        itemDef = userStat.def;
     }
 
     public void BotEquipItem()
@@ -98,31 +94,28 @@ public class InitSkin : MonoBehaviour
         GameObject weaponChoose = ItemDatabase.instance.weapons[number];
         GameObject weapon = Instantiate(weaponChoose, this.weapon);
         weaponEquiped = weaponChoose;
-        AddStatToCharacter(weaponEquiped.name);
     }
     private void InitHead(int number)
     {
         GameObject headChoose = ItemDatabase.instance.heads[number];
         GameObject head = Instantiate(ItemDatabase.instance.heads[number], this.head);
-        AddStatToCharacter(headChoose.name);
     }
     private void InitShield(int number)
     {
         GameObject shieldChoose = ItemDatabase.instance.shields[number];
         GameObject shield = Instantiate(shieldChoose, this.shield);
-        AddStatToCharacter(shieldChoose.name);
     }
     private void InitPant(int number)
     {
         this.pant.material = ItemDatabase.instance.pants[number];
-        AddStatToCharacter(ItemDatabase.instance.pants[number].name);
     }
-    private void AddStatToCharacter(string name)
-    {
-        GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
-        itemAtk = itemEquiped.item.atk;
-        itemDef = itemEquiped.item.def;
-        self.SetBaseStatAttack(itemAtk);
-        self.SetBaseStatDefend(itemDef);
-    }
+
+    //private void AddStatToCharacter(string name)
+    //{
+    //    GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
+    //    itemAtk = itemEquiped.item.atk;
+    //    itemDef = itemEquiped.item.def;
+    //    self.SetBaseStatAttack(itemAtk);
+    //    self.SetBaseStatDefend(itemDef);
+    //}
 }

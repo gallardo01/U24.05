@@ -88,9 +88,7 @@ public class GameController : MonoBehaviour
                 {
                     randomPos.Add(randomIndex);
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
-                    bot.initSkin.GetComponent<InitSkin>().self = bot;
                     bot.initSkin.GetComponent<InitSkin>().BotEquipItem();
-                    bot.SetNewPlayer();
                     bot.UseWeapon();
                     countPlayers.Add(bot.gameObject);
                     break;

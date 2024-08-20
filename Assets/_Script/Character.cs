@@ -25,7 +25,7 @@ public class Character : AbstractCharacter
     public bool isRunning = false;
     public bool isDead;
     public float cooldownTimeAttack = 1.5f;
-    public float maxHP = 100;
+
     public float health;
     public string currentAnimName;
     public float detectionRadius = 15f;
@@ -33,10 +33,9 @@ public class Character : AbstractCharacter
     public int attack;
     public int defend;
 
-    public const int BASE_ATTACK = 20;
-    public const int BASE_DEFEND = 2;
-    public const int BASE_HEALTH = 100;
-
+    public int BASE_ATTACK = 20;
+    public int BASE_DEFEND = 2;
+    public int BASE_HEALTH = 100;
     void Start()
     {
         ChangeAnim("idle");
@@ -91,7 +90,7 @@ public class Character : AbstractCharacter
     public virtual void SetNewPlayer()
     {
         isDead = true;
-        health = maxHP;
+        health = BASE_HEALTH;
         namePlayer.enabled = false;
         level = 0;
         LevelUpData();
@@ -104,47 +103,6 @@ public class Character : AbstractCharacter
         GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
         weapon.GetComponent<Weapon>().self = this;
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 900f);
-    }
-
-    public void SetBaseStatHealth()
-    {
-        if (!PlayerPrefs.HasKey("Health"))
-        {
-            PlayerPrefs.SetInt("Health", BASE_HEALTH);
-            health = BASE_HEALTH;
-        }
-        else
-        {
-            defend = PlayerPrefs.GetInt("Health");
-        }
-    }
-    public void SetBaseStatAttack(int atk)
-    {
-        if (!PlayerPrefs.HasKey("Attack"))
-        {
-            PlayerPrefs.SetInt("Attack", BASE_ATTACK);
-            attack = BASE_ATTACK;
-        }
-        else
-        {
-            attack += atk;
-            PlayerPrefs.SetInt("Attack", attack);
-            attack = PlayerPrefs.GetInt("Attack");
-        }
-    }
-    public void SetBaseStatDefend(int def)
-    {
-        if (!PlayerPrefs.HasKey("Defend"))
-        {
-            PlayerPrefs.SetInt("Defend", BASE_DEFEND);
-            defend = BASE_DEFEND;
-        }
-        else
-        {
-            defend += def;
-            PlayerPrefs.SetInt("Defend", defend);
-            defend = PlayerPrefs.GetInt("Defend");
-        }
     }
     public void SetBodyScale(int level)
     {
@@ -187,5 +145,17 @@ public class Character : AbstractCharacter
                 OnDeath();
             }   
         }
+    }
+    public virtual void SetBaseStatHealth(int health)
+    {
+
+    }
+    public virtual void SetBaseStatAttack(int atk)
+    {
+
+    }
+    public virtual void SetBaseStatDefend(int def)
+    {
+
     }
 }
