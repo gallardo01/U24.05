@@ -8,42 +8,42 @@ public class Upgrade : MonoBehaviour
     public TMPro.TextMeshProUGUI attack;
     public TMPro.TextMeshProUGUI health;
     public TMPro.TextMeshProUGUI defend;
-    private int upgradeAtk;
-    private int upgradeDef;
-    private int upgradeHp;
+    private int upgradeAtkPrice;
+    private int upgradeDefPrice;
+    private int upgradeHpPrice;
 
     void Start()
     {
-        upgradeAtk = 40;
-        upgradeDef = 80;
-        upgradeHp = 25;
+        upgradeAtkPrice = 40;
+        upgradeDefPrice = 80;
+        upgradeHpPrice = 25;
     }
 
     public void IncreaseAttack()
     {
         int gold = PlayerPrefs.GetInt("Gold");
-        if (gold >  upgradeAtk)
+        if (gold >  upgradeAtkPrice)
         {
-            GameController.instance.ChangeGold(-upgradeAtk);
+            GameController.instance.ChangeGold(-upgradeAtkPrice);
             GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatAttack(5);
         }
     }
     public void IncreaseDefend()
     {
         int gold = PlayerPrefs.GetInt("Gold");
-        if (gold > upgradeDef)
+        if (gold > upgradeDefPrice)
         {
-            GameController.instance.ChangeGold(-upgradeDef);
+            GameController.instance.ChangeGold(-upgradeDefPrice);
             GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatDefend(5);
         }
     }
-    //public void IncreaseHp()
-    //{
-    //    int gold = PlayerPrefs.GetInt("Gold");
-    //    if (gold > upgradeHp)
-    //    {
-    //        GameController.instance.ChangeGold(-upgradeHp);
-    //        GameController.instance.playerPrebs.GetComponent<Player>().ChangeStatOfPlayer(0, 0);
-    //    }
-    //}
+    public void IncreaseHp()
+    {
+        int gold = PlayerPrefs.GetInt("Gold");
+        if (gold > upgradeHpPrice)
+        {
+            GameController.instance.ChangeGold(-upgradeHpPrice);
+            GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatHealth(5);
+        }
+    }
 }

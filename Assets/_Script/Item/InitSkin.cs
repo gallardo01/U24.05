@@ -80,6 +80,7 @@ public class InitSkin : MonoBehaviour
         }
         itemAtk = userStat.atk;
         itemDef = userStat.def;
+        AddStatToCharacter();
     }
 
     public void BotEquipItem()
@@ -110,12 +111,9 @@ public class InitSkin : MonoBehaviour
         this.pant.material = ItemDatabase.instance.pants[number];
     }
 
-    //private void AddStatToCharacter(string name)
-    //{
-    //    GameItem itemEquiped = ItemJSONDatabase.instance.GetStatOfItem(name);
-    //    itemAtk = itemEquiped.item.atk;
-    //    itemDef = itemEquiped.item.def;
-    //    self.SetBaseStatAttack(itemAtk);
-    //    self.SetBaseStatDefend(itemDef);
-    //}
+    private void AddStatToCharacter()
+    {
+        self.attack = itemAtk + self.BASE_ATTACK;
+        self.defend = itemDef + self.BASE_DEFEND;
+    }
 }

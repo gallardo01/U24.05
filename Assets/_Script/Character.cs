@@ -33,13 +33,9 @@ public class Character : AbstractCharacter
     public int attack;
     public int defend;
 
-    public int BASE_ATTACK = 20;
+    public int BASE_ATTACK = 1;
     public int BASE_DEFEND = 2;
     public int BASE_HEALTH = 100;
-    void Start()
-    {
-        ChangeAnim("idle");
-    }
 
     public void ChangeAnim(string animName)
     {

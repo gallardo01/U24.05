@@ -33,6 +33,7 @@ public class Weapon : MonoBehaviour
             {
                 Destroy(gameObject);
                 int damage = self.attack - character.defend;
+                Debug.Log(damage + "attack");
                 character.health = character.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-damage);
                 if (character.health < 0)
                 {
