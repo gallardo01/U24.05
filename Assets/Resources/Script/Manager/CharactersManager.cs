@@ -104,7 +104,6 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
     {
         CharacterList.Remove(character);
         SoundManager.CharacterDead();
-        VFXPool.Spawn(character.transform.position + Vector3.up, Quaternion.identity, null);
         if (CharacterList.Count == 1 || character.GetType() == typeof(Player))
         {
             GameManager.Instance.GameOver();

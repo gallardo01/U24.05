@@ -19,3 +19,10 @@ MonoBehaviour:
   itemMat: {fileID: 0}
   itemIcon: {fileID: 21300000, guid: d81b35fa699d0484589677ed88bff782, type: 3}
   price: 60
+  statData:
+  - stat: 0
+    index: 6
+  - stat: 1
+    index: 2
+  - stat: 2
+    index: 99

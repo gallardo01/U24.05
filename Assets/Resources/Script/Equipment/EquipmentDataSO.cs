@@ -12,5 +12,19 @@ public class EquipmentDataSO : ScriptableObject
     public Material itemMat;
     public Sprite itemIcon;
     public int price;
+    public StatData[] statData;
+}
+[System.Serializable]
+public enum Stat
+{
+    Speed,
+    Range,
+    Attack,
+}
 
+[System.Serializable]
+public struct StatData
+{
+    public Stat stat;
+    public float index;
 }

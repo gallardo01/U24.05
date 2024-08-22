@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +30,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     [SerializeField] Transform pantTab;
 
     [SerializeField] ShopStateButton stateButton;
+    [SerializeField] TextMeshProUGUI[] statsValueText;
     private bool DoneSetUp = false;
 
     private GameObject equiptWeapon;
@@ -81,7 +84,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     private void OnContainerSelect(EquipmentContainer container)
     {
         List<EquipmentContainer> sameTypes = new List<EquipmentContainer>();
-        List<EquipmentContainer> containers = EquipmentManager.Instance.containerList;
+        List<EquipmentContainer> containers = containerList;
 
         for (int i = 0; i < containers.Count; i++)
         {
@@ -95,7 +98,17 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
             if (sameTypes[i] == container) sameTypes[i].Select();
             else sameTypes[i].UnSelect();
         }
+        UpdateStatDisplay(container);
         SoundManager.ButtonClick();
+    }
+
+    private void UpdateStatDisplay(EquipmentContainer container)
+    {
+        for (int i = 0; i < statsValueText.Length; i++)
+        {
+            float index = container.Data.statData[i].index;
+            statsValueText[i].text = "+ " + index.ToString();
+        }
     }
 
     public void SaveItemData(EquipmentContainer container)
@@ -126,6 +139,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
                 if(weaponTab.childCount == 0)
                 {
                     CreatContainers();
+                    UpdateStatDisplay(containerList[0]);
                 }
                 break;
             case GameState.GAME:
@@ -171,6 +185,5 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         Material material = pantData.itemMat;
 
         bot.SetEquipMent(weaponItem, shieldItem, hatItem, material, projectile);
-
     }
 }

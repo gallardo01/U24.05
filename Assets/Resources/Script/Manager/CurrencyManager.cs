@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Lean.Pool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +15,12 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
 
     private const string CurrencyKey = "Currency";
     public int CurrentCurrency { get; private set; }
-    [SerializeField] private Button clambButton;
+
+    [SerializeField] Button clambButton;
+    [SerializeField] RectTransform coinPrefab;
+    [SerializeField] Transform coinsParent;
+    [SerializeField] RectTransform startPosition;
+    [SerializeField] RectTransform endPosition;
 
     public void AddCurrency(int amount)
     {
@@ -65,12 +72,37 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
     {
         clambButton.interactable = false;
         ClambAnim();
-        AddCurrency(point);
     }
 
     private void ClambAnim()
     {
+        StartCoroutine(ClambAnimSequence());
+    }
 
+    IEnumerator ClambAnimSequence()
+    {
+        int endCurrency = GameManager.RoundPoint;
+        DOTween.To(() => endCurrency, x => endCurrency = x, 0, 1.5f)
+               .OnUpdate(() => { currencyClamb.text = endCurrency.ToString(); })
+               .OnComplete(() => AddCurrency(GameManager.RoundPoint));
+               
+        for (int i = 0; i < 10; i++)
+        {
+            RectTransform coin = LeanPool.Spawn(coinPrefab, coinsParent);
+            coin.anchoredPosition = startPosition.anchoredPosition;
+            coin.localScale = Vector3.zero;
+            coin.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutQuad).OnComplete(() =>
+            {
+                coin.DOAnchorPos(endPosition.anchoredPosition, 1f).SetEase(Ease.InOutQuad)
+                //.OnUpdate(() => )
+                .OnComplete(() =>
+                {
+                    LeanPool.Despawn(coin);
+                    coin.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InOutQuad);
+                });
+            });
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private void ClambCurrencyDisplay(int point)
@@ -85,9 +117,9 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
         {
             case GameState.MENU:
                 LoadCurrency();
-                clambButton.onClick.AddListener(() => Clamp(GameManager.RoundPoint));
                 break;
             case GameState.GAMEOVER:
+                clambButton.onClick.AddListener(() => Clamp(GameManager.RoundPoint));
                 ClambCurrencyDisplay(GameManager.RoundPoint);
                 break;
         }

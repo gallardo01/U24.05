@@ -2,6 +2,7 @@ using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Projectile : MonoBehaviour
 {
@@ -14,7 +15,6 @@ public class Projectile : MonoBehaviour
 
     private Character sender;
     private Vector3 direction;
-    private float rotationY;
 
     public void Shoot(Vector3 direction, int weapondamage, Character sender)
     {
@@ -38,5 +38,9 @@ public class Projectile : MonoBehaviour
                 LeanPool.Despawn(this.gameObject);
                 break;
         }
+
+        VFXPool.Spawn(this.transform.position, Quaternion.identity, null);
+        LeanPool.Despawn(this.gameObject);
+
     }
 }

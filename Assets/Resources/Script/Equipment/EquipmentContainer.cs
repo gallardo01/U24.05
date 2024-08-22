@@ -17,6 +17,7 @@ public class EquipmentContainer : MonoBehaviour
     [SerializeField] GameObject outline;
     [SerializeField] RectTransform rectTransform;
 
+    public EquipmentDataSO Data {  get; private set; }
     public ItemType ItemType { get; private set; }
     public GameObject Prefab { get; private set; }
     public GameObject Projectile { get; private set; }
@@ -25,6 +26,8 @@ public class EquipmentContainer : MonoBehaviour
 
     public bool IsPurchase { get; private set; }
     public bool IsEquip { get; private set; }
+
+
 
     public void OnInit(EquipmentDataSO data)
     {
@@ -36,6 +39,7 @@ public class EquipmentContainer : MonoBehaviour
         this.Material = data.itemMat;
         this.Price = data.price;
         this.priceText.text = Price.ToString();
+        this.Data = data;
 
         if(data.itemName == "Default")
         {

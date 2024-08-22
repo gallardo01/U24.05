@@ -110,9 +110,11 @@ public class ModelMode : MonoBehaviour, IGameStateListener
                 this.enabled = true;
                 break;
             case GameState.GAME:
+                ChangAnim("idle");
                 this.enabled = false;
                 break;
             case GameState.MENU:
+                ChangAnim("idle");
                 this.enabled = false;
                 break;
         }
