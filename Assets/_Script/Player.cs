@@ -13,6 +13,7 @@ public class Player : Character
     private void Start()
     {
         initSkin.self = this;
+        time = 0f;
         SetNewPlayer();
     }
     void Update()
@@ -20,18 +21,17 @@ public class Player : Character
         time += Time.deltaTime;
         Vector3 direction = JoystickControl.direct.normalized;
 
-        if (time > cooldownTimeAttack)
-        {
-            isAttack = true;
-            FindTarget();
-        }
-        else
-        {
-            isAttack = false;
-        }
-
         if (isDead == false)
         {
+            if (time > cooldownTimeAttack)
+            {
+                isAttack = true;
+                FindTarget();
+            }
+            else
+            {
+                isAttack = false;
+            }
             if (direction != Vector3.zero)
             {
                 Quaternion newRotation = Quaternion.LookRotation(-direction);
@@ -66,7 +66,6 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        time = 0f;
         gameObject.tag = "player";
     }
     public override void OnDeath()
@@ -110,7 +109,6 @@ public class Player : Character
     {
         if (!PlayerPrefs.HasKey("Health"))
         {
-            BASE_HEALTH = 100;
             PlayerPrefs.SetInt("Health", BASE_HEALTH);
         }
         else
@@ -123,7 +121,6 @@ public class Player : Character
     {
         if (!PlayerPrefs.HasKey("Attack"))
         {
-            BASE_ATTACK = 20;
             PlayerPrefs.SetInt("Attack", BASE_ATTACK);
         }
         else
@@ -136,7 +133,6 @@ public class Player : Character
     {
         if (!PlayerPrefs.HasKey("Defend"))
         {
-            BASE_DEFEND = 5;
             PlayerPrefs.SetInt("Defend", BASE_DEFEND);
         }
         else

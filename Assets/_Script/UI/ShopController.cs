@@ -34,19 +34,10 @@ public class ShopController : MonoBehaviour
             Destroy(contentUI.GetChild(i).gameObject);
         }
         List<GameItem> gameItem = ItemJSONDatabase.instance.SplitTypeItem(type);
-        bool check = ItemJSONDatabase.instance.CheckEquipItemForTheFirstTime(type);
         for (int i = 0; i < gameItem.Count; i++)
         {
-            if (!check)
-            {
-                gameItem[0].Equip = true;
                 InitItem gameObject = Instantiate(initItemPrefabs.gameObject, contentUI).GetComponent<InitItem>();
                 gameObject.InitItemUI(gameItem[i]);
-            } else
-            {
-                InitItem gameObject = Instantiate(initItemPrefabs.gameObject, contentUI).GetComponent<InitItem>();
-                gameObject.InitItemUI(gameItem[i]);
-            }
         }
     }
 

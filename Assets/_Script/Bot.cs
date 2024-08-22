@@ -80,5 +80,18 @@ public class Bot : Character
         }
         return listTarget;
     }
+
+    public override void LevelUpData()
+    {
+        base.LevelUpData();
+        IncreaseStatOfBot(level);
+    }
+
+    private void IncreaseStatOfBot(int level)
+    {
+        attack = BASE_ATTACK + 3 * level;
+        defend = BASE_DEFEND + 3 * level;
+    }
 }
+
 

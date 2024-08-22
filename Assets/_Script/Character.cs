@@ -34,9 +34,14 @@ public class Character : AbstractCharacter
     public int attack;
     public int defend;
 
-    public int BASE_ATTACK;
-    public int BASE_DEFEND;
-    public int BASE_HEALTH;
+    public int BASE_ATTACK = 20;
+    public int BASE_DEFEND = 5;
+    public int BASE_HEALTH = 100;
+
+    private void Start()
+    {
+        
+    }
 
     public void ChangeAnim(string animName)
     {
@@ -88,6 +93,8 @@ public class Character : AbstractCharacter
     {
         isDead = true;
         health = BASE_HEALTH;
+        attack = BASE_ATTACK;
+        defend = BASE_DEFEND;
         namePlayer.enabled = false;
         level = 0;
         LevelUpData();
@@ -116,7 +123,7 @@ public class Character : AbstractCharacter
     {
         level++;
     }
-    public void LevelUpData()
+    public virtual void LevelUpData()
     {
         SetBodyScale(level);
         SetDetectionRadius(level);

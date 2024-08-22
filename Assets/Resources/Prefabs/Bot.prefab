@@ -113,16 +113,19 @@ MonoBehaviour:
   initSkin: {fileID: 3796925702284456328}
   weaponPrefabs: {fileID: 3770543599948866396, guid: 02168e00fde29e244a5eb7d21f85492d, type: 3}
   target: {fileID: 0}
-  weaponEquipPos: {fileID: 0}
   isAttack: 0
   isRunning: 0
   isDead: 0
   cooldownTimeAttack: 2
-  maxHP: 100
   health: 0
   currentAnimName: 
   detectionRadius: 15
   level: 1
+  attack: 0
+  defend: 0
+  BASE_ATTACK: 20
+  BASE_DEFEND: 5
+  BASE_HEALTH: 100
   inAreaAtack: {fileID: 5461612326755245647}
   agent: {fileID: 5258254161609034783}
   time: 0

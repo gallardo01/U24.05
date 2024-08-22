@@ -98,6 +98,10 @@ public class ItemJSONDatabase : MonoBehaviour
             gameItem.Equip = false;
             listInGameItem.Add(gameItem);
         }
+        for (int i = 0; i < listInGameItem.Count; i++)
+        {
+            EquipItemForTheFirstTime(listInGameItem[i]);
+        }
     }
     //Chuyen du lieu tu game obj thanh Json
     private void SaveDataToLocalDb()
@@ -185,6 +189,7 @@ public class ItemJSONDatabase : MonoBehaviour
         }
         SaveDataToLocalDb();
     }
+
     public void UpdateEquipItem(GameItem item)
     {
         for (int i = 0; i < listInGameItem.Count; i++)
@@ -204,17 +209,28 @@ public class ItemJSONDatabase : MonoBehaviour
         SaveDataToLocalDb();
     }
 
-    public bool CheckEquipItemForTheFirstTime(string type)
+    //public bool CheckEquipItemForTheFirstTime(string type)
+    //{
+    //    List<GameItem> list = SplitTypeItem(type);
+    //    for (int i = 0; i < list.Count; i++)
+    //    {
+    //        if (list[0].Equip == true)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
+    public void EquipItemForTheFirstTime(GameItem item)
     {
-        List<GameItem> list = SplitTypeItem(type);
+        List<GameItem> list = SplitTypeItem(item.item.type);
         for (int i = 0; i < list.Count; i++)
         {
-            if (list[i].Equip == true)
+            if (item == list[0] && item.item.type != "Shield")
             {
-                return true;
+                item.Equip = true;
             }
         }
-        return false;
     }
 
     public UserStat GetUserStat()
