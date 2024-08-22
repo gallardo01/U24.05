@@ -21,6 +21,16 @@ public class Player : Character
         time += Time.deltaTime;
         Vector3 direction = JoystickControl.direct.normalized;
 
+        if (time > cooldownTimeAttack)
+        {
+            isAttack = true;
+            FindTarget();
+        }
+        else
+        {
+            isAttack = false;
+        }
+
         if (isDead == false)
         {
             if (direction != Vector3.zero)
@@ -31,11 +41,14 @@ public class Player : Character
                 ChangeAnim("run");
                 isRunning = true;
             }
-            else
+            else 
             {
-                ChangeAnim("idle");
                 isRunning = false;
-                FindTarget();
+                if (isAttack == false)
+                {
+                    Debug.Log("idle");
+                    ChangeAnim("idle");
+                }    
             }
         }
 
@@ -70,16 +83,15 @@ public class Player : Character
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
         foreach (Collider collider in hitColliders)
         {
-            if (collider.CompareTag("bot") && time > cooldownTimeAttack)
+            if (collider.CompareTag("bot") && isAttack)
             {
                 if (isRunning == false)
                 {
                     ChangeAnim("attack");
-                    isAttack = true;
                     target = collider.GetComponent<Character>().gameObject;
                     OnAttack();
+                    time = 0;
                 }
-                time = 0;
                 break;
             }
         }
