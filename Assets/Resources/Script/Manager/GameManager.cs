@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Button settingToMenu;
     [SerializeField] Button settingToGame;
     
-    public static int RoundPoint { get; private set; }
+    public int RoundPoint { get; private set; }
 
     private void OnEnable()
     {
@@ -81,7 +81,8 @@ public class GameManager : Singleton<GameManager>
 
     public static void AddPoint(int point)
     {
-        RoundPoint += point;
+        Instance.RoundPoint += point;
+        Debug.Log(Instance.RoundPoint);
     }
 
     public void LoadScene()

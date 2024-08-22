@@ -1,12 +1,10 @@
 using DG.Tweening;
 using Lean.Pool;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
+
 
 public class CharactersManager : Singleton<CharactersManager>, IGameStateListener
 {

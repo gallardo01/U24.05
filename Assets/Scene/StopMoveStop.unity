@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6661761, g: 0.8827624, b: 0.88572675, a: 1}
+  m_IndirectSpecularColor: {r: 0.6657978, g: 0.8826618, b: 0.8856984, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3666,6 +3666,7 @@ Transform:
   m_Children:
   - {fileID: 1031398728}
   - {fileID: 811861405}
+  - {fileID: 1660748298}
   - {fileID: 1361333791}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -5105,7 +5106,6 @@ GameObject:
   - component: {fileID: 1031398729}
   - component: {fileID: 1031398731}
   - component: {fileID: 1031398732}
-  - component: {fileID: 1031398733}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5205,70 +5205,6 @@ MonoBehaviour:
   coinsParent: {fileID: 599400859}
   startPosition: {fileID: 1040265114}
   endPosition: {fileID: 429117516}
---- !u!114 &1031398733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031398727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684405fbabeca38458f6afe05cfd6ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponsDatas:
-  - {fileID: 11400000, guid: f434912b4a8a2ab4b98739e8a14c9b25, type: 2}
-  - {fileID: 11400000, guid: 6ecc09da8eb8b2d47bea14227f426f88, type: 2}
-  - {fileID: 11400000, guid: 84bbeacbf188d8949ae85f8271c0fe67, type: 2}
-  - {fileID: 11400000, guid: a3906275bec559649984415ae0594dd0, type: 2}
-  - {fileID: 11400000, guid: 208957196620ff946b223073c1475ee6, type: 2}
-  - {fileID: 11400000, guid: 34da69c6c006e6544bf988e9f6c8eb6a, type: 2}
-  - {fileID: 11400000, guid: 97ea4e1de7ebddd499599c4db621f3b8, type: 2}
-  - {fileID: 11400000, guid: 0692439c3e964f849bcd2a97c0ec9c9d, type: 2}
-  - {fileID: 11400000, guid: c47faca298f20984cae6efe1c91a64fa, type: 2}
-  - {fileID: 11400000, guid: 2d435401269c5804fa6027144d9d90fb, type: 2}
-  - {fileID: 11400000, guid: fbc813b808eec144fa4fbc94c99e8cd9, type: 2}
-  - {fileID: 11400000, guid: fda10acd0eaae0c4c8162f3780b40f3e, type: 2}
-  - {fileID: 11400000, guid: 693e57f6ca4e074478bd462d2bdce368, type: 2}
-  shieldsDatas:
-  - {fileID: 11400000, guid: df60ede9536c18d478ce46f43290ad82, type: 2}
-  - {fileID: 11400000, guid: e1f53383f6a833e48b8d3787de89a80b, type: 2}
-  - {fileID: 11400000, guid: a8a18f11f5b05d8459341cd42b074420, type: 2}
-  hatsDatas:
-  - {fileID: 11400000, guid: 7536f45d437684345bffde83a95196f2, type: 2}
-  - {fileID: 11400000, guid: 17d734fa96af6924eb1e3df9a88ccef5, type: 2}
-  - {fileID: 11400000, guid: 507616ec027985044a0321f52d33e7d7, type: 2}
-  - {fileID: 11400000, guid: 2e24d277df9ed7343be3d1264c156900, type: 2}
-  - {fileID: 11400000, guid: 3c749a1af4e0c594586600c31595ef05, type: 2}
-  - {fileID: 11400000, guid: 6c750fbfc6a04e045a8d58e4022876bb, type: 2}
-  - {fileID: 11400000, guid: 4d28d837042bba343808aa756c09c162, type: 2}
-  - {fileID: 11400000, guid: 746b222c011495d4dbe9027d654a155a, type: 2}
-  - {fileID: 11400000, guid: f197f63693b7c034097683fe6b92d19d, type: 2}
-  - {fileID: 11400000, guid: dff2fa441758200438952a1fe843cb5d, type: 2}
-  - {fileID: 11400000, guid: 63a858dca430fa84ab913672791d8c5f, type: 2}
-  pantsDatas:
-  - {fileID: 11400000, guid: 4ed6ddd1d49d54e41bcce50fc6d02974, type: 2}
-  - {fileID: 11400000, guid: 09a399c39e64b544ab92971d49b24a2c, type: 2}
-  - {fileID: 11400000, guid: 30b0e34bc04cb374da2090b2c8c9f044, type: 2}
-  - {fileID: 11400000, guid: b7cc37d1572dbe748bf1e1c6c108a70a, type: 2}
-  - {fileID: 11400000, guid: 0ef6fe9be44b8ad42acd99fe9fff937d, type: 2}
-  - {fileID: 11400000, guid: e81a9ff8a35503c47b4ab030eb461ac2, type: 2}
-  - {fileID: 11400000, guid: 65281f2560cc08c4b94594a1838b48bc, type: 2}
-  - {fileID: 11400000, guid: 970761b043c125a40bc7862def2010cc, type: 2}
-  - {fileID: 11400000, guid: 0680de35d4f6bf143b58cec326fd9bf1, type: 2}
-  - {fileID: 11400000, guid: 9552d282af921274982253b903b3192a, type: 2}
-  containerPrefab: {fileID: 5694112994859091599, guid: f8fc98ec47d49d1408f56c1c962334b9, type: 3}
-  containerList: []
-  weaponTab: {fileID: 1167548951}
-  shieldTab: {fileID: 1911566295}
-  hatTab: {fileID: 1042391399}
-  pantTab: {fileID: 1386045125}
-  stateButton: {fileID: 1035166980}
-  statsValueText:
-  - {fileID: 1595221655}
-  - {fileID: 1450919588}
-  - {fileID: 168941504}
 --- !u!1 &1035166975
 GameObject:
   m_ObjectHideFlags: 0
@@ -6939,7 +6875,7 @@ Transform:
   m_Children:
   - {fileID: 604580928}
   m_Father: {fileID: 725862009}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1368394537
 GameObject:
@@ -7921,6 +7857,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650067181}
   m_CullTransparentMesh: 1
+--- !u!1 &1660748297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660748298}
+  - component: {fileID: 1660748299}
+  m_Layer: 0
+  m_Name: EquipmentManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1660748298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660748297}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 725862009}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1660748299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660748297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684405fbabeca38458f6afe05cfd6ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponsDatas:
+  - {fileID: 11400000, guid: f434912b4a8a2ab4b98739e8a14c9b25, type: 2}
+  - {fileID: 11400000, guid: 6ecc09da8eb8b2d47bea14227f426f88, type: 2}
+  - {fileID: 11400000, guid: 84bbeacbf188d8949ae85f8271c0fe67, type: 2}
+  - {fileID: 11400000, guid: a3906275bec559649984415ae0594dd0, type: 2}
+  - {fileID: 11400000, guid: 208957196620ff946b223073c1475ee6, type: 2}
+  - {fileID: 11400000, guid: 34da69c6c006e6544bf988e9f6c8eb6a, type: 2}
+  - {fileID: 11400000, guid: 97ea4e1de7ebddd499599c4db621f3b8, type: 2}
+  - {fileID: 11400000, guid: 0692439c3e964f849bcd2a97c0ec9c9d, type: 2}
+  - {fileID: 11400000, guid: c47faca298f20984cae6efe1c91a64fa, type: 2}
+  - {fileID: 11400000, guid: 2d435401269c5804fa6027144d9d90fb, type: 2}
+  - {fileID: 11400000, guid: fbc813b808eec144fa4fbc94c99e8cd9, type: 2}
+  - {fileID: 11400000, guid: fda10acd0eaae0c4c8162f3780b40f3e, type: 2}
+  - {fileID: 11400000, guid: 693e57f6ca4e074478bd462d2bdce368, type: 2}
+  shieldsDatas:
+  - {fileID: 11400000, guid: df60ede9536c18d478ce46f43290ad82, type: 2}
+  - {fileID: 11400000, guid: e1f53383f6a833e48b8d3787de89a80b, type: 2}
+  - {fileID: 11400000, guid: a8a18f11f5b05d8459341cd42b074420, type: 2}
+  hatsDatas:
+  - {fileID: 11400000, guid: 7536f45d437684345bffde83a95196f2, type: 2}
+  - {fileID: 11400000, guid: 17d734fa96af6924eb1e3df9a88ccef5, type: 2}
+  - {fileID: 11400000, guid: 507616ec027985044a0321f52d33e7d7, type: 2}
+  - {fileID: 11400000, guid: 2e24d277df9ed7343be3d1264c156900, type: 2}
+  - {fileID: 11400000, guid: 3c749a1af4e0c594586600c31595ef05, type: 2}
+  - {fileID: 11400000, guid: 6c750fbfc6a04e045a8d58e4022876bb, type: 2}
+  - {fileID: 11400000, guid: 4d28d837042bba343808aa756c09c162, type: 2}
+  - {fileID: 11400000, guid: 746b222c011495d4dbe9027d654a155a, type: 2}
+  - {fileID: 11400000, guid: f197f63693b7c034097683fe6b92d19d, type: 2}
+  - {fileID: 11400000, guid: dff2fa441758200438952a1fe843cb5d, type: 2}
+  - {fileID: 11400000, guid: 63a858dca430fa84ab913672791d8c5f, type: 2}
+  pantsDatas:
+  - {fileID: 11400000, guid: 4ed6ddd1d49d54e41bcce50fc6d02974, type: 2}
+  - {fileID: 11400000, guid: 09a399c39e64b544ab92971d49b24a2c, type: 2}
+  - {fileID: 11400000, guid: 30b0e34bc04cb374da2090b2c8c9f044, type: 2}
+  - {fileID: 11400000, guid: b7cc37d1572dbe748bf1e1c6c108a70a, type: 2}
+  - {fileID: 11400000, guid: 0ef6fe9be44b8ad42acd99fe9fff937d, type: 2}
+  - {fileID: 11400000, guid: e81a9ff8a35503c47b4ab030eb461ac2, type: 2}
+  - {fileID: 11400000, guid: 65281f2560cc08c4b94594a1838b48bc, type: 2}
+  - {fileID: 11400000, guid: 970761b043c125a40bc7862def2010cc, type: 2}
+  - {fileID: 11400000, guid: 0680de35d4f6bf143b58cec326fd9bf1, type: 2}
+  - {fileID: 11400000, guid: 9552d282af921274982253b903b3192a, type: 2}
+  containerPrefab: {fileID: 5694112994859091599, guid: f8fc98ec47d49d1408f56c1c962334b9, type: 3}
+  containerList: []
+  weaponTab: {fileID: 1167548951}
+  shieldTab: {fileID: 1911566295}
+  hatTab: {fileID: 1042391399}
+  pantTab: {fileID: 1386045125}
+  stateButton: {fileID: 1035166980}
+  statsValueText:
+  - {fileID: 1595221655}
+  - {fileID: 1450919588}
+  - {fileID: 168941504}
 --- !u!1 &1690213873
 GameObject:
   m_ObjectHideFlags: 0

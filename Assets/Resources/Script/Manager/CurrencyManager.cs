@@ -81,10 +81,10 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
 
     IEnumerator ClambAnimSequence()
     {
-        int endCurrency = GameManager.RoundPoint;
+        int endCurrency = GameManager.Instance.RoundPoint;
         DOTween.To(() => endCurrency, x => endCurrency = x, 0, 1.5f)
                .OnUpdate(() => { currencyClamb.text = endCurrency.ToString(); })
-               .OnComplete(() => AddCurrency(GameManager.RoundPoint));
+               .OnComplete(() => AddCurrency(GameManager.Instance.RoundPoint));
                
         for (int i = 0; i < 10; i++)
         {
@@ -94,7 +94,6 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
             coin.DOScale(Vector3.one, 0.3f).SetEase(Ease.InOutQuad).OnComplete(() =>
             {
                 coin.DOAnchorPos(endPosition.anchoredPosition, 1f).SetEase(Ease.InOutQuad)
-                //.OnUpdate(() => )
                 .OnComplete(() =>
                 {
                     LeanPool.Despawn(coin);
@@ -119,8 +118,8 @@ public class CurrencyManager : Singleton<CurrencyManager>, IGameStateListener
                 LoadCurrency();
                 break;
             case GameState.GAMEOVER:
-                clambButton.onClick.AddListener(() => Clamp(GameManager.RoundPoint));
-                ClambCurrencyDisplay(GameManager.RoundPoint);
+                clambButton.onClick.AddListener(() => Clamp(GameManager.Instance.RoundPoint));
+                ClambCurrencyDisplay(GameManager.Instance.RoundPoint);
                 break;
         }
     }
