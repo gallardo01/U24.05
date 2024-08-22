@@ -46,7 +46,6 @@ public class Player : Character
                 isRunning = false;
                 if (isAttack == false)
                 {
-                    Debug.Log("idle");
                     ChangeAnim("idle");
                 }    
             }
@@ -87,7 +86,7 @@ public class Player : Character
             {
                 if (isRunning == false)
                 {
-                    ChangeAnim("attack");
+                    anim.SetTrigger("attack");
                     target = collider.GetComponent<Character>().gameObject;
                     OnAttack();
                     time = 0;

@@ -134,7 +134,7 @@ Animator:
   m_GameObject: {fileID: 3083624962463856335}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9fb2d4c32ef4e80459e66ff8a4ffc473, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -161,6 +161,10 @@ MonoBehaviour:
   head: {fileID: 8113054565042070059}
   shield: {fileID: 7864009305047273572}
   pant: {fileID: 2399620587940002895}
+  weaponEquiped: {fileID: 0}
+  self: {fileID: 0}
+  itemDef: 0
+  itemAtk: 0
 --- !u!1 &3144963485254102915
 GameObject:
   m_ObjectHideFlags: 0

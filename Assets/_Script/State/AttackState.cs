@@ -29,7 +29,7 @@ public class AttackState : IState<Bot>
     {
         if (bot.target != null)
         {
-            bot.ChangeAnim("attack");
+            bot.anim.SetTrigger("attack");
             bot.OnAttack();
             bot.time = 0;
             OnEnter(bot);

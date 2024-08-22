@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using static UnityEditor.Progress;
 using static ItemJSONDatabase;
+using static SoundManager;
 public class InitItem : MonoBehaviour
 {
     public Image itemImage;
@@ -42,6 +43,7 @@ public class InitItem : MonoBehaviour
             GameController.instance.EquipNewItem();
             ShopController.instance.CreatItemInShop(thisItem.item.type);
         }
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
     public void InitItemUI(GameItem item)
     {

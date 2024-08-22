@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static GameController;
+using static SoundManager;
 using static UnityEngine.GraphicsBuffer;
 using Image = UnityEngine.UI.Image;
 
@@ -99,6 +100,7 @@ public class Character : AbstractCharacter
         GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
         weapon.GetComponent<Weapon>().self = this;
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 900f);
+        SoundManager.instance.PlayOneShot(SoundList.Shot);
     }
     public void SetBodyScale(int level)
     {

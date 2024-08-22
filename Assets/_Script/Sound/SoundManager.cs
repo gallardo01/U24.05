@@ -18,13 +18,21 @@ public class SoundManager : MonoBehaviour
     {
         if (sound == SoundList.BackgroundMainMenu)
         {
-            audioBackground[1].Stop();
             audioBackground[0].Play();
+            audioBackground[1].Stop();
+            audioBackground[2].Stop();
         }
         if (sound == SoundList.BackgroundIngame)
         {
             audioBackground[0].Stop();
+            audioBackground[1].Stop();
+            audioBackground[2].Play();
+        }
+        if (sound == SoundList.Shop)
+        {
+            audioBackground[0].Stop();
             audioBackground[1].Play();
+            audioBackground[2].Stop();
         }
     }
     public void PlayOneShot(SoundList sound)
@@ -51,6 +59,7 @@ public class SoundManager : MonoBehaviour
     {
         BackgroundMainMenu,
         BackgroundIngame,
+        Shop,
         ButtonClick,
         Shot,
         Win,

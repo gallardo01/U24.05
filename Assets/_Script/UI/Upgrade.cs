@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static SoundManager;
 
 public class Upgrade : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class Upgrade : MonoBehaviour
         {
             GameController.instance.ChangeGold(-upgradeAtkPrice);
             GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatAttack(5);
+            SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
         }
     }
     public void IncreaseDefend()
@@ -35,6 +37,7 @@ public class Upgrade : MonoBehaviour
         {
             GameController.instance.ChangeGold(-upgradeDefPrice);
             GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatDefend(5);
+            SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
         }
     }
     public void IncreaseHp()
@@ -44,6 +47,7 @@ public class Upgrade : MonoBehaviour
         {
             GameController.instance.ChangeGold(-upgradeHpPrice);
             GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatHealth(5);
+            SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
         }
     }
 }

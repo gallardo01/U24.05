@@ -64,6 +64,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         GameController.instance.StartGame();
         Camera.instance.ChangeState(3);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void EndGameUI()
@@ -75,12 +76,14 @@ public class UIManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void ContinueGame()
     {
         Time.timeScale = 1f;
         settingInGame.SetActive(false);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void MoveToMainMenuAndStartNewGame()
@@ -93,6 +96,7 @@ public class UIManager : MonoBehaviour
         winGameUI.SetActive(false);
         shopPanelUI.SetActive(false);
         Camera.instance.ChangeState(1);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void BackToMainMenu()
@@ -104,6 +108,7 @@ public class UIManager : MonoBehaviour
         winGameUI.SetActive(false);
         shopPanelUI.SetActive(false);
         Camera.instance.ChangeState(1);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void TryANewGame()
@@ -111,6 +116,7 @@ public class UIManager : MonoBehaviour
         GameController.instance.PlayAgain();
         StartGame();
         settingInGame.SetActive(false);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void WinAGame()
@@ -125,6 +131,7 @@ public class UIManager : MonoBehaviour
     {
         MoveToMainMenuAndStartNewGame();
         GameController.instance.ChangeGold(goldGain);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
     public void OpenShop()
@@ -132,10 +139,13 @@ public class UIManager : MonoBehaviour
         Camera.instance.ChangeState(2);
         menuIngameUI.SetActive(false);
         shopPanelUI.SetActive(true);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
+        SoundManager.instance.PlayBackgroundMusic(SoundList.Shop);
     }
 
     public void OpenUpgradeUI()
     {
         InitGameState(3);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 }
