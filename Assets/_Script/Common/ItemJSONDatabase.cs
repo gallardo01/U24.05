@@ -173,17 +173,6 @@ public class ItemJSONDatabase : MonoBehaviour
         }
         return list;
     }
-    //public GameItem GetStatOfItem(string name)
-    //{
-    //    for (int i = 0; i < listInGameItem.Count; i++)
-    //    {
-    //        if (name == listInGameItem[i].item.name)
-    //        {
-    //            return listInGameItem[i];
-    //        }
-    //    }
-    //    return null;
-    //}
     public void UpdatePurchaseItem(GameItem item)
     {
         for (int i = 0; i < listInGameItem.Count; i++)

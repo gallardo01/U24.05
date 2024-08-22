@@ -12,7 +12,6 @@ public class Player : Character
     //private CounterTime counter = new CounterTime();
     private void Start()
     {
-        time = 0f;
         initSkin.self = this;
         SetNewPlayer();
     }
@@ -44,10 +43,7 @@ public class Player : Character
             else 
             {
                 isRunning = false;
-                if (isAttack == false)
-                {
-                    ChangeAnim("idle");
-                }    
+                ChangeAnim("idle");
             }
         }
 
@@ -70,6 +66,7 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
+        time = 0f;
         gameObject.tag = "player";
     }
     public override void OnDeath()

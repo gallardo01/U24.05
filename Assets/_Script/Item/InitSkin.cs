@@ -80,6 +80,8 @@ public class InitSkin : MonoBehaviour
         }
         itemAtk = userStat.atk;
         itemDef = userStat.def;
+        Debug.Log("Item Atk: " + itemAtk);
+        Debug.Log("Item Def: " + itemDef);
         AddStatToCharacter();
     }
 
