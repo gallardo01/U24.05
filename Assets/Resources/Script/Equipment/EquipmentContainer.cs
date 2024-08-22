@@ -27,8 +27,6 @@ public class EquipmentContainer : MonoBehaviour
     public bool IsPurchase { get; private set; }
     public bool IsEquip { get; private set; }
 
-
-
     public void OnInit(EquipmentDataSO data)
     {
         this.ItemName.text = data.itemName;
@@ -44,7 +42,7 @@ public class EquipmentContainer : MonoBehaviour
         if(data.itemName == "Default")
         {
             SavePurchase();            
-            SaveEquipped(true);
+            SetEquip(true);
             return;
         }
 
@@ -52,6 +50,8 @@ public class EquipmentContainer : MonoBehaviour
         if (!IsPurchase) SetPurchase(false);
         else SetPurchase(true);
 
+        IsEquip = ES3.Load<bool>("IsEquip_"+ ItemName.text, false);
+        SetEquip(IsEquip);
     }
 
     public void SavePurchase()
@@ -61,16 +61,17 @@ public class EquipmentContainer : MonoBehaviour
         SetPurchase(true);
     }
 
-    public void SaveEquipped(bool check) 
-    {
-        IsEquip = check;
-        outline.SetActive(check);
-    }
-
     private void SetPurchase(bool check)
     {
         purchaseIcon.SetActive(check);
         equipmentPrice.SetActive(!check);
+    }
+
+    public void SetEquip(bool check) 
+    {
+        IsEquip = check;
+        outline.SetActive(check);
+        ES3.Save<bool>("IsEquip_" + ItemName.text, check);
     }
 
     public void Select()

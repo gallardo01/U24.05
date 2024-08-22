@@ -9,7 +9,6 @@ using UnityEngine;
 public class ItemDataSO : ScriptableObject
 {
     [Title("Weapon Items")]
-    [HorizontalGroup("Items", LabelWidth = 0)]
     [TableList]
     public Item[] items;
 }

@@ -79,6 +79,12 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         newContainer.Button.onClick.AddListener(() => stateButton.ChangeButtonState(newContainer));
         newContainer.Button.onClick.AddListener(() => OnContainerSelect(newContainer));
         containerList.Add(newContainer);
+
+        if (newContainer.IsEquip)
+        {
+            SaveItemData(newContainer);
+            AddItemToPlayer();
+        }
     }
 
     private void OnContainerSelect(EquipmentContainer container)

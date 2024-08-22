@@ -103,9 +103,9 @@ public class ShopStateButton : MonoBehaviour
         }
         for(int i = 0;i < others.Count;i++)
         {
-            others[i].SaveEquipped(false);
+            others[i].SetEquip(false);
         }
-        currentContainer.SaveEquipped(true);
+        currentContainer.SetEquip(true);
 
         EquipmentManager.Instance.SaveItemData(currentContainer);
         EquipmentManager.Instance.AddItemToPlayer();
