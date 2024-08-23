@@ -10,7 +10,7 @@ using static ItemJSONDatabase;
 public class GameController : MonoBehaviour
 {
     [SerializeField] public List<Transform> summonPoint;
-    [SerializeField] public GameObject playerPrebs;
+    [SerializeField] public Player playerPrebs;
     [SerializeField] GameObject botPrefs;
     [SerializeField] TMP_Text numberAlive;
     [SerializeField] public List<GameObject> weaponList;
@@ -52,11 +52,11 @@ public class GameController : MonoBehaviour
     }
     public void EquipNewItem()
     {
-        playerPrebs.GetComponent<Player>().initSkin.PlayerEquipItem();
+        playerPrebs.initSkin.PlayerEquipItem();
     }
     public void DeleteOldItem()
     {
-        playerPrebs.GetComponent<Player>().initSkin.DeleteOldItem();
+        playerPrebs.initSkin.DeleteOldItem();
     }
     public int InitPlayerGold()
     {
@@ -101,10 +101,9 @@ public class GameController : MonoBehaviour
 
             if (!randomPos.Contains(randomIndex))
             {
-                Player player = playerPrebs.GetComponent<Player>();
                 randomPos.Add(randomIndex);
-                player.body.position = summonPoint[randomIndex].position;
-                countPlayers.Add(player.gameObject);
+                playerPrebs.body.position = summonPoint[randomIndex].position;
+                countPlayers.Add(playerPrebs.gameObject);
                 break;
             }
         }     
@@ -133,7 +132,7 @@ public class GameController : MonoBehaviour
             }
         }
         countPlayers.Clear();
-        playerPrebs.SetActive(true);
+        playerPrebs.gameObject.SetActive(true);
         CreatPlayerAndBot();
     }
     public void EndGame()

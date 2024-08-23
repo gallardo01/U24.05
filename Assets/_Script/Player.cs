@@ -9,12 +9,14 @@ public class Player : Character
 
     public float speed = 17f;
     float time;
+    public Stats stats;
     //private CounterTime counter = new CounterTime();
     private void Start()
     {
         initSkin.self = this;
         time = 0f;
         SetNewPlayer();
+        //stats.DisplayStats();
     }
     void Update()
     {

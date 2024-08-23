@@ -80,8 +80,6 @@ public class InitSkin : MonoBehaviour
         }
         itemAtk = userStat.atk;
         itemDef = userStat.def;
-        Debug.Log("Item Atk: " + itemAtk);
-        Debug.Log("Item Def: " + itemDef);
         AddStatToCharacter();
     }
 
@@ -113,9 +111,10 @@ public class InitSkin : MonoBehaviour
         this.pant.material = ItemDatabase.instance.pants[number];
     }
 
-    private void AddStatToCharacter()
+    public void AddStatToCharacter()
     {
         self.attack = itemAtk + self.BASE_ATTACK;
         self.defend = itemDef + self.BASE_DEFEND;
+        self.stats.DisplayStats();
     }
 }

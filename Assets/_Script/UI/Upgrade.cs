@@ -12,6 +12,7 @@ public class Upgrade : MonoBehaviour
     private int upgradeAtkPrice;
     private int upgradeDefPrice;
     private int upgradeHpPrice;
+    private InitSkin initSkin;
 
     void Start()
     {
@@ -26,8 +27,9 @@ public class Upgrade : MonoBehaviour
         if (gold >  upgradeAtkPrice)
         {
             GameController.instance.ChangeGold(-upgradeAtkPrice);
-            GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatAttack(5);
+            GameController.instance.playerPrebs.SetBaseStatAttack(1);
             SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
+            UpdateStats();
         }
     }
     public void IncreaseDefend()
@@ -36,8 +38,9 @@ public class Upgrade : MonoBehaviour
         if (gold > upgradeDefPrice)
         {
             GameController.instance.ChangeGold(-upgradeDefPrice);
-            GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatDefend(5);
+            GameController.instance.playerPrebs.SetBaseStatDefend(1);
             SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
+            UpdateStats();
         }
     }
     public void IncreaseHp()
@@ -46,8 +49,21 @@ public class Upgrade : MonoBehaviour
         if (gold > upgradeHpPrice)
         {
             GameController.instance.ChangeGold(-upgradeHpPrice);
-            GameController.instance.playerPrebs.GetComponent<Player>().SetBaseStatHealth(5);
+            GameController.instance.playerPrebs.SetBaseStatHealth(5);
             SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
+            UpdateStats();
         }
+    }
+
+    public void DisplayStat()
+    {
+        GameController.instance.playerPrebs.stats.DisplayStats();
+    }
+
+    public void UpdateStats()
+    {
+        initSkin = GameController.instance.playerPrebs.initSkin;
+        initSkin.AddStatToCharacter();
+        DisplayStat();
     }
 }
