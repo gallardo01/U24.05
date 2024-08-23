@@ -8,39 +8,30 @@ public class AttackState : IState<Bot>
     public void OnEnter(Bot bot)
     {
         List<GameObject> listTarget = bot.FindTarget();
-        float minHealth = Mathf.Infinity;
-        if (listTarget.Count > 0)
-        {
-            for (int i = 0; i < listTarget.Count; i++)
-            {
-                if (listTarget[i].GetComponent<Character>().health < minHealth)
-                {
-                    minHealth = listTarget[i].GetComponent<Character>().health;
-                    bot.target = listTarget[i];
-                }
-            }
-        }
-        else
-        {
-            bot.ChangeState(new IdleState());
-        }
+        bot.ChooseTargetPriority(listTarget);
     }
     public void OnExecute(Bot bot)
     {
-        if (bot.target != null)
+        if (bot.target != null && bot.isHiding == false)
         {
             bot.anim.SetTrigger("attack");
             bot.OnAttack();
             bot.time = 0;
-            OnEnter(bot);
+            if (bot.health < 50)
+            {
+                bot.isHiding = true;
+                bot.ChangeState(new MoveState());
+            } else
+            {
+                OnEnter(bot);
+            }
         }
         else
         {
-            OnExit(bot);
+            bot.ChangeState(new MoveState());
         }
     }
     public void OnExit(Bot bot)
     {
-
     }
 }

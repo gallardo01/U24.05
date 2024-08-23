@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
                 int damage = self.attack - character.defend;
                 Debug.Log(damage + "attack");
                 character.health = character.HPbar.GetComponent<TargetIndicator>().ChangeHealth(-damage);
-                if (character.health < 0)
+                if (character.health < 1)
                 {
                     self.LevelUpPlayer();
                     self.LevelUpData();

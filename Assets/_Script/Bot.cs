@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Bot : Character
 {
@@ -13,10 +14,12 @@ public class Bot : Character
     public float time;
     public float randomRadius = 30f;
     float cooldownMove = 1.5f;
+    public bool isHiding = false;
 
     private void Start()
     {
         SetNewPlayer();
+        cooldownTimeAttack = Random.Range(1f, 2.5f);
     }
     void Update()
     {
@@ -81,6 +84,26 @@ public class Bot : Character
         return listTarget;
     }
 
+    public void ChooseTargetPriority(List<GameObject> listTarget)
+    {
+        float minHealth = Mathf.Infinity;
+        if (listTarget.Count > 0)
+        {
+            for (int i = 0; i < listTarget.Count; i++)
+            {
+                if (listTarget[i].GetComponent<Character>().health < minHealth)
+                {
+                    minHealth = listTarget[i].GetComponent<Character>().health;
+                    target = listTarget[i];
+                }
+            }
+        }
+        else
+        {
+            ChangeState(new IdleState());
+        }
+    }
+
     public override void LevelUpData()
     {
         base.LevelUpData();
@@ -89,6 +112,10 @@ public class Bot : Character
 
     private void IncreaseStatOfBot(int level)
     {
+        if (level == 0)
+        {
+            BASE_ATTACK = 35;
+        }
         attack = BASE_ATTACK + 3 * level;
         defend = BASE_DEFEND + 3 * level;
     }

@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
         {
             if (countPlayers[0].GetComponent<Player>())
             {
-                UIManager.instance.WinAGame();
+                UIManager.instance.DisplayWinGameUI();
 
             }
         }
@@ -103,6 +103,8 @@ public class GameController : MonoBehaviour
             {
                 randomPos.Add(randomIndex);
                 playerPrebs.body.position = summonPoint[randomIndex].position;
+                playerPrebs.initSkin.self = playerPrebs;
+                playerPrebs.SetNewPlayer();
                 countPlayers.Add(playerPrebs.gameObject);
                 break;
             }
@@ -133,6 +135,7 @@ public class GameController : MonoBehaviour
         }
         countPlayers.Clear();
         playerPrebs.gameObject.SetActive(true);
+        playerPrebs.HPbar.GetComponent<TargetIndicator>().ChangeHealth(playerPrebs.BASE_HEALTH);
         CreatPlayerAndBot();
     }
     public void EndGame()

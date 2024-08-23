@@ -13,10 +13,7 @@ public class Player : Character
     //private CounterTime counter = new CounterTime();
     private void Start()
     {
-        initSkin.self = this;
         time = 0f;
-        SetNewPlayer();
-        //stats.DisplayStats();
     }
     void Update()
     {
@@ -105,7 +102,7 @@ public class Player : Character
     private void DeActive()
     {
         gameObject.SetActive(false);
-        UIManager.instance.EndGameUI();
+        UIManager.instance.DisplayLoseGameUI();
     }
     public override void SetBaseStatHealth(int health)
     {

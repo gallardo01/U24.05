@@ -34,7 +34,11 @@ public class TargetIndicator : MonoBehaviour
         } else
         {
             health = maxHP;
-        }   
+        }
+        if (health < 0)
+        {
+            health = 0;
+        }
         return health;
     }
 }

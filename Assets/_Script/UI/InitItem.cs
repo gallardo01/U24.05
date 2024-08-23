@@ -14,6 +14,8 @@ public class InitItem : MonoBehaviour
     public Button equipButton;
     public TMPro.TextMeshProUGUI priceText;
     public TMPro.TextMeshProUGUI equipItem;
+    public TMPro.TextMeshProUGUI attackItem;
+    public TMPro.TextMeshProUGUI defenseItem;
     GameItem thisItem;
 
     public enum PurchaseState
@@ -67,6 +69,8 @@ public class InitItem : MonoBehaviour
                 equipButton.GetComponent<Button>().enabled = false;
             }
         }
+        attackItem.text = thisItem.item.atk.ToString();
+        defenseItem.text = thisItem.item.def.ToString();
     }
     public void BuyStateUI(PurchaseState state)
     {

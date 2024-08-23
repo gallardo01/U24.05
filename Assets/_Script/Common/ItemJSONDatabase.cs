@@ -209,18 +209,6 @@ public class ItemJSONDatabase : MonoBehaviour
         SaveDataToLocalDb();
     }
 
-    //public bool CheckEquipItemForTheFirstTime(string type)
-    //{
-    //    List<GameItem> list = SplitTypeItem(type);
-    //    for (int i = 0; i < list.Count; i++)
-    //    {
-    //        if (list[0].Equip == true)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
     public void EquipItemForTheFirstTime(GameItem item)
     {
         List<GameItem> list = SplitTypeItem(item.item.type);

@@ -17,8 +17,9 @@ public class UIManager : MonoBehaviour
     public GameObject settingInGame;
     public GameObject upgradeStatUI;
     public TMP_Text goldCoin;
+    public TMP_Text claimLoseGoldCoin;
+    public TMP_Text claimWinGoldCoin;
 
-    public int goldNumber;
     private int goldGain;
 
     private void Awake()
@@ -41,6 +42,10 @@ public class UIManager : MonoBehaviour
         inGamePanelUI.SetActive(state == 2);
         JoyStick.SetActive(state == 2);
         upgradeStatUI.SetActive(state == 3);
+        settingInGame.SetActive(state == 4);
+        endGameUI.SetActive(state == 4);
+        winGameUI.SetActive(state == 4);
+        shopPanelUI.SetActive(state == 4);
 
         if (state == 1)
         {           
@@ -67,11 +72,21 @@ public class UIManager : MonoBehaviour
         SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
-    public void EndGameUI()
+    public void DisplayLoseGameUI()
     {
         endGameUI.SetActive(true);
         GameController.instance.EndGame();
+        goldGain = GameController.instance.playerPrebs.level;
+        claimLoseGoldCoin.text = "+" + goldGain;
         PauseGame();
+    }
+    public void DisplayWinGameUI()
+    {
+        winGameUI.SetActive(true);
+        PauseGame();
+        goldGain = 20 + GameController.instance.countPlayers[0].GetComponent<Player>().level;
+        claimWinGoldCoin.text = "+" + goldGain;
+        SoundManager.instance.PlayOneShot(SoundList.Win);
     }
     public void PauseGame()
     {
@@ -86,27 +101,21 @@ public class UIManager : MonoBehaviour
         SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
-    public void MoveToMainMenuAndStartNewGame()
+    public void MoveToMainMenu()
     {
         InitGameState(1);
         Time.timeScale = 1f;
         GameController.instance.PlayAgain();
-        settingInGame.SetActive(false);
-        endGameUI.SetActive(false);
-        winGameUI.SetActive(false);
-        shopPanelUI.SetActive(false);
         Camera.instance.ChangeState(1);
+        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
+        GameController.instance.ChangeGold(goldGain);
         SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 
-    public void BackToMainMenu()
+    public void BackButton()
     {
         InitGameState(1);
         Time.timeScale = 1f;
-        settingInGame.SetActive(false);
-        endGameUI.SetActive(false);
-        winGameUI.SetActive(false);
-        shopPanelUI.SetActive(false);
         Camera.instance.ChangeState(1);
         SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
@@ -116,21 +125,6 @@ public class UIManager : MonoBehaviour
         GameController.instance.PlayAgain();
         StartGame();
         settingInGame.SetActive(false);
-        SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
-    }
-
-    public void WinAGame()
-    {
-        winGameUI.SetActive(true);
-        PauseGame();
-        goldGain = 20 + GameController.instance.countPlayers[0].GetComponent<Player>().level;
-        SoundManager.instance.PlayOneShot(SoundList.Win);
-    }
-
-    public void WinAndMoveToMainMenu()
-    {
-        MoveToMainMenuAndStartNewGame();
-        GameController.instance.ChangeGold(goldGain);
         SoundManager.instance.PlayOneShot(SoundList.ButtonClick);
     }
 

@@ -14,12 +14,19 @@ public class MoveState : IState<Bot>
     }
     public void OnExecute(Bot bot)
     {
-        bot.ChangeAnim("run");
-        bot.agent.SetDestination(newPos);
-        if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.1f)
+        if (bot.FindTarget().Count>0 && bot.isHiding == false)
         {
-            bot.ChangeAnim("idle");
             bot.ChangeState(new AttackState());
+        }
+        else
+        {
+            bot.ChangeAnim("run");
+            bot.agent.SetDestination(newPos);
+            if (!bot.agent.pathPending && bot.agent.remainingDistance < 0.1f)
+            {
+                bot.ChangeState(new IdleState());
+                bot.isHiding = false;
+            }
         }
     }
     public void OnExit(Bot bot)
