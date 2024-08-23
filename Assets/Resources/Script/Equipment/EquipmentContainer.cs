@@ -46,23 +46,22 @@ public class EquipmentContainer : MonoBehaviour
             return;
         }
 
-        IsPurchase = ES3.Load<bool>("IsPurchase_" + ItemName.text, false);
-        if (!IsPurchase) SetPurchase(false);
-        else SetPurchase(true);
+        bool checkPurchase = ES3.Load<bool>("IsPurchase_" + ItemName.text, false);
+        SetPurchase(checkPurchase);
 
-        IsEquip = ES3.Load<bool>("IsEquip_"+ ItemName.text, false);
-        SetEquip(IsEquip);
+        bool checkEquip = ES3.Load<bool>("IsEquip_"+ ItemName.text, false);
+        SetEquip(checkEquip);
     }
 
     public void SavePurchase()
     {
         ES3.Save<bool>("IsPurchase_" + ItemName.text, true);
-        IsPurchase = true;
         SetPurchase(true);
     }
 
     private void SetPurchase(bool check)
     {
+        IsPurchase = check;
         purchaseIcon.SetActive(check);
         equipmentPrice.SetActive(!check);
     }

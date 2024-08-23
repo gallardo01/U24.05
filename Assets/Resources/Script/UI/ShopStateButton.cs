@@ -107,7 +107,7 @@ public class ShopStateButton : MonoBehaviour
         }
         currentContainer.SetEquip(true);
 
-        EquipmentManager.Instance.SaveItemData(currentContainer);
+        EquipmentManager.Instance.SaveItemData(currentContainer.Data);
         EquipmentManager.Instance.AddItemToPlayer();
         currentState = ButtonState.Equipted;
         Configue();

@@ -22,7 +22,7 @@ public class CharacterEquipment : MonoBehaviour
     {
         if(rightHandRoot.childCount != 0)
         {
-            Destroy(rightHandRoot.GetChild(0).gameObject);
+            rightHandRoot.Clear();
         }
         Instantiate(item, rightHandRoot);
     }
@@ -31,7 +31,7 @@ public class CharacterEquipment : MonoBehaviour
     {
         if (leftHandRoot.childCount != 0)
         {
-            Destroy(leftHandRoot.GetChild(0).gameObject);
+            leftHandRoot.Clear();
         }
         Instantiate(item, leftHandRoot);
     }
@@ -40,17 +40,13 @@ public class CharacterEquipment : MonoBehaviour
     {
         if (hatRoot.childCount != 0)
         {
-            Destroy(hatRoot.GetChild(0).gameObject);
+            hatRoot.Clear();
         }
         Instantiate(item, hatRoot);
     }
 
     private void GetPant(Material material)
     {
-        if (pantSkin.transform.childCount != 0)
-        {
-            Destroy(pantSkin.transform.GetChild(0).gameObject);
-        }
         pantSkin.material = material;
     }
 

@@ -48,13 +48,13 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         equiptShield = shieldsDatas[0].itemPrefab;
         equiptHat = hatsDatas[0].itemPrefab;
         equiptPant = pantsDatas[0].itemMat;
-
-        modelMode = CharactersManager.Instance.player.GetComponent<ModelMode>();
     }
 
-    public void CreatContainers()
+    private void CreatContainers()
     {
-        for(int i = 0; i < weaponsDatas.Length; i++)
+        modelMode = CharactersManager.Instance.player.GetComponent<ModelMode>();
+
+        for (int i = 0; i < weaponsDatas.Length; i++)
         {
             CreatContainer(weaponsDatas[i], weaponTab);
         }
@@ -82,8 +82,9 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
 
         if (newContainer.IsEquip)
         {
-            SaveItemData(newContainer);
+            SaveItemData(newContainer.Data);
             AddItemToPlayer();
+            if(newContainer.Data.itemType == ItemType.Weapon) UpdateStatDisplay(newContainer);
         }
     }
 
@@ -117,22 +118,22 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         }
     }
 
-    public void SaveItemData(EquipmentContainer container)
+    public void SaveItemData(EquipmentDataSO data)
     {
-        switch (container.ItemType)
+        switch (data.itemType)
         {
             case ItemType.Weapon:
-                equiptWeapon = container.Prefab;
-                projectile = container.Projectile;
+                equiptWeapon = data.itemPrefab;
+                projectile = data.projectTilePrefab;
                 break;
             case ItemType.Shield:
-                equiptShield = container.Prefab;
+                equiptShield = data.itemPrefab;
                 break;
             case ItemType.Hat:
-                equiptHat = container.Prefab;
+                equiptHat = data.itemPrefab;
                 break;
             case ItemType.Pant:
-                equiptPant = container.Material;
+                equiptPant = data.itemMat;
                 break;
         }
     }
@@ -141,17 +142,15 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     {
         switch (gameState)
         {
-            case GameState.SHOP:
+            case GameState.MENU:
                 if(weaponTab.childCount == 0)
                 {
-                    CreatContainers();
-                    UpdateStatDisplay(containerList[0]);
+                    Invoke(nameof(CreatContainers), 0.01f);
                 }
                 break;
             case GameState.GAME:
                 if (!DoneSetUp)
                 {
-                    AddItemToPlayer();
                     AddItemForBots();
                     DoneSetUp = true;
                 }
