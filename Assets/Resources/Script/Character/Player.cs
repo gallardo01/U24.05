@@ -30,25 +30,37 @@ public class Player : Character
     private void Update()
     {
         timer += Time.deltaTime;
-
         if (MobileJoystick.Instance.GetMoveVector().magnitude > 0)
         {
             CancelInvoke(nameof(OnThrow));
-            ChangeToMove();
+            StopAttack();
         }
 
         switch (state)
         {
-            case State.Attack:
-                OnAttack();
+            case State.Idle:
+                OnIdle();
                 break;
             case State.Move:
-                Move();
+                OnMove();
+                break;
+            case State.Attack:
+                OnAttack();
                 break;
         }
     }
 
-    private void Move()
+    private void OnIdle()
+    {
+        ChangAnim("idle");
+        if(timer > idleDelay && target != null)
+        {
+            state = State.Attack;
+            timer = 0f;
+        }
+    }
+
+    private void OnMove()
     {
         moveDirection = new Vector3(MobileJoystick.Instance.GetMoveVector().x, 0, MobileJoystick.Instance.GetMoveVector().y);
         if (moveDirection.magnitude > 0)
@@ -57,14 +69,10 @@ public class Player : Character
             transform.forward = moveDirection;
             ChangAnim("run");
         }
-        else
-        {
-            ChangAnim("idle");
-        }
 
-        if(timer > 0.25f && target != null)
+        if(moveDirection.magnitude == 0f)
         {
-            state = State.Attack;
+            state = State.Idle;
             timer = 0f;
         }
     }
@@ -75,15 +83,15 @@ public class Player : Character
         {
             Attack(target.transform);
             targetPos = target.transform.position;
-            Invoke(nameof(OnThrow), 0.25f);
+            Invoke(nameof(OnThrow), attackDelay);
             isOnAttack = true;
             SoundManager.PLayerTalk();
         }
 
         if (timer > attackDelay)
         {
-            ChangeToMove();
-        }        
+            StopAttack();
+        }
     }
 
     private void OnThrow()
@@ -92,7 +100,7 @@ public class Player : Character
         SoundManager.Throw();
     }
 
-    private void ChangeToMove()
+    private void StopAttack()
     {
         isOnAttack = false;
         timer = 0;

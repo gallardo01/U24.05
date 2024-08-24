@@ -26,6 +26,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] public float detectRadius;
     [SerializeField] protected LayerMask targetLayerMask;
     [SerializeField] protected int characterDamage;
+    public float idleDelay;
     public float detectDelay;
     public float attackDelay;
 
@@ -110,6 +111,11 @@ public abstract class Character : MonoBehaviour
     {
         equipment.SetEquipMent(weaponItem, shieldItem, HatItem, material, projectile);
         projectilePrefab = projectile.GetComponent<Projectile>();
+    }
+
+    public void SetStats()
+    {
+
     }
 
     public void ChangAnim(string animName)

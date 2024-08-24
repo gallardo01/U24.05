@@ -215,8 +215,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   characterDamage: 5
-  detectDelay: 1
-  attackDelay: 1.5
+  idleDelay: 0.25
+  detectDelay: 0.5
+  attackDelay: 1
   movePos: {x: 0, y: 0, z: 0}
 --- !u!114 &1450483521837757057
 MonoBehaviour:
