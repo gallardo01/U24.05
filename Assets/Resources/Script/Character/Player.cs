@@ -83,7 +83,7 @@ public class Player : Character
         {
             Attack(target.transform);
             targetPos = target.transform.position;
-            Invoke(nameof(OnThrow), attackDelay);
+            Invoke(nameof(OnThrow), attackDelay / 2);
             isOnAttack = true;
             SoundManager.PLayerTalk();
         }

@@ -20,6 +20,11 @@ public class ShopStateButton : MonoBehaviour
     private EquipmentContainer currentContainer;
     private ButtonState currentState;
 
+    public void Configue()
+    {
+
+    }
+
     public void ChangeButtonState(EquipmentContainer container)
     {
         currentContainer = container;
@@ -28,10 +33,10 @@ public class ShopStateButton : MonoBehaviour
         if (currentContainer.IsPurchase) currentState = ButtonState.NeedEquip;
         if (currentContainer.IsEquip) currentState = ButtonState.Equipted;
 
-        Configue();
+        UpdateButtonBehavior();
     }
 
-    public void Configue()
+    public void UpdateButtonBehavior()
     {
         switch(currentState)
         {
@@ -82,35 +87,18 @@ public class ShopStateButton : MonoBehaviour
 
     public void BuyCallBack()
     {
-        currentContainer.SavePurchase();
+        currentContainer.SetPurchase(true);
         CurrencyManager.Instance.SpendCurrency(currentContainer.Price);
         currentState = ButtonState.NeedEquip;
-        Configue();
+        UpdateButtonBehavior();
         SoundManager.CurrencyClick();
     }
 
     public void EquipCallBack()
     {
-        List<EquipmentContainer> others = new List<EquipmentContainer>();
-        List<EquipmentContainer> containers = EquipmentManager.Instance.containerList;
-
-        for(int i = 0; i < containers.Count; i++)
-        {
-            if( containers[i].ItemType == currentContainer.ItemType )
-            {
-                others.Add(containers[i]);
-            }
-        }
-        for(int i = 0;i < others.Count;i++)
-        {
-            others[i].SetEquip(false);
-        }
-        currentContainer.SetEquip(true);
-
-        EquipmentManager.Instance.SaveItemData(currentContainer.Data);
-        EquipmentManager.Instance.AddItemToPlayer();
+        EquipmentManager.Instance.OnContainerEquip(currentContainer);
         currentState = ButtonState.Equipted;
-        Configue();
+        UpdateButtonBehavior();
         SoundManager.CurrencyClick();
     }
 }

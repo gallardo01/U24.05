@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum ItemType 
 {
@@ -16,13 +13,18 @@ public enum ItemType
 
 public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
 {
-    [SerializeField] EquipmentDataSO[] weaponsDatas;
-    [SerializeField] EquipmentDataSO[] shieldsDatas;
-    [SerializeField] EquipmentDataSO[] hatsDatas;
-    [SerializeField] EquipmentDataSO[] pantsDatas;
+    [SerializeField] ItemDataSO itemData;
+
+    private Item[] weaponsDatas;
+    private Item[] shieldsDatas;
+    private Item[] hatsDatas;
+    private Item[] pantsDatas;
 
     [SerializeField] EquipmentContainer containerPrefab;
-    [HideInInspector] public List<EquipmentContainer> containerList = new List<EquipmentContainer>();
+    [HideInInspector] public List<EquipmentContainer> weaponContainers = new List<EquipmentContainer>();
+    [HideInInspector] public List<EquipmentContainer> shieldContainers = new List<EquipmentContainer>();
+    [HideInInspector] public List<EquipmentContainer> hatContainers = new List<EquipmentContainer>();
+    [HideInInspector] public List<EquipmentContainer> pantContainers = new List<EquipmentContainer>();
 
     [SerializeField] Transform weaponTab;
     [SerializeField] Transform shieldTab;
@@ -33,73 +35,69 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     [SerializeField] TextMeshProUGUI[] statsValueText;
     private bool DoneSetUp = false;
 
-    private GameObject equiptWeapon;
-    private GameObject projectile;
-    private GameObject equiptShield;
-    private GameObject equiptHat;
-    private Material equiptPant;
+    private Item equiptWeapon;
+    private Item equiptShield;
+    private Item equiptHat;
+    private Item equiptPant;
 
     private ModelMode modelMode;
 
-    private void Start()
+    private void Configue()
     {
-        equiptWeapon = weaponsDatas[0].itemPrefab;
-        projectile = weaponsDatas[0].projectTilePrefab;
-        equiptShield = shieldsDatas[0].itemPrefab;
-        equiptHat = hatsDatas[0].itemPrefab;
-        equiptPant = pantsDatas[0].itemMat;
+        weaponsDatas = itemData.weaponItems;
+        shieldsDatas = itemData.shieldItems;
+        hatsDatas = itemData.hatItems;
+        pantsDatas = itemData.pantItems;
+
+        equiptWeapon = weaponsDatas[0];
+        equiptShield = shieldsDatas[0];
+        equiptHat = hatsDatas[0];
+        equiptPant = pantsDatas[0];
+
+        CreatContainers();
     }
 
     private void CreatContainers()
     {
         modelMode = CharactersManager.Instance.player.GetComponent<ModelMode>();
 
-        for (int i = 0; i < weaponsDatas.Length; i++)
-        {
-            CreatContainer(weaponsDatas[i], weaponTab);
-        }
-        for (int i = 0; i < shieldsDatas.Length; i++)
-        {
-            CreatContainer(shieldsDatas[i], shieldTab);
-        }
-        for (int i = 0; i < hatsDatas.Length; i++)
-        {
-            CreatContainer(hatsDatas[i], hatTab);
-        }
-        for (int i = 0; i < pantsDatas.Length; i++)
-        {
-            CreatContainer(pantsDatas[i], pantTab);
-        }
+        for (int i = 0; i < weaponsDatas.Length; i++) CreatContainer(weaponsDatas[i], weaponTab);
+        for (int i = 0; i < shieldsDatas.Length; i++) CreatContainer(shieldsDatas[i], shieldTab);
+        for (int i = 0; i < hatsDatas.Length; i++) CreatContainer(hatsDatas[i], hatTab);
+        for (int i = 0; i < pantsDatas.Length; i++) CreatContainer(pantsDatas[i], pantTab);
     }
 
-    public void CreatContainer(EquipmentDataSO data, Transform parentTab)
+    public void CreatContainer(Item data, Transform parentTab)
     {
         EquipmentContainer newContainer = Instantiate(containerPrefab, parentTab);
         newContainer.OnInit(data);
         newContainer.Button.onClick.AddListener(() => stateButton.ChangeButtonState(newContainer));
         newContainer.Button.onClick.AddListener(() => OnContainerSelect(newContainer));
-        containerList.Add(newContainer);
+
+        if (data.itemType == ItemType.Weapon)           weaponContainers.Add(newContainer);
+        else if (data.itemType == ItemType.Shield)      shieldContainers.Add(newContainer);
+        else if (data.itemType == ItemType.Hat)         hatContainers.Add(newContainer);
+        else if (data.itemType == ItemType.Pant)        pantContainers.Add(newContainer);
 
         if (newContainer.IsEquip)
         {
-            SaveItemData(newContainer.Data);
-            AddItemToPlayer();
-            if(newContainer.Data.itemType == ItemType.Weapon) UpdateStatDisplay(newContainer);
+            OnContainerEquip(newContainer);
+            if (newContainer.Data.itemType == ItemType.Weapon)
+            {
+                UpdateStatDisplay(newContainer);
+                stateButton.ChangeButtonState(newContainer);
+            }
         }
     }
 
     private void OnContainerSelect(EquipmentContainer container)
     {
         List<EquipmentContainer> sameTypes = new List<EquipmentContainer>();
-        List<EquipmentContainer> containers = containerList;
+        if (container.ItemType == ItemType.Weapon)       sameTypes = weaponContainers;
+        else if(container.ItemType == ItemType.Shield)   sameTypes = shieldContainers;
+        else if(container.ItemType == ItemType.Hat)      sameTypes = hatContainers;
+        else if(container.ItemType == ItemType.Pant)     sameTypes = pantContainers;
 
-        for (int i = 0; i < containers.Count; i++)
-        {
-            if (containers[i].ItemType == container.ItemType)
-            {
-                sameTypes.Add(containers[i]);
-            }
-        }
         for (int i = 0; i < sameTypes.Count; i++)
         {
             if (sameTypes[i] == container) sameTypes[i].Select();
@@ -109,33 +107,55 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         SoundManager.ButtonClick();
     }
 
+    public void OnContainerEquip(EquipmentContainer container)
+    {
+        List<EquipmentContainer> others = new List<EquipmentContainer>();
+        if (container.ItemType == ItemType.Weapon) others = weaponContainers;
+        else if (container.ItemType == ItemType.Shield) others = shieldContainers;
+        else if (container.ItemType == ItemType.Hat) others = hatContainers;
+        else if (container.ItemType == ItemType.Pant) others = pantContainers;
+
+        for (int i = 0; i < others.Count; i++)
+        {
+            if (others[i] == container) others[i].SetEquip(true);
+            else others[i].SetEquip(false);
+        }
+        SaveItemData(container.Data);
+    }
+
     private void UpdateStatDisplay(EquipmentContainer container)
     {
-        for (int i = 0; i < statsValueText.Length; i++)
+        StatData[] statData = container.Data.itemStats;
+
+        for (int i = 0; i < statData.Length; i++)
         {
-            float index = container.Data.statData[i].index;
+            float index = statData[i].index;
             statsValueText[i].text = "+ " + index.ToString();
+        }
+        for(int i = statData.Length; i < statsValueText.Length; i++)
+        {
+            statsValueText[i].text = "+ " + 0;
         }
     }
 
-    public void SaveItemData(EquipmentDataSO data)
+    public void SaveItemData(Item data)
     {
         switch (data.itemType)
         {
             case ItemType.Weapon:
-                equiptWeapon = data.itemPrefab;
-                projectile = data.projectTilePrefab;
+                equiptWeapon = data;
                 break;
             case ItemType.Shield:
-                equiptShield = data.itemPrefab;
+                equiptShield = data;
                 break;
             case ItemType.Hat:
-                equiptHat = data.itemPrefab;
+                equiptHat = data;
                 break;
             case ItemType.Pant:
-                equiptPant = data.itemMat;
+                equiptPant = data;
                 break;
         }
+        AddItemToPlayer();
     }
 
     public void OnGameStateChange(GameState gameState)
@@ -145,7 +165,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
             case GameState.MENU:
                 if(weaponTab.childCount == 0)
                 {
-                    Invoke(nameof(CreatContainers), 0.01f);
+                    Invoke(nameof(Configue), 0.01f);
                 }
                 break;
             case GameState.GAME:
@@ -161,7 +181,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
     public void AddItemToPlayer()
     {
         Player player = CharactersManager.Instance.player;
-        player.SetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant, projectile);
+        player.SetEquipMent(equiptWeapon, equiptShield, equiptHat, equiptPant);
         modelMode.PlayRandomAnim();
     }
 
@@ -172,23 +192,12 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         {
             if (characters[i].gameObject.layer == 7) continue;
 
-            EquipmentDataSO weaponData = weaponsDatas[Random.Range(0, weaponsDatas.Length)]; 
-            EquipmentDataSO shieldData = shieldsDatas[Random.Range(0, shieldsDatas.Length)];
-            EquipmentDataSO hatData = hatsDatas[Random.Range(0, hatsDatas.Length)];
-            EquipmentDataSO pantData = pantsDatas[Random.Range(0, pantsDatas.Length)];
+            Item weaponData = weaponsDatas[Random.Range(0, weaponsDatas.Length)];
+            Item shieldData = shieldsDatas[Random.Range(0, shieldsDatas.Length)];
+            Item hatData = hatsDatas[Random.Range(0, hatsDatas.Length)];
+            Item pantData = pantsDatas[Random.Range(0, pantsDatas.Length)];
 
-            BotEquipment(characters[i], weaponData, shieldData, hatData, pantData);
+            characters[i].SetEquipMent(weaponData, shieldData, hatData, pantData);
         }
-    }
-
-    private void BotEquipment(Character bot, EquipmentDataSO weaponData, EquipmentDataSO shieldData , EquipmentDataSO hatData, EquipmentDataSO pantData)
-    {
-        GameObject weaponItem = weaponData.itemPrefab;
-        GameObject projectile = weaponData.projectTilePrefab;
-        GameObject shieldItem = shieldData.itemPrefab;
-        GameObject hatItem = hatData.itemPrefab;
-        Material material = pantData.itemMat;
-
-        bot.SetEquipMent(weaponItem, shieldItem, hatItem, material, projectile);
     }
 }

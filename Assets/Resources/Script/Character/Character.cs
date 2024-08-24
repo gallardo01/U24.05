@@ -6,7 +6,7 @@ public abstract class Character : MonoBehaviour
 {
     [Header("Element")]
     [SerializeField] protected Transform shotingPoint;
-    protected Projectile projectilePrefab;
+    protected Projectile bulletPrefab;
     [SerializeField] protected Animator animator;
     [SerializeField] protected Collider collider;
     [SerializeField] protected Health health;
@@ -77,7 +77,7 @@ public abstract class Character : MonoBehaviour
 
     public void Throw(Vector3 targetPos)
     {
-        Projectile projectTile = LeanPool.Spawn(projectilePrefab, shotingPoint.transform.position, Quaternion.identity);
+        Projectile projectTile = LeanPool.Spawn(bulletPrefab, shotingPoint.transform.position, Quaternion.identity);
         LeanPool.Despawn(projectTile.gameObject, 1.5f);
         Vector3 direction = (targetPos + Vector3.up - shotingPoint.transform.position).normalized;
         projectTile.transform.forward = direction;
@@ -107,15 +107,23 @@ public abstract class Character : MonoBehaviour
         detectRadius = detectRadius * mutiple;
     } 
 
-    public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material, GameObject projectile)
+    public void SetEquipMent(Item weaponItem, Item shieldItem, Item hatItem, Item pantItem)
     {
-        equipment.SetEquipMent(weaponItem, shieldItem, HatItem, material, projectile);
-        projectilePrefab = projectile.GetComponent<Projectile>();
+        GameObject weapon = weaponItem.itemPrefab;
+        GameObject projectile = weaponItem.projectTilePrefab;
+        GameObject shield = shieldItem.itemPrefab;
+        GameObject hat = hatItem.itemPrefab;
+        Material pant = pantItem.itemMaterial;
+
+        equipment.SetEquipMent(weapon, shield, hat, pant);
+        bulletPrefab = projectile.GetComponent<Projectile>();
     }
 
-    public void SetStats()
+    public void SetStats(float moveSpeed , float attackSpeed, float attackRange)
     {
-
+        this.moveSpeed = moveSpeed;
+        this.attackDelay = 1 / attackSpeed;
+        this.detectRadius = attackRange;
     }
 
     public void ChangAnim(string animName)

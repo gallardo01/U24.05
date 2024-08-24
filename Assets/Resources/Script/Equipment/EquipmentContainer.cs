@@ -17,7 +17,7 @@ public class EquipmentContainer : MonoBehaviour
     [SerializeField] GameObject outline;
     [SerializeField] RectTransform rectTransform;
 
-    public EquipmentDataSO Data {  get; private set; }
+    public Item Data {  get; private set; }
     public ItemType ItemType { get; private set; }
     public GameObject Prefab { get; private set; }
     public GameObject Projectile { get; private set; }
@@ -27,21 +27,21 @@ public class EquipmentContainer : MonoBehaviour
     public bool IsPurchase { get; private set; }
     public bool IsEquip { get; private set; }
 
-    public void OnInit(EquipmentDataSO data)
+    public void OnInit(Item data)
     {
         this.ItemName.text = data.itemName;
         this.Icon.sprite = data.itemIcon;
         this.ItemType = data.itemType;
         this.Prefab = data.itemPrefab;
         this.Projectile = data.projectTilePrefab;
-        this.Material = data.itemMat;
-        this.Price = data.price;
+        this.Material = data.itemMaterial;
+        this.Price = data.itemPrice;
         this.priceText.text = Price.ToString();
         this.Data = data;
 
-        if(data.itemName == "Default")
+        if (data.itemName == "Default Weapon" || data.itemName == "Default Shield" || data.itemName == "Default Hat" || data.itemName == "Default Pant") 
         {
-            SavePurchase();            
+            SetPurchase(true);            
             SetEquip(true);
             return;
         }
@@ -53,14 +53,9 @@ public class EquipmentContainer : MonoBehaviour
         SetEquip(checkEquip);
     }
 
-    public void SavePurchase()
+    public void SetPurchase(bool check)
     {
-        ES3.Save<bool>("IsPurchase_" + ItemName.text, true);
-        SetPurchase(true);
-    }
-
-    private void SetPurchase(bool check)
-    {
+        ES3.Save<bool>("IsPurchase_" + ItemName.text, check);
         IsPurchase = check;
         purchaseIcon.SetActive(check);
         equipmentPrice.SetActive(!check);

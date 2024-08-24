@@ -10,7 +10,7 @@ public class CharacterEquipment : MonoBehaviour
     [SerializeField] SkinnedMeshRenderer pantSkin;
     [SerializeField] Character character;
 
-    public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material, GameObject projectile)
+    public void SetEquipMent(GameObject weaponItem, GameObject shieldItem, GameObject HatItem, Material material)
     {
         GetWeapon(weaponItem);
         GetShield(shieldItem);

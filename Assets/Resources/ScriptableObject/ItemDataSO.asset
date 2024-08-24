@@ -12,56 +12,477 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6af7bf1c220c5c43b45c569918b8fec, type: 3}
   m_Name: ItemDataSO
   m_EditorClassIdentifier: 
-  items:
-  - itemName: 
+  weaponItems:
+  - itemName: Default Weapon
     itemType: 0
-    itemPrefab: {fileID: 0}
+    itemPrefab: {fileID: 8976584763497608703, guid: 6184be91eac98cd4b968a663b9bea785, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: fbf7240c2a0d6bb458cb8545706df73f, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 5a372bbeec787a54d92c4a484eda34b4, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 3
+    - stat: 1
+      index: 3
+    - stat: 2
+      index: 5
+  - itemName: Double Axe
+    itemType: 0
+    itemPrefab: {fileID: 5060359327509454248, guid: 715508fdd6271a8439b094d559534f92, type: 3}
+    projectTilePrefab: {fileID: 562035590628135935, guid: 240b55b7bdb88d44fbf5ff4846f85aa5, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: bfd930be61bffad479f0fa07128c2b46, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Bomerang
+    itemType: 0
+    itemPrefab: {fileID: 6027238258302639237, guid: 61300bdedd3093447a21c7ed97df35ba, type: 3}
+    projectTilePrefab: {fileID: 2971905160253328515, guid: 2099ebf01e945204d87d9753d2496f17, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 34deef845fc0a4347adae6ba70462bb2, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Round Candy
+    itemType: 0
+    itemPrefab: {fileID: 983508513136654159, guid: 69538c28b6594d84aa88fc5ff42895cb, type: 3}
+    projectTilePrefab: {fileID: 4483466093257425895, guid: 2db9d944036715f43b322d8d8db3f830, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: aaaa11c4ac027614090431fae2620a3b, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Hammer
+    itemType: 0
+    itemPrefab: {fileID: 99162441861107339, guid: 65cf85e72fd341247b10036084cbe5d5, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: 918c33c1264ebc445ae639dfa4a099bd, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: c4d6eb7f630376d46b1fe9c1441d5c32, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Arrow
+    itemType: 0
+    itemPrefab: {fileID: 3797610223493970259, guid: efe8e497a1bc5084da095c889318ded2, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: 092f05ef8b0793a44a922bacf8d3ea6f, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 646b4dfb19e46d249959a2e663283ab8, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Battle Axe
+    itemType: 0
+    itemPrefab: {fileID: 1063579595054717023, guid: b7dbfb8d18b51a44ba54856aabef9a27, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: c50bc2f878a2cf94a96e2a888ce8817e, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 29eebd30a76c1f844b8a192984ea830a, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Hook Candy
+    itemType: 0
+    itemPrefab: {fileID: 692806828678216931, guid: 58dbfe9a3b12b254f9423e1bb5fdd46c, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: f9abc12cfbc04dc41aa4e2044e5c0d6d, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 212b45e894d5dca4e93d5420f44e08b3, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Ice Cream
+    itemType: 0
+    itemPrefab: {fileID: 2571933887372287513, guid: 26976e6868e84414b8467684705c5ef1, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: 3629d73cbf2acb14f94f009d229a63da, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: d81b35fa699d0484589677ed88bff782, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Round Candy
+    itemType: 0
+    itemPrefab: {fileID: 8532615008921057377, guid: 8b1a3cecec4db374e8e61ad8c69bcf67, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: 78bf0c65e2ea00c4ea878bbedc774068, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 09fd9315144bdaa4c86bf69b88f70098, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Knife
+    itemType: 0
+    itemPrefab: {fileID: 5495877250219086283, guid: ab92c757ea585e94f85f789eb856b5dc, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: b7ec722d15451074fbc2f2daee80cd11, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 4f47b767fcca1004c84f048b3e380938, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 4
+    - stat: 1
+      index: 4
+    - stat: 2
+      index: 5
+  - itemName: Uzi
+    itemType: 0
+    itemPrefab: {fileID: 3807409296882073121, guid: a11c8a67bf3de4349b68f0ef86d4c006, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: 569025a0eba05404fa67cfcf3a79103c, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 341f7ec4ccc031442918982c0f3c4c7f, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 6
+    - stat: 1
+      index: 3
+    - stat: 2
+      index: 6
+  - itemName: Uzi
+    itemType: 0
+    itemPrefab: {fileID: 6949196243988151230, guid: 7a47708b04ad958469da46b437e9e8b9, type: 3}
+    projectTilePrefab: {fileID: 4803704379194891168, guid: 64f4d583786c2ff40829300801320405, type: 3}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 0f14f7f2be2b95b409f73583669ebe8d, type: 3}
+    itemPrice: 120
+    itemStats:
+    - stat: 0
+      index: 6
+    - stat: 1
+      index: 3
+    - stat: 2
+      index: 6
+  shieldItems:
+  - itemName: Default Shield
+    itemType: 1
+    itemPrefab: {fileID: 8976584763497608703, guid: c6c25628d9d65ce44ab01f082699fe0d, type: 3}
     projectTilePrefab: {fileID: 0}
-    itemMat: {fileID: 0}
-    itemIcon: {fileID: 0}
-    itemPrice: 0
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 5a372bbeec787a54d92c4a484eda34b4, type: 3}
+    itemPrice: 150
     itemStats:
     - stat: 0
       index: 0
-    - stat: 0
+    - stat: 1
       index: 0
-    - stat: 0
-      index: 0
-  - itemName: 
-    itemType: 0
-    itemPrefab: {fileID: 0}
+  - itemName: Wakanda Shield
+    itemType: 1
+    itemPrefab: {fileID: 5772959017575831802, guid: 0be416dce7ba58345a102b75c98deab3, type: 3}
     projectTilePrefab: {fileID: 0}
-    itemMat: {fileID: 0}
-    itemIcon: {fileID: 0}
-    itemPrice: 0
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 3dedbea6f56343249805bb0aee8693f9, type: 3}
+    itemPrice: 199
     itemStats:
     - stat: 0
       index: 0
+    - stat: 1
+      index: 0
+  - itemName: Cap Shield
+    itemType: 1
+    itemPrefab: {fileID: 1504094638051349036, guid: bbdbe0507af4a464b8c0193ac9308b8c, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 5033499010ad59241ad2cbdc6b1f9694, type: 3}
+    itemPrice: 199
+    itemStats:
     - stat: 0
       index: 0
+    - stat: 1
+      index: 0
+  hatItems:
+  - itemName: Default Hat
+    itemType: 2
+    itemPrefab: {fileID: 8976584763497608703, guid: 6fc902659f5404343901cbc9dfeed9da, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 5a372bbeec787a54d92c4a484eda34b4, type: 3}
+    itemPrice: 100
+    itemStats:
     - stat: 0
       index: 0
-  - itemName: dasd
-    itemType: 0
+    - stat: 2
+      index: 0
+  - itemName: Arrow
+    itemType: 2
+    itemPrefab: {fileID: 4317802943554792728, guid: 64b3da9da3d1d904894b9e8293edcdcf, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: eb69cff6254433d4e9c38084ef04f590, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Beard
+    itemType: 2
+    itemPrefab: {fileID: 2616860171792191940, guid: b0be73e5a9583574e8e036a680becf0a, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 3c1d741325dd9be4ea443a91334ff028, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Cowboy
+    itemType: 2
+    itemPrefab: {fileID: 2174736669912512997, guid: fd0e9724f457c154ca025a0eec43324e, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: e18f18b183a01424f8c20f088905e355, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Crown
+    itemType: 2
+    itemPrefab: {fileID: 2694911489834823589, guid: d984cc868d6b5d149ad77a5d84c36082, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 5c06bab390a79764d8d0539b57b1cf45, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Rabbit Ear
+    itemType: 2
+    itemPrefab: {fileID: 808827457924017122, guid: 1518096df00695249b4f35668a91c9c4, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: da18f161bc01907449ffa4e6f5b50614, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Hiphop
+    itemType: 2
+    itemPrefab: {fileID: 4081006726959611611, guid: 771d175d5d3a0e84589df7410cd40f98, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 1cbb565e6302e234e82c3d5766667afd, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: StrawHat
+    itemType: 2
+    itemPrefab: {fileID: 9174644650552579268, guid: 373447ec33f0e754c8aae3b62aeab679, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 578c1840f64bd634bad62c6f60eba249, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Police
+    itemType: 2
+    itemPrefab: {fileID: 8868426669876452777, guid: 17e21c53ad3235c438db8710fd9eb064, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 618234528de04654db5493d4d04dbbf2, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: Horn
+    itemType: 2
+    itemPrefab: {fileID: 8976584763497608703, guid: 13cfbd1a130656148aa1cad2f3e34db0, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: afbe2aeef5262db48ac8ac1124dfd412, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  - itemName: HeadPhone
+    itemType: 2
+    itemPrefab: {fileID: 8216294485196299972, guid: c6a9c1835c03ef14f834541b9f8cab85, type: 3}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 0}
+    itemIcon: {fileID: 21300000, guid: 703801d9a7f60c244a3ee076f49edb23, type: 3}
+    itemPrice: 100
+    itemStats:
+    - stat: 0
+      index: 1
+    - stat: 2
+      index: 1
+  pantItems:
+  - itemName: Default Pant
+    itemType: 3
     itemPrefab: {fileID: 0}
     projectTilePrefab: {fileID: 0}
-    itemMat: {fileID: 0}
-    itemIcon: {fileID: 0}
-    itemPrice: 0
-    itemStats: []
-  - itemName: asdsad
-    itemType: 0
+    itemMaterial: {fileID: 2100000, guid: 03b8767232e332346901ba1e87799ca0, type: 2}
+    itemIcon: {fileID: 21300000, guid: 5a372bbeec787a54d92c4a484eda34b4, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: Batman
+    itemType: 3
     itemPrefab: {fileID: 0}
     projectTilePrefab: {fileID: 0}
-    itemMat: {fileID: 0}
-    itemIcon: {fileID: 0}
-    itemPrice: 0
-    itemStats: []
-  - itemName: 
-    itemType: 0
+    itemMaterial: {fileID: 2100000, guid: ae75c152c2491044a897852e7178e5bc, type: 2}
+    itemIcon: {fileID: 21300000, guid: 1f7e9eb236c8768498ad5d8078d2533d, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: PinkDot
+    itemType: 3
     itemPrefab: {fileID: 0}
     projectTilePrefab: {fileID: 0}
-    itemMat: {fileID: 0}
-    itemIcon: {fileID: 0}
-    itemPrice: 0
-    itemStats: []
+    itemMaterial: {fileID: 2100000, guid: 169578631dd719c4c95886e0c8c45836, type: 2}
+    itemIcon: {fileID: 21300000, guid: 3ddbc9e0f3f883a46b1ba9635f87c222, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: USA !!!
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: 6b83cae39e0d7cf468580ac271a0b653, type: 2}
+    itemIcon: {fileID: 21300000, guid: 2652851e5f7772041add8ebe7d548f2b, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: Cheetah
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: 6a5264873feff6c4999bbd785c98d366, type: 2}
+    itemIcon: {fileID: 21300000, guid: ae9d58ecee0e3f848b8fedb3f2c67648, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: Tropical
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: d6a67a4851ed134489ae0ef2965a8148, type: 2}
+    itemIcon: {fileID: 21300000, guid: 5433d4b044040c44487399b59f52e2b4, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: Pokemon
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: c28872f8e1edc70478408b7cf18673b2, type: 2}
+    itemIcon: {fileID: 21300000, guid: ea8161e4ed231be438fe9e968bc8752c, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: Rainbow
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: cfae62184fb7b214487d35569b1ca267, type: 2}
+    itemIcon: {fileID: 21300000, guid: 4d6b3cb74098a8640b03cd004d1dcdbb, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: RedDead
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: 20fa6f9963147c04cb15114a700ca079, type: 2}
+    itemIcon: {fileID: 21300000, guid: a39a74b87842b704ab4bc6eec7e6c287, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
+  - itemName: Rainbow
+    itemType: 3
+    itemPrefab: {fileID: 0}
+    projectTilePrefab: {fileID: 0}
+    itemMaterial: {fileID: 2100000, guid: be32f96a39907974d8fb3e2fb8ff8ba7, type: 2}
+    itemIcon: {fileID: 21300000, guid: 343f00cc518f2c34090d54d64a12c62e, type: 3}
+    itemPrice: 150
+    itemStats:
+    - stat: 0
+      index: 0
+    - stat: 1
+      index: 0
