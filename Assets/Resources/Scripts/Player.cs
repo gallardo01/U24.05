@@ -4,9 +4,27 @@ using UnityEngine;
 
 public class Player : Character
 {
+    public Animator animator;
+    public string currentAnimName = "idle";
+    public Transform mesh;
+    public float speed;
+    public int colorIndex;
+    public SkinnedMeshRenderer body;
+
+    public GameObject stack;
+
+    private List<GameObject> brickStack = new List<GameObject>(); 
+    
+    // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    public void SetPlayerColor(int color)
+    {
+        colorIndex = color;
+        body.material = ColorController.Instance.GetMaterialColor(colorIndex);
     }
 
     // Update is called once per frame
@@ -33,28 +51,28 @@ public class Player : Character
         }
     }
 
-    //private bool CanMove(Vector3 nextPoint)
-    //{
-    //    RaycastHit hit;
-    //    //Debug.DrawRay(nextPoint, Vector3.down, Color.red, 0.01f);
-    //    //Debug.Log("Ground: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 9f, groundLayer));
-    //    //Debug.Log("Stair: " + Physics.Raycast(nextPoint, Vector3.down, out hit, 9f, stairLayer));
+    private void ChangeAnim(string animName)
+    {
+        if (currentAnimName != animName)
+        {
+            animator.ResetTrigger(animName);
+            currentAnimName = animName;
+            animator.SetTrigger(currentAnimName);
+        }
+    }
 
-    //    if(Physics.Raycast(nextPoint, Vector3.down, out hit, 9f, stairLayer))
-    //    {
-    //        int stairColor = hit.collider.gameObject.GetComponent<Stair>().stairColor;
-    //        if (colorIndex != stairColor)
-    //        {
-    //            //Check con gach hay khong
-    //            if(totalBrick > 0)
-    //            {
-    //                RemoveBrick();
-    //                //Tha gach
-    //                hit.collider.gameObject.GetComponent<Stair>().SetStairColor(colorIndex);    
-    //            }
-    //            return false;
-    //        }
-    //    }
-    //    return Physics.Raycast(nextPoint, Vector3.down, groundLayer);
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Brick") && colorIndex == other.gameObject.GetComponent<Brick>().brickColor)
+        {
+            Debug.Log("Da va cham voi brick");
+            GameObject brick = other.gameObject;
+            if (!brickStack.Contains(brick))
+            {
+                brickStack.Add(brick);
+                brick.transform.SetParent(stack.transform);
+                other.gameObject.SetActive(false);
+            } 
+        }
+    }
 }
