@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using static ItemJSONDatabase;
 
 public class GameController : MonoBehaviour
@@ -37,14 +35,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (countBots.Count > 0)
-        {
-            CountPlayer(countBots.Count + 1);
-        }
-        else
-        {
-            UIManager.instance.DisplayWinGameUI();
-        }
+
     }
     public void EquipNewItem()
     {
@@ -84,6 +75,7 @@ public class GameController : MonoBehaviour
                 {
                     randomPos.Add(randomIndex);
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
+                    bot.SetNewPlayer();
                     bot.initSkin.GetComponent<InitSkin>().BotEquipItem();
                     bot.UseWeapon();
                     countBots.Add(bot.gameObject);
@@ -118,10 +110,7 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < countBots.Count; i++)
         {
-            if (!countBots[i].GetComponent<Player>())
-            {
-                Destroy(countBots[i]);
-            }
+            Destroy(countBots[i].gameObject);
         }
         countBots.Clear();
         playerPrebs.gameObject.SetActive(true);

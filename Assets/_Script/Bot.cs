@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using static SoundManager;
 
 public class Bot : Character
 {
@@ -16,11 +17,6 @@ public class Bot : Character
     float cooldownMove = 1.5f;
     public bool isHiding = false;
 
-    private void Start()
-    {
-        SetNewPlayer();
-        cooldownTimeAttack = Random.Range(1f, 2.5f);
-    }
     void Update()
     {
         time += Time.deltaTime;
@@ -37,12 +33,22 @@ public class Bot : Character
         inAreaAtack.SetActive(false);
         currentState = new IdleState();
         gameObject.tag = "bot";
+        cooldownTimeAttack = Random.Range(1f, 2.5f);
     }
     public override void OnDeath()
     {
         base.OnDeath();
         inAreaAtack.SetActive(false);
         Destroy(gameObject,3f);
+        if (GameController.instance.countBots.Count > 0)
+        {
+            GameController.instance.CountPlayer(GameController.instance.countBots.Count + 1);
+        }
+        else
+        {
+            UIManager.instance.DisplayWinGameUI();
+            SoundManager.instance.PlayOneShot(SoundList.Win);
+        }
     }
     public void ChangeState(IState<Bot> newState)
     {

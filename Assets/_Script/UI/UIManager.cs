@@ -86,7 +86,6 @@ public class UIManager : MonoBehaviour
         PauseGame();
         goldGain = 20 + GameController.instance.playerPrebs.level;
         claimWinGoldCoin.text = "+" + goldGain;
-        SoundManager.instance.PlayOneShot(SoundList.Win);
     }
     public void PauseGame()
     {

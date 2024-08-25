@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using static UnityEditor.Progress;
 using static ItemJSONDatabase;
 using static SoundManager;
 public class InitItem : MonoBehaviour

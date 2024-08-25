@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Metadata;
-using static UnityEngine.GraphicsBuffer;
 
 public class RadarIndicator : MonoBehaviour
 {
@@ -49,7 +47,6 @@ public class RadarIndicator : MonoBehaviour
             Color markColor = list[i].GetComponent<Bot>().namePlayer.color;
             markPlayer.GetComponent<Mark>().self = list[i].GetComponent<Bot>();
             markPlayer.GetComponent<Mark>().markPlayer.GetComponent<SpriteRenderer>().color = markColor;
-            Debug.Log(markColor);
             targetList.Add(markPlayer);
         }
     }

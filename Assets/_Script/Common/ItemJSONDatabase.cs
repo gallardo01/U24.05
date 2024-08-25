@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 using System.Text;
-using UnityEditorInternal;
 
 public class ItemJSONDatabase : MonoBehaviour
 {
