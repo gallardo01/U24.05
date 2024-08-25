@@ -85,16 +85,14 @@ public class UIManager : Singleton<UIManager>
         if(state == 2)
         {
             indicatorPanel.SetActive(true);
-            GameController.Instance.StartGame();    
+            GameController.Instance.StartGame();
+            SoundManager.Instance.PlayBackgroundMusic(SoundList.BackgroundInGame);
         }
         else if (state == 1) 
         {
+            SoundManager.Instance.PlayBackgroundMusic(SoundList.BackgroundMainMenu);
             indicatorPanel.SetActive(false);    
         }
-        //else if(state == 3)
-        //{
-        //    shopPanel.SetActive(true);
-        //}
         CameraFollow.Instance.ChangeState(state);   
     }
 }

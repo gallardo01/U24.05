@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Character
 {
+    Vector3 nextPoints;
     public LayerMask groundLayer;
     
     private CounterTime counter = new CounterTime();
@@ -16,15 +17,14 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = JoystickControl.direct;
-        direction = direction.normalized;
-
-        if(direction.magnitude > 0f)
+        nextPoints = transform.position + JoystickControl.direct * Time.deltaTime * 5f;
+        if (CheckGround(nextPoints) && JoystickControl.direct.magnitude > 0f)
         {
             counter.Cancel();
-            transform.Translate(direction * 5f * Time.deltaTime);
+            transform.position = nextPoints;   
+            transform.forward = JoystickControl.direct;
             ChangeAnim("run");
-            mesh.forward = JoystickControl.direct;
+            //mesh.forward = JoystickControl.direct;
         }
         else if(!isAttack)
         {
@@ -55,6 +55,7 @@ public class Player : Character
     public void AttackTarget()
     {
         isAttack = true;
+        SoundManager.Instance.PlayOneShotMusic(SoundList.Shot);
         Invoke(nameof(ChangeIsAttack), 1.5f);
         ChangeAnim("attack");
         counter.Start(OnAttack, 0.3f);
@@ -65,10 +66,10 @@ public class Player : Character
         isAttack = false;
     }
 
-    private bool CheckGround(Transform points)
+    private bool CheckGround(Vector3 points)
     {
         RaycastHit hit;
-        return Physics.Raycast(points.position, Vector3.down, out hit, 2f, groundLayer);
+        return Physics.Raycast(points + Vector3.up * 2, Vector3.down, out hit, groundLayer);
     }
 
     public override void OnDeath()

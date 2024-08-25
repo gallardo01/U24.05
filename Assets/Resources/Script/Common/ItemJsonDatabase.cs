@@ -13,6 +13,8 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
     private JsonData inGameItemData;
     private List<Item> listItem = new List<Item>();
     public List<GameItem> listItemInGame = new List<GameItem>();
+    public UserStats userStats = new UserStats();
+
     private string filePath = "MyItem.txt";
 
     // Start is called before the first frame update
@@ -21,12 +23,30 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
         LoadResourceFromTxt();
         ConstructDatabase();
         LoadDataFromLocalDB();  
+        //InitUserStats();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void InitUserStats()
+    {
+        userStats.Atk = 0;
+        userStats.Def = 0;
+        userStats.Speed = 0;
+        for (int i = 0; i < listItemInGame.Count; i++)
+        {
+            if (listItemInGame[i].IsEquip == true)
+            {
+                userStats.Atk += listItemInGame[i].item.Atk;
+                userStats.Def += listItemInGame[i].item.Def;
+                userStats.Speed += listItemInGame[i].item.Spd;
+            }
+        }
+        ShopController.Instance.InitUserStats();    
     }
 
     private void LoadDataFromLocalDB()
@@ -175,6 +195,7 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
 
     private void Save()
     {
+        InitUserStats();
         string jsonData = JsonConvert.SerializeObject(listItemInGame.ToArray(), Formatting.Indented);
         string filePathFull = Application.persistentDataPath + "/" + filePath;
 
@@ -198,6 +219,13 @@ public class ItemJsonDatabase : Singleton<ItemJsonDatabase>
             Debug.LogWarning("Cannot save " + e.Message);
         }
     }
+}
+
+public class UserStats
+{
+    public int Atk { get; set; }
+    public int Def { get; set; }
+    public int Speed { get; set; }
 }
 
 public class GameItem
