@@ -11,12 +11,6 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 1f + 0.05f + self.level);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bot") && other.GetComponent<Character>() != self)

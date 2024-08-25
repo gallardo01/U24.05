@@ -16,8 +16,6 @@ public class ShopController : Singleton<ShopController>
     // Start is called before the first frame update
     void Start()
     {
-        //CreateItemHat(type);
-        //CreateItemPants();  
         ClickButtonType(0);
         listButton[0].onClick.AddListener(() => ClickButtonType(0));
         listButton[1].onClick.AddListener(() => ClickButtonType(1));

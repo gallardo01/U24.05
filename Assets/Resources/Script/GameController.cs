@@ -32,7 +32,7 @@ public class GameController : Singleton<GameController>
         
         SetUpCharacterInGame();
         InitGold();
-        //GainGold(100);
+        //GainGold(500);
     }
 
     // Update is called once per frame
