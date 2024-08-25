@@ -1,3 +1,4 @@
+using MarchingBytes;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -25,7 +26,7 @@ public class Character : AbstractCharacter
     public bool isAttack = false;
     public bool isRunning = false;
     public bool isDead;
-    public float cooldownTimeAttack = 1.5f;
+    public float cooldownTimeAttack;
 
     public float health;
     public string currentAnimName;
@@ -37,11 +38,6 @@ public class Character : AbstractCharacter
     public int BASE_ATTACK = 20;
     public int BASE_DEFEND = 5;
     public int BASE_HEALTH = 100;
-
-    private void Start()
-    {
-        
-    }
 
     public void ChangeAnim(string animName)
     {
@@ -104,19 +100,20 @@ public class Character : AbstractCharacter
     {
         Vector3 directionToTarget = (target.GetComponent<Character>().transform.position - transform.position).normalized;
         body.rotation = Quaternion.LookRotation(directionToTarget);
-        GameObject weapon = Instantiate(weaponPrefabs, firePoint.position, Quaternion.Euler(90, 0, 0));
+        GameObject weapon = EasyObjectPool.instance.GetObjectFromPool(weaponPrefabs.name, firePoint.position, Quaternion.Euler(90, 0, 0));
         weapon.GetComponent<Weapon>().self = this;
+        weapon.GetComponent<Weapon>().SetTimeDisappear();
         weapon.GetComponent<Rigidbody>().AddForce(body.forward * 900f);
         SoundManager.instance.PlayOneShot(SoundList.Shot);
     }
     public void SetBodyScale(int level)
     {
-        body.transform.localScale = Vector3.one * (0.1f * (level-1) + 0.5f);
+        body.transform.localScale = Vector3.one * (0.05f * (level-1) + 0.5f);
     }
 
     private void SetDetectionRadius(int level) 
     {         
-        detectionRadius = 15f + (level * 2f);
+        detectionRadius = 15f + (level * 1.8f);
     }
 
     public void LevelUpPlayer()
@@ -133,7 +130,10 @@ public class Character : AbstractCharacter
     {
         isDead = true;
         ChangeAnim("dead");
-        GameController.instance.countPlayers.Remove(gameObject);
+        if (this.GetComponent<Bot>())
+        {
+            GameController.instance.countBots.Remove(gameObject);
+        }       
         this.tag = "Untagged";
     }
     private void OnTriggerEnter(Collider other)

@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     public int goldNumber;
     public List<string> weaponTag;
     public static GameController instance;
-    public List<GameObject> countPlayers;
+    public List<GameObject> countBots;
 
     private void Awake()
     {
@@ -37,17 +37,13 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (countPlayers.Count > 1)
+        if (countBots.Count > 0)
         {
-            CountPlayer(countPlayers.Count);
+            CountPlayer(countBots.Count + 1);
         }
         else
         {
-            if (countPlayers[0].GetComponent<Player>())
-            {
-                UIManager.instance.DisplayWinGameUI();
-
-            }
+            UIManager.instance.DisplayWinGameUI();
         }
     }
     public void EquipNewItem()
@@ -90,7 +86,7 @@ public class GameController : MonoBehaviour
                     Bot bot = Instantiate(botPrefs, summonPoint[randomIndex].position, Quaternion.identity).GetComponent<Bot>();
                     bot.initSkin.GetComponent<InitSkin>().BotEquipItem();
                     bot.UseWeapon();
-                    countPlayers.Add(bot.gameObject);
+                    countBots.Add(bot.gameObject);
                     break;
                 }
             }
@@ -105,36 +101,31 @@ public class GameController : MonoBehaviour
                 playerPrebs.body.position = summonPoint[randomIndex].position;
                 playerPrebs.initSkin.self = playerPrebs;
                 playerPrebs.SetNewPlayer();
-                countPlayers.Add(playerPrebs.gameObject);
                 break;
             }
         }     
     }
     public void StartGame()
     {
-        for (int i = 0; i < countPlayers.Count; i++)
+        for (int i = 0; i < countBots.Count; i++)
         {
-            if (countPlayers[i].GetComponent<Player>())
-            {
-                countPlayers[i].GetComponent<Player>().OnInit();
-            }
-            else
-            {
-                countPlayers[i].GetComponent<Bot>().OnInit();
-            }
+            countBots[i].GetComponent<Bot>().OnInit();
         }
+        playerPrebs.OnInit();
+        playerPrebs.radarIndicator.CreatAllMark();
     }
     public void PlayAgain()
     {
-        for (int i = 0; i < countPlayers.Count; i++)
+        for (int i = 0; i < countBots.Count; i++)
         {
-            if (!countPlayers[i].GetComponent<Player>())
+            if (!countBots[i].GetComponent<Player>())
             {
-                Destroy(countPlayers[i]);
+                Destroy(countBots[i]);
             }
         }
-        countPlayers.Clear();
+        countBots.Clear();
         playerPrebs.gameObject.SetActive(true);
+        playerPrebs.radarIndicator.targetList.Clear();
         playerPrebs.HPbar.GetComponent<TargetIndicator>().ChangeHealth(playerPrebs.BASE_HEALTH);
         CreatPlayerAndBot();
     }

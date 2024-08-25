@@ -10,10 +10,12 @@ public class Player : Character
     public float speed = 17f;
     float time;
     public Stats stats;
+    public RadarIndicator radarIndicator;
     //private CounterTime counter = new CounterTime();
     private void Start()
     {
         time = 0f;
+        cooldownTimeAttack = 2f;
     }
     void Update()
     {

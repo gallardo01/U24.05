@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
     {
         winGameUI.SetActive(true);
         PauseGame();
-        goldGain = 20 + GameController.instance.countPlayers[0].GetComponent<Player>().level;
+        goldGain = 20 + GameController.instance.playerPrebs.level;
         claimWinGoldCoin.text = "+" + goldGain;
         SoundManager.instance.PlayOneShot(SoundList.Win);
     }

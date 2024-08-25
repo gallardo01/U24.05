@@ -9,11 +9,6 @@ TagManager:
   - player
   - death
   - chooseWeapon
-  - axe1
-  - axe2
-  - candy
-  - gun
-  - boomerang
   layers:
   - Default
   - TransparentFX
@@ -50,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Mark
+    uniqueID: 404580991
     locked: 0

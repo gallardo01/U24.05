@@ -52,5 +52,11 @@ public class Camera : MonoBehaviour
             currentRotation = rotation;
         }
     }
+
+    public void SetLevelOffsetCamera(int level)
+    {
+        currentOffset = offset;
+        currentOffset = offset*(1 + level*0.1f);
+    }
 }
 

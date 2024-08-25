@@ -116,7 +116,7 @@ MonoBehaviour:
   isAttack: 0
   isRunning: 0
   isDead: 0
-  cooldownTimeAttack: 2
+  cooldownTimeAttack: 0
   health: 0
   currentAnimName: 
   detectionRadius: 15
@@ -130,6 +130,7 @@ MonoBehaviour:
   agent: {fileID: 5258254161609034783}
   time: 0
   randomRadius: 30
+  isHiding: 0
 --- !u!1 &5461612325365412702
 GameObject:
   m_ObjectHideFlags: 0
