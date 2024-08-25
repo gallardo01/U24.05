@@ -17,7 +17,8 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
     
     public List<Character> CharacterList { get; private set; } = new List<Character>();
 
-    [SerializeField] TextMeshProUGUI aliveText; 
+    [SerializeField] TextMeshProUGUI aliveText;
+    [field: SerializeField] public Transform Boat { get; private set; }
 
     private void OnEnable()
     {
@@ -53,7 +54,7 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
     public void SpawnPlayer()
     {
         player = Instantiate(playerPrefab);
-        player.transform.position = new Vector3(1000, 1000, 1000);
+        player.transform.position = new Vector3(100, 100, 100);
         Indicator playerIndicator = Instantiate(indicatorPrefab, mainCanvas.transform);
         playerIndicator.OnInit(player);
         player.SetIndicator(playerIndicator);
@@ -132,9 +133,11 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
         {
             case GameState.MENU:
                 ActiveSetting(false);
+                player.transform.SetParent(Boat);
                 break;
 
             case GameState.GAME:
+                player.transform.SetParent(null);
                 SpawnBots();
                 SetPosition();
                 ActiveSetting(true);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapController : MonoBehaviour, IGameStateListener
+public class MapManager : MonoBehaviour, IGameStateListener
 {
     [Header("UI")]
     [SerializeField] RectTransform content;
