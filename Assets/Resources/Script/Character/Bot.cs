@@ -11,7 +11,7 @@ public class Bot : Character
     {
         base.OnInit();
         agent = GetComponent<NavMeshAgent>();
-        movePos = GetRandomPoint(transform.position, detectRadius * 2);
+        //movePos = GetRandomPoint(transform.position, detectRadius * 2);
         ChangeState(new IdleState());
     }
 

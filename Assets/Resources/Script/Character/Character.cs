@@ -41,7 +41,7 @@ public abstract class Character : MonoBehaviour
 
     protected void Start()
     {
-        InvokeRepeating(nameof(DetectTarget), 0f, detectDelay);
+        InvokeRepeating(nameof(DetectTarget), 0.5f, detectDelay);
     }
 
     protected virtual void DetectTarget()

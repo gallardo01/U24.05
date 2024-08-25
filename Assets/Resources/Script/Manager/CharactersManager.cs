@@ -47,28 +47,41 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
 
     public void OnInit()
     {
-        SpawnCharacter();
+        SpawnPlayer();
     }
 
-    public void SpawnCharacter()
+    public void SpawnPlayer()
     {
-        List<Vector3> spawnPosList = GetSpawnPos();
-
-        player = Instantiate(playerPrefab, spawnPosList[0], Quaternion.identity);
+        player = Instantiate(playerPrefab);
+        player.transform.position = new Vector3(1000, 1000, 1000);
         Indicator playerIndicator = Instantiate(indicatorPrefab, mainCanvas.transform);
         playerIndicator.OnInit(player);
         player.SetIndicator(playerIndicator);
         player.OnInit();
         CharacterList.Add(player);
+    }
 
-        for (int i = 1; i < spawnPosList.Count; i++)
+    private void SpawnBots()
+    {
+        for (int i = 1; i < numberChar; i++)
         {
-            Bot newBot = LeanPool.Spawn(botPrefab, spawnPosList[i], Quaternion.identity);
+            Bot newBot = LeanPool.Spawn(botPrefab);
+            newBot.transform.position = new Vector3(-1000, -1000, -1000);
             Indicator botIndicator = Instantiate(indicatorPrefab, mainCanvas.transform);
             newBot.SetIndicator(botIndicator);
             newBot.OnInit();
             botIndicator.OnInit(newBot);
             CharacterList.Add(newBot);
+        }
+
+    }
+
+    private void SetPosition()
+    {
+        List<Vector3> startGamePos = GetSpawnPos();
+        for(int i = 0; i < CharacterList.Count; i++)
+        {
+            CharacterList[i].transform.position = startGamePos[i];
         }
     }
 
@@ -79,7 +92,7 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
         for (int i = 0; i < 100; i++)
         {
             Vector3 randomPoint = Vector3.zero + Random.insideUnitSphere * 50;
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 50f, NavMesh.AllAreas))
             {
                 pos.Add(hit.position);
                 if (pos.Count == numberChar) break;
@@ -105,7 +118,6 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
         if (CharacterList.Count == 1 || character.GetType() == typeof(Player))
         {
             GameManager.Instance.GameOver();
-
         }
     }
 
@@ -123,11 +135,9 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
                 break;
 
             case GameState.GAME:
+                SpawnBots();
+                SetPosition();
                 ActiveSetting(true);
-                break;
-
-            case GameState.WEAPONSECTION:
-
                 break;
 
             case GameState.SETTING:
@@ -137,11 +147,6 @@ public class CharactersManager : Singleton<CharactersManager>, IGameStateListene
             case GameState.GAMEOVER:
                 ActiveSetting(false);
                 break;
-
-            case GameState.SHOP:
-                ActiveSetting(false);
-                break;
-
         }
     }
 }

@@ -37,10 +37,12 @@ public class Projectile : MonoBehaviour
                 other.GetComponent<Character>().TakeDamage(weapondamage, sender);
                 LeanPool.Despawn(this.gameObject);
                 break;
+            case 9:
+                SoundManager.WeaponImpact();
+                break;
         }
 
         VFXPool.Spawn(this.transform.position, Quaternion.identity, null);
         LeanPool.Despawn(this.gameObject);
-
     }
 }

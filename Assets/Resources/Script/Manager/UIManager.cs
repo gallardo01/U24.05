@@ -10,12 +10,13 @@ public class UIManager : MonoBehaviour, IGameStateListener
     [SerializeField] GameObject settingPanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject shopPanel;
+    [SerializeField] GameObject mapSelectPanel;
   
     List<GameObject> panels = new List<GameObject>();
 
     private void Awake()
     {
-        panels.AddRange( new GameObject[] { menuPanel ,gamePanel, settingPanel, gameOverPanel, shopPanel,   } );
+        panels.AddRange( new GameObject[] { menuPanel ,gamePanel, settingPanel, gameOverPanel, shopPanel, mapSelectPanel, } );
     }
 
     public void OnGameStateChange(GameState gameState)
@@ -40,6 +41,9 @@ public class UIManager : MonoBehaviour, IGameStateListener
 
             case GameState.SHOP:
                 ShowPanel(shopPanel);
+                break;
+            case GameState.MAPSELECTION:
+                ShowPanel(mapSelectPanel);
                 break;
         }
     }

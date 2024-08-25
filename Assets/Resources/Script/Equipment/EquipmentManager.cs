@@ -171,7 +171,7 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
             case GameState.GAME:
                 if (!DoneSetUp)
                 {
-                    AddItemForBots();
+                    Invoke(nameof(AddItemForBots), 0.01f);
                     DoneSetUp = true;
                 }
                 break;
@@ -192,10 +192,10 @@ public class EquipmentManager : Singleton<EquipmentManager>, IGameStateListener
         {
             if (characters[i].gameObject.layer == 7) continue;
 
-            Item weaponData = weaponsDatas[Random.Range(0, weaponsDatas.Length)];
-            Item shieldData = shieldsDatas[Random.Range(0, shieldsDatas.Length)];
-            Item hatData = hatsDatas[Random.Range(0, hatsDatas.Length)];
-            Item pantData = pantsDatas[Random.Range(0, pantsDatas.Length)];
+            Item weaponData = weaponsDatas[Random.Range(0, 2)];
+            Item shieldData = shieldsDatas[Random.Range(0, 2)];
+            Item hatData = hatsDatas[Random.Range(0, 2)];
+            Item pantData = pantsDatas[Random.Range(0, 2)];
 
             characters[i].SetEquipMent(weaponData, shieldData, hatData, pantData);
         }

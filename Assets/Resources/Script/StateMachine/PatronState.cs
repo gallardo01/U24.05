@@ -9,6 +9,7 @@ public class PatronState : IState
 
     public void OnEnter(Bot bot)
     {
+        bot.movePos = bot.GetRandomPoint(bot.transform.position, bot.detectRadius * 2);
         bot.Move();
     }
 

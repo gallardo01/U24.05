@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using Unity.VisualScripting;
+using Random = UnityEngine.Random;
+
 
 public class SoundManager : Singleton<SoundManager>, IGameStateListener
 {
@@ -63,14 +63,15 @@ public class SoundManager : Singleton<SoundManager>, IGameStateListener
 
     public void SetSFXVolume(float volume) => sfxSource.volume = volume;
 
-    // Work
+    // Work Methods()
 
-    public static void ButtonClick() => Instance.PlaySFX("Click " + "(" + Random.Range(1, 11) + ")");
-    public static void CurrencyClick() => Instance.PlaySFX("Collect " + "(" + Random.Range(1, 7) + ")");
-    public static void Throw() => Instance.PlaySFX("Throw " + "(" + Random.Range(1, 16) + ")");
-    public static void PLayerTalk() => Instance.PlaySFX("Phase " + "(" + Random.Range(1, 56) + ")");
-    public static void CharacterDead() => Instance.PlaySFX("Dead " + "(" + Random.Range(1, 25) + ")");
-    public static void LevelUp() => Instance.PlaySFX("LevelUp " + "(" + Random.Range(1, 12) + ")");
+    public static void ButtonClick() => Instance.PlaySFX("Click " + "(" + Random.Range(1, 5) + ")");
+    public static void CurrencyClick() => Instance.PlaySFX("Collect " + "(" + Random.Range(1, 5) + ")");
+    public static void Throw() => Instance.PlaySFX("Throw " + "(" + Random.Range(1, 5) + ")");
+    public static void PLayerTalk() => Instance.PlaySFX("Phase " + "(" + Random.Range(1, 5) + ")");
+    public static void CharacterDead() => Instance.PlaySFX("Dead " + "(" + Random.Range(1, 5) + ")");
+    public static void LevelUp() => Instance.PlaySFX("LevelUp " + "(" + Random.Range(1, 5) + ")");
+    public static void WeaponImpact() => Instance.PlaySFX("WeaponImpact " + "(" + Random.Range(1, 5) + ")");
 
     public void OnGameStateChange(GameState gameState)
     {

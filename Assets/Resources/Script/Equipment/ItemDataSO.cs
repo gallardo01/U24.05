@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// TESTING
 [CreateAssetMenu(fileName = "ItemDataSO", menuName = "ScriptableObject /ItemData ", order = 1)]
 public class ItemDataSO : ScriptableObject
 {
@@ -35,6 +34,9 @@ public struct Item
     public Material itemMaterial;
     public Sprite itemIcon;
     public int itemPrice;
+
+    [TableList]
+    [TableColumnWidth(200)]
     public StatData[] itemStats;
 }
 

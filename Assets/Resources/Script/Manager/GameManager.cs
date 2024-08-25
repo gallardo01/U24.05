@@ -14,12 +14,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Button shopBackButton;
     [SerializeField] Button settingToMenu;
     [SerializeField] Button settingToGame;
-    
+
     public int RoundPoint { get; private set; }
 
     private void OnEnable()
     {
-        playButton.onClick.AddListener(() => SetGameState(GameState.GAME));
+        playButton.onClick.AddListener(() => SetGameState(GameState.MAPSELECTION));
         replayButton.onClick.AddListener(() => LoadScene());
         settingButton.onClick.AddListener(() => SetGameState(GameState.SETTING));
         shopButton.onClick.AddListener(() => SetGameState(GameState.SHOP));
@@ -118,7 +118,7 @@ public enum GameState
     MENU,
     GAME,
     SETTING,
-    WEAPONSECTION,
+    MAPSELECTION,
     GAMEOVER,
     STAGECOMPLETE,
     SHOP,
