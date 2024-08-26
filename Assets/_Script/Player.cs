@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Scripting.APIUpdating;
-using static UnityEditor.PlayerSettings;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -23,10 +20,17 @@ public class Player : MonoBehaviour
     public InputAction moveUp;
     public InputAction moveDown;
 
+    public Button upButton;
+    public Button downButton;
+    public Button leftButton;
+    public Button rightButton;
+
     RaycastHit hit;
     bool isRunning = false;
 
     public GameObject brickPrefabs;
+    public int diamondPoint;
+    public TMPro.TextMeshProUGUI diamondText;
 
     public enum MoveState
     {
@@ -43,6 +47,10 @@ public class Player : MonoBehaviour
         moveUp.Enable();
         moveRight.Enable();
         moveLeft.Enable();
+        upButton.onClick.AddListener(() => StartCoroutine(AutoMove(MoveState.Up)));
+        downButton.onClick.AddListener(() => StartCoroutine(AutoMove(MoveState.Down)));
+        leftButton.onClick.AddListener(() => StartCoroutine(AutoMove(MoveState.Left)));
+        rightButton.onClick.AddListener(() => StartCoroutine(AutoMove(MoveState.Right)));
     }
 
     // Update is called once per frame
@@ -78,7 +86,11 @@ public class Player : MonoBehaviour
         }
         Debug.DrawLine(center.position, center.position + Vector3.down * 2, Color.red);
     }
-    private bool CheckTheRoad(MoveState state)
+    public bool CheckTheRoad2()
+    {
+        return false;
+    }
+    public bool CheckTheRoad(MoveState state)
     {
         if (state == MoveState.Up)
         {
@@ -105,7 +117,7 @@ public class Player : MonoBehaviour
             return false;
         }
     }
-    private void DestroyBrick(bool check)
+    public void DestroyBrick(bool check)
     {
         if (check)
         {

@@ -9,7 +9,8 @@ public class Diamond : MonoBehaviour
         Player player = other.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            Debug.Log("trung");
+            player.diamondPoint++;
+            player.diamondText.text = player.diamondPoint.ToString();
             Destroy(gameObject);
         }
     }
