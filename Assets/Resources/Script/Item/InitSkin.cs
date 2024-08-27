@@ -70,8 +70,8 @@ public class InitSkin : MonoBehaviour
 
     public void InitPants(int id)
     {
-        Material weapon = ItemDatabase.Instance.GetPantsMaterialById(id);
-        pants.material = weapon;
+        Material pant = ItemDatabase.Instance.GetPantsMaterialById(id);
+        pants.material = pant;
     }
 
     public void InitHairs(int id)
